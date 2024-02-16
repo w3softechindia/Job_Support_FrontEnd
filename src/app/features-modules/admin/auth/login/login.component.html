@@ -1,0 +1,92 @@
+<!-- Main Wrapper -->
+<div class="login-wrapper">
+    <div class="container">
+
+        <img class="img-fluid logo-dark mb-2" src="assets/img/logo-01.png" alt="Logo">
+        <div class="loginbox">
+
+            <div class="login-right">
+                <div class="login-right-wrap">
+                    <h1>Welcome Back</h1>
+                    <p class="account-subtitle text-center">Don't miss your next opportunity. Sign in to stay updated on
+                        your professional world.</p>
+
+                    <form [formGroup]="form" (ngSubmit)="submit()" >
+                        <div class="form-group form-focus focused">
+                            <label class="focus-label" for="email">Email</label>
+                            <input class="form-control floating" class="form-control" type="text"
+                                formControlName="email" id="email" [ngClass]="{
+                                        'is-invalid': f['email'].touched && f['email'].invalid
+                                        }" />
+                            <span class="profile-views"><i class="fas fa-user-circle"></i></span>
+                            <div class="invalid-feedback" *ngIf="CustomControler ?.status === 'email'">
+                                {{ CustomControler?.message }}
+                            </div>
+                            <div *ngIf="f['email'].touched && f['email'].invalid" class="invalid-feedback">
+                                <div *ngIf="f['email'].errors && f['email'].errors['required']">
+                                    Email is required.
+                                </div>
+                                <div *ngIf="f['email'].errors && f['email'].errors['email']">
+                                    Please, enter valid email address.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group form-focus focused">
+
+                            <label for="password" class="focus-label">Password</label>
+                            <input class="form-control floating" [type]="Toggledata ? 'password' : 'text'"
+                                formControlName="password" id="password" [ngClass]="{
+                                      'is-invalid':
+                                        f['password'].touched && f['password'].invalid
+                                    }" />
+                            <span
+                                [ngClass]="Toggledata === true ? 'fas toggle-password fa-eye-slash' : 'fas toggle-password fa-eye'"
+                                (click)="iconLogle()" (keydown.enter)="iconLogle()" tabindex="0"></span>
+                            <div *ngIf="f['password'].touched && f['password'].invalid" class="invalid-feedback">
+                                <div *ngIf="
+                                        f['password'].errors && f['password'].errors['required']
+                                    ">
+                                    Password is required.
+                                </div>
+                            </div>
+                            <div class="invalid-feedback" *ngIf="CustomControler ?.status === 'password'">
+                                {{ CustomControler?.message }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="custom_check">
+                                <input type="checkbox" name="rem_password">
+                                <span class="checkmark"></span> Remember password
+                            </label>
+                        </div>
+                        <button class="btn btn-primary w-100 btn-lg login-btn" type="submit">Login</button>
+                        <div class="login-or">
+                            <p>Or login with</p>
+                        </div>
+                        <div class="row social-login">
+                            <div class="col-4">
+                                <a href="javascript:void(0);" class="btn btn-twitter w-100"> Twitter</a>
+                            </div>
+                            <div class="col-4">
+                                <a href="javascript:void(0);" class="btn btn-facebook w-100"> Facebook</a>
+                            </div>
+                            <div class="col-4">
+                                <a href="javascript:void(0);" class="btn btn-google w-100"> Google</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 text-start">
+                                <a class="forgot-link" [routerLink]="'/admin/auth/forgot-password'">Forgot Password
+                                    ?</a>
+                            </div>
+                            <div class="col-6 text-end dont-have">New to Kofejob? <a
+                                    [routerLink]="'/admin/auth/register'">Click here</a></div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Main Wrapper -->

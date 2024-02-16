@@ -1,0 +1,1649 @@
+<div class="page-wrapper board-screen">
+  <div class="content container-fluid">
+    <div class="acc-content">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="multistep-form">
+            <!-- Freelancer Multistep -->
+            <div class="multistep-progress" id="freelance_step">
+              <div class="container">
+                <div class="first-progress">
+                  <div class="row align-items-center">
+                    <div class="col-md-3">
+                      <div class="board-logo">
+                        <a [routerLink]="routes.home"
+                          ><img
+                            src="assets/img/logo.png"
+                            alt="Img"
+                            class="img-fluid"
+                        /></a>
+                      </div>
+                    </div>
+                    <div class="col-md-9">
+                      <ul id="progressbar" class="progressbar">
+                        <li
+                          [ngClass]="{
+                            'progress-active': selectedFieldSet[0] === 0,
+                            'progress-activated': selectedFieldSet[0] > 0
+                          }"
+                        >
+                          <div class="multi-step">
+                            <img
+                              src="assets/img/icon/wizard-icon-01.svg"
+                              alt="Img"
+                            />
+                          </div>
+                          <div class="steps-count">
+                            <span>Step 1/5</span>
+                            <h5>Account Type</h5>
+                          </div>
+                        </li>
+                        <li
+                          [ngClass]="{
+                            'progress-active': selectedFieldSet[0] === 1,
+                            'progress-activated': selectedFieldSet[0] > 1
+                          }"
+                        >
+                          <div class="multi-step">
+                            <img
+                              src="assets/img/icon/wizard-icon-02.svg"
+                              alt="Img"
+                            />
+                          </div>
+                          <div class="steps-count">
+                            <span>Step 2/5</span>
+                            <h5>Personal info</h5>
+                          </div>
+                        </li>
+                        <li
+                          [ngClass]="{
+                            'progress-active': selectedFieldSet[0] === 2,
+                            'progress-activated': selectedFieldSet[0] > 2
+                          }"
+                        >
+                          <div class="multi-step">
+                            <img
+                              src="assets/img/icon/wizard-icon-03.svg"
+                              alt="Img"
+                            />
+                          </div>
+                          <div class="steps-count">
+                            <span>Step 3/5</span>
+                            <h5>Skills & Experience</h5>
+                          </div>
+                        </li>
+                        <li
+                          [ngClass]="{
+                            'progress-active': selectedFieldSet[0] === 3,
+                            'progress-activated': selectedFieldSet[0] > 3
+                          }"
+                        >
+                          <div class="multi-step">
+                            <img
+                              src="assets/img/icon/wizard-icon-04.svg"
+                              alt="Img"
+                            />
+                          </div>
+                          <div class="steps-count">
+                            <span>Step 4/5</span>
+                            <h5>Other Information</h5>
+                          </div>
+                        </li>
+                        <li
+                          [ngClass]="{
+                            'progress-active': selectedFieldSet[0] === 4,
+                            'progress-activated': selectedFieldSet[0] > 4
+                          }"
+                        >
+                          <div class="multi-step">
+                            <img
+                              src="assets/img/icon/wizard-icon-05.svg"
+                              alt="Img"
+                            />
+                          </div>
+                          <div class="steps-count">
+                            <span>Step 5/5</span>
+                            <h5>Email Verification</h5>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /Freelancer Multistep -->
+
+            <!-- Accounting Onboard -->
+            <div
+              class="text-center on-board select-account group-select"
+              [ngClass]="{ 'd-block': displayBlock === true }"
+              [ngClass]="{ 'd-none': displayNone === true }"
+              [class.d-block]="selectedFieldSet[0] === 0"
+            >
+              <div class="select-type">
+                <div class="account-onborad onboard-head">
+                  <h2>Select Account Type</h2>
+                  <p>Don’t worry, this can be changed later.</p>
+                  <div class="select-box d-flex justify-content-center">
+                    <input
+                      checked="checked"
+                      id="freelance"
+                      type="radio"
+                      name="credit-card"
+                      value="visa"
+                    />
+                    <label
+                      class="employee-level free-lance-img accounts_type"
+                      data-id="freelance"
+                      for="freelance"
+                    >
+                      <a [routerLink]="routes.freelancer_onboard">
+                        <img
+                          src="assets/img/icon/checks.svg"
+                          alt="Img"
+                          class="checks-set"
+                        />
+                        <img
+                          src="assets/img/select-04.svg"
+                          alt="Img"
+                          class="img-fluid"
+                        />
+                        <span>Freelancer</span>
+                      </a>
+                    </label>
+                    <input
+                      id="employee"
+                      class="accounts_type"
+                      type="radio"
+                      name="credit-card"
+                      value="mastercard"
+                    />
+                    <label
+                      class="employee-level employee-img accounts_type"
+                      data-id="employee"
+                      for="employee"
+                      ><a [routerLink]="routes.employer_onboard"
+                        ><img
+                          src="assets/img/select-05.svg"
+                          alt="Img"
+                          class="img-fluid"
+                        /><span>Employer</span></a
+                      ></label
+                    >
+                  </div>
+                </div>
+                <input
+                  class="btn btn-prev prev_btn btn-back"
+                  name="next"
+                  type="button"
+                  value="Back"
+                  disabled
+                />
+                <input
+                  class="btn next_btn btn-primary btn-get btn-next"
+                  name="next"
+                  type="submit"
+                  value="Next"
+                  (click)="selectedFieldSet[0] = 1; none()"
+                  (keydown.enter)="selectedFieldSet[0] = 1; none()"
+                />
+              </div>
+            </div>
+            <!-- /Accounting Onboard -->
+
+            <!-- Personal Info -->
+            <div
+              class="on-board field-card select-account select-btn"
+              [class.d-block]="selectedFieldSet[0] === 1"
+            >
+              <div class="text-center onboard-head">
+                <h2>Personal Info</h2>
+                <p>
+                  Tell a bit about yourself. This information will appear on
+                  your public profile, so that potential buyers can get to know
+                  you better.
+                </p>
+              </div>
+              <div class="field-item personal-info space-info">
+                <form>
+                  <div class="row">
+                    <div class="col-md-12 col-lg-12">
+                      <div class="pro-form-img">
+                        <div class="profile-pic">Profile Photo</div>
+                        <div class="upload-files">
+                          <label class="file-upload image-upbtn">
+                            <i class="feather icon-upload me-2"></i>Upload Photo
+                            <input type="file" />
+                          </label>
+                          <span
+                            >For better preview recommended size is 450px x
+                            450px. Max size 5mb.</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6">
+                      <div class="input-block">
+                        <label for="first-name" class="form-label"
+                          >First Name</label
+                        >
+                        <input type="text" class="form-control" />
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6">
+                      <div class="input-block">
+                        <label for="last-name" class="form-label"
+                          >Last Name</label
+                        >
+                        <input type="text" class="form-control" />
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6">
+                      <div class="input-block">
+                        <label for="phone-number" class="form-label"
+                          >Phone Number</label
+                        >
+                        <input type="text" class="form-control" />
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6">
+                      <div class="input-block">
+                        <label for="email-address" class="form-label"
+                          >Email Address</label
+                        >
+                        <input type="text" class="form-control" />
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                      <div class="input-block">
+                        <label for="date-of-birth" class="form-label"
+                          >Date of Birth</label
+                        >
+                        <div class="cal-icon">
+                          <input
+                            type="text"
+                            class="form-control datetimepicker"
+                            bsDatepicker
+                            placeholder="Choose"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                      <div class="input-block">
+                        <label for="job-title" class="form-label"
+                          >Your Job Title</label
+                        >
+                        <input type="text" class="form-control" />
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                      <div class="input-block">
+                        <label for="jobs" class="form-label">Type of Job</label>
+                        <mat-select
+                          [(ngModel)]="selectedValue1"
+                          [ngModelOptions]="{ standalone: true }"
+                          class="select mat-select arrow verify"
+                          placeholder="Select"
+                        >
+                          <mat-option
+                            *ngFor="let data of selectedList1"
+                            [value]="data.value"
+                          >
+                            {{ data.value }}
+                          </mat-option>
+                        </mat-select>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="input-block min-characters">
+                        <label for="intro" class="form-label"
+                          >Describe Yourself</label
+                        >
+                        <textarea class="form-control" rows="5"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="text-center">
+                <input
+                  class="btn btn-prev prev_btn btn-back"
+                  name="next"
+                  type="button"
+                  value="Back"
+                  (click)="selectedFieldSet[0] = 0; block()"
+                />
+                <input
+                  class="btn next_btn btn-primary btn-get btn-next"
+                  name="next"
+                  type="submit"
+                  value="Next"
+                  (click)="selectedFieldSet[0] = 2"
+                  (keydown.enter)="selectedFieldSet[0] = 2"
+                />
+              </div>
+            </div>
+            <!-- /Personal Info -->
+
+            <!-- Skills & Experience -->
+            <div
+              class="on-board field-card select-account select-btn"
+              [class.d-block]="selectedFieldSet[0] === 2"
+            >
+              <div class="text-center onboard-head">
+                <h2>Skills & Experience</h2>
+                <p>
+                  This is your time to shine. Let potential buyers know what you
+                  do best and how you gained your skills, certifications and
+                  experience
+                </p>
+              </div>
+              <div class="field-item personal-info space-info">
+                <form>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <h4>Skill</h4>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="input-block">
+                        <label for="skills" class="form-label">Skills</label>
+                        <input type="text" class="form-control" />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="input-block">
+                        <label for="level" class="focus-label">Level</label>
+                        <mat-select
+                          [(ngModel)]="selectedValue2"
+                          [ngModelOptions]="{ standalone: true }"
+                          class="select mat-select arrow verify"
+                          placeholder="Choose Level"
+                        >
+                          <mat-option
+                            *ngFor="let data of selectedList2"
+                            [value]="data.value"
+                          >
+                            {{ data.value }}
+                          </mat-option>
+                        </mat-select>
+                        <div class="new-addd">
+                          <a
+                            class="add-new"
+                            id="skill_add"
+                            (click)="addSkills()"
+                            (keydown.enter)="addSkills()"
+                            tabindex="0"
+                            ><i class="feather icon-plus-circle me-1"></i> Add
+                            New</a
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <ng-container *ngIf="skills.length > 0">
+                      <ng-container *ngFor="let item of skills; let i = index">
+                        <div class="col-md-6">
+                          <div class="input-block">
+                            <label for="skills" class="form-label"
+                              >Skills</label
+                            >
+                            <input type="text" class="form-control" />
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="input-block">
+                            <label for="level" class="focus-label">Level</label>
+                            <mat-select
+                              placeholder="Choose Level"
+                              class="select mat-select arrow verify"
+                            >
+                              <mat-option value="Choose Level"
+                                >Choose Level</mat-option
+                              >
+                              <mat-option value="Select">Select</mat-option>
+                              <mat-option value="Full Time"
+                                >Full Time</mat-option
+                              >
+                              <mat-option value="Part Time"
+                                >Part Time</mat-option
+                              >
+                              <mat-option value="Hourly">Hourly</mat-option>
+                            </mat-select>
+                            <div class="new-addd">
+                              <a
+                                class="remove_row"
+                                id="remove_row"
+                                (click)="removeSkills(i)"
+                                (keydown.enter)="removeSkills(i)"
+                                tabindex="0"
+                              >
+                                Remove</a
+                              >
+                            </div>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </ng-container>
+                    <div id="skill_add_row"></div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <h4>Education</h4>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                      <div class="input-block">
+                        <label for="degree-name" class="focus-label"
+                          >Degree Name</label
+                        >
+                        <mat-select
+                          [(ngModel)]="selectedValue3"
+                          [ngModelOptions]="{ standalone: true }"
+                          class="select mat-select arrow verify"
+                          placeholder="Select"
+                        >
+                          <mat-option
+                            *ngFor="let data of selectedList3"
+                            [value]="data.value"
+                          >
+                            {{ data.value }}
+                          </mat-option>
+                        </mat-select>
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                      <div class="input-block">
+                        <label for="university-name" class="focus-label"
+                          >University Name</label
+                        >
+                        <input
+                          type="text"
+                          name="education['university_name'][]"
+                          class="form-control"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                      <div class="input-block">
+                        <label for="start-date" class="focus-label"
+                          >Start Date</label
+                        >
+                        <div class="cal-icon">
+                          <input
+                            type="text"
+                            name="education['start_date'][]"
+                            class="form-control datetimepicker"
+                            bsDatepicker
+                            placeholder="Choose"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                      <div class="input-block">
+                        <label for="end-date" class="focus-label"
+                          >End Date</label
+                        >
+                        <div class="cal-icon">
+                          <input
+                            type="text"
+                            name="education['end_date'][]"
+                            class="form-control datetimepicker"
+                            bsDatepicker
+                            placeholder="Choose"
+                          />
+                        </div>
+                        <div class="new-addd">
+                          <a
+                            class="add-new"
+                            id="edu_add"
+                            (click)="addEducation()"
+                            (keydown.enter)="addEducation()"
+                            tabindex="0"
+                            ><i class="feather icon-plus-circle me-1"></i> Add
+                            New</a
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <ng-container *ngIf="education.length > 0">
+                      <ng-container
+                        *ngFor="let item of education; let i = index"
+                      >
+                        <div class="col-md-6 col-lg-3">
+                          <div class="input-block">
+                            <label for="degree-name" class="focus-label"
+                              >Degree Name</label
+                            >
+                            <mat-select
+                              placeholder="Select"
+                              class="select mat-select arrow verify"
+                            >
+                              <mat-option value="Select">Select</mat-option>
+                              <mat-option value="Bachelor's degree"
+                                >Bachelor's degree</mat-option
+                              >
+                              <mat-option value="Master's Degree"
+                                >Master's Degree</mat-option
+                              >
+                            </mat-select>
+                          </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                          <div class="input-block">
+                            <label for="university-name" class="focus-label"
+                              >University Name</label
+                            >
+                            <input
+                              type="text"
+                              name="education['university_name'][]"
+                              class="form-control"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                          <div class="input-block">
+                            <label for="start-date" class="focus-label"
+                              >Start Date</label
+                            >
+                            <div class="cal-icon">
+                              <input
+                                type="text"
+                                name="education['start_date'][]"
+                                class="form-control datetimepicker"
+                                bsDatepicker
+                                placeholder="Choose"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                          <div class="input-block">
+                            <label for="end-date" class="focus-label"
+                              >End Date</label
+                            >
+                            <div class="cal-icon">
+                              <input
+                                type="text"
+                                name="education['end_date'][]"
+                                class="form-control datetimepicker"
+                                bsDatepicker
+                                placeholder="Choose"
+                              />
+                            </div>
+                            <div class="new-addd">
+                              <a
+                                class="remove_row"
+                                id="remove_row"
+                                (click)="removeEducation(i)"
+                                (keydown.enter)="removeEducation(i)"
+                                tabindex="0"
+                                >Remove</a
+                              >
+                            </div>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </ng-container>
+                    <div id="education_add_row"></div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <h5>Certification</h5>
+                    </div>
+                    <div class="col-md-4 col-lg-4">
+                      <div class="input-block">
+                        <label for="certification" class="focus-label"
+                          >Certification or Award</label
+                        >
+                        <mat-select
+                          [(ngModel)]="selectedValue4"
+                          [ngModelOptions]="{ standalone: true }"
+                          class="select mat-select arrow verify"
+                          placeholder="Select"
+                        >
+                          <mat-option
+                            *ngFor="let data of selectedList4"
+                            [value]="data.value"
+                          >
+                            {{ data.value }}
+                          </mat-option>
+                        </mat-select>
+                      </div>
+                    </div>
+                    <div class="col-md-4 col-lg-4">
+                      <div class="input-block">
+                        <label for="certified-from" class="focus-label"
+                          >Certified from</label
+                        >
+                        <input
+                          type="text"
+                          name="certification['certified_from'][]"
+                          class="form-control"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-4 col-lg-4">
+                      <div class="input-block">
+                        <label for="year" class="focus-label">Year</label>
+                        <div class="cal-icon">
+                          <input
+                            type="text"
+                            name="certification['year'][]"
+                            class="form-control datetimepicker"
+                            bsDatepicker
+                            placeholder="Choose"
+                          />
+                        </div>
+                        <div class="new-addd">
+                          <a
+                            class="add-new"
+                            id="certify_add"
+                            (click)="addCertification()"
+                            (keydown.enter)="addCertification()"
+                            tabindex="0"
+                            ><i class="feather icon-plus-circle me-1"></i> Add
+                            New</a
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <ng-container *ngIf="certification.length > 0">
+                      <ng-container
+                        *ngFor="let item of certification; let i = index"
+                      >
+                        <div class="col-md-4 col-lg-4">
+                          <div class="input-block">
+                            <label for="certification" class="focus-label"
+                              >Certification or Award</label
+                            >
+                            <mat-select
+                              placeholder="Select"
+                              class="select mat-select arrow verify"
+                            >
+                              <mat-option value="Select">Select</mat-option>
+                              <mat-option value="Certification"
+                                >Certification</mat-option
+                              >
+                              <mat-option value="Award">Award</mat-option>
+                            </mat-select>
+                          </div>
+                        </div>
+                        <div class="col-md-4 col-lg-4">
+                          <div class="input-block">
+                            <label for="certified-from" class="focus-label"
+                              >Certified from</label
+                            >
+                            <input
+                              type="text"
+                              name="certification['certified_from'][]"
+                              class="form-control"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-4 col-lg-4">
+                          <div class="input-block">
+                            <label for="year" class="focus-label">Year</label>
+                            <div class="cal-icon">
+                              <input
+                                type="text"
+                                name="certification['year'][]"
+                                class="form-control datetimepicker"
+                                bsDatepicker
+                                placeholder="Choose"
+                              />
+                            </div>
+                            <div class="new-addd">
+                              <a
+                                class="remove_row"
+                                id="remove_row"
+                                (click)="removeCertification(i)"
+                                (keydown.enter)="removeCertification(i)"
+                                tabindex="0"
+                              >
+                                Remove</a
+                              >
+                            </div>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </ng-container>
+                    <div id="certify_add_row"></div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <h4>Experience</h4>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                      <div class="input-block">
+                        <label for="company-name" class="focus-label"
+                          >Company Name</label
+                        >
+                        <input
+                          type="text"
+                          name="experience['company_name'][]"
+                          class="form-control"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                      <div class="input-block">
+                        <label for="position" class="focus-label"
+                          >Position</label
+                        >
+                        <mat-select
+                          [(ngModel)]="selectedValue5"
+                          [ngModelOptions]="{ standalone: true }"
+                          class="select mat-select arrow verify"
+                          placeholder="Select"
+                        >
+                          <mat-option
+                            *ngFor="let data of selectedList5"
+                            [value]="data.value"
+                          >
+                            {{ data.value }}
+                          </mat-option>
+                        </mat-select>
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                      <div class="input-block">
+                        <label for="start-date" class="focus-label"
+                          >Start Date</label
+                        >
+                        <div class="cal-icon">
+                          <input
+                            type="text"
+                            name="experience['start_date'][]"
+                            class="form-control datetimepicker"
+                            bsDatepicker
+                            placeholder="Choose"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                      <div class="input-block">
+                        <label for="end-date" class="focus-label"
+                          >End Date</label
+                        >
+                        <div class="cal-icon">
+                          <input
+                            type="text"
+                            name="experience['end_date'][]"
+                            class="form-control datetimepicker"
+                            bsDatepicker
+                            placeholder="Choose"
+                          />
+                        </div>
+                        <div class="new-addd">
+                          <a
+                            class="add-new"
+                            id="experience_add"
+                            (click)="addExperience()"
+                            (keydown.enter)="addExperience()"
+                            tabindex="0"
+                            ><i class="feather icon-plus-circle me-1"></i> Add
+                            New</a
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <ng-container *ngIf="experience.length > 0">
+                      <ng-container
+                        *ngFor="let item of experience; let i = index"
+                      >
+                        <div class="col-md-6 col-lg-3">
+                          <div class="input-block">
+                            <label for="company-name" class="focus-label"
+                              >Company Name</label
+                            >
+                            <input
+                              type="text"
+                              name="experience['company_name'][]"
+                              class="form-control"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                          <div class="input-block">
+                            <label for="position" class="focus-label"
+                              >Position</label
+                            >
+                            <mat-select
+                              placeholder="Select"
+                              class="select mat-select arrow verify"
+                            >
+                              <mat-option value="Select">Select</mat-option>
+                              <mat-option value="Basic">Basic</mat-option>
+                              <mat-option value="Intermediate"
+                                >Intermediate</mat-option
+                              >
+                              <mat-option value="Proficient"
+                                >Proficient</mat-option
+                              >
+                            </mat-select>
+                          </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                          <div class="input-block">
+                            <label for="start-date" class="focus-label"
+                              >Start Date</label
+                            >
+                            <div class="cal-icon">
+                              <input
+                                type="text"
+                                name="experience['start_date'][]"
+                                class="form-control datetimepicker"
+                                bsDatepicker
+                                placeholder="Choose"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                          <div class="input-block">
+                            <label for="end-date" class="focus-label"
+                              >End Date</label
+                            >
+                            <div class="cal-icon">
+                              <input
+                                type="text"
+                                name="experience['end_date'][]"
+                                class="form-control datetimepicker"
+                                bsDatepicker
+                                placeholder="Choose"
+                              />
+                            </div>
+                            <div class="new-addd">
+                              <a
+                                class="remove_row"
+                                id="remove_row"
+                                click="removeExperience(i)"
+                              >
+                                Remove</a
+                              >
+                            </div>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </ng-container>
+                    <div id="experience_add_row"></div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <h4>Language</h4>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="input-block">
+                        <label for="language" class="form-label"
+                          >Language</label
+                        >
+                        <input type="text" class="form-control" />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="input-block">
+                        <label for="level" class="focus-label">Level</label>
+                        <mat-select
+                          [(ngModel)]="selectedValue6"
+                          [ngModelOptions]="{ standalone: true }"
+                          class="select mat-select arrow verify"
+                          placeholder="Choose Level"
+                        >
+                          <mat-option
+                            *ngFor="let data of selectedList6"
+                            [value]="data.value"
+                          >
+                            {{ data.value }}
+                          </mat-option>
+                        </mat-select>
+                        <div class="new-addd">
+                          <a
+                            class="add-new"
+                            id="lang_add"
+                            (click)="addLanguage()"
+                            (keydown.enter)="addLanguage()"
+                            tabindex="0"
+                            ><i class="feather icon-plus-circle me-1"></i> Add
+                            New</a
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <ng-container *ngIf="language.length > 0">
+                      <ng-container
+                        *ngFor="let item of language; let i = index"
+                      >
+                        <div class="col-md-6">
+                          <div class="input-block">
+                            <label for="language" class="form-label"
+                              >Language</label
+                            >
+                            <input type="text" class="form-control" />
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="input-block">
+                            <label for="level" class="focus-label">Level</label>
+
+                            <mat-select
+                              placeholder="Choose Level"
+                              class="select mat-select arrow verify"
+                            >
+                              <mat-option value="Choose Level"
+                                >Choose Level</mat-option
+                              >
+                              <mat-option value="Basic">Basic</mat-option>
+                              <mat-option value="Intermediate"
+                                >Intermediate</mat-option
+                              >
+                              <mat-option value="Proficient"
+                                >Proficient</mat-option
+                              >
+                            </mat-select>
+                            <div class="new-addd">
+                              <a
+                                class="remove_row"
+                                id="remove_row"
+                                (click)="removeLanguage(i)"
+                                (keydown.enter)="removeLanguage(i)"
+                                tabindex="0"
+                                >Remove</a
+                              >
+                            </div>
+                          </div>
+                        </div>
+                      </ng-container>
+                    </ng-container>
+                    <div id="language_add_row"></div>
+                  </div>
+                </form>
+              </div>
+              <div class="text-center">
+                <input
+                  class="btn btn-prev prev_btn btn-back"
+                  name="next"
+                  type="button"
+                  value="Back"
+                  (click)="selectedFieldSet[0] = 1"
+                />
+                <input
+                  class="btn next_btn btn-primary btn-get btn-next"
+                  name="next"
+                  type="submit"
+                  value="Next"
+                  (click)="selectedFieldSet[0] = 3"
+                />
+              </div>
+            </div>
+            <!-- /Skills & Experience -->
+
+            <!-- Other Info -->
+            <div
+              class="on-board field-card select-account select-btn"
+              [class.d-block]="selectedFieldSet[0] === 3"
+            >
+              <div class="text-center onboard-head">
+                <h2>Other info</h2>
+                <p>Don’t worry, this can be changed later.</p>
+              </div>
+              <div class="field-item personal-info">
+                <div class="media-set">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <h4>Social Media</h4>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="input-block">
+                        <label for="Facebook" class="form-label"
+                          >Facebook</label
+                        >
+                        <input type="text" class="form-control" />
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="input-block">
+                        <label for="instagram" class="form-label"
+                          >Instagram
+                        </label>
+                        <input type="text" class="form-control" />
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="input-block">
+                        <label for="linkedin" class="form-label"
+                          >LinkedIn
+                        </label>
+                        <input type="text" class="form-control" />
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="input-block">
+                        <label for="behance" class="form-label">Behance </label>
+                        <input type="text" class="form-control" />
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="input-block">
+                        <label for="Pinterest" class="form-label"
+                          >Pinterest
+                        </label>
+                        <input type="text" class="form-control" />
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="input-block">
+                        <label for="twitter" class="form-label">Twitter</label>
+                        <input type="text" class="form-control" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div class="media-set">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <h4>Personal Website</h4>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="input-block">
+                          <label for="website-url" class="form-label"
+                            >Website Url</label
+                          >
+                          <input type="text" class="form-control" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="media-set">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <h4>Location</h4>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="input-block">
+                          <label for="Address" class="form-label"
+                            >Address</label
+                          >
+                          <input type="text" class="form-control" />
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="input-block">
+                          <label for="city" class="form-label">City</label>
+                          <input type="text" class="form-control" />
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="input-block">
+                          <label for="state" class="form-label"
+                            >State / Province</label
+                          >
+                          <input type="text" class="form-control" />
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="input-block">
+                          <label for="post-code" class="form-label"
+                            >ZIP / Post Code</label
+                          >
+                          <input type="text" class="form-control" />
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="input-block">
+                          <label for="post-code" class="form-label"
+                            >ZIP / Post Code</label
+                          >
+                          <mat-select
+                            [(ngModel)]="selectedValue7"
+                            [ngModelOptions]="{ standalone: true }"
+                            class="select mat-select arrow verify"
+                            placeholder="Select"
+                          >
+                            <mat-option
+                              *ngFor="let data of selectedList7"
+                              [value]="data.value"
+                            >
+                              {{ data.value }}
+                            </mat-option>
+                          </mat-select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="media-set">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <h4>KYC Upload</h4>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="input-block">
+                          <label for="document-type" class="form-label"
+                            >Document Type</label
+                          >
+                          <mat-select
+                            [(ngModel)]="selectedValue8"
+                            [ngModelOptions]="{ standalone: true }"
+                            class="select mat-select arrow verify"
+                            placeholder="Select"
+                          >
+                            <mat-option
+                              *ngFor="let data of selectedList8"
+                              [value]="data.value"
+                            >
+                              {{ data.value }}
+                            </mat-option>
+                          </mat-select>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="input-block">
+                          <label for="document-number" class="form-label"
+                            >Document Number</label
+                          >
+                          <input type="text" class="form-control" />
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="input-block">
+                          <label for="document-number" class="form-label"
+                            >Document Number</label
+                          >
+                          <div class="upload-sets">
+                            <label class="upload-filesview">
+                              Browse File
+                              <input type="file" />
+                            </label>
+                            <h6>Or Drag & Drop here</h6>
+                          </div>
+                          <span class="text-success"
+                            ><i
+                              class="fa fa-check-circle me-2"
+                              aria-hidden="true"
+                            ></i
+                            >Passport.jpg Uploaded Successfully</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="media-set border-0">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <h4>Working Hours</h4>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="input-block d-flex">
+                          <div
+                            class="form-check form-switch d-inline-block work-check position-relative"
+                          >
+                            <input
+                              type="checkbox"
+                              class="form-check-input"
+                              id="check_hour"
+                              checked=""
+                              [(ngModel)]="isCheckboxChecked"
+                              [ngModelOptions]="{ standalone: true }"
+                            />
+                          </div>
+                          <label for="every-day" class="form-label ms-2"
+                            >Same Every Day</label
+                          >
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div
+                          class="checkout-hour"
+                          [ngClass]="{
+                            'd-block': isCheckboxChecked,
+                            'd-none': !isCheckboxChecked
+                          }"
+                        >
+                          <div class="other-info-list">
+                            <ul>
+                              <li class="active-hour">Mon</li>
+                              <li class="active-hour">Tue</li>
+                              <li class="active-hour">Wed</li>
+                              <li class="active-hour">Thr</li>
+                              <li class="active-hour">Fri</li>
+                              <li>Sat</li>
+                              <li>Sun</li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div
+                          class="check-hour"
+                          [ngClass]="{
+                            'd-none': isCheckboxChecked,
+                            'd-block': !isCheckboxChecked
+                          }"
+                        >
+                          <div class="col-md-12">
+                            <h4>Select Days</h4>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="row align-items-center">
+                                <div class="col-md-1">
+                                  <div class="other-info-list">
+                                    <ul>
+                                      <li class="active-hour m-0">Mon</li>
+                                    </ul>
+                                  </div>
+                                </div>
+                                <div class="col-md-5">
+                                  <div class="input-block">
+                                    <label for="start-time" class="form-label"
+                                      >Start Time
+                                    </label>
+                                   
+                                    <input
+                                      type="text"
+                                      class="form-control timepicker"
+                                      (click)="toggleTimePicker('startTime1')"
+                                      [value]="formatTime(startTime1)"
+                                    />
+                                    <timepicker
+                                      [class.d-block]="
+                                        showTimePicker[0] === 'startTime1'
+                                      "
+                                      class="custom-timepicker"
+                                      [ngModelOptions]="{ standalone: true }"
+                                      [(ngModel)]="startTime1"
+                                    ></timepicker>
+                                  </div>
+                                </div>
+                                <div class="col-md-5">
+                                  <div class="input-block">
+                                    <label for="End " class="form-label"
+                                      >End Time
+                                    </label>
+                                    <input
+                                    (click)="toggleTimePicker('endTime1')"
+                                    [value]="formatTime(endTime1)"
+                                    type="text"
+                                    placeholder="Select Time"
+                                    class="form-control timepicker"
+                                  />
+                                  <timepicker
+                                    [class.d-block]="showTimePicker[0] === 'endTime1'"
+                                    class="custom-timepicker"
+                                    [ngModelOptions]="{ standalone: true }"
+                                    [(ngModel)]="endTime1"
+                                  ></timepicker>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-12">
+                              <div class="row align-items-center">
+                                <div class="col-md-1">
+                                  <div class="other-info-list">
+                                    <ul>
+                                      <li class="active-hour m-0">Tue</li>
+                                    </ul>
+                                  </div>
+                                </div>
+                                <div class="col-md-5">
+                                  <div class="input-block">
+                                    <label for="start-time" class="form-label"
+                                      >Start Time
+                                    </label>
+                                    <input
+                                    (click)="toggleTimePicker('startTime2')"
+                                    [value]="formatTime(startTime2)"
+                                    type="text"
+                                    placeholder="Select Time"
+                                    class="form-control timepicker"
+                                  />
+                                  <timepicker
+                                    [class.d-block]="showTimePicker[0] === 'startTime2'"
+                                    class="custom-timepicker"
+                                    [ngModelOptions]="{ standalone: true }"
+                                    [(ngModel)]="startTime2"
+                                  ></timepicker>
+                                  </div>
+                                </div>
+                                <div class="col-md-5">
+                                  <div class="input-block">
+                                    <label for="End " class="form-label"
+                                      >End Time
+                                    </label>
+                                    <input
+                                    (click)="toggleTimePicker('endTime2')"
+                                    [value]="formatTime(endTime2)"
+                                    type="text"
+                                    placeholder="Select Time"
+                                    class="form-control timepicker"
+                                  />
+                                  <timepicker
+                                    [class.d-block]="showTimePicker[0] === 'endTime2'"
+                                    class="custom-timepicker"
+                                    [ngModelOptions]="{ standalone: true }"
+                                    [(ngModel)]="endTime2"
+                                  ></timepicker>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-12">
+                              <div class="row align-items-center">
+                                <div class="col-md-1">
+                                  <div class="other-info-list">
+                                    <ul>
+                                      <li class="active-hour m-0">Wed</li>
+                                    </ul>
+                                  </div>
+                                </div>
+                                <div class="col-md-5">
+                                  <div class="input-block">
+                                    <label for="start-time" class="form-label"
+                                      >Start Time
+                                    </label>
+                                    <input
+                                    (click)="toggleTimePicker('startTime3')"
+                                    [value]="formatTime(startTime3)"
+                                    type="text"
+                                    placeholder="Select Time"
+                                    class="form-control timepicker"
+                                  />
+                                  <timepicker
+                                    [class.d-block]="showTimePicker[0] === 'startTime3'"
+                                    class="custom-timepicker"
+                                    [ngModelOptions]="{ standalone: true }"
+                                    [(ngModel)]="startTime3"
+                                  ></timepicker>
+                                  </div>
+                                </div>
+                                <div class="col-md-5">
+                                  <div class="input-block">
+                                    <label for="End " class="form-label"
+                                      >End Time
+                                    </label>
+                                    <input
+                              (click)="toggleTimePicker('endTime3')"
+                              [value]="formatTime(endTime3)"
+                              type="text"
+                              placeholder="Select Time"
+                              class="form-control timepicker"
+                            />
+                            <timepicker
+                              [class.d-block]="showTimePicker[0] === 'endTime3'"
+                              class="custom-timepicker"
+                              [ngModelOptions]="{ standalone: true }"
+                              [(ngModel)]="endTime3"
+                            ></timepicker>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-12">
+                              <div class="row align-items-center">
+                                <div class="col-md-1">
+                                  <div class="other-info-list">
+                                    <ul>
+                                      <li class="active-hour m-0">Thur</li>
+                                    </ul>
+                                  </div>
+                                </div>
+                                <div class="col-md-5">
+                                  <div class="input-block">
+                                    <label for="start-time" class="form-label"
+                                      >Start Time
+                                    </label>
+                                    <input
+                            (click)="toggleTimePicker('startTime4')"
+                            [value]="formatTime(startTime4)"
+                            type="text"
+                            placeholder="Select Time"
+                            class="form-control timepicker"
+                          />
+                          <timepicker
+                            [class.d-block]="showTimePicker[0] === 'startTime4'"
+                            class="custom-timepicker"
+                            [ngModelOptions]="{ standalone: true }"
+                            [(ngModel)]="startTime4"
+                          ></timepicker>
+                                  </div>
+                                </div>
+                                <div class="col-md-5">
+                                  <div class="input-block">
+                                    <label for="End " class="form-label"
+                                      >End Time
+                                    </label>
+                                    <input
+                                    (click)="toggleTimePicker('endTime4')"
+                                    [value]="formatTime(endTime4)"
+                                    type="text"
+                                    placeholder="Select Time"
+                                    class="form-control timepicker"
+                                  />
+                                  <timepicker
+                                    [class.d-block]="showTimePicker[0] === 'endTime4'"
+                                    class="custom-timepicker"
+                                    [ngModelOptions]="{ standalone: true }"
+                                    [(ngModel)]="endTime4"
+                                  ></timepicker>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-12">
+                              <div class="row align-items-center">
+                                <div class="col-md-1">
+                                  <div class="other-info-list">
+                                    <ul>
+                                      <li class="active-hour m-0">Fri</li>
+                                    </ul>
+                                  </div>
+                                </div>
+                                <div class="col-md-5">
+                                  <div class="input-block">
+                                    <label for="start-time" class="form-label"
+                                      >Start Time
+                                    </label>
+                                    <input
+                            (click)="toggleTimePicker('startTime5')"
+                            [value]="formatTime(startTime5)"
+                            type="text"
+                            placeholder="Select Time"
+                            class="form-control timepicker"
+                          />
+                          <timepicker
+                            [class.d-block]="showTimePicker[0] === 'startTime5'"
+                            class="custom-timepicker"
+                            [ngModelOptions]="{ standalone: true }"
+                            [(ngModel)]="startTime5"
+                          ></timepicker>
+                                  </div>
+                                </div>
+                                <div class="col-md-5">
+                                  <div class="input-block">
+                                    <label for="End " class="form-label"
+                                      >End Time
+                                    </label>
+                                    <input
+                                    (click)="toggleTimePicker('endTime5')"
+                                    [value]="formatTime(endTime5)"
+                                    type="text"
+                                    placeholder="Select Time"
+                                    class="form-control timepicker"
+                                  />
+                                  <timepicker
+                                    [class.d-block]="showTimePicker[0] === 'endTime5'"
+                                    class="custom-timepicker"
+                                    [ngModelOptions]="{ standalone: true }"
+                                    [(ngModel)]="endTime5"
+                                  ></timepicker>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-12">
+                              <div class="row align-items-center">
+                                <div class="col-md-1">
+                                  <div class="other-info-list">
+                                    <ul>
+                                      <li class="m-0">Fri</li>
+                                    </ul>
+                                  </div>
+                                </div>
+                                <div class="col-md-5">
+                                  <div class="input-block">
+                                    <label for="start-time" class="form-label"
+                                      >Start Time
+                                    </label>
+                                    <input
+                                    (click)="toggleTimePicker('startTime6')"
+                                    [value]="formatTime(startTime6)"
+                                    type="text"
+                                    placeholder="Select Time"
+                                    class="form-control timepicker"
+                                  />
+                                  <timepicker
+                                    [class.d-block]="showTimePicker[0] === 'startTime6'"
+                                    class="custom-timepicker"
+                                    [ngModelOptions]="{ standalone: true }"
+                                    [(ngModel)]="startTime6"
+                                  ></timepicker>
+                                  </div>
+                                </div>
+                                <div class="col-md-5">
+                                  <div class="input-block">
+                                    <label for="End " class="form-label"
+                                      >End Time
+                                    </label>
+                                    <input
+                                    (click)="toggleTimePicker('endTime6')"
+                                    [value]="formatTime(endTime6)"
+                                    type="text"
+                                    placeholder="Select Time"
+                                    class="form-control timepicker"
+                                  />
+                                  <timepicker
+                                    [class.d-block]="showTimePicker[0] === 'endTime6'"
+                                    class="custom-timepicker"
+                                    [ngModelOptions]="{ standalone: true }"
+                                    [(ngModel)]="endTime6"
+                                  ></timepicker>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-12">
+                              <div class="row align-items-center">
+                                <div class="col-md-1">
+                                  <div class="other-info-list">
+                                    <ul>
+                                      <li class="m-0">Sun</li>
+                                    </ul>
+                                  </div>
+                                </div>
+                                <div class="col-md-5">
+                                  <div class="input-block">
+                                    <label for="start-time" class="form-label"
+                                      >Start Time
+                                    </label>
+                                    <input
+                            (click)="toggleTimePicker('startTime7')"
+                            [value]="formatTime(startTime7)"
+                            type="text"
+                            placeholder="Select Time"
+                            class="form-control timepicker"
+                          />
+                          <timepicker
+                            [class.d-block]="showTimePicker[0] === 'startTime7'"
+                            class="custom-timepicker"
+                            [ngModelOptions]="{ standalone: true }"
+                            [(ngModel)]="startTime7"
+                          ></timepicker>
+                                  </div>
+                                </div>
+                                <div class="col-md-5">
+                                  <div class="input-block">
+                                    <label for="End " class="form-label"
+                                      >End Time
+                                    </label>
+                                    <input
+                              (click)="toggleTimePicker('endTime7')"
+                              [value]="formatTime(endTime7)"
+                              type="text"
+                              placeholder="Select Time"
+                              class="form-control timepicker"
+                            />
+                            <timepicker
+                              [class.d-block]="showTimePicker[0] === 'endTime7'"
+                              class="custom-timepicker"
+                              [ngModelOptions]="{ standalone: true }"
+                              [(ngModel)]="endTime7"
+                            ></timepicker>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="text-center">
+                <input
+                  class="btn btn-prev prev_btn btn-back"
+                  name="next"
+                  type="button"
+                  value="Back"
+                  (click)="selectedFieldSet[0] = 2"
+                  (keydown.enter)="selectedFieldSet[0] = 2"
+                />
+                <input
+                  class="btn next_btn btn-primary btn-get btn-next"
+                  name="next"
+                  type="button"
+                  value="Submit"
+                  (click)="selectedFieldSet[0] = 4"
+                  (keydown.enter)="selectedFieldSet[0] = 4"
+                />
+              </div>
+            </div>
+            <!-- /Other Info -->
+
+            <!-- Completeing Register -->
+            <div
+              class="on-board field-card"
+              [class.d-block]="selectedFieldSet[0] === 4"
+            >
+              <div class="account-onborad complte-board back-home pb-0">
+                <img
+                  src="assets/img/icon/mail.png"
+                  class="img-fluid"
+                  alt="icon"
+                />
+                <h2>Email Verification</h2>
+                <h3>We have send a verification link to info@email.com</h3>
+                <p>Click on the link to complete the verification Process</p>
+                <p>You might need to check your Spam folder</p>
+                <a href="javascript:void(0);" class="link-danger"
+                  ><i class="feather icon-refresh-cw me-2"></i> Resend Email</a
+                >
+              </div>
+              <div class="text-center">
+                <input
+                  class="btn btn-prev prev_btn btn-back"
+                  name="next"
+                  type="button"
+                  value="Back"
+                  (click)="selectedFieldSet[0] = 3"
+                />
+              </div>
+            </div>
+            <!-- /Completeing Register -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
