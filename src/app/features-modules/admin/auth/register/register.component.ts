@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { UserService } from 'src/app/Services/user.service';
+import { User } from 'src/app/classes/user';
 
 @Component({
   selector: 'app-register',
@@ -6,6 +8,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
+
+
 
  
 

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { Editor, Toolbar } from 'ngx-editor';
 import { routes } from 'src/app/core/helpers/routes/routes';
@@ -13,6 +13,10 @@ interface data {
   encapsulation: ViewEncapsulation.None,
 })
 export class PostprojectComponent implements OnInit, OnDestroy {
+
+
+
+
   public routes = routes;
   public isChecked = true;
   selected = 'select';
@@ -84,8 +88,39 @@ export class PostprojectComponent implements OnInit, OnDestroy {
   hideFilename(index: number) {
     this.isFilenameVisible[index] = false;
   }
+
+
+
   constructor(private router: Router) {}
-  ngsubmit(){
-    this.router.navigate([routes.projectconfirmation])
-  }
+
+  
+  projectTitle = '';
+  projectCategory = '';
+  projectDuration = '';
+  deadlineDate: Date | undefined;
+  freelancerType = '';
+  freelancerLevel = '';
+  tags: string[] = [];
+  skills: string[] = [];
+  hourlyRateFrom: number | undefined;
+  hourlyRateTo: number | undefined;
+  fixedRate: number | undefined;
+  attachmentFiles: FileList | undefined;
+  languages = '';
+  languageFluency = '';
+  description = '';
+
+  ngsubmit() {
+    // this.router.navigate([routes.projectconfirmation]);
+}
+ 
+
+
+
+   
+ 
+
+
+   
+
 }

@@ -10,37 +10,42 @@
                             <a [routerLink] = "routes.home"><img src="assets/img/logo.png" alt="logo" class="img-fluid"></a>
                             <h3>We love to see you joining our community</h3>
                         </div>
-                        <nav class="user-tabs mb-4">
+                        <!-- <nav class="user-tabs mb-4">
                             <ul role="tablist" class="nav nav-pills nav-justified">
-                                <li class="nav-item">
-                                    <a href="#developer" data-bs-toggle="tab" class="nav-link active">Freelancer</a>
+                                <li class="nav-item" [class.selected]="selectedusertype ==='Freelancer'">
+                                    <a href="#developer" data-bs-toggle="tab" class="nav-link "      >Freelancer</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#company" data-bs-toggle="tab" class="nav-link">Company</a>
+                                    <a href="#company" data-bs-toggle="tab" class="nav-link" [class.selected]="selectedusertype ==='Company'">Company</a>
                                 </li>
                             </ul>
-                        </nav>
+                        </nav> -->
                         <div class="tab-content pt-0">
                             <div role="tabpanel" id="developer" class="tab-pane fade active show">
-                                <form  (ngSubmit)="login()">										
+                                <form  (ngSubmit)="register()" [formGroup]="registrationform">										
                                     <div class="input-block ">
-                                        <label for="user-name" class="focus-label">User Name <span class="label-star"> *</span></label>
-                                        <input type="email" class="form-control floating">
+                                        <label for="username" class="focus-label">User Name <span class="label-star"> *</span></label>
+                                        <input type="text" class="form-control floating"  formControlName="username" id="username">
+                                        <div *ngIf="registrationform.get('username')?.invalid && (registrationform.get('username')?.dirty|| registrationform.get('username')?.touched)">
+                                           <div *ngIf="registrationform.get('username')?.hasError('required')" style="color: red;">
+                                                 Username is required
+                                           </div>
+                                        </div>
                                     </div>
                                     <div class="input-block ">
-                                        <label for="email-address" class="focus-label">Email Address<span class="label-star"> *</span></label>
-                                        <input type="email" class="form-control floating">
+                                        <label for="email" class="focus-label">Email Address<span class="label-star"> *</span></label>
+                                        <input type="email" class="form-control floating" formControlName="email" id="email">
                                     </div>
                                     <div class="input-block ">
                                         <label for="password" class="focus-label">Password <span class="label-star"> *</span></label>
                                         <div class="position-relative">
-                                            <input [type]="password[1] ? 'text' : 'password'" class="form-control floating pass-input">
+                                            <input [type]="password[1] ? 'text' : 'password'" class="form-control floating pass-input" formControlName="password" id="password">
                                             <div class="password-icon" (click)="togglePassword(1)" (keydown.enter)="togglePassword(1)" tabindex="0">
                                                 <span class="fas toggle-password" [ngClass]="password[1] ? 'fa-eye' : 'fa-eye-slash'"></span>
                                             </div>
                                         </div>
                                     </div>	
-                                    <div class="input-block  mb-0">
+                                    <!-- <div class="input-block  mb-0">
                                         <label for="confirm-password" class="focus-label">Confirm Password <span class="label-star"> *</span></label>
                                         <div class="position-relative">
                                             <input [type]="password[2] ? 'text' : 'password'" class="form-control floating pass-input1">
@@ -48,7 +53,7 @@
                                                 <span class="fas toggle-password1" [ngClass]="password[2] ? 'fa-eye' : 'fa-eye-slash'"></span>
                                             </div>
                                         </div>
-                                    </div>	
+                                    </div>	 -->
                                     <div class="dont-have">
                                         <label class="custom_check">
                                             <input type="checkbox" name="rem_password">
@@ -78,15 +83,15 @@
                             <div role="tabpanel" id="company" class="tab-pane fade">
                                 <form >										
                                     <div class="input-block ">
-                                        <label for="user-name" class="focus-label">User Name <span class="label-star"> *</span></label>
+                                        <label for="username" class="focus-label">User Name <span class="label-star" formControlName="username" id="username"> *</span></label>
                                         <input type="email" class="form-control floating">
                                     </div>
                                     <div class="input-block ">
-                                        <label for="email-address" class="focus-label">Email Address<span class="label-star"> *</span></label>
+                                        <label for="email" class="focus-label" formControlName="email" id="email">Email Address<span class="label-star"> *</span></label>
                                         <input type="email" class="form-control floating">
                                     </div>
                                     <div class="input-block ">
-                                        <label for="password" class="focus-label">Password <span class="label-star"> *</span></label>
+                                        <label for="password" class="focus-label" formControlName="password" id="password">Password <span class="label-star"> *</span></label>
                                         <div class="position-relative">
                                             <input [type]="password[3] ? 'text' : 'password'" class="form-control floating pass-inputs">
                                             <div class="password-icon" (click)="togglePassword(3)" (keydown.enter)="togglePassword(3)" tabindex="0">
@@ -94,7 +99,7 @@
                                             </div>
                                         </div>
                                     </div>	
-                                    <div class="input-block  mb-0">
+                                    <!-- <div class="input-block  mb-0">
                                         <label for="confirm-password" class="focus-label">Confirm Password <span class="label-star"> *</span></label>
                                         <div class="position-relative">
                                             <input [type]="password[4] ? 'text' : 'password'" class="form-control floating pass-inputs">
@@ -102,7 +107,7 @@
                                                 <span class="fas toggle-passwords fa-eye-slash" [ngClass]="password[4] ? 'fa-eye' : 'fa-eye-slash'"></span>
                                             </div>
                                         </div>
-                                    </div>	
+                                    </div>	 -->
                                     <div class="dont-have">
                                         <label class="custom_check">
                                             <input type="checkbox" name="rem_password">

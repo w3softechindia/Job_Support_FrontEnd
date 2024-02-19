@@ -1,5 +1,9 @@
-import { Component  } from '@angular/core';
+import { Component, OnInit  } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {  Router } from '@angular/router';
+
+import { UserService } from 'src/app/Services/user.service';
+import { User } from 'src/app/classes/user';
 import { routes } from 'src/app/core/helpers/routes/routes';
 
 @Component({
@@ -7,9 +11,37 @@ import { routes } from 'src/app/core/helpers/routes/routes';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent  {
+export class RegisterComponent  implements OnInit {
   public routes = routes;
-  constructor(public Router: Router) { }
+
+  selectedusertype='';
+  registrationform!:FormGroup;
+
+  constructor(public Router: Router, private service:UserService , private formbuilder:FormBuilder) { }
+  ngOnInit(): void {
+    this.registrationform= this.formbuilder.group({
+      username:['' , [Validators.required,Validators.minLength(4)]],
+      email:['' , [Validators.required,Validators.email]],
+      password:['' , [Validators.required,Validators.minLength(8)]]
+    })
+  }
+
+ 
+
+
+  user:User= new User();
+
+      register(){
+        this.user=this.registrationform.value;
+        console.log(this.selectedusertype)
+        this.user.role =this.selectedusertype;
+        
+        this.service.register(this.user).subscribe((data) =>{
+          console.log(data);
+        })
+      }
+
+ 
 
  
  
@@ -19,14 +51,14 @@ export class RegisterComponent  {
     this.password[index] = !this.password[index];
   }
   login() {
-    this.Router.navigate([routes.freelancer_onboard])
+    // this.Router.navigate([routes.freelancer_onboard])
   }
  
 
   submitForm() {
     
     
-    this.Router.navigate([this.routes.freelancer_onboard]);
+    // this.Router.navigate([this.routes.freelancer_onboard]);
   }
 
 }
