@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { routes } from 'src/app/core/helpers/routes/routes';
+
 
 @Component({
   selector: 'app-membership',
@@ -6,7 +8,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./membership.component.scss']
 })
 export class MembershipComponent  {
-
+  public routes = routes
  
-
 }
