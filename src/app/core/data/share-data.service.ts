@@ -1034,13 +1034,13 @@ export class ShareDataService {
   ];
 
   public sideBar : header[] = [
-    {
-      tittle: 'Home',
-      base: 'home',
-      showAsTab: false,
-      separateRoute: true,
-      route: routes.home,
-      menu: [
+    // {
+      // tittle: 'Home',
+      // base: 'home',
+      // showAsTab: false,
+      // separateRoute: true,
+      // route: routes.home,
+      // menu: [
         // {
         //   menuValue: 'Home',
         //   route: routes.home,
@@ -1091,8 +1091,8 @@ export class ShareDataService {
         //   last: '',
         //   subMenus: [],
         // },
-      ],
-    },
+      // ],
+    // },
     {
       tittle: 'For Employers',
       base: 'employer',
@@ -1546,7 +1546,7 @@ export class ShareDataService {
       menu: [
         {
             menuValue: 'Employer Membership',
-            route: routes.employee_membership_plans,
+            route: routes.emembership,
             hasSubRoute: false,
             showSubRoute: false,
             base: 'employer',
@@ -1558,7 +1558,7 @@ export class ShareDataService {
 
           {
               menuValue: 'Freelancer Membership',
-              route: routes.freelancer_membership,
+              route: routes.fmembership,
               hasSubRoute: false,
               showSubRoute: false,
               base: 'freelancer',

@@ -133,6 +133,12 @@ export class routes {
   public static get page_about(): string {
     return this.pages + '/about';
   }
+  public static get emembership(): string {
+    return this.pages + '/employer-membership';
+  }
+  public static get fmembership():string{
+    return this.pages + '/freelancer-membership';
+  }
   public static get page_blank_page(): string {
     return this.pages + '/blank-page';
   }
@@ -147,6 +153,12 @@ export class routes {
   }
   public static get login(): string {
     return this.auth + '/login';
+  }
+  public static get e_membership_login():string{
+    return this.auth + '/e-membership-login';
+  }
+  public static get f_membership_login():string{
+    return this.auth + '/f-membership-login';
   }
   public static get register(): string {
     return this.auth + '/register';
@@ -169,11 +181,13 @@ export class routes {
   public static get blog_details(): string {
     return this.blog + '/details';
   }
-
+  // public static get emplpoyer-membership():string{
+  //   return this.pages + '/employer-membership';
+  // }
   // Admin Routing
 
   public static get admin_login(): string {
-    return this.admin + '/auth/login';
+    return this.admin + 'auth/login';
   }
   public static get admin_dashboard(): string {
     return this.admin + '/dashboard';

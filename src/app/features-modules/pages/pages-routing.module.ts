@@ -14,6 +14,16 @@ const routes: Routes = [
           import('./about-us/about-us.module').then((m) => m.AboutUsModule),
       },
       {
+        path: 'employer-membership',
+        loadChildren: () =>
+          import('./employer-membership/employer-membership.module').then((m) => m.EmployerMembershipModule),
+      },
+      {
+        path:'freelancer-membership',
+        loadChildren:()=>
+          import('./freelancer-membership/freelancer-membership.module').then((m)=>m.FreelancerMembershipModule),
+      },
+      {
         path: 'blank-page',
         loadChildren: () =>
           import('./starter/starter.module').then((m) => m.StarterModule),
