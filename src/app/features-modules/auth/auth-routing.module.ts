@@ -8,6 +8,14 @@ children: [
     path: 'login', 
     loadChildren: () => import('../auth/login/login.module').then(m => m.LoginModule) 
   },
+  {
+    path:'e-membership-login',
+    loadChildren:()=> import('./e-membership-login/e-membership-login.module').then(m=>m.EMembershipLoginModule)
+  },
+  {
+    path:'f-membership-login',
+    loadChildren:()=> import('./f-membership-login/f-membership-login.module').then(m=>m.FMembershipLoginModule)
+  },
   { 
     path: 'register', 
     loadChildren: () => import('../auth/register/register.module').then(m => m.RegisterModule) 
