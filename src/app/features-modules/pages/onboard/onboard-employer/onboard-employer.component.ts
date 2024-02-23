@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UserService } from 'src/app/Services/user.service';
+import { User } from 'src/app/classes/user';
 import { routes } from 'src/app/core/helpers/routes/routes';
 interface data {
   value: string;
@@ -9,6 +12,34 @@ interface data {
   styleUrls: ['./onboard-employer.component.scss']
 })
 export class OnboardEmployerComponent {
+
+  email!: string;
+  selectedRole!: string;
+  constructor(private route: ActivatedRoute,private router:Router, private userService:UserService) { }
+  user:User=new User();
+
+  ngOnInit(): void {
+    this.email = this.route.snapshot.params['email'];
+    console.log(this.email);
+    console.log('Select Role');
+  }
+
+  printSelectedRole(isFreelancerSelected: boolean, isEmployerSelected: boolean) {
+    if (isFreelancerSelected) {
+      this.selectedRole = 'Freelancer';
+    } else if (isEmployerSelected) {
+      this.selectedRole = 'Employer';
+    }
+    console.log('Selected Role:', this.selectedRole);
+  }
+
+  updateRole(){
+    this.user.role=this.selectedRole;
+    this.userService.insertRole(this.email,this.selectedRole).subscribe((data)=>{
+      console.log(data);
+    })
+  }
+
   public selectedFieldSet = [0];
   public routes = routes;
   public displayBlock = false;
@@ -122,4 +153,8 @@ export class OnboardEmployerComponent {
     { value: 'UK' },
     { value: 'India' },
   ];
+
+  onBoardFreelancer(){
+    this.router.navigateByUrl(`${this.routes.freelancer_onboard}/${this.email}`)
+  }
 }

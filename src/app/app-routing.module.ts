@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './features-modules/admin/auth/login/login.component';
-import { MembershipComponent } from './features-modules/employer/membership/membership.component';
 // import {
 //   AuthenticateGuard
 //   } from './core/guard/guard.index';
@@ -14,9 +13,6 @@ const routes: Routes = [
   },
   {
     path:'admin-login', component:LoginComponent
-  },
-  {
-    path:'e-membership',component:MembershipComponent
   },
   {
     path: '**',

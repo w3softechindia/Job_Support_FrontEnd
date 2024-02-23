@@ -6,16 +6,10 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { SharedModule } from './shared/shared.module';
-import { UserComponent } from './classes/user/user.component';
-import { SoftechComponent } from './softech/softech.component';
-
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserComponent,
-    SoftechComponent,
-
   ],
   imports: [
     BrowserModule,

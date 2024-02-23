@@ -1,5 +1,6 @@
-export class User {
+import { Skills, Education, Experience, Certification, Language } from "../core/models/models";
 
+export class User {
         email!: string;
         username!: string;
         password!: string;
@@ -11,31 +12,16 @@ export class User {
         jobtitle!: string;
         typeofjob!: string;
         description!: string;
-        skills!: string;
-        level!: string;
-        degree!: string;
-        university!: string;
-        startdate!: string;
-        enddate!: string;
-        certification!: string;
-        certifiedfrom!: string;
-        year!: string;
-        companyname!: string;
-        position!: string;
-        companystartdate!: string;
-        companyenddate!: string;
-        language!: string;
         facebook!: string;
         instagram!: string;
         linkedin!: string;
-        persnolurl!: string;
+        personalUrl!: string;
         address!: string;
         city!: string;
         state!: string;
         postcode!: string;
-        postcodetype!: string;
-        documenttype!: string;
-        documentnumber!: string;
+        documentType!: string;
+        documentNumber!: string;
         ecompany!: string;
         etagline!: string;
         establishdate!: string;
@@ -44,8 +30,10 @@ export class User {
         ewebsite!: string;
         eteamsize!: string;
         edescribe!: string;
-      
-       
-      
-      
+
+        skills!: Skills[];
+        education!: Education[];
+        experience!: Experience[];
+        certification!: Certification[];
+        language!: Language[];
 }

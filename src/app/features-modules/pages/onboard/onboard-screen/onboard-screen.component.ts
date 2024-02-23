@@ -1,5 +1,9 @@
 import { DatePipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UserService } from 'src/app/Services/user.service';
+import { User } from 'src/app/classes/user';
 import { routes } from 'src/app/core/helpers/routes/routes';
 interface data {
   value: string;
@@ -9,7 +13,71 @@ interface data {
   templateUrl: './onboard-screen.component.html',
   styleUrls: ['./onboard-screen.component.scss'],
 })
-export class OnboardScreenComponent {
+export class OnboardScreenComponent implements OnInit {
+
+  email!: string;
+  selectedRole!: string;
+  user:User=new User();
+
+  personalForm:FormGroup=new FormGroup({
+    firstname:new FormControl(''),
+    lastname:new FormControl(''),
+    phonenumber:new FormControl(''),
+    dob:new FormControl(''),
+    jobtitle:new FormControl(''),
+    typeofjob:new FormControl(''),
+    description:new FormControl(''),
+  })
+
+  constructor(private datePipe: DatePipe, 
+    private route: ActivatedRoute,private router:Router,
+    private userService:UserService, private formbuilder:FormBuilder) { }
+
+  ngOnInit(): void {
+    this.email = this.route.snapshot.params['email'];
+    console.log(this.email);
+
+    this.personalForm=this.formbuilder.group({
+      firstname:['' , [Validators.required,Validators.minLength(4)]],
+      lastname:['' , [Validators.required,Validators.minLength(4)]],
+      phonenumber:['' , [Validators.required,Validators.minLength(10)]],
+      dob:['' , [Validators.required]],
+      jobtitle:['' , [Validators.required,]],
+      typeofjob:['' , [Validators.required,]],
+      description:['' , [Validators.required,]],
+    })
+  }
+
+  printSelectedRole(isFreelancerSelected: boolean, isEmployerSelected: boolean) {
+    if (isFreelancerSelected) {
+      this.selectedRole = 'Freelancer';
+    } else if (isEmployerSelected) {
+      this.selectedRole = 'Employer';
+    }
+    console.log('Selected Role:', this.selectedRole);
+  }
+  
+  updateRole(){
+    // this.user.role=this.selectedRole;
+    this.userService.insertRole(this.email,this.selectedRole).subscribe((data)=>{
+      console.log(data);
+    })
+  }
+
+  personalInfo(){
+    this.user=this.personalForm.value;
+    this.userService.personalInfo(this.user,this.email).subscribe((data)=>{
+      console.log(data);
+    })
+  }
+
+  skillsandExp(){
+    // this.user=this.skillsForm.value;
+    // this.userService.userData(this.email).subscribe((data)=>{
+    //   console.log(data);
+    // })
+  }
+
   public selectedFieldSet = [0];
   public routes = routes;
   public displayBlock = false;
@@ -27,7 +95,7 @@ export class OnboardScreenComponent {
   public certification: number[] = [];
   public experience: number[] = [];
   public language: number[] = [];
-  public datas : boolean[] = [true]
+  public datas: boolean[] = [true]
   public isCheckboxChecked = true;
 
   block() {
@@ -64,7 +132,7 @@ export class OnboardScreenComponent {
   removeExperience(index: number) {
     this.experience.splice(index, 1);
   }
-  
+
   addLanguage() {
     this.language.push(1);
   }
@@ -147,7 +215,7 @@ export class OnboardScreenComponent {
   endTime5 = new Date();
   endTime6 = new Date();
   endTime7 = new Date();
-  constructor(private datePipe: DatePipe) {}
+
 
 
   toggleTimePicker(value: string): void {
@@ -160,5 +228,9 @@ export class OnboardScreenComponent {
   formatTime(date: Date) {
     const selectedDate: Date = new Date(date);
     return this.datePipe.transform(selectedDate, 'h:mm a');
+  }
+
+  onBoardEmployer(){
+    this.router.navigateByUrl(`${this.routes.employer_onboard}/${this.email}`)
   }
 }
