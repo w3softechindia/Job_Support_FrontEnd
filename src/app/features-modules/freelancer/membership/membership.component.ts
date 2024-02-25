@@ -10,7 +10,7 @@ import { routes } from 'src/app/core/helpers/routes/routes';
 export class MembershipComponent {
   public routes = routes;
   constructor(private router: Router) {}
-  navigation() {
-    this.router.navigate([routes.freelancer_membership]);
-  }
+  // navigation() {
+  //   this.router.navigate([routes.freelancer_membership]);
+  // }
 }

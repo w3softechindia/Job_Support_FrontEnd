@@ -19,13 +19,8 @@
                                         <label for="password" class="focus-label">Password <span class="label-star">
                                                 *</span></label>
                                         <div class="position-relative">
-                                            <input [type]="password[1] ? 'text' : 'password'"
+                                            <input 
                                                 class="form-control floating pass-input">
-                                            <div class="password-icon" (click)="togglePassword(1)"
-                                                (keydown.enter)="togglePassword(1)" tabindex="0">
-                                                <span class="fas toggle-password"
-                                                    [ngClass]="password[1] ? 'fa-eye' : 'fa-eye-slash'"></span>
-                                            </div>
                                         </div>
                                     </div>
                                     <button [routerLink]="routes.employee_membership_plans"

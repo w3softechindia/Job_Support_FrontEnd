@@ -24,12 +24,20 @@ const routes: Routes = [
           import('./freelancer-membership/freelancer-membership.module').then((m)=>m.FreelancerMembershipModule),
       },
       {
+        path:'e-membership-login',
+        loadChildren:()=> import('../auth/e-membership-login/e-membership-login.module').then((m)=>m.EMembershipLoginModule)
+      },
+      {
+        path:'f-membership-login',
+        loadChildren:()=> import('../auth/f-membership-login/f-membership-login.module').then((m)=>m.FMembershipLoginModule)
+      },
+      {
         path: 'blank-page',
         loadChildren: () =>
           import('./starter/starter.module').then((m) => m.StarterModule),
       },
       {
-        path: 'onboard-screen',
+        path: 'onboard-screen/:email',
         loadChildren: () =>
           import('./onboard/onboard-screen/onboard-screen.module').then(
             (m) => m.OnboardScreenModule
@@ -57,7 +65,7 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'onboard-employer',
+        path: 'onboard-employer/:email',
         loadChildren: () =>
           import('./onboard/onboard-employer/onboard-employer.module').then(
             (m) => m.OnboardEmployerModule

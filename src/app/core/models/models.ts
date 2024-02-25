@@ -378,3 +378,29 @@ export interface freelancerTask {
   description: string;
   status: string;
 }
+// ===============================================================================================================================
+export interface Skills {
+  skills: string;
+  level: string;
+}
+export interface Education {
+  degree: string;
+  university: string;
+  startdate: string;
+  enddate: string;
+}
+export interface Experience {
+  companyname: string;
+  position: string;
+  companystartdate: string;
+  companyenddate: string;
+}
+export interface Language {
+  language: string;
+  chooselevel: string;
+}
+export interface Certification {
+  certification: string;
+  certifiedfrom: string;
+  year: string;
+}

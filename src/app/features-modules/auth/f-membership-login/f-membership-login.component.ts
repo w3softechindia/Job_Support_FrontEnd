@@ -8,14 +8,14 @@ import { routes } from 'src/app/core/helpers/routes/routes';
 })
 export class FMembershipLoginComponent {
   public routes=routes;
-  public password: boolean[] = [true];
-  public Toggledata = true;
+  // public password: boolean[] = [true];
+  // public Toggledata = true;
   
-  iconLogle() {
-    this.Toggledata = !this.Toggledata;
-  }
+  // iconLogle() {
+  //   this.Toggledata = !this.Toggledata;
+  // }
   
-  public togglePassword(index: number) {
-    this.password[index] = !this.password[index];
-  }
+  // public togglePassword(index: number) {
+  //   this.password[index] = !this.password[index];
+  // }
 }

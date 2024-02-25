@@ -1,5 +1,5 @@
 import { Component, OnInit  } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {  Router } from '@angular/router';
 
 import { UserService } from 'src/app/Services/user.service';
@@ -14,10 +14,16 @@ import { routes } from 'src/app/core/helpers/routes/routes';
 export class RegisterComponent  implements OnInit {
   public routes = routes;
 
-  selectedusertype='';
-  registrationform!:FormGroup;
+  registrationform:FormGroup=new FormGroup({
+    username: new FormControl(''),
+    email: new FormControl(''),
+    password: new FormControl(''),
+  })
 
-  constructor(public Router: Router, private service:UserService , private formbuilder:FormBuilder) { }
+  user:User= new User();
+  email!:string;
+  constructor(public router: Router, private service:UserService , private formbuilder:FormBuilder) { }
+
   ngOnInit(): void {
     this.registrationform= this.formbuilder.group({
       username:['' , [Validators.required,Validators.minLength(4)]],
@@ -26,25 +32,17 @@ export class RegisterComponent  implements OnInit {
     })
   }
 
- 
-
-
-  user:User= new User();
-
       register(){
         this.user=this.registrationform.value;
-        console.log(this.selectedusertype)
-        this.user.role =this.selectedusertype;
-        
+        this.email=this.user.email;
         this.service.register(this.user).subscribe((data) =>{
           console.log(data);
+          console.log(this.email);
+          // alert("Details Saved Succesfull..!!")
+          this.router.navigate(['/pages/onboard-screen',this.email]);
         })
       }
 
- 
-
- 
- 
   public password: boolean[] = [true];
 
   public togglePassword(index: number) {

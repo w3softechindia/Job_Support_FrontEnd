@@ -13,7 +13,7 @@
 									<div class="row align-items-center">
 										<div class="col-md-3">
 											<div class="board-logo">
-												<a [routerLink] = "routes.home"><img src="assets/img/logo.png" alt="Img"
+												<a [routerLink]="routes.home"><img src="assets/img/logo.png" alt="Img"
 														class="img-fluid"></a>
 											</div>
 										</div>
@@ -81,16 +81,19 @@
 									<h2>Select Account Type</h2>
 									<p>Don’t worry, this can be changed later.</p>
 									<div class="select-box d-flex justify-content-center">
-										<input id="freelance" type="radio" name="credit-card" value="visa">
+										<input #freelanceInput id="freelance" type="radio" name="credit-card"
+											value="Freelancer" />
 										<label class="employee-level free-lance-img accounts_type" data-id="freelance"
 											for="freelance">
-											<a [routerLink]="routes.freelancer_onboard">
+											<a (click)="onBoardFreelancer()">
 												<img src="assets/img/select-04.svg" alt="Img" class="img-fluid">
 												<span>Freelancer</span>
 											</a>
 										</label>
-										<input checked="checked" id="employee" class="accounts_type" type="radio"
-											name="credit-card" value="mastercard">
+										<!-- <input checked="checked" id="employee" class="accounts_type" type="radio"
+											name="credit-card" value="mastercard"> -->
+										<input #employeeInput checked="checked" id="employee" class="accounts_type"
+											type="radio" name="credit-card" value="Employer" />
 										<label class="employee-level employee-img accounts_type" data-id="employee"
 											for="employee"><a [routerLink]="routes.employer_onboard">
 												<img src="assets/img/icon/checks.svg" alt="Img" class="checks-set">
@@ -101,7 +104,11 @@
 								<input class="btn btn-prev prev_btn btn-back" name="next" type="button" value="Back"
 									disabled>
 								<input class="btn next_btn btn-primary btn-get btn-next" name="next" type="submit"
-									value="Next" (click)="selectedFieldSet[0] = 1; none()" (keydown.enter)="selectedFieldSet[0] = 1; none()">
+									value="Next" (click)="selectedFieldSet[0] = 1; none()"
+									(keydown.enter)="selectedFieldSet[0] = 1; none()"
+									(click)="printSelectedRole(freelanceInput.checked, employeeInput.checked)"
+									(keydown.enter)="printSelectedRole(freelanceInput.checked, employeeInput.checked)"
+									 (click)="updateRole()">
 							</div>
 						</div>
 						<!-- /Accounting Onboard -->
@@ -163,7 +170,8 @@
 								<input class="btn btn-prev prev_btn btn-back" name="next" type="button" value="Back"
 									(click)="selectedFieldSet[0] = 0; block()">
 								<input class="btn next_btn btn-primary btn-get btn-next" name="next" type="submit"
-									value="Next" (click)="selectedFieldSet[0] = 2" (keydown.enter)="selectedFieldSet[0] = 2">
+									value="Next" (click)="selectedFieldSet[0] = 2"
+									(keydown.enter)="selectedFieldSet[0] = 2">
 							</div>
 						</div>
 						<!-- /Personal Info -->
@@ -413,13 +421,15 @@
 											</div>
 											<div class="col-md-6">
 												<div class="input-block">
-													<label for="document-number" class="form-label">Document Number</label>
+													<label for="document-number" class="form-label">Document
+														Number</label>
 													<input type="text" class="form-control">
 												</div>
 											</div>
 											<div class="col-md-12">
 												<div class="input-block">
-													<label for="document-number" class="form-label">Document Number</label>
+													<label for="document-number" class="form-label">Document
+														Number</label>
 													<div class="upload-sets">
 														<label class="upload-filesview">
 															Browse File
@@ -657,7 +667,8 @@
 								<input class="btn btn-prev prev_btn btn-back" name="next" type="button" value="Back"
 									(click)="selectedFieldSet[0] = 2" (keydown.enter)="selectedFieldSet[0] = 2">
 								<input class="btn next_btn btn-primary btn-get btn-next" name="next" type="button"
-									value="Submit" (click)="selectedFieldSet[0] = 4" (keydown.enter)="selectedFieldSet[0] = 4">
+									value="Submit" (click)="selectedFieldSet[0] = 4"
+									(keydown.enter)="selectedFieldSet[0] = 4">
 							</div>
 						</div>
 						<!-- /Other Info -->
