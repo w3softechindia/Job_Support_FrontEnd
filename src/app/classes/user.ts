@@ -1,4 +1,4 @@
-import { Skills, Education, Experience, Certification, Language } from "../core/models/models";
+// import { Skills, Education, Experience, Certification, Language } from "../core/models/models";
 
 export class User {
         email!: string;
@@ -31,9 +31,9 @@ export class User {
         eteamsize!: string;
         edescribe!: string;
 
-        skills!: Skills[];
-        education!: Education[];
-        experience!: Experience[];
-        certification!: Certification[];
-        language!: Language[];
+        // skills!: Skills[];
+        // education!: Education[];
+        // experience!: Experience[];
+        // certification!: Certification[];
+        // language!: Language[];
 }
