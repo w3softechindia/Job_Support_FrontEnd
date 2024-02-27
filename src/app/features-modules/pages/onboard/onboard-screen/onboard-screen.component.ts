@@ -121,14 +121,12 @@ export class OnboardScreenComponent implements OnInit {
       console.log(data);
     })
   }
-
   personalInfo() {
     this.user = this.personalForm.value;
     this.userService.personalInfo(this.user, this.email).subscribe((data) => {
       console.log(data);
     })
   }
-
   skillsandExp() {
     this.dataDto=this.userDataForm.value
     this.userService.userData(this.email, this.dataDto).subscribe((data) => {
