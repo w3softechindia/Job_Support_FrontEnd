@@ -9,12 +9,12 @@
                     <div class="login-right text-center">
                         <div class="login-header text-center">
                             <h2>One Time Password</h2>
-                            <span>Verification code sent to +91 *******455</span>
+                            <span>Verification code sent to {{this.email}}</span>
                             <div class="text-center">
                                 <img src="assets/img/otp.png" class="mt-3" alt="img">
                             </div>
                         </div>
-                        <form >
+                        <form (ngSubmit)="verifyEmail()">
                             <div class="onboarding-content passcode-wrap">
                                 <div class="d-flex digit-group">
                                     <input [(ngModel)]="oneTimePassword.data1" maxlength="1" (keydown.backspace)="tiggerBackspace(oneTimePassword.data1 , 'digit-1')" (input)="ValueChanged(oneTimePassword.data1 , 'digit-1')" type="text" id="digit-1" name="digit-1" data-next="digit-2" maxlength="1">
@@ -24,8 +24,8 @@
                                 </div>
                             </div>	
                             <div class="resend-code">Didn't receive OTP code? <a href="javascript:void(0);"> Resend Code</a></div> 
-                            <span class="expire-time-count"><i class="feather icon-clock me-2"></i>0:56</span>						
-                            <button  [routerLink]="routes.employee_dashboard" class="btn btn-primary w-100 btn-lg login-btn d-flex align-items-center justify-content-center" type="submit">Verify Password<i class="feather icon-arrow-right ms-2"></i></button>
+                            <!-- <span class="expire-time-count"><i class="feather icon-clock me-2"></i>{{ remainingTime }}</span> -->
+                            <button class="btn btn-primary w-100 btn-lg login-btn d-flex align-items-center justify-content-center" type="submit">Verify Email<i class="feather icon-arrow-right ms-2"></i></button>
                         </form>
                     </div>
                 </div>

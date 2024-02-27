@@ -38,8 +38,8 @@ export class RegisterComponent  implements OnInit {
         this.service.register(this.user).subscribe((data) =>{
           console.log(data);
           console.log(this.email);
-          // alert("Details Saved Succesfull..!!")
-          this.router.navigate(['/pages/onboard-screen',this.email]);
+          alert("Otp sent to the Registered email...!!!")
+          this.router.navigate(['/pages/otp',this.email]);
         })
       }
 

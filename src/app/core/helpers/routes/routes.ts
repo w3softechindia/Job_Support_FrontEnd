@@ -160,12 +160,12 @@ export class routes {
   public static get login(): string {
     return this.auth + '/login';
   }
-  public static get e_membership_login():string{
-    return this.auth + '/e-membership-login';
-  }
-  public static get f_membership_login():string{
-    return this.auth + '/f-membership-login';
-  }
+  // public static get e_membership_login():string{
+  //   return this.auth + '/e-membership-login';
+  // }
+  // public static get f_membership_login():string{
+  //   return this.auth + '/f-membership-login';
+  // }
   public static get register(): string {
     return this.auth + '/register';
   }
