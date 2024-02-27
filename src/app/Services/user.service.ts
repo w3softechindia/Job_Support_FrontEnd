@@ -16,7 +16,11 @@ constructor(private http:HttpClient){}
   register(user: User):Observable<any>{
     return this.http.post(`${this.baseurl}/register` , user);
   }
- 
+  
+  verifyAccount(email:string,otp:string,user:User):Observable<any>{
+    return this.http.put(`${this.baseurl}/verify/${email}/${otp}`,user);
+  }
+
   insertRole(email:string,newRole:string):Observable<User>{
     return this.http.put<User>(`${this.baseurl}/update/${email}?newRole=${newRole}`,null)
   }

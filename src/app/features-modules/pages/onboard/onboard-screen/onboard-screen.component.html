@@ -222,23 +222,25 @@
                 </p>
               </div>
               <div class="field-item personal-info space-info">
-                <form (ngSubmit)="skillsandExp()">
-                  <div class="row"> 
-                    <div class="col-md-12">
-                      <h4>Skill</h4>
-                    </div> 
-                    <!-- <ng-container *ngFor="let skill of newSkills"> -->
-                      <div class="col-md-6" >
+                <form  [formGroup]="userDataForm" (ngSubmit)="skillsandExp()">
+                  <div formArrayName="newSkills">
+                    <div *ngFor="let skillGroup of newSkills.controls; let i = index" [formGroupName]="i" class="row">
+                      <div class="col-md-12">
+                        <h4>Skill</h4>
+                      </div>
+                      <!-- <ng-container *ngFor="let skill of newSkills"> -->
+                      <div class="col-md-6">
                         <div class="input-block">
-                          <label for="skills" class="form-label">Skill Name</label>
-                          <input type="text" class="form control" id="skills" formControlName="skills" [(ngModel)]="skill.skills" required />
+                          <label for="skills{{i}}" class="form-label">Skill Name</label>
+                          <input type="text" class="form-control" id="skills{{i}}" formControlName="skills" required />
                         </div>
-                      </div> 
-                      <div class="col-md-6" > 
+                      </div>
+                      <div class="col-md-6">
                         <div class="input-block">
                           <label for="level" class="focus-label">Level</label>
-                          <mat-select id="level" formControlName="level" [(ngModel)]="skill.level"
-                            class="select mat-select arrow verify" placeholder="Choose Level">
+                          <label for="level{{i}}" class="focus-label">Level</label>
+                          <mat-select id="level{{i}}" formControlName="level" class="select mat-select arrow verify"
+                            placeholder="Choose Level">
                             <mat-option *ngFor="let data of selectedList2" [value]="data.value">
                               {{ data.value }}
                             </mat-option>
@@ -250,38 +252,39 @@
                           </div>
                         </div>
                       </div>
-                    <!-- </ng-container> -->
-            
-                    <ng-container *ngIf="skills.length > 0">
-                      <ng-container *ngFor="let item of skills; let i = index">
-                        <div class="col-md-6">
-                          <div class="input-block">
-                            <label for="skills" class="form-label">Skills</label>
-                            <input type="text" class="form-control" id="skills" formControlName="skills" />
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="input-block">
-                            <label for="level" class="focus-label">Level</label>
-                            <mat-select id="level" formControlName="level"
-                          class="select mat-select arrow verify" placeholder="Choose Level">
-                          <mat-option *ngFor="let data of selectedList2" [value]="data.value">
-                            {{ data.value }}
-                          </mat-option>
-                        </mat-select>
-                            <div class="new-addd">
-                              <a class="remove_row" id="remove_row" (click)="removeSkills(i)"
-                                (keydown.enter)="removeSkills(i)" tabindex="0">
-                                Remove</a>
+                      <!-- </ng-container> -->
+
+                      <ng-container *ngIf="skills.length > 0">
+                        <ng-container *ngFor="let item of skills; let i = index">
+                          <div class="col-md-6">
+                            <div class="input-block">
+                              <label for="skills" class="form-label">Skills</label>
+                              <input type="text" class="form-control" id="skills" formControlName="skills" />
                             </div>
                           </div>
-                        </div>
+                          <div class="col-md-6">
+                            <div class="input-block">
+                              <label for="level" class="focus-label">Level</label>
+                              <mat-select id="level" formControlName="level" class="select mat-select arrow verify"
+                                placeholder="Choose Level">
+                                <mat-option *ngFor="let data of selectedList2" [value]="data.value">
+                                  {{ data.value }}
+                                </mat-option>
+                              </mat-select>
+                              <div class="new-addd">
+                                <a class="remove_row" id="remove_row" (click)="removeSkills(i)"
+                                  (keydown.enter)="removeSkills(i)" tabindex="0">
+                                  Remove</a>
+                              </div>
+                            </div>
+                          </div>
+                        </ng-container>
                       </ng-container>
-                    </ng-container>
-                    <div id="skill_add_row"></div>
-                  </div>
+                      <div id="skill_add_row"></div>
+                    </div>
+                    </div>
 
-                  <!-- <div class="row">
+                    <!-- <div class="row">
                     <div class="col-md-12">
                       <h4>My SkillS</h4>
                     </div>
@@ -336,317 +339,331 @@
                     <div id="skill_add_row"></div>
                   </div> -->
 
-                  <div class="row">
-                    <div class="col-md-12">
-                      <h4>Education</h4>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                      <div class="input-block">
-                        <label for="degree-name" class="focus-label">Degree Name</label>
-                        <mat-select id="degree" formControlName="degree"
-                          class="select mat-select arrow verify" placeholder="Select">
-                          <mat-option *ngFor="let data of selectedList3" [value]="data.value">
-                            {{ data.value }}
-                          </mat-option>
-                        </mat-select>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <h4>Education</h4>
                       </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                      <div class="input-block">
-                        <label for="university-name" class="focus-label">University Name</label>
-                        <input type="text" name="education['university_name'][]" class="form-control" id="university" formControlName="university" />
-                      </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                      <div class="input-block">
-                        <label for="start-date" class="focus-label">Start Date</label>
-                        <div class="cal-icon">
-                          <input type="text" name="education['start_date'][]" class="form-control datetimepicker"
-                            bsDatepicker placeholder="Choose" id="startdate" formControlName="startdate" />
+                      <div class="col-md-6 col-lg-3">
+                        <div class="input-block">
+                          <label for="degree-name" class="focus-label">Degree Name</label>
+                          <mat-select id="degree" formControlName="degree" class="select mat-select arrow verify"
+                            placeholder="Select">
+                            <mat-option *ngFor="let data of selectedList3" [value]="data.value">
+                              {{ data.value }}
+                            </mat-option>
+                          </mat-select>
                         </div>
                       </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                      <div class="input-block">
-                        <label for="end-date" class="focus-label">End Date</label>
-                        <div class="cal-icon">
-                          <input type="text" name="education['end_date'][]" class="form-control datetimepicker"
-                            bsDatepicker placeholder="Choose" id="enddate" formControlName="enddate" />
-                        </div>
-                        <div class="new-addd">
-                          <a class="add-new" id="edu_add" (click)="addEducation()" (keydown.enter)="addEducation()"
-                            tabindex="0"><i class="feather icon-plus-circle me-1"></i> Add
-                            New</a>
+                      <div class="col-md-6 col-lg-3">
+                        <div class="input-block">
+                          <label for="university-name" class="focus-label">University Name</label>
+                          <input type="text" name="education['university_name'][]" class="form-control" id="university"
+                            formControlName="university" />
                         </div>
                       </div>
-                    </div>
-                    <ng-container *ngIf="education.length > 0">
-                      <ng-container *ngFor="let item of education; let i = index">
-                        <div class="col-md-6 col-lg-3">
-                          <div class="input-block">
-                            <label for="degree-name" class="focus-label">Degree Name</label>
-                            <mat-select placeholder="Select" class="select mat-select arrow verify" id="degree" formControlName="degree">
-                              <mat-option value="Select">Select</mat-option>
-                              <mat-option value="Bachelor's degree">Bachelor's degree</mat-option>
-                              <mat-option value="Master's Degree">Master's Degree</mat-option>
-                            </mat-select>
+                      <div class="col-md-6 col-lg-3">
+                        <div class="input-block">
+                          <label for="start-date" class="focus-label">Start Date</label>
+                          <div class="cal-icon">
+                            <input type="text" name="education['start_date'][]" class="form-control datetimepicker"
+                              bsDatepicker placeholder="Choose" id="startdate" formControlName="startdate" />
                           </div>
                         </div>
-                        <div class="col-md-6 col-lg-3">
-                          <div class="input-block">
-                            <label for="university-name" class="focus-label">University Name</label>
-                            <input type="text" name="education['university_name'][]" class="form-control" id="university" formControlName="university" />
+                      </div>
+                      <div class="col-md-6 col-lg-3">
+                        <div class="input-block">
+                          <label for="end-date" class="focus-label">End Date</label>
+                          <div class="cal-icon">
+                            <input type="text" name="education['end_date'][]" class="form-control datetimepicker"
+                              bsDatepicker placeholder="Choose" id="enddate" formControlName="enddate" />
+                          </div>
+                          <div class="new-addd">
+                            <a class="add-new" id="edu_add" (click)="addEducation()" (keydown.enter)="addEducation()"
+                              tabindex="0"><i class="feather icon-plus-circle me-1"></i> Add
+                              New</a>
                           </div>
                         </div>
-                        <div class="col-md-6 col-lg-3">
-                          <div class="input-block">
-                            <label for="start-date" class="focus-label">Start Date</label>
-                            <div class="cal-icon">
-                              <input type="text" name="education['start_date'][]" class="form-control datetimepicker"
-                                bsDatepicker placeholder="Choose" id="startdate" formControlName="startdate" />
+                      </div>
+                      <ng-container *ngIf="education.length > 0">
+                        <ng-container *ngFor="let item of education; let i = index">
+                          <div class="col-md-6 col-lg-3">
+                            <div class="input-block">
+                              <label for="degree-name" class="focus-label">Degree Name</label>
+                              <mat-select placeholder="Select" class="select mat-select arrow verify" id="degree"
+                                formControlName="degree">
+                                <mat-option value="Select">Select</mat-option>
+                                <mat-option value="Bachelor's degree">Bachelor's degree</mat-option>
+                                <mat-option value="Master's Degree">Master's Degree</mat-option>
+                              </mat-select>
                             </div>
                           </div>
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                          <div class="input-block">
-                            <label for="end-date" class="focus-label">End Date</label>
-                            <div class="cal-icon">
-                              <input type="text" name="education['end_date'][]" class="form-control datetimepicker"
-                                bsDatepicker placeholder="Choose" id="enddate" formControlName="enddate" />
-                            </div>
-                            <div class="new-addd">
-                              <a class="remove_row" id="remove_row" (click)="removeEducation(i)"
-                                (keydown.enter)="removeEducation(i)" tabindex="0">Remove</a>
+                          <div class="col-md-6 col-lg-3">
+                            <div class="input-block">
+                              <label for="university-name" class="focus-label">University Name</label>
+                              <input type="text" name="education['university_name'][]" class="form-control"
+                                id="university" formControlName="university" />
                             </div>
                           </div>
-                        </div>
+                          <div class="col-md-6 col-lg-3">
+                            <div class="input-block">
+                              <label for="start-date" class="focus-label">Start Date</label>
+                              <div class="cal-icon">
+                                <input type="text" name="education['start_date'][]" class="form-control datetimepicker"
+                                  bsDatepicker placeholder="Choose" id="startdate" formControlName="startdate" />
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-6 col-lg-3">
+                            <div class="input-block">
+                              <label for="end-date" class="focus-label">End Date</label>
+                              <div class="cal-icon">
+                                <input type="text" name="education['end_date'][]" class="form-control datetimepicker"
+                                  bsDatepicker placeholder="Choose" id="enddate" formControlName="enddate" />
+                              </div>
+                              <div class="new-addd">
+                                <a class="remove_row" id="remove_row" (click)="removeEducation(i)"
+                                  (keydown.enter)="removeEducation(i)" tabindex="0">Remove</a>
+                              </div>
+                            </div>
+                          </div>
+                        </ng-container>
                       </ng-container>
-                    </ng-container>
-                    <div id="education_add_row"></div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <h5>Certification</h5>
+                      <div id="education_add_row"></div>
                     </div>
-                    <div class="col-md-4 col-lg-4">
-                      <div class="input-block">
-                        <label for="certification" class="focus-label">Certification or Award</label>
-                        <mat-select id="certification" formControlName="certification"
-                          class="select mat-select arrow verify" placeholder="Select">
-                          <mat-option *ngFor="let data of selectedList4" [value]="data.value">
-                            {{ data.value }}
-                          </mat-option>
-                        </mat-select>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <h5>Certification</h5>
                       </div>
-                    </div>
-                    <div class="col-md-4 col-lg-4">
-                      <div class="input-block">
-                        <label for="certified-from" class="focus-label">Certified from</label>
-                        <input type="text" name="certification['certified_from'][]" class="form-control" id="certifiedfrom" formControlName="certifiedfrom" />
-                      </div>
-                    </div>
-                    <div class="col-md-4 col-lg-4">
-                      <div class="input-block">
-                        <label for="year" class="focus-label">Year</label>
-                        <div class="cal-icon">
-                          <input type="text" name="certification['year'][]" class="form-control datetimepicker"
-                            bsDatepicker placeholder="Choose" id="year" formControlName="year" />
-                        </div>
-                        <div class="new-addd">
-                          <a class="add-new" id="certify_add" (click)="addCertification()"
-                            (keydown.enter)="addCertification()" tabindex="0"><i
-                              class="feather icon-plus-circle me-1"></i> Add
-                            New</a>
+                      <div class="col-md-4 col-lg-4">
+                        <div class="input-block">
+                          <label for="certification" class="focus-label">Certification or Award</label>
+                          <mat-select id="certification" formControlName="certification"
+                            class="select mat-select arrow verify" placeholder="Select">
+                            <mat-option *ngFor="let data of selectedList4" [value]="data.value">
+                              {{ data.value }}
+                            </mat-option>
+                          </mat-select>
                         </div>
                       </div>
-                    </div>
-                    <ng-container *ngIf="certification.length > 0">
-                      <ng-container *ngFor="let item of certification; let i = index">
-                        <div class="col-md-4 col-lg-4">
-                          <div class="input-block">
-                            <label for="certification" class="focus-label">Certification or Award</label>
-                            <mat-select placeholder="Select" class="select mat-select arrow verify" id="certification" formControlName="certification">
-                              <mat-option value="Select">Select</mat-option>
-                              <mat-option value="Certification">Certification</mat-option>
-                              <mat-option value="Award">Award</mat-option>
-                            </mat-select>
+                      <div class="col-md-4 col-lg-4">
+                        <div class="input-block">
+                          <label for="certified-from" class="focus-label">Certified from</label>
+                          <input type="text" name="certification['certified_from'][]" class="form-control"
+                            id="certifiedfrom" formControlName="certifiedfrom" />
+                        </div>
+                      </div>
+                      <div class="col-md-4 col-lg-4">
+                        <div class="input-block">
+                          <label for="year" class="focus-label">Year</label>
+                          <div class="cal-icon">
+                            <input type="text" name="certification['year'][]" class="form-control datetimepicker"
+                              bsDatepicker placeholder="Choose" id="year" formControlName="year" />
+                          </div>
+                          <div class="new-addd">
+                            <a class="add-new" id="certify_add" (click)="addCertification()"
+                              (keydown.enter)="addCertification()" tabindex="0"><i
+                                class="feather icon-plus-circle me-1"></i> Add
+                              New</a>
                           </div>
                         </div>
-                        <div class="col-md-4 col-lg-4">
-                          <div class="input-block">
-                            <label for="certified-from" class="focus-label">Certified from</label>
-                            <input type="text" name="certification['certified_from'][]" class="form-control" id="certifiedfrom " formControlName="certifiedfrom " />
-                          </div>
-                        </div>
-                        <div class="col-md-4 col-lg-4">
-                          <div class="input-block">
-                            <label for="year" class="focus-label">Year</label>
-                            <div class="cal-icon">
-                              <input type="text" name="certification['year'][]" class="form-control datetimepicker"
-                                bsDatepicker placeholder="Choose" id="year" formControlName="year" />
-                            </div>
-                            <div class="new-addd">
-                              <a class="remove_row" id="remove_row" (click)="removeCertification(i)"
-                                (keydown.enter)="removeCertification(i)" tabindex="0">
-                                Remove</a>
+                      </div>
+                      <ng-container *ngIf="certification.length > 0">
+                        <ng-container *ngFor="let item of certification; let i = index">
+                          <div class="col-md-4 col-lg-4">
+                            <div class="input-block">
+                              <label for="certification" class="focus-label">Certification or Award</label>
+                              <mat-select placeholder="Select" class="select mat-select arrow verify" id="certification"
+                                formControlName="certification">
+                                <mat-option value="Select">Select</mat-option>
+                                <mat-option value="Certification">Certification</mat-option>
+                                <mat-option value="Award">Award</mat-option>
+                              </mat-select>
                             </div>
                           </div>
-                        </div>
+                          <div class="col-md-4 col-lg-4">
+                            <div class="input-block">
+                              <label for="certified-from" class="focus-label">Certified from</label>
+                              <input type="text" name="certification['certified_from'][]" class="form-control"
+                                id="certifiedfrom " formControlName="certifiedfrom " />
+                            </div>
+                          </div>
+                          <div class="col-md-4 col-lg-4">
+                            <div class="input-block">
+                              <label for="year" class="focus-label">Year</label>
+                              <div class="cal-icon">
+                                <input type="text" name="certification['year'][]" class="form-control datetimepicker"
+                                  bsDatepicker placeholder="Choose" id="year" formControlName="year" />
+                              </div>
+                              <div class="new-addd">
+                                <a class="remove_row" id="remove_row" (click)="removeCertification(i)"
+                                  (keydown.enter)="removeCertification(i)" tabindex="0">
+                                  Remove</a>
+                              </div>
+                            </div>
+                          </div>
+                        </ng-container>
                       </ng-container>
-                    </ng-container>
-                    <div id="certify_add_row"></div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <h4>Experience</h4>
+                      <div id="certify_add_row"></div>
                     </div>
-                    <div class="col-md-6 col-lg-3">
-                      <div class="input-block">
-                        <label for="company-name" class="focus-label">Company Name</label>
-                        <input type="text" name="experience['company_name'][]" class="form-control" id="companyname" formControlName="companyname" />
+                    <div class="row">
+                      <div class="col-md-12">
+                        <h4>Experience</h4>
                       </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                      <div class="input-block">
-                        <label for="position" class="focus-label">Position</label>
-                        <mat-select id="position" formControlName="position"
-                          class="select mat-select arrow verify" placeholder="Select">
-                          <mat-option *ngFor="let data of selectedList5" [value]="data.value">
-                            {{ data.value }}
-                          </mat-option>
-                        </mat-select>
-                      </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                      <div class="input-block">
-                        <label for="start-date" class="focus-label">Start Date</label>
-                        <div class="cal-icon">
-                          <input type="text" name="experience['start_date'][]" class="form-control datetimepicker"
-                            bsDatepicker placeholder="Choose" id="companystartdate" formControlName="companystartdate" />
+                      <div class="col-md-6 col-lg-3">
+                        <div class="input-block">
+                          <label for="company-name" class="focus-label">Company Name</label>
+                          <input type="text" name="experience['company_name'][]" class="form-control" id="companyname"
+                            formControlName="companyname" />
                         </div>
                       </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                      <div class="input-block">
-                        <label for="end-date" class="focus-label">End Date</label>
-                        <div class="cal-icon">
-                          <input type="text" name="experience['end_date'][]" class="form-control datetimepicker"
-                            bsDatepicker placeholder="Choose" id="companyenddate" formControlName="companyenddate" />
-                        </div>
-                        <div class="new-addd">
-                          <a class="add-new" id="experience_add" (click)="addExperience()"
-                            (keydown.enter)="addExperience()" tabindex="0"><i class="feather icon-plus-circle me-1"></i>
-                            Add
-                            New</a>
+                      <div class="col-md-6 col-lg-3">
+                        <div class="input-block">
+                          <label for="position" class="focus-label">Position</label>
+                          <mat-select id="position" formControlName="position" class="select mat-select arrow verify"
+                            placeholder="Select">
+                            <mat-option *ngFor="let data of selectedList5" [value]="data.value">
+                              {{ data.value }}
+                            </mat-option>
+                          </mat-select>
                         </div>
                       </div>
-                    </div>
-                    <ng-container *ngIf="experience.length > 0">
-                      <ng-container *ngFor="let item of experience; let i = index">
-                        <div class="col-md-6 col-lg-3">
-                          <div class="input-block">
-                            <label for="company-name" class="focus-label">Company Name</label>
-                            <input type="text" name="experience['company_name'][]" class="form-control" id="companyname" formControlName="companyname" />
+                      <div class="col-md-6 col-lg-3">
+                        <div class="input-block">
+                          <label for="start-date" class="focus-label">Start Date</label>
+                          <div class="cal-icon">
+                            <input type="text" name="experience['start_date'][]" class="form-control datetimepicker"
+                              bsDatepicker placeholder="Choose" id="companystartdate"
+                              formControlName="companystartdate" />
                           </div>
                         </div>
-                        <div class="col-md-6 col-lg-3">
-                          <div class="input-block">
-                            <label for="position" class="focus-label">Position</label>
-                            <mat-select placeholder="Select" class="select mat-select arrow verify" id="position" formControlName="position">
-                              <mat-option value="Select">Select</mat-option>
-                              <mat-option value="Basic">Basic</mat-option>
-                              <mat-option value="Intermediate">Intermediate</mat-option>
-                              <mat-option value="Proficient">Proficient</mat-option>
-                            </mat-select>
+                      </div>
+                      <div class="col-md-6 col-lg-3">
+                        <div class="input-block">
+                          <label for="end-date" class="focus-label">End Date</label>
+                          <div class="cal-icon">
+                            <input type="text" name="experience['end_date'][]" class="form-control datetimepicker"
+                              bsDatepicker placeholder="Choose" id="companyenddate" formControlName="companyenddate" />
+                          </div>
+                          <div class="new-addd">
+                            <a class="add-new" id="experience_add" (click)="addExperience()"
+                              (keydown.enter)="addExperience()" tabindex="0"><i
+                                class="feather icon-plus-circle me-1"></i>
+                              Add
+                              New</a>
                           </div>
                         </div>
-                        <div class="col-md-6 col-lg-3">
-                          <div class="input-block">
-                            <label for="start-date" class="focus-label">Start Date</label>
-                            <div class="cal-icon">
-                              <input type="text" name="experience['start_date'][]" class="form-control datetimepicker"
-                                bsDatepicker placeholder="Choose" id="companystartdate" formControlName="companystartdate" />
+                      </div>
+                      <ng-container *ngIf="experience.length > 0">
+                        <ng-container *ngFor="let item of experience; let i = index">
+                          <div class="col-md-6 col-lg-3">
+                            <div class="input-block">
+                              <label for="company-name" class="focus-label">Company Name</label>
+                              <input type="text" name="experience['company_name'][]" class="form-control"
+                                id="companyname" formControlName="companyname" />
                             </div>
                           </div>
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                          <div class="input-block">
-                            <label for="end-date" class="focus-label">End Date</label>
-                            <div class="cal-icon">
-                              <input type="text" name="experience['end_date'][]" class="form-control datetimepicker"
-                                bsDatepicker placeholder="Choose" id="companyenddate" formControlName="companyenddate" />
-                            </div>
-                            <div class="new-addd">
-                              <a class="remove_row" id="remove_row" click="removeExperience(i)">
-                                Remove</a>
+                          <div class="col-md-6 col-lg-3">
+                            <div class="input-block">
+                              <label for="position" class="focus-label">Position</label>
+                              <mat-select placeholder="Select" class="select mat-select arrow verify" id="position"
+                                formControlName="position">
+                                <mat-option value="Select">Select</mat-option>
+                                <mat-option value="Basic">Basic</mat-option>
+                                <mat-option value="Intermediate">Intermediate</mat-option>
+                                <mat-option value="Proficient">Proficient</mat-option>
+                              </mat-select>
                             </div>
                           </div>
-                        </div>
+                          <div class="col-md-6 col-lg-3">
+                            <div class="input-block">
+                              <label for="start-date" class="focus-label">Start Date</label>
+                              <div class="cal-icon">
+                                <input type="text" name="experience['start_date'][]" class="form-control datetimepicker"
+                                  bsDatepicker placeholder="Choose" id="companystartdate"
+                                  formControlName="companystartdate" />
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-6 col-lg-3">
+                            <div class="input-block">
+                              <label for="end-date" class="focus-label">End Date</label>
+                              <div class="cal-icon">
+                                <input type="text" name="experience['end_date'][]" class="form-control datetimepicker"
+                                  bsDatepicker placeholder="Choose" id="companyenddate"
+                                  formControlName="companyenddate" />
+                              </div>
+                              <div class="new-addd">
+                                <a class="remove_row" id="remove_row" click="removeExperience(i)">
+                                  Remove</a>
+                              </div>
+                            </div>
+                          </div>
+                        </ng-container>
                       </ng-container>
-                    </ng-container>
-                    <div id="experience_add_row"></div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <h4>Language</h4>
+                      <div id="experience_add_row"></div>
                     </div>
-                    <div class="col-md-6">
-                      <div class="input-block">
-                        <label for="language" class="form-label">Language</label>
-                        <input type="text" class="form-control" id="language" formControlName="language" />
+                    <div class="row">
+                      <div class="col-md-12">
+                        <h4>Language</h4>
                       </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="input-block">
-                        <label for="level" class="focus-label">Level</label>
-                        <mat-select id="chooselevel" formControlName="chooselevel"
-                          class="select mat-select arrow verify" placeholder="Choose Level">
-                          <mat-option *ngFor="let data of selectedList6" [value]="data.value">
-                            {{ data.value }}
-                          </mat-option>
-                        </mat-select>
-                        <div class="new-addd">
-                          <a class="add-new" id="lang_add" (click)="addLanguage()" (keydown.enter)="addLanguage()"
-                            tabindex="0"><i class="feather icon-plus-circle me-1"></i> Add
-                            New</a>
+                      <div class="col-md-6">
+                        <div class="input-block">
+                          <label for="language" class="form-label">Language</label>
+                          <input type="text" class="form-control" id="language" formControlName="language" />
                         </div>
                       </div>
-                    </div>
-                    <ng-container *ngIf="language.length > 0">
-                      <ng-container *ngFor="let item of language; let i = index">
-                        <div class="col-md-6">
-                          <div class="input-block">
-                            <label for="language" class="form-label">Language</label>
-                            <input type="text" class="form-control" id="language" formControlName="language" />
+                      <div class="col-md-6">
+                        <div class="input-block">
+                          <label for="level" class="focus-label">Level</label>
+                          <mat-select id="chooselevel" formControlName="chooselevel"
+                            class="select mat-select arrow verify" placeholder="Choose Level">
+                            <mat-option *ngFor="let data of selectedList6" [value]="data.value">
+                              {{ data.value }}
+                            </mat-option>
+                          </mat-select>
+                          <div class="new-addd">
+                            <a class="add-new" id="lang_add" (click)="addLanguage()" (keydown.enter)="addLanguage()"
+                              tabindex="0"><i class="feather icon-plus-circle me-1"></i> Add
+                              New</a>
                           </div>
                         </div>
-                        <div class="col-md-6">
-                          <div class="input-block">
-                            <label for="level" class="focus-label">Level</label>
+                      </div>
+                      <ng-container *ngIf="language.length > 0">
+                        <ng-container *ngFor="let item of language; let i = index">
+                          <div class="col-md-6">
+                            <div class="input-block">
+                              <label for="language" class="form-label">Language</label>
+                              <input type="text" class="form-control" id="language" formControlName="language" />
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="input-block">
+                              <label for="level" class="focus-label">Level</label>
 
-                            <mat-select placeholder="Choose Level" class="select mat-select arrow verify" id="chooselevel" formControlName="chooselevel">
-                              <mat-option value="Choose Level">Choose Level</mat-option>
-                              <mat-option value="Basic">Basic</mat-option>
-                              <mat-option value="Intermediate">Intermediate</mat-option>
-                              <mat-option value="Proficient">Proficient</mat-option>
-                            </mat-select>
-                            <div class="new-addd">
-                              <a class="remove_row" id="remove_row" (click)="removeLanguage(i)"
-                                (keydown.enter)="removeLanguage(i)" tabindex="0">Remove</a>
+                              <mat-select placeholder="Choose Level" class="select mat-select arrow verify"
+                                id="chooselevel" formControlName="chooselevel">
+                                <mat-option value="Choose Level">Choose Level</mat-option>
+                                <mat-option value="Basic">Basic</mat-option>
+                                <mat-option value="Intermediate">Intermediate</mat-option>
+                                <mat-option value="Proficient">Proficient</mat-option>
+                              </mat-select>
+                              <div class="new-addd">
+                                <a class="remove_row" id="remove_row" (click)="removeLanguage(i)"
+                                  (keydown.enter)="removeLanguage(i)" tabindex="0">Remove</a>
+                              </div>
                             </div>
                           </div>
-                        </div>
+                        </ng-container>
                       </ng-container>
-                    </ng-container>
-                    <div id="language_add_row"></div>
-                  </div>
+                      <div id="language_add_row"></div>
+                    </div>
 
-                  <div class="text-center">
-                    <input class="btn btn-prev prev_btn btn-back" name="next" type="button" value="Back"
-                      (click)="selectedFieldSet[0] = 1" />
-                    <input class="btn next_btn btn-primary btn-get btn-next" name="next" type="submit" value="Next"
-                      (click)="selectedFieldSet[0] = 3" />
-                  </div>
+                    <div class="text-center">
+                      <input class="btn btn-prev prev_btn btn-back" name="next" type="button" value="Back"
+                        (click)="selectedFieldSet[0] = 1" />
+                      <input class="btn next_btn btn-primary btn-get btn-next" name="next" type="submit" value="Next"
+                        (click)="selectedFieldSet[0] = 3" />
+                    </div>
                 </form>
               </div>
             </div>
@@ -709,7 +726,7 @@
                         <div class="col-md-12">
                           <div class="input-block">
                             <label for="Address" class="form-label">Address</label>
-                            <input type="text" class="form-control" id="address" formControlName="address"/>
+                            <input type="text" class="form-control" id="address" formControlName="address" />
                           </div>
                         </div>
                         <div class="col-md-3">
@@ -751,7 +768,8 @@
                         <div class="col-md-6">
                           <div class="input-block">
                             <label for="document-number" class="form-label">Document Number</label>
-                            <input type="text" class="form-control" id="documentnumber" formControlName="documentnumber" />
+                            <input type="text" class="form-control" id="documentnumber"
+                              formControlName="documentnumber" />
                           </div>
                         </div>
                         <div class="col-md-12">
@@ -783,7 +801,7 @@
             <!-- /Other Info -->
 
             <!-- Completeing Register -->
-            <div class="on-board field-card" [class.d-block]="selectedFieldSet[0] === 4">
+            <!-- <div class="on-board field-card" [class.d-block]="selectedFieldSet[0] === 4">
               <div class="account-onborad complte-board back-home pb-0">
                 <img src="assets/img/icon/mail.png" class="img-fluid" alt="icon" />
                 <h2>Email Verification</h2>
@@ -797,7 +815,7 @@
                 <input class="btn btn-prev prev_btn btn-back" name="next" type="button" value="Back"
                   (click)="selectedFieldSet[0] = 3" />
               </div>
-            </div>
+            </div> -->
             <!-- /Completeing Register -->
           </div>
         </div>

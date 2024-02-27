@@ -4,6 +4,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { OnboardScreenRoutingModule } from './onboard-screen-routing.module';
 import { OnboardScreenComponent } from './onboard-screen.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -13,7 +14,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
   imports: [
     CommonModule,
     OnboardScreenRoutingModule,
-    SharedModule
+    SharedModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [
     DatePipe,

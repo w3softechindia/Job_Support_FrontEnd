@@ -3,15 +3,18 @@ import { CommonModule } from '@angular/common';
 
 import { PagesRoutingModule } from './pages-routing.module';
 import { PagesComponent } from './pages.component';
+import { SkillsExpComponent } from './skills-exp/skills-exp.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [
-    PagesComponent
+    PagesComponent,
+    SkillsExpComponent
   ],
   imports: [
     CommonModule,
-    PagesRoutingModule
+    PagesRoutingModule, FormsModule, ReactiveFormsModule
   ]
 })
 export class PagesModule { }
