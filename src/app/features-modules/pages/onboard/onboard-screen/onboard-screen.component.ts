@@ -1,10 +1,13 @@
 import { DatePipe } from '@angular/common';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/Services/user.service';
 import { User } from 'src/app/classes/user';
 import { routes } from 'src/app/core/helpers/routes/routes';
+import { Certification, Education, Experience, Language, Skills } from 'src/app/core/models/models';
+import { UserDataDto } from 'src/app/dto/UserDataDto';
+
 interface data {
   value: string;
 }
@@ -17,35 +20,113 @@ export class OnboardScreenComponent implements OnInit {
 
   email!: string;
   selectedRole!: string;
-  user:User=new User();
+  user: User = new User();
+  personalForm!: FormGroup;
+  otherInfoForm!:FormGroup;
 
-  personalForm:FormGroup=new FormGroup({
-    firstname:new FormControl(''),
-    lastname:new FormControl(''),
-    phonenumber:new FormControl(''),
-    dob:new FormControl(''),
-    jobtitle:new FormControl(''),
-    typeofjob:new FormControl(''),
-    description:new FormControl(''),
-  })
+  newSkills!:Skills[];
+  newEducation:Education[]=[];
+  newCertificate:Certification[]=[];
+  newExperience:Experience[]=[];
+  newLanguage:Language[]=[];
 
-  constructor(private datePipe: DatePipe, 
-    private route: ActivatedRoute,private router:Router,
-    private userService:UserService, private formbuilder:FormBuilder) { }
+  // personalForm: FormGroup; = new FormGroup({
+  //   firstname: new FormControl(''),
+  //   lastname: new FormControl(''),
+  //   phonenumber: new FormControl(''),
+  //   dob: new FormControl(''),
+  //   jobtitle: new FormControl(''),
+  //   typeofjob: new FormControl(''),
+  //   description: new FormControl(''),
+  // })
+
+  // userDtoForm: FormGroup = new FormGroup({
+  //   skills: new FormControl(''),
+  //   level: new FormControl(''),
+  //   degree: new FormControl(''),
+  //   university: new FormControl(''),
+  //   startdate: new FormControl(''),
+  //   enddate: new FormControl(''),
+  //   companyname: new FormControl(''),
+  //   position: new FormControl(''),
+  //   companystartdate: new FormControl(''),
+  //   companyenddate: new FormControl(''),
+  //   certification: new FormControl(''),
+  //   certifiedfrom: new FormControl(''),
+  //   year: new FormControl(''),
+  //   language: new FormControl(''),
+  //   chooselevel: new FormControl(''),
+  // })
+
+  // otherInfoForm:FormGroup=new FormGroup({
+  //   facebook: new FormControl(''),
+  //   linkedin: new FormControl(''),
+  //   instagram: new FormControl(''),
+  //   persnolurl: new FormControl(''),
+  //   address: new FormControl(''),
+  //   city: new FormControl(''),
+  //   state: new FormControl(''),
+  //   postcode: new FormControl(''),
+  //   documenttype: new FormControl(''),
+  //   documentnumber: new FormControl(''),
+  // })
+
+  constructor(private datePipe: DatePipe,
+    private route: ActivatedRoute, private router: Router,
+    private userService: UserService, private formbuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.email = this.route.snapshot.params['email'];
     console.log(this.email);
 
-    this.personalForm=this.formbuilder.group({
-      firstname:['' , [Validators.required,Validators.minLength(4)]],
-      lastname:['' , [Validators.required,Validators.minLength(4)]],
-      phonenumber:['' , [Validators.required,Validators.minLength(10)]],
-      dob:['' , [Validators.required]],
-      jobtitle:['' , [Validators.required,]],
-      typeofjob:['' , [Validators.required,]],
-      description:['' , [Validators.required,]],
+    this.personalForm = this.formbuilder.group({
+      firstname: ['', [Validators.required, Validators.minLength(4)]],
+      lastname: ['', [Validators.required, Validators.minLength(4)]],
+      phonenumber: ['', [Validators.required, Validators.minLength(10)]],
+      dob: ['', [Validators.required]],
+      jobtitle: ['', [Validators.required,]],
+      typeofjob: ['', [Validators.required,]],
+      description: ['', [Validators.required,]],
     })
+
+    this.otherInfoForm=this.formbuilder.group({
+      facebook: ['', [Validators.required]],
+      linkedin: ['', [Validators.required]],
+      instagram: ['', [Validators.required]],
+      persnolurl: ['', [Validators.required]],
+      address: ['', [Validators.required,]],
+      city: ['', [Validators.required,]],
+      state: ['', [Validators.required,]],
+      postcode: ['', [Validators.required,]],
+      documenttype: ['', [Validators.required,]],
+      documentnumber: ['', [Validators.required,]],
+    })
+
+    // this.userDtoForm = this.formbuilder.group({
+    //   skills: ['', [Validators.required,]],
+    //   level: ['', [Validators.required,]],
+    //   degree: ['', [Validators.required,]],
+    //   university: ['', [Validators.required,]],
+    //   startdate: ['', [Validators.required,]],
+    //   enddate: ['', [Validators.required,]],
+    //   companyname: ['', [Validators.required,]],
+    //   position: ['', [Validators.required,]],
+    //   companystartdate: ['', [Validators.required,]],
+    //   companyenddate: ['', [Validators.required,]],
+    //   certification: ['', [Validators.required,]],
+    //   certifiedfrom: ['', [Validators.required,]],
+    //   year: ['', [Validators.required,]],
+    //   language: ['', [Validators.required,]],
+    //   chooselevel: ['', [Validators.required,]],
+    // })
+
+    // this.userDtoForm = this.formbuilder.group({
+    //   skills: this.formbuilder.array([]),
+    //   education: this.formbuilder.array([]),
+    //   certification: this.formbuilder.array([]),
+    //   experience: this.formbuilder.array([]),
+    //   language: this.formbuilder.array([]),
+    // })
   }
 
   printSelectedRole(isFreelancerSelected: boolean, isEmployerSelected: boolean) {
@@ -56,26 +137,40 @@ export class OnboardScreenComponent implements OnInit {
     }
     console.log('Selected Role:', this.selectedRole);
   }
-  
-  updateRole(){
-    // this.user.role=this.selectedRole;
-    this.userService.insertRole(this.email,this.selectedRole).subscribe((data)=>{
+
+  updateRole() {
+    this.userService.insertRole(this.email, this.selectedRole).subscribe((data) => {
       console.log(data);
     })
   }
-
-  personalInfo(){
-    this.user=this.personalForm.value;
-    this.userService.personalInfo(this.user,this.email).subscribe((data)=>{
+  personalInfo() {
+    this.user = this.personalForm.value;
+    this.userService.personalInfo(this.user, this.email).subscribe((data) => {
       console.log(data);
     })
   }
+  skillsandExp() {
+    const userData:UserDataDto={
+      skills: this.newSkills,
+      education: this.newEducation,
+      certification: this.newCertificate,
+      experience: this.newExperience,
+      language: this.newLanguage
+    }
+    this.userService.userData(this.email, userData).subscribe((data) => {
+      console.log(data);
+    },
+      error => {
+        console.error('Error Occured:', error);
+      });
+  }
 
-  skillsandExp(){
-    // this.user=this.skillsForm.value;
-    // this.userService.userData(this.email).subscribe((data)=>{
-    //   console.log(data);
-    // })
+  otherInfo(){
+    console.log(this.otherInfoForm.value)
+    this.user=this.otherInfoForm.value;
+    this.userService.otherInfo(this.user,this.email).subscribe((data)=>{
+      console.log(data);
+    })
   }
 
   public selectedFieldSet = [0];
@@ -104,14 +199,14 @@ export class OnboardScreenComponent implements OnInit {
   none() {
     this.displayNone = !this.displayNone;
   }
+
   addSkills() {
     this.skills.push(1);
-    console.log('hii');
   }
+
   removeSkills(index: number) {
     this.skills.splice(index, 1);
   }
-
   addEducation() {
     this.education.push(1);
   }
@@ -139,7 +234,6 @@ export class OnboardScreenComponent implements OnInit {
   removeLanguage(index: number) {
     this.language.splice(index, 1);
   }
-
 
   removeDatas(index: number) {
     this.datas[index] = !this.datas[index];
@@ -230,7 +324,7 @@ export class OnboardScreenComponent implements OnInit {
     return this.datePipe.transform(selectedDate, 'h:mm a');
   }
 
-  onBoardEmployer(){
+  onBoardEmployer() {
     this.router.navigateByUrl(`${this.routes.employer_onboard}/${this.email}`)
   }
 }

@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { User } from '../classes/user';
+import { UserDataDto } from '../dto/UserDataDto';
 
 @Injectable({
   providedIn: 'root'
@@ -24,8 +25,8 @@ constructor(private http:HttpClient){}
     return this.http.put(`${this.baseurl}/persnolInfo/${email}`,user)
   }
 
-  userData(email:string){
-    return this.http.post(`${this.baseurl}/addUserData/${email}`, {responseType:'text'})
+  userData(email: string, userDto: UserDataDto): Observable<any> {
+    return this.http.post<any>(`${this.baseurl}/addUserData/${email}`, userDto);
   }
 
   otherInfo(user:User,email:string){
