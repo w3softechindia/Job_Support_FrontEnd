@@ -185,6 +185,7 @@ export class OnboardScreenComponent implements OnInit {
 
   removeLanguage(index:number):void{
     this.language.removeAt(index);
+
   }
 
   printSelectedRole(isFreelancerSelected: boolean, isEmployerSelected: boolean) {
