@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/Services/user.service';
 import { User } from 'src/app/classes/user';
@@ -15,13 +16,82 @@ export class OnboardEmployerComponent {
 
   email!: string;
   selectedRole!: string;
-  constructor(private route: ActivatedRoute,private router:Router, private userService:UserService) { }
+  constructor(private route: ActivatedRoute,private router:Router, private userService:UserService,private formbuilder:FormBuilder) { }
   user:User=new User();
+
+  personalForm: FormGroup = new FormGroup({
+    firstname: new FormControl(''),
+    lastname: new FormControl(''),
+    phonenumber: new FormControl(''),
+  })
+
+  otherInfoForm:FormGroup=new FormGroup({
+    facebook: new FormControl(''),
+    linkedin: new FormControl(''),
+    instagram: new FormControl(''),
+    persnolurl: new FormControl(''),
+    address: new FormControl(''),
+    city: new FormControl(''),
+    state: new FormControl(''),
+    postcode: new FormControl(''),
+    documenttype: new FormControl(''),
+    documentnumber: new FormControl(''),
+  })
+
+  employerForm:FormGroup=new FormGroup({
+    ecompany:new FormControl(''),
+    etagline:new FormControl(''),
+    establishdate:new FormControl(''),
+    industry:new FormControl(''),
+    ewebsite:new FormControl(''),
+    eteamsize:new FormControl(''),
+    edescribe:new FormControl('')
+  })
 
   ngOnInit(): void {
     this.email = this.route.snapshot.params['email'];
     console.log(this.email);
-    console.log('Select Role');
+    
+    this.personalForm = this.formbuilder.group({
+      firstname: ['', [Validators.required, Validators.minLength(4)]],
+      lastname: ['', [Validators.required, Validators.minLength(4)]],
+      phonenumber: ['', [Validators.required, Validators.minLength(10)]],
+    })
+
+    this.otherInfoForm=this.formbuilder.group({
+      facebook: ['', [Validators.required]],
+      linkedin: ['', [Validators.required]],
+      instagram: ['', [Validators.required]],
+      persnolurl: ['', [Validators.required]],
+      address: ['', [Validators.required,]],
+      city: ['', [Validators.required,]],
+      state: ['', [Validators.required,]],
+      postcode: ['', [Validators.required,]],
+      documenttype: ['', [Validators.required,]],
+      documentnumber: ['', [Validators.required,]],
+    })
+
+    this.employerForm=this.formbuilder.group({
+      ecompany: ['', [Validators.required]],
+      etagline: ['', [Validators.required]],
+      establishdate: ['', [Validators.required]],
+      industry: ['', [Validators.required]],
+      ewebsite: ['', [Validators.required]],
+      eteamsize:  ['', [Validators.required]],
+      edescribe: ['', [Validators.required]],
+    })
+  }
+
+  sizes = [
+    { label: "It's just me", value: "Just Me" },
+    { label: "2-9 employees", value: "2-9" },
+    { label: "10-99 employees", value: "10-99" },
+    { label: "100-1000 employees", value: "100-1000" },
+    { label: "More than 1000 employees", value: "More than 1000" }
+  ];
+
+  get teamSizeControl() {
+    return this.employerForm.get('eteamSize') as FormControl;
   }
 
   printSelectedRole(isFreelancerSelected: boolean, isEmployerSelected: boolean) {
@@ -40,6 +110,29 @@ export class OnboardEmployerComponent {
     })
   }
 
+  personalInfo() {
+    this.user = this.personalForm.value;
+    this.userService.personalInfo(this.user, this.email).subscribe((data) => {
+      console.log(data);
+    })
+  }
+
+  otherInfo(){
+    console.log(this.otherInfoForm.value)
+    this.user=this.otherInfoForm.value;
+    this.userService.otherInfo(this.user,this.email).subscribe((data)=>{
+      console.log(data);
+    })
+  }
+  
+  employerInfo(){
+    console.log(this.employerForm.value)
+    this.user=this.employerForm.value;
+    this.userService.employerInfo(this.email,this.user).subscribe((data)=>{
+      console.log(data)
+    })
+  }
+
   public selectedFieldSet = [0];
   public routes = routes;
   public displayBlock = false;
@@ -52,11 +145,6 @@ export class OnboardEmployerComponent {
   public selectedValue6 = '';
   public selectedValue7 = '';
   public selectedValue8 = '';
-  public skills: number[] = [];
-  public education: number[] = [];
-  public certification: number[] = [];
-  public experience: number[] = [];
-  public language: number[] = [];
   public datas : boolean[] = [true]
   public isCheckboxChecked = true;
 
@@ -66,42 +154,6 @@ export class OnboardEmployerComponent {
   none() {
     this.displayNone = !this.displayNone;
   }
-  addSkills() {
-    this.skills.push(1);
-    console.log('hii');
-  }
-  removeSkills(index: number) {
-    this.skills.splice(index, 1);
-  }
-
-  addEducation() {
-    this.education.push(1);
-  }
-  removeEducation(index: number) {
-    this.education.splice(index, 1);
-  }
-
-  addCertification() {
-    this.certification.push(1);
-  }
-  removeCertification(index: number) {
-    this.certification.splice(index, 1);
-  }
-
-  addExperience() {
-    this.experience.push(1);
-  }
-  removeExperience(index: number) {
-    this.experience.splice(index, 1);
-  }
-  
-  addLanguage() {
-    this.language.push(1);
-  }
-  removeLanguage(index: number) {
-    this.language.splice(index, 1);
-  }
-
 
   removeDatas(index: number) {
     this.datas[index] = !this.datas[index];

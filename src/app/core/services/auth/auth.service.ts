@@ -25,4 +25,48 @@ export class AuthService {
     localStorage.clear();
     sessionStorage.clear();
   }
+
+  public setToken(jwtToken: string) {
+    localStorage.setItem('jwtToken', jwtToken);
+  }
+
+  public getToken():any {
+    return localStorage.getItem('jwtToken');
+  }
+
+  public setUsername(username:string){
+    localStorage.setItem('username',username);
+  }
+
+  public getUsername():any{
+    return localStorage.getItem('username');
+  }
+
+  public setEmail(email:string){
+    localStorage.setItem('email',email);
+  }
+
+  public getEmail():any{
+    return localStorage.getItem('email');
+  }
+  
+  public setRoles(roles: []) {
+    localStorage.setItem('roles', JSON.stringify(roles));
+  }
+
+  public getRoles():[] {
+    const roles=localStorage.getItem('roles');
+    if(roles){
+      return JSON.parse(roles);
+    }
+    return [];
+  }
+
+  public clear() {
+    localStorage.clear();
+  }
+
+  public isLoggedIn() {
+     return this.getRoles() && this.getToken();
+  }
 }
