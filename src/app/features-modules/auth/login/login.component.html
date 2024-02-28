@@ -11,7 +11,7 @@
                         <h3>Welcome! Nice to see you again</h3>
                     
                     </div> -->
-                        <nav class="user-tabs mb-4">
+                        <!-- <nav class="user-tabs mb-4">
                             <ul role="tablist" class="nav nav-pills card-header-pills nav-justified">
                                 <li class="nav-item me-2">
                                     <a href="#freelancer" data-bs-toggle="tab"
@@ -21,7 +21,7 @@
                                     <a href="#company" data-bs-toggle="tab" class="nav-link  mb-1">COMPANY</a>
                                 </li>
                             </ul>
-                        </nav>
+                        </nav> -->
                         <div class="tab-content pt-0">
 
 
@@ -29,18 +29,18 @@
                             <div role="tabpanel" id="freelancer" class="tab-pane fade active show">
 
 
-                                <form>
+                                <form [formGroup]="loginForm" (ngSubmit)="myLogin()">
                                     <div class="input-block">
-                                        <label for="email-address" class="focus-label">Email Address <span
+                                        <label for="email" class="focus-label">Email Address <span
                                                 class="label-star"> *</span></label>
-                                        <input type="text" class="form-control floating">
+                                        <input type="text" class="form-control floating" formControlName="email" id="email">
                                     </div>
                                     <div class="input-block">
                                         <label for="password" class="focus-label">Password <span class="label-star">
                                                 *</span></label>
                                         <div class="position-relative">
                                             <input [type]="password[1] ? 'text' : 'password'"
-                                                class="form-control floating pass-input">
+                                                class="form-control floating pass-input" formControlName="password" id="password">
                                             <div class="password-icon" (click)="togglePassword(1)"
                                                 (keydown.enter)="togglePassword(1)" tabindex="0">
                                                 <span class="fas toggle-password"
@@ -48,7 +48,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <button [routerLink]="routes.freelancer_dashboard"
+                                    <button 
                                         class="btn btn-primary w-100 btn-lg login-btn d-flex align-items-center justify-content-center"
                                         type="submit">Login Now<i class="feather icon-arrow-right ms-2"></i></button>
                                     <!-- <div class="login-or">
@@ -69,13 +69,13 @@
                                         <div class="col-sm-8 dont-have d-flex  align-items-center">New to JobSupport4U
                                             <a [routerLink]="routes.register" class="ms-2">Signup?</a></div>
                                         <div class="col-sm-4 text-sm-end">
-                                            <a class="forgot-link" [routerLink]="routes.forgot_password">Forgot
+                                            <a class="forgot-link" [routerLink]="routes.forgot_password">Lost
                                                 Password?</a>
                                         </div>
                                     </div>
                                 </form>
                             </div>
-                            <div role="tabpanel" id="company" class="tab-pane fade">
+                            <!-- <div role="tabpanel" id="company" class="tab-pane fade">
                                 <form>
                                     <div class="input-block">
                                         <label for="email-address" class="focus-label">Email Address <span
@@ -95,9 +95,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <button [routerLink]="routes.employee_dashboard"
+                                    <button
                                         class="btn btn-primary w-100 btn-lg login-btn d-flex align-items-center justify-content-center"
-                                        type="submit">Login Now<i class="feather icon-arrow-right ms-2"></i></button>
+                                        type="submit">Login Now<i class="feather icon-arrow-right ms-2"></i></button> -->
                                     <!-- <div class="login-or">
                                     <p><span>OR</span></p>
                                 </div>
@@ -112,16 +112,16 @@
                                         <a href="javascript:void(0);" class="btn btn-block"><img src="assets/img/icon/ios-icon.svg" alt="Apple">Apple</a>
                                     </div>
                                 </div> -->
-                                    <div class="row">
+                                    <!-- <div class="row">
                                         <div class="col-sm-8 dont-have d-flex  align-items-center">New to JobSupport4U<a
                                                 [routerLink]="routes.register" class="ms-2">Signup?</a></div>
                                         <div class="col-sm-4 text-sm-end">
-                                            <a class="forgot-link" [routerLink]="routes.forgot_password">Forgot
+                                            <a class="forgot-link" [routerLink]="routes.forgot_password">Lost
                                                 Password?</a>
                                         </div>
                                     </div>
-                                </form>
-                            </div>
+                                </form> -->
+                            <!-- </div> -->
                         </div>
 
                     </div>

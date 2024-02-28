@@ -5,8 +5,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/Services/user.service';
 import { User } from 'src/app/classes/user';
 import { routes } from 'src/app/core/helpers/routes/routes';
-import { Certification, Education, Experience, Language, Skills } from 'src/app/core/models/models';
-import { UserDataDto } from 'src/app/dto/UserDataDto';
 
 interface data {
   value: string;
@@ -21,8 +19,9 @@ export class OnboardScreenComponent implements OnInit {
   email!: string;
   selectedRole!: string;
   user: User = new User();
-  userDataForm!:FormGroup;
-  dataDto!:UserDataDto;
+  userDataForm!: FormGroup;
+  skillsAdded: boolean = false;
+  public routes = routes;
 
   personalForm: FormGroup = new FormGroup({
     firstname: new FormControl(''),
@@ -79,32 +78,114 @@ export class OnboardScreenComponent implements OnInit {
     })
 
     this.userDataForm=this.formbuilder.group({
-      newSkills:this.formbuilder.array([])
+      skills:this.formbuilder.array([this.createSkill()]),
+      educations:this.formbuilder.array([this.createEducation()]),
+      certifications:this.formbuilder.array([this.createCertificate()]),
+      experiences:this.formbuilder.array([this.createExperience()]),
+      languages:this.formbuilder.array([this.createLanguage()]),
     });
   }
   
-  // createSkill():FormGroup{
-  //   return this.formbuilder.group({
-  //     skills:[''],
-  //     level:['']
-  //   })
-  // }
+  createSkill(): FormGroup {
+    return this.formbuilder.group({
+      skills: [''],
+      level: ['']
+    });
+  }
 
-  get newSkills():FormArray{
-    return this.userDataForm.get('newSkills') as FormArray;
+  createEducation():FormGroup{
+    return this.formbuilder.group({
+      degree:[''],
+      university:[''],
+      startdate:[''],
+      enddate:['']
+    });
+  }
+
+  createCertificate():FormGroup{
+    return this.formbuilder.group({
+      certification:[''],
+      certifiedfrom:[''],
+      year:['']
+    });
+  }
+
+  createExperience():FormGroup{
+    return this.formbuilder.group({
+      companyname:[''],
+      position:[''],
+      companystartdate:[''],
+      companyenddate:['']
+    });
+  }
+
+  createLanguage(): FormGroup {
+    return this.formbuilder.group({
+      language: [''],
+      chooselevel: ['']
+    });
+  }
+
+  get skills(): FormArray {
+    return this.userDataForm.get('skills') as FormArray;
+  }
+
+  get education(): FormArray {
+    return this.userDataForm.get('educations') as FormArray;
+  }
+
+  get certification(): FormArray {
+    return this.userDataForm.get('certifications') as FormArray;
+  }
+
+  get experience(): FormArray {
+    return this.userDataForm.get('experiences') as FormArray;
+  }
+
+  get language(): FormArray {
+    return this.userDataForm.get('languages') as FormArray;
   }
 
   addSkills():void {
-    this.newSkills.push(this.formbuilder.group({
-      skills:[''],
-      level:['']
-    }));
-    this.skills.push(1);
+    this.skillsAdded = true;
+    this.skills.push(this.createSkill());
   }
 
-  removeSkills(index: number) {
-    this.newSkills.removeAt(index)
-    this.skills.splice(index, 1);
+  removeSkills(index: number): void {
+    this.skills.removeAt(index);
+  }
+
+  addEducations():void{
+    this.education.push(this.createEducation());
+  }
+
+  removeEducation(index:number):void{
+    this.education.removeAt(index);
+  }
+
+  addCertification():void{
+    this.certification.push(this.createCertificate());
+  }
+
+  removeCertification(index:number):void{
+    this.certification.removeAt(index);
+  }
+
+  addExperience():void{
+    this.experience.push(this.createExperience());
+  }
+
+  removeExperience(index:number):void{
+    this.experience.removeAt(index);
+  }
+
+  addLanguage():void{
+    this.language.push(this.createLanguage());
+  }
+
+  removeLanguage(index:number):void{
+    this.language.removeAt(index);
+
   }
 
   printSelectedRole(isFreelancerSelected: boolean, isEmployerSelected: boolean) {
@@ -128,13 +209,11 @@ export class OnboardScreenComponent implements OnInit {
     })
   }
   skillsandExp() {
-    this.dataDto=this.userDataForm.value
-    this.userService.userData(this.email, this.dataDto).subscribe((data) => {
+    console.log(this.userDataForm.value);
+    // const userdata=this.userDataForm.value;
+    this.userService.userData(this.email, this.userDataForm.value).subscribe((data) => {
       console.log(data);
-    },
-      error => {
-        console.error('Error Occured:', error);
-      });
+    });
   }
 
   otherInfo(){
@@ -146,7 +225,6 @@ export class OnboardScreenComponent implements OnInit {
   }
 
   public selectedFieldSet = [0];
-  public routes = routes;
   public displayBlock = false;
   public displayNone = false;
   public selectedValue1 = '';
@@ -157,11 +235,11 @@ export class OnboardScreenComponent implements OnInit {
   public selectedValue6 = '';
   public selectedValue7 = '';
   public selectedValue8 = '';
-  public skills: number[] = [];
-  public education: number[] = [];
-  public certification: number[] = [];
-  public experience: number[] = [];
-  public language: number[] = [];
+  // public skills: number[] = [];
+  // public education: number[] = [];
+  // public certification: number[] = [];
+  // public experience: number[] = [];
+  // public language: number[] = [];
   public datas: boolean[] = [true]
   public isCheckboxChecked = true;
 
@@ -172,46 +250,43 @@ export class OnboardScreenComponent implements OnInit {
     this.displayNone = !this.displayNone;
   }
 
-  addEducation() {
-    this.education.push(1);
-  }
-  removeEducation(index: number) {
-    this.education.splice(index, 1);
-  }
+  // addEducation() {
+  //   this.education.push(1);
+  // }
+  // // removeEducation(index: number) {
+  // //   this.education.splice(index, 1);
+  // // }
 
-  addCertification() {
-    this.certification.push(1);
-  }
-  removeCertification(index: number) {
-    this.certification.splice(index, 1);
-  }
+  // addCertification() {
+  //   this.certification.push(1);
+  // }
+  // removeCertification(index: number) {
+  //   this.certification.splice(index, 1);
+  // }
 
-  addExperience() {
-    this.experience.push(1);
-  }
-  removeExperience(index: number) {
-    this.experience.splice(index, 1);
-  }
+  // addExperience() {
+  //   this.experience.push(1);
+  // }
+  // removeExperience(index: number) {
+  //   this.experience.splice(index, 1);
+  // }
 
-  addLanguage() {
-    this.language.push(1);
-  }
-  removeLanguage(index: number) {
-    this.language.splice(index, 1);
-  }
+  // addLanguage() {
+  //   this.language.push(1);
+  // }
+  // removeLanguage(index: number) {
+  //   this.language.splice(index, 1);
+  // }
 
   removeDatas(index: number) {
     this.datas[index] = !this.datas[index];
   }
   selectedList1: data[] = [
-    { value: 'Choose Level' },
-    { value: 'Select' },
     { value: 'Full Time' },
     { value: 'Part Time' },
     { value: 'Hourly' },
   ];
   selectedList2: data[] = [
-    { value: 'Choose Level' },
     { value: 'Basic' },
     { value: 'Intermediate' },
     { value: 'Proficient' },
@@ -252,28 +327,28 @@ export class OnboardScreenComponent implements OnInit {
   ];
   showTimePicker: Array<string> = [];
 
-  public hoursArray1 = [0];
-  public hoursArray2 = [0];
-  public hoursArray3 = [0];
-  public hoursArray4 = [0];
-  public hoursArray5 = [0];
-  public hoursArray6 = [0];
-  public hoursArray7 = [0];
+  // public hoursArray1 = [0];
+  // public hoursArray2 = [0];
+  // public hoursArray3 = [0];
+  // public hoursArray4 = [0];
+  // public hoursArray5 = [0];
+  // public hoursArray6 = [0];
+  // public hoursArray7 = [0];
 
-  startTime1 = new Date();
-  startTime2 = new Date();
-  startTime3 = new Date();
-  startTime4 = new Date();
-  startTime5 = new Date();
-  startTime6 = new Date();
-  startTime7 = new Date();
-  endTime1 = new Date();
-  endTime2 = new Date();
-  endTime3 = new Date();
-  endTime4 = new Date();
-  endTime5 = new Date();
-  endTime6 = new Date();
-  endTime7 = new Date();
+  // startTime1 = new Date();
+  // startTime2 = new Date();
+  // startTime3 = new Date();
+  // startTime4 = new Date();
+  // startTime5 = new Date();
+  // startTime6 = new Date();
+  // startTime7 = new Date();
+  // endTime1 = new Date();
+  // endTime2 = new Date();
+  // endTime3 = new Date();
+  // endTime4 = new Date();
+  // endTime5 = new Date();
+  // endTime6 = new Date();
+  // endTime7 = new Date();
 
 
 

@@ -1,11 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
-  UntypedFormControl,
-  UntypedFormGroup,
-  Validators,
-} from '@angular/forms';
+  FormBuilder,
+  FormGroup,
+  Validators,} from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { UserService } from 'src/app/Services/user.service';
 import { routes } from 'src/app/core/helpers/routes/routes';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { WebStorage } from 'src/app/core/storage/web.storage';
 
 
@@ -14,45 +16,83 @@ import { WebStorage } from 'src/app/core/storage/web.storage';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit ,OnDestroy{
+export class LoginComponent implements OnInit{
   public password: boolean[] = [true];
   public routes = routes
   public Toggledata = true;
    
   public CustomControler: unknown;
   public subscription: Subscription;
-  form = new UntypedFormGroup({
-    email: new UntypedFormControl('admin@dreamguys.in', [Validators.required]),
-    password: new UntypedFormControl('123456', [Validators.required]),
-  });
-  get f() {
-    return this.form.controls;
-  }
+  loginForm!:FormGroup;
 
-  constructor(private storage: WebStorage) {
+
+  constructor(private storage: WebStorage,private formbuilder:FormBuilder,
+    private userService:UserService,private auth:AuthService,private router:Router) {
     this.subscription = this.storage.Loginvalue.subscribe((data) => {
       if (data != '0') {
         this.CustomControler = data;
       }
     });
   }
+ 
   ngOnInit() {
     this.storage.Checkuser();
     localStorage.removeItem('LoginData');
+
+    this.loginForm=this.formbuilder.group({
+      email:['',[Validators.required]],
+      password:['',[Validators.required]],
+    })
   }
 
-  submit() {
-    this.storage.Login(this.form.value);
+  myLogin(){
+    console.log(this.loginForm.value);
+    this.userService.login(this.loginForm.value).subscribe((data:any)=>{
+      console.log('Login success',data);
+      
+      const jwtToken = data.jwtToken;
+      const user=data.user;
+      const role=user.role;
+      const isVerified=user.verified;
+
+      this.auth.setToken(jwtToken);
+      this.auth.setRoles(role);
+      this.auth.setUsername(user.username);
+      this.auth.setEmail(user.email);
+
+      console.log(jwtToken)
+      console.log(user)
+
+      if(isVerified){
+        if(role ==='Freelancer'){
+          this.router.navigate(['/freelancer/dashboards']);
+        }
+        else if(role ==='Employer'){
+         this.router.navigate(['/employer/dashboard']);
+        }else{
+          alert('Invalid Credentials..!!')
+        }
+      }
+      else{
+        alert('Your Account is not Verified..!!!')
+      }
+    },(error)=>{
+      console.error('Login Error',error);
+    })
   }
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
-  iconLogle() {
-    this.Toggledata = !this.Toggledata;
-  }
-  otherPages(val: string) {
-    localStorage.setItem(val, val);
-  }
+
+  // submit() {
+  //   this.storage.Login(this.form.value);
+  // }
+  // ngOnDestroy() {
+  //   this.subscription.unsubscribe();
+  // }
+  // iconLogle() {
+  //   this.Toggledata = !this.Toggledata;
+  // }
+  // otherPages(val: string) {
+  //   localStorage.setItem(val, val);
+  // }
   
 
   public togglePassword(index: number) {

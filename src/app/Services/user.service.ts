@@ -1,8 +1,7 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { User } from '../classes/user';
-import { UserDataDto } from '../dto/UserDataDto';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +11,10 @@ export class UserService {
 constructor(private http:HttpClient){}
 
   private baseurl="http://localhost:8080";
+
+  login(data:any){
+    return this.http.post(`${this.baseurl}/authenticate`,data);
+  }
 
   register(user: User):Observable<any>{
     return this.http.post(`${this.baseurl}/register` , user);
@@ -29,8 +32,8 @@ constructor(private http:HttpClient){}
     return this.http.put(`${this.baseurl}/persnolInfo/${email}`,user)
   }
 
-  userData(email: string, userDto: UserDataDto): Observable<any> {
-    return this.http.post<any>(`${this.baseurl}/addUserData/${email}`, userDto);
+  userData(email: string, userdata: any): Observable<any> {
+    return this.http.post<any>(`${this.baseurl}/addUserData/${email}`, userdata);
   }
 
   otherInfo(user:User,email:string){
