@@ -97,10 +97,6 @@ const routes: Routes = [
         path: '404-page', 
         loadChildren: () => import('./errorfound/errorfound.module').then(m => m.ErrorfoundModule) 
       },
-      {
-        path:'skills_exp',
-        loadChildren:()=> import('./skills-exp/skills-exp.module').then(m=>m.SkillsExpModule)
-      }
     ],
   },
 ];

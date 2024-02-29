@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit{
     })
   }
 
-  myLogin(){
+  freelancerLogin(){
     console.log(this.loginForm.value);
     this.userService.login(this.loginForm.value).subscribe((data:any)=>{
       console.log('Login success',data);
@@ -67,7 +67,38 @@ export class LoginComponent implements OnInit{
         if(role ==='Freelancer'){
           this.router.navigate(['/freelancer/dashboards']);
         }
-        else if(role ==='Employer'){
+        else{
+          alert('Invalid Credentials..!!')
+        }
+      }
+      else{
+        alert('Your Account is not Verified..!!!')
+      }
+    },(error)=>{
+      console.error('Login Error',error);
+    })
+  }
+
+  employerLogin(){
+    console.log(this.loginForm.value);
+    this.userService.login(this.loginForm.value).subscribe((data:any)=>{
+      console.log('Login success',data);
+      
+      const jwtToken = data.jwtToken;
+      const user=data.user;
+      const role=user.role;
+      const isVerified=user.verified;
+
+      this.auth.setToken(jwtToken);
+      this.auth.setRoles(role);
+      this.auth.setUsername(user.username);
+      this.auth.setEmail(user.email);
+
+      console.log(jwtToken)
+      console.log(user)
+
+      if(isVerified){
+        if(role ==='Employer'){
          this.router.navigate(['/employer/dashboard']);
         }else{
           alert('Invalid Credentials..!!')
@@ -80,7 +111,6 @@ export class LoginComponent implements OnInit{
       console.error('Login Error',error);
     })
   }
-
   // submit() {
   //   this.storage.Login(this.form.value);
   // }

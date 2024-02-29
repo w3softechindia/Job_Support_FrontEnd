@@ -42,8 +42,8 @@
 													<div class="multi-step"><img
 															src="assets/img/icon/wizard-icon-03.svg" alt="Img"></div>
 													<div class="steps-count">
-														<span>Step 3/4</span>
-														<h5>Employer Info </h5>
+														<span>Step 3/5</span>
+														<h5>Skills & Experience</h5>
 													</div>
 												</li>
 												<li
@@ -62,6 +62,7 @@
 							</div>
 						</div>
 						<!-- /Freelancer Multistep -->
+
 
 						<!-- Accounting Onboard -->
 						<div class="text-center on-board select-account group-select"
@@ -149,264 +150,263 @@
 													formControlName="phonenumber" />
 											</div>
 										</div>
-
-										<div class="text-center">
-											<input class="btn btn-prev prev_btn btn-back" name="next" type="button"
-												value="Back" (click)="selectedFieldSet[0] = 0; block()">
-											<input class="btn next_btn btn-primary btn-get btn-next" name="next"
-												type="submit" value="Next" (click)="selectedFieldSet[0] = 2"
-												(keydown.enter)="selectedFieldSet[0] = 2">
-										</div>
+									</div>
+									<div class="text-center">
+										<input class="btn btn-prev prev_btn btn-back" name="next" type="button"
+											value="Back" (click)="selectedFieldSet[0] = 0; block()">
+										<input class="btn next_btn btn-primary btn-get btn-next" name="next"
+											type="submit" value="Next" (click)="selectedFieldSet[0] = 2"
+											(keydown.enter)="selectedFieldSet[0] = 2">
 									</div>
 								</form>
 							</div>
-							<!-- /Personal Info -->
+						</div>
+						<!-- /Personal Info -->
 
-							<!-- Employer Info -->
-							<div class="on-board field-card select-account select-btn"
-								[class.d-block]="selectedFieldSet[0] === 2">
-								<div class="text-center onboard-head">
-									<h2>Employer Info</h2>
-									<p>This is your time to shine. Let potential buyers know what you do best and how
-										you
-										gained your skills, certifications and experience</p>
-								</div>
-								<div class="field-item personal-info space-info">
-									<form [formGroup]="employerForm" (ngSubmit)="employerInfo()">
+						<!-- Employer Info  -->
+						<div class="on-board field-card select-account select-btn"
+							[class.d-block]="selectedFieldSet[0] === 2">
+							<div class="text-center onboard-head">
+								<h2>Employer Info</h2>
+								<p>This is your time to shine. Let potential buyers know what you do best and how you
+									gained your skills, certifications and experience</p>
+							</div>
+							<div class="field-item personal-info space-info">
+								<form [formGroup]="employerForm" (ngSubmit)="employerInfo()">
+									<div class="row">
+										<div class="col-md-12">
+											<h4>Details</h4>
+										</div>
+										<div class="col-md-6">
+											<div class="input-block">
+												<label for="ecompany" class="form-label">Company Name</label>
+												<input type="text" class="form-control" formControlName="ecompany"
+													id="ecompany">
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="input-block">
+												<label for="etagline" class="form-label">Tagline</label>
+												<input type="text" class="form-control" formControlName="etagline"
+													id="etagline">
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="input-block">
+												<label for="establishdate" class="form-label">Established On</label>
+												<input type="text" class="form-control" formControlName="establishdate"
+													id="establishdate">
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="input-block">
+												<label for="ecompanyownername" class="form-label">Company Owner
+													Name</label>
+												<input type="text" class="form-control"
+													formControlName="ecompanyownername" id="ecompanyownername">
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="input-block">
+												<label class="focus-label" for="industry">Industry</label>
+												<mat-select id="industry" formControlName="industry"
+													class="select mat-select arrow verify" placeholder="Select">
+													<mat-option *ngFor="let data of selectedList3" [value]="data.value">
+														{{data.value}}
+													</mat-option>
+												</mat-select>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="input-block">
+												<label for="ewebsite" class="form-label">Website</label>
+												<input type="text" class="form-control" formControlName="ewebsite"
+													id="ewebsite">
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div class="input-block">
+												<label for="eteamsize" class="form-label">Team Size</label>
+											  </div>
+											  <div class="check-radio">
+												<ul>
+												  <li *ngFor="let size of sizes">
+													<label class="custom_radio me-4">
+													  <input type="radio" [value]="size.value" [formControl]="teamSizeControl" formControlName="eteamsize">
+													  <span class="checkmark"></span>{{ size.label }}
+													</label>
+												  </li>
+												</ul>
+											</div>												  
+										</div>
+										<div class="col-md-12">
+											<div class="input-block min-characters">
+												<label for="edescribe" class="form-label">Describe Yourself</label>
+												<textarea class="form-control" rows="5" formControlName="edescribe"
+													id="edescribe"></textarea>
+											</div>
+										</div>
+									</div>
+									<div class="text-center">
+										<input class="btn btn-prev prev_btn btn-back" name="next" type="button"
+											value="Back" (click)="selectedFieldSet[0] = 1">
+										<input class="btn next_btn btn-primary btn-get btn-next" name="next"
+											type="submit" value="Next" (click)="selectedFieldSet[0] = 3">
+									</div>
+								</form>
+							</div>
+						</div>
+						<!-- /Skills & Experience -->
+
+						<!-- Other Info -->
+						<div class="on-board field-card select-account select-btn"
+							[class.d-block]="selectedFieldSet[0] === 3">
+							<div class="text-center onboard-head">
+								<h2>Other info</h2>
+								<p>Don’t worry, this can be changed later.</p>
+							</div>
+							<div class="field-item personal-info">
+								<form (ngSubmit)="otherInfo()" [formGroup]="otherInfoForm">
+									<div class="media-set">
 										<div class="row">
 											<div class="col-md-12">
-												<h4>Details</h4>
+												<h4>Social Media</h4>
 											</div>
-											<div class="col-md-6">
+											<div class="col-md-4">
 												<div class="input-block">
-													<label for="ecompany" class="form-label">Company Name</label>
-													<input type="text" class="form-control" formControlName="ecompany" id="ecompany">
+													<label for="Facebook" class="form-label">Facebook</label>
+													<input type="text" class="form-control" id="facebook"
+														formControlName="facebook" />
 												</div>
 											</div>
-											<div class="col-md-6">
+											<div class="col-md-4">
 												<div class="input-block">
-													<label for="etagline" class="form-label">Tagline</label>
-													<input type="text" class="form-control" formControlName="etagline" id="etagline">
+													<label for="instagram" class="form-label">Instagram
+													</label>
+													<input type="text" class="form-control" id="instagram"
+														formControlName="instagram" />
 												</div>
 											</div>
-											<div class="col-md-6">
+											<div class="col-md-4">
 												<div class="input-block">
-													<label for="establishdate" class="form-label">Established On</label>
-													<input type="text" class="form-control" formControlName="establishdate" id="establishdate">
-												</div>
-											</div>
-											<div class="col-md-6">
-												<div class="input-block">
-													<label for="ecompanyownername" class="form-label">Company Owner
-														Name</label>
-													<input type="text" class="form-control" formControlName="ecompanyownername" id="ecompanyownername">
-												</div>
-											</div>
-											<div class="col-md-6">
-												<div class="input-block">
-													<label class="focus-label" for="industry">Industry</label>
-													<mat-select id="industry" formControlName="industry"
-														class="select mat-select arrow verify" placeholder="Select">
-														<mat-option *ngFor="let data of selectedList3"
-															[value]="data.value">
-															{{data.value}}
-														</mat-option>
-													</mat-select>
-												</div>
-											</div>
-											<div class="col-md-6">
-												<div class="input-block">
-													<label for="ewebsite" class="form-label">Website</label>
-													<input type="text" class="form-control" formControlName="ewebsite" id="ewebsite">
-												</div>
-											</div>
-											<div class="col-md-12">
-												<div class="input-block">
-													<label for="eteamsize" class="form-label">Team Size</label>
-												  </div>
-												  <div class="check-radio">
-													<ul>
-													  <li *ngFor="let size of sizes">
-														<label class="custom_radio me-4">
-														  <input type="radio" [value]="size.value" [formControl]="teamSizeControl">
-														  <span class="checkmark"></span>{{ size.label }}
-														</label>
-													  </li>
-													</ul>
-												</div>												  
-											</div>
-											<div class="col-md-12">
-												<div class="input-block min-characters">
-													<label for="edescribe" class="form-label">Describe Yourself</label>
-													<textarea class="form-control" rows="5" formControlName="edescribe" id="edescribe"></textarea>
+													<label for="linkedin" class="form-label">LinkedIn
+													</label>
+													<input type="text" class="form-control" id="linkedin "
+														formControlName="linkedin" />
 												</div>
 											</div>
 										</div>
-
-									</form>
-
-								</div>
-								<div class="text-center">
-									<input class="btn btn-prev prev_btn btn-back" name="next" type="button" value="Back"
-										(click)="selectedFieldSet[0] = 1">
-									<input class="btn next_btn btn-primary btn-get btn-next" name="next" type="submit"
-										value="Next" (click)="selectedFieldSet[0] = 3">
-								</div>
-							</div>
-							<!-- /Skills & Experience -->
-
-							<!-- Other Info -->
-							<div class="on-board field-card select-account select-btn"
-								[class.d-block]="selectedFieldSet[0] === 3">
-								<div class="text-center onboard-head">
-									<h2>Other info</h2>
-									<p>Don’t worry, this can be changed later.</p>
-								</div>
-								<div class="field-item personal-info">
-									<form (ngSubmit)="otherInfo()" [formGroup]="otherInfoForm">
+									</div>
+									<div>
 										<div class="media-set">
 											<div class="row">
 												<div class="col-md-12">
-													<h4>Social Media</h4>
+													<h4>Personal Website</h4>
 												</div>
-												<div class="col-md-4">
+												<div class="col-md-12">
 													<div class="input-block">
-														<label for="Facebook" class="form-label">Facebook</label>
-														<input type="text" class="form-control" id="facebook"
-															formControlName="facebook" />
-													</div>
-												</div>
-												<div class="col-md-4">
-													<div class="input-block">
-														<label for="instagram" class="form-label">Instagram
-														</label>
-														<input type="text" class="form-control" id="instagram"
-															formControlName="instagram" />
-													</div>
-												</div>
-												<div class="col-md-4">
-													<div class="input-block">
-														<label for="linkedin" class="form-label">LinkedIn
-														</label>
-														<input type="text" class="form-control" id="linkedin "
-															formControlName="linkedin" />
+														<label for="website-url" class="form-label">Website
+															Url</label>
+														<input type="text" class="form-control" id="persnolurl"
+															formControlName="persnolurl" />
 													</div>
 												</div>
 											</div>
 										</div>
-										<div>
-											<div class="media-set">
-												<div class="row">
-													<div class="col-md-12">
-														<h4>Personal Website</h4>
-													</div>
-													<div class="col-md-12">
-														<div class="input-block">
-															<label for="website-url" class="form-label">Website
-																Url</label>
-															<input type="text" class="form-control" id="persnolurl"
-																formControlName="persnolurl" />
-														</div>
+										<div class="media-set">
+											<div class="row">
+												<div class="col-md-12">
+													<h4>Location</h4>
+												</div>
+												<div class="col-md-12">
+													<div class="input-block">
+														<label for="Address" class="form-label">Address</label>
+														<input type="text" class="form-control" id="address"
+															formControlName="address" />
 													</div>
 												</div>
-											</div>
-											<div class="media-set">
-												<div class="row">
-													<div class="col-md-12">
-														<h4>Location</h4>
+												<div class="col-md-3">
+													<div class="input-block">
+														<label for="city" class="form-label">City</label>
+														<input type="text" class="form-control" id="city"
+															formControlName="city" />
 													</div>
-													<div class="col-md-12">
-														<div class="input-block">
-															<label for="Address" class="form-label">Address</label>
-															<input type="text" class="form-control" id="address"
-																formControlName="address" />
-														</div>
-													</div>
-													<div class="col-md-3">
-														<div class="input-block">
-															<label for="city" class="form-label">City</label>
-															<input type="text" class="form-control" id="city"
-																formControlName="city" />
-														</div>
 
-													</div>
-													<div class="col-md-3">
-														<div class="input-block">
-															<label for="state" class="form-label">State /
-																Province</label>
-															<input type="text" class="form-control" id="state"
-																formControlName="state" />
-														</div>
-													</div>
-													<div class="col-md-3">
-														<div class="input-block">
-															<label for="post-code" class="form-label">ZIP / Post
-																Code</label>
-															<input type="text" class="form-control" id="postcode"
-																formControlName="postcode" />
-														</div>
+												</div>
+												<div class="col-md-3">
+													<div class="input-block">
+														<label for="state" class="form-label">State /
+															Province</label>
+														<input type="text" class="form-control" id="state"
+															formControlName="state" />
 													</div>
 												</div>
-											</div>
-											<div class="media-set">
-												<div class="row">
-													<div class="col-md-12">
-														<h4>KYC Upload</h4>
-													</div>
-													<div class="col-md-6">
-														<div class="input-block">
-															<label for="document-type" class="form-label">Document
-																Type</label>
-															<mat-select id="documenttype" formControlName="documenttype"
-																class="select mat-select arrow verify"
-																placeholder="Select">
-																<mat-option *ngFor="let data of selectedList8"
-																	[value]="data.value">
-																	{{ data.value }}
-																</mat-option>
-															</mat-select>
-														</div>
-													</div>
-													<div class="col-md-6">
-														<div class="input-block">
-															<label for="document-number" class="form-label">Document
-																Number</label>
-															<input type="text" class="form-control" id="documentnumber"
-																formControlName="documentnumber" />
-														</div>
-													</div>
-													<div class="col-md-12">
-														<div class="input-block">
-															<label for="document-number" class="form-label">Document
-																Number</label>
-															<div class="upload-sets">
-																<label class="upload-filesview">
-																	Browse File
-																	<input type="file" />
-																</label>
-																<h6>Or Drag & Drop here</h6>
-															</div>
-															<span class="text-success"><i
-																	class="fa fa-check-circle me-2"
-																	aria-hidden="true"></i>Passport.jpg Uploaded
-																Successfully</span>
-														</div>
+												<div class="col-md-3">
+													<div class="input-block">
+														<label for="post-code" class="form-label">ZIP / Post
+															Code</label>
+														<input type="text" class="form-control" id="postcode"
+															formControlName="postcode" />
 													</div>
 												</div>
 											</div>
 										</div>
-										<div class="text-center">
-											<input class="btn btn-prev prev_btn btn-back" name="next" type="button"
-												value="Back" (click)="selectedFieldSet[0] = 2"
-												(keydown.enter)="selectedFieldSet[0] = 2" />
-											<input class="btn next_btn btn-primary btn-get btn-next"
-												[routerLink]="routes.login" name="next" type="submit" value="Submit" />
+										<div class="media-set">
+											<div class="row">
+												<div class="col-md-12">
+													<h4>KYC Upload</h4>
+												</div>
+												<div class="col-md-6">
+													<div class="input-block">
+														<label for="document-type" class="form-label">Document
+															Type</label>
+														<mat-select id="documenttype" formControlName="documenttype"
+															class="select mat-select arrow verify" placeholder="Select">
+															<mat-option *ngFor="let data of selectedList8"
+																[value]="data.value">
+																{{ data.value }}
+															</mat-option>
+														</mat-select>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="input-block">
+														<label for="document-number" class="form-label">Document
+															Number</label>
+														<input type="text" class="form-control" id="documentnumber"
+															formControlName="documentnumber" />
+													</div>
+												</div>
+												<div class="col-md-12">
+													<div class="input-block">
+														<label for="document-number" class="form-label">Document
+															Number</label>
+														<div class="upload-sets">
+															<label class="upload-filesview">
+																Browse File
+																<input type="file" />
+															</label>
+															<h6>Or Drag & Drop here</h6>
+														</div>
+														<span class="text-success"><i class="fa fa-check-circle me-2"
+																aria-hidden="true"></i>Passport.jpg Uploaded
+															Successfully</span>
+													</div>
+												</div>
+											</div>
 										</div>
-									</form>
-								</div>
+									</div>
+									<div class="text-center">
+										<input class="btn btn-prev prev_btn btn-back" name="next" type="button"
+											value="Back" (click)="selectedFieldSet[0] = 2"
+											(keydown.enter)="selectedFieldSet[0] = 2" />
+										<input class="btn next_btn btn-primary btn-get btn-next"
+											[routerLink]="routes.login" name="next" type="submit" value="Submit" />
+									</div>
+								</form>
 							</div>
-							<!-- /Other Info -->
 						</div>
+						<!-- /Other Info -->
 					</div>
 				</div>
 			</div>

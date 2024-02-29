@@ -47,4 +47,24 @@ constructor(private http:HttpClient){}
   employerInfo(email:string,user:User){
     return this.http.put(`${this.baseurl}/employerInfo/${email}`,user)
   }
+
+  //Send Otp to mail
+  SendOtp(email:string,user:User):Observable<any>{
+    return this.http.put(`${this.baseurl}/sendOTP/${email}`,user);
+  }
+
+  //Verify Otp and Mail
+  verifyOtpEmail(email:string,otp:string,result:boolean):Observable<any>{
+    return this.http.put(`${this.baseurl}/verifyOTP/${email}/${otp}`,result);
+  }
+
+  //Reset Password
+  resetPwd(email:string,password:string,user:User):Observable<any>{
+    return this.http.put(`${this.baseurl}/resetPassword/${email}/${password}`,user)
+  }
+
+  //Resend Otp
+  resendOTP(email:string){
+    return this.http.put(`${this.baseurl}/regenerate-otp/${email}`,{responseType:'text'});
+  }
 }
