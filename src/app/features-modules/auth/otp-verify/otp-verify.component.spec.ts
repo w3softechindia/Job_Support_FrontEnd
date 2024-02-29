@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SkillsExpComponent } from './skills-exp.component';
+import { OtpVerifyComponent } from './otp-verify.component';
 
-describe('SkillsExpComponent', () => {
-  let component: SkillsExpComponent;
-  let fixture: ComponentFixture<SkillsExpComponent>;
+describe('OtpVerifyComponent', () => {
+  let component: OtpVerifyComponent;
+  let fixture: ComponentFixture<OtpVerifyComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [SkillsExpComponent]
+      declarations: [OtpVerifyComponent]
     });
-    fixture = TestBed.createComponent(SkillsExpComponent);
+    fixture = TestBed.createComponent(OtpVerifyComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

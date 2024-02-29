@@ -23,8 +23,10 @@
                                     <input [(ngModel)]="oneTimePassword.data4" maxlength="1" (keydown.backspace)="tiggerBackspace(oneTimePassword.data4 , 'digit-4')"  (input)="ValueChanged(oneTimePassword.data4 , 'digit-4')" type="text" id="digit-4" name="digit-4" data-next="digit-5" data-previous="digit-3" maxlength="1">
                                 </div>
                             </div>	
-                            <div class="resend-code">Didn't receive OTP code? <a href="javascript:void(0);"> Resend Code</a></div> 
-                            <!-- <span class="expire-time-count"><i class="feather icon-clock me-2"></i>{{ remainingTime }}</span> -->
+                            <div class="resend-code">Didn't receive OTP code? 
+                                <span *ngIf="remainingTime > 0">{{ remainingTime }} seconds</span>
+                                <a href="javascript:void(0);" (click)="resendOTP()" *ngIf="remainingTime <= 0">Resend Code</a>
+                              </div> 
                             <button class="btn btn-primary w-100 btn-lg login-btn d-flex align-items-center justify-content-center" type="submit">Verify Email<i class="feather icon-arrow-right ms-2"></i></button>
                         </form>
                     </div>

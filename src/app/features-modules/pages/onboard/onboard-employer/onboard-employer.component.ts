@@ -42,6 +42,7 @@ export class OnboardEmployerComponent {
     ecompany:new FormControl(''),
     etagline:new FormControl(''),
     establishdate:new FormControl(''),
+    ecompanyownername:new FormControl(''),
     industry:new FormControl(''),
     ewebsite:new FormControl(''),
     eteamsize:new FormControl(''),
@@ -58,6 +59,17 @@ export class OnboardEmployerComponent {
       phonenumber: ['', [Validators.required, Validators.minLength(10)]],
     })
 
+    this.employerForm=this.formbuilder.group({
+      ecompany: ['', [Validators.required]],
+      etagline: ['', [Validators.required]],
+      establishdate: ['', [Validators.required]],
+      ecompanyownername: ['', [Validators.required]],
+      industry: ['', [Validators.required]],
+      ewebsite: ['', [Validators.required]],
+      eteamsize:  ['', [Validators.required]],
+      edescribe: ['', [Validators.required]],
+    })
+
     this.otherInfoForm=this.formbuilder.group({
       facebook: ['', [Validators.required]],
       linkedin: ['', [Validators.required]],
@@ -69,16 +81,6 @@ export class OnboardEmployerComponent {
       postcode: ['', [Validators.required,]],
       documenttype: ['', [Validators.required,]],
       documentnumber: ['', [Validators.required,]],
-    })
-
-    this.employerForm=this.formbuilder.group({
-      ecompany: ['', [Validators.required]],
-      etagline: ['', [Validators.required]],
-      establishdate: ['', [Validators.required]],
-      industry: ['', [Validators.required]],
-      ewebsite: ['', [Validators.required]],
-      eteamsize:  ['', [Validators.required]],
-      edescribe: ['', [Validators.required]],
     })
   }
 
