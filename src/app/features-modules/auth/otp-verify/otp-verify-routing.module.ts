@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SkillsExpComponent } from './skills-exp.component';
+import { OtpVerifyComponent } from './otp-verify.component';
 
-const routes: Routes = [{path:'',component:SkillsExpComponent}];
+const routes: Routes = [{path:'',component:OtpVerifyComponent}];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class SkillsExpRoutingModule { }
+export class OtpVerifyRoutingModule { }

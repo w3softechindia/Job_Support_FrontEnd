@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Validators } from 'ngx-editor';
+import { UserService } from 'src/app/Services/user.service';
+import { User } from 'src/app/classes/user';
 import { routes } from 'src/app/core/helpers/routes/routes';
 
 @Component({
@@ -10,12 +14,31 @@ import { routes } from 'src/app/core/helpers/routes/routes';
 export class ResetPasswordComponent {
   public password: boolean[] = [true];
   public routes = routes
+  newPassword: string = '';
+  confirmPassword: string = '';
+  passwordMismatch: boolean = false;
+  email!:string;
+  user!:User;
+
+  constructor(private router: Router,private userService:UserService,private route:ActivatedRoute) {}
+
+  ngOnInit() {
+   this.email=this.route.snapshot.params['email']
+  }
 
   public togglePassword(index: number) {
     this.password[index] = !this.password[index];
   }
-  constructor(public Router: Router) { }
-  loginFormSubmit(){
-    this.Router.navigate([routes.employee_dashboard])
+  
+  verifyPassword() {
+    this.passwordMismatch = this.newPassword !== this.confirmPassword;
+  }
+
+  resetPassword(){
+    this.userService.resetPwd(this.email,this.newPassword,this.user).subscribe((data)=>{
+      console.log(data);
+      alert('Password Changed Succesfully..!!!')
+      this.router.navigate(['/auth/login']);
+    })
   }
 }

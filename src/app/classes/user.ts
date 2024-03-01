@@ -9,6 +9,8 @@ export class User {
         lastname!: string;
         phonenumber!: number;
         role!: string;
+        otp!:string;
+        verified!:boolean;
         dob!: string;
         jobtitle!: string;
         typeofjob!: string;

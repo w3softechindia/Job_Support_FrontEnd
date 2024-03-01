@@ -1,17 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/Services/user.service';
 import { User } from 'src/app/classes/user';
 import { routes } from 'src/app/core/helpers/routes/routes';
 
-
 @Component({
-  selector: 'app-otp',
-  templateUrl: './otp.component.html',
-  styleUrls: ['./otp.component.scss']
+  selector: 'app-otp-verify',
+  templateUrl: './otp-verify.component.html',
+  styleUrls: ['./otp-verify.component.scss']
 })
-export class OtpComponent implements OnInit {
-
+export class OtpVerifyComponent {
+  
   constructor(private route:ActivatedRoute,private router:Router,private userservice:UserService){}
   email!:string;
   public routes = routes
@@ -23,6 +22,7 @@ export class OtpComponent implements OnInit {
   };
   remainingTime: number = 60;
   otpValue: string = '';
+  result!:boolean;
 
   // Method to concatenate OTP digits
   concatOTP(): void {
@@ -69,25 +69,16 @@ export class OtpComponent implements OnInit {
     }
   }
 
-  verifyEmail(){
+  verifyOTP(){
     this.concatOTP();
-    this.userservice.verifyAccount(this.email,this.otpValue,this.user).subscribe(()=>{
-      this.router.navigate(['/pages/onboard-screen',this.email]);
-      alert("Account verified Successfully...!!!")
+    this.userservice.verifyOtpEmail(this.email,this.otpValue,this.result).subscribe((data)=>{
+      console.log(data);
+      this.router.navigate(['/auth/reset-password',this.email]);
+      alert("Otp Verified Successfully..!!!")
     },error=>{
-      alert("Invalid Otp...!!!");
-      console.error(error);
+      alert("Entered Wrong Otp..!!");
+      console.log(error);
     })
-  }
-
-  resetOTPDigits(): void {
-    // Reset OTP input fields
-    this.oneTimePassword = {
-      data1: "",
-      data2: "",
-      data3: "",
-      data4: ""
-    };
   }
 
   resendOTP(){
