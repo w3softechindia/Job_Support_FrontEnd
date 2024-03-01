@@ -48,6 +48,8 @@ constructor(private http:HttpClient){}
     return this.http.put(`${this.baseurl}/employerInfo/${email}`,user)
   }
 
+
+
   //Send Otp to mail
   SendOtp(email:string,user:User):Observable<any>{
     return this.http.put(`${this.baseurl}/sendOTP/${email}`,user);
@@ -67,4 +69,5 @@ constructor(private http:HttpClient){}
   resendOTP(email:string){
     return this.http.put(`${this.baseurl}/regenerate-otp/${email}`,{responseType:'text'});
   }
+
 }

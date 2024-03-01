@@ -6,6 +6,11 @@
             <div class="account-content">
                 <div class="align-items-center justify-content-center">
                     <div class="login-right">
+
+                        <div class="tab-content pt-0">
+                            <div role="tabpanel" id="freelancer" class="tab-pane fade active show">
+                                <form [formGroup]="loginForm" (ngSubmit)="myLogin()">
+
                         <div class="login-header text-center">
                         <a [routerLink] = "routes.home"><img src="assets/img/logo.png" alt="logo" class="img-fluid"></a>
                         <h3>Welcome! Nice to see you again</h3>
@@ -24,24 +29,25 @@
                         <div class="tab-content pt-0">
                             <div role="tabpanel" id="freelancer" class="tab-pane fade active show">
                                 <form [formGroup]="loginForm" (ngSubmit)="freelancerLogin()">
+
                                     <div class="input-block">
-                                        <label for="email" class="focus-label">Email Address <span
-                                                class="label-star"> *</span></label>
+                                        <label for="email" class="focus-label">Email Address <span class="label-star"> *</span></label>
                                         <input type="text" class="form-control floating" formControlName="email" id="email">
                                     </div>
                                     <div class="input-block">
-                                        <label for="password" class="focus-label">Password <span class="label-star">
-                                                *</span></label>
+                                        <label for="password" class="focus-label">Password <span class="label-star"> *</span></label>
                                         <div class="position-relative">
-                                            <input [type]="password[1] ? 'text' : 'password'"
-                                                class="form-control floating pass-input" formControlName="password" id="password">
-                                            <div class="password-icon" (click)="togglePassword(1)"
-                                                (keydown.enter)="togglePassword(1)" tabindex="0">
-                                                <span class="fas toggle-password"
-                                                    [ngClass]="password[1] ? 'fa-eye' : 'fa-eye-slash'"></span>
+                                            <input [type]="password[1] ? 'text' : 'password'" class="form-control floating pass-input" formControlName="password" id="password">
+                                            <div class="password-icon" (click)="togglePassword(1)" (keydown.enter)="togglePassword(1)" tabindex="0">
+                                                <span class="fas toggle-password" [ngClass]="password[1] ? 'fa-eye' : 'fa-eye-slash'"></span>
                                             </div>
                                         </div>
                                     </div>
+
+                                    <button class="btn btn-primary w-100 btn-lg login-btn d-flex align-items-center justify-content-center"
+                                        type="submit" [disabled]="!loginForm.valid">Login Now<i class="feather icon-arrow-right ms-2"></i></button>
+            
+
                                     <button 
                                         class="btn btn-primary w-100 btn-lg login-btn d-flex align-items-center justify-content-center"
                                         type="submit">Login Now<i class="feather icon-arrow-right ms-2"></i></button>
@@ -59,16 +65,18 @@
                                         <a href="javascript:void(0);" class="btn btn-block"><img src="assets/img/icon/ios-icon.svg" alt="Apple">Apple</a>
                                     </div>
                                 </div> -->
+
                                     <div class="row">
-                                        <div class="col-sm-8 dont-have d-flex  align-items-center">New to JobSupport4U
+                                        <div class="col-sm-8 dont-have d-flex align-items-center">New to JobSupport4U
                                             <a [routerLink]="routes.register" class="ms-2">Signup?</a></div>
                                         <div class="col-sm-4 text-sm-end">
-                                            <a class="forgot-link" [routerLink]="routes.forgot_password">Lost
-                                                Password?</a>
+                                            <a class="forgot-link" [routerLink]="routes.forgot_password">Lost Password?</a>
                                         </div>
                                     </div>
                                 </form>
                             </div>
+
+
                             <div role="tabpanel" id="employer" class="tab-pane fade">
                                 <form [formGroup]="loginForm" (ngSubmit)="employerLogin()">
                                     <div class="input-block">
@@ -116,11 +124,12 @@
                                     </div>
                                 </form> -->
                             <!-- </div> -->
-                        </div>
 
+                        </div>
                     </div>
                 </div>
             </div>
+          
             <!-- /Login Content -->
         </div>
     </div>

@@ -16,12 +16,17 @@ interface data {
 })
 export class OnboardScreenComponent implements OnInit {
 
+
   email!: string;
   selectedRole!: string;
   user: User = new User();
   userDataForm!: FormGroup;
-  skillsAdded: boolean = false;
+  skillsAdded = false;
   public routes = routes;
+
+  
+  
+
 
   personalForm: FormGroup = new FormGroup({
     firstname: new FormControl(''),
@@ -31,6 +36,7 @@ export class OnboardScreenComponent implements OnInit {
     jobtitle: new FormControl(''),
     typeofjob: new FormControl(''),
     description: new FormControl(''),
+    
   })
 
   otherInfoForm:FormGroup=new FormGroup({
@@ -147,7 +153,7 @@ export class OnboardScreenComponent implements OnInit {
   }
 
   addSkills():void {
-    this.skillsAdded = true;
+    // this.skillsAdded = true;
     this.skills.push(this.createSkill());
   }
 
@@ -250,33 +256,7 @@ export class OnboardScreenComponent implements OnInit {
     this.displayNone = !this.displayNone;
   }
 
-  // addEducation() {
-  //   this.education.push(1);
-  // }
-  // // removeEducation(index: number) {
-  // //   this.education.splice(index, 1);
-  // // }
-
-  // addCertification() {
-  //   this.certification.push(1);
-  // }
-  // removeCertification(index: number) {
-  //   this.certification.splice(index, 1);
-  // }
-
-  // addExperience() {
-  //   this.experience.push(1);
-  // }
-  // removeExperience(index: number) {
-  //   this.experience.splice(index, 1);
-  // }
-
-  // addLanguage() {
-  //   this.language.push(1);
-  // }
-  // removeLanguage(index: number) {
-  //   this.language.splice(index, 1);
-  // }
+  
 
   removeDatas(index: number) {
     this.datas[index] = !this.datas[index];
@@ -327,29 +307,7 @@ export class OnboardScreenComponent implements OnInit {
   ];
   showTimePicker: Array<string> = [];
 
-  // public hoursArray1 = [0];
-  // public hoursArray2 = [0];
-  // public hoursArray3 = [0];
-  // public hoursArray4 = [0];
-  // public hoursArray5 = [0];
-  // public hoursArray6 = [0];
-  // public hoursArray7 = [0];
-
-  // startTime1 = new Date();
-  // startTime2 = new Date();
-  // startTime3 = new Date();
-  // startTime4 = new Date();
-  // startTime5 = new Date();
-  // startTime6 = new Date();
-  // startTime7 = new Date();
-  // endTime1 = new Date();
-  // endTime2 = new Date();
-  // endTime3 = new Date();
-  // endTime4 = new Date();
-  // endTime5 = new Date();
-  // endTime6 = new Date();
-  // endTime7 = new Date();
-
+  
 
 
   toggleTimePicker(value: string): void {
@@ -367,4 +325,16 @@ export class OnboardScreenComponent implements OnInit {
   onBoardEmployer() {
     this.router.navigateByUrl(`${this.routes.employer_onboard}/${this.email}`)
   }
-}
+
+
+
+
+
+  
+
+
+
+
+} 
+  
+
