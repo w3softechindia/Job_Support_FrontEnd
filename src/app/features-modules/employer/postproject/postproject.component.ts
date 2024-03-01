@@ -110,7 +110,8 @@ export class PostprojectComponent implements OnInit, OnDestroy {
   languageFluency = '';
   description = '';
 
-  ngsubmit() {
+  ngsubmit() { 
+   
     // this.router.navigate([routes.projectconfirmation]);
 }
  

@@ -1,4 +1,3 @@
-
 <div class="main-wrapper account-page">
     <div class="login-wrapper">
         <div class="content w-100">
@@ -7,26 +6,28 @@
                 <div class="align-items-center justify-content-center">
                     <div class="login-right">
                         <div class="login-header text-center">
-                            <a [routerLink] = "routes.home"><img src="assets/img/logo.png" alt="logo" class="img-fluid"></a>
+                            <a [routerLink]="routes.home"><img src="assets/img/logo.png" alt="logo" class="img-fluid"></a>
                             <h3>We love to see you joining our community</h3>
                         </div>
                         <div class="tab-content pt-0">
                             <div role="tabpanel" id="developer" class="tab-pane fade active show">
-                                <form  (ngSubmit)="register()" [formGroup]="registrationform">										
-                                    <div class="input-block ">
+                                <form (ngSubmit)="register()" [formGroup]="registrationform">										
+                                    <div class="input-block">
                                         <label for="username" class="focus-label">User Name <span class="label-star"> *</span></label>
-                                        <input type="text" class="form-control floating"  formControlName="username" id="username">
-                                        <div *ngIf="registrationform.get('username')?.invalid && (registrationform.get('username')?.dirty|| registrationform.get('username')?.touched)">
-                                           <div *ngIf="registrationform.get('username')?.hasError('required')" style="color: red;">
-                                                 Username is required
-                                           </div>
+                                        <input type="text" class="form-control floating" formControlName="username" id="username">
+                                        <div *ngIf="registrationform.get('username')?.invalid && (registrationform.get('username')?.dirty || registrationform.get('username')?.touched)">
+                                            <div *ngIf="registrationform.get('username')?.hasError('required')" style="color: red;">Username is required</div>
                                         </div>
                                     </div>
-                                    <div class="input-block ">
+                                    <div class="input-block">
                                         <label for="email" class="focus-label">Email Address<span class="label-star"> *</span></label>
                                         <input type="email" class="form-control floating" formControlName="email" id="email">
+                                        <div *ngIf="registrationform.get('email')?.invalid && (registrationform.get('email')?.dirty || registrationform.get('email')?.touched)">
+                                            <div *ngIf="registrationform.get('email')?.hasError('required')" style="color: red;">Email is required</div>
+                                            <div *ngIf="registrationform.get('email')?.hasError('email')" style="color: red;">Invalid email format</div>
+                                        </div>
                                     </div>
-                                    <div class="input-block ">
+                                    <div class="input-block">
                                         <label for="password" class="focus-label">Password <span class="label-star"> *</span></label>
                                         <div class="position-relative">
                                             <input [type]="password[1] ? 'text' : 'password'" class="form-control floating pass-input" formControlName="password" id="password">
@@ -34,16 +35,22 @@
                                                 <span class="fas toggle-password" [ngClass]="password[1] ? 'fa-eye' : 'fa-eye-slash'"></span>
                                             </div>
                                         </div>
+                                        <div *ngIf="registrationform.get('password')?.invalid && (registrationform.get('password')?.dirty || registrationform.get('password')?.touched)">
+                                            <div *ngIf="registrationform.get('password')?.hasError('required')" style="color: red;">Password is required</div>
+                                        </div>
                                     </div>	
                                     <div class="dont-have">
                                         <label class="custom_check">
-                                            <input type="checkbox" name="rem_password">
+                                            <input type="checkbox" formControlName="terms" name="rem_password">
                                             <span class="checkmark"></span> I have read and agree to all <a [routerLink]="routes.privacypolicy">Terms &amp; Conditions</a>
                                         </label>
+                                        <div *ngIf="registrationform.get('terms')?.invalid && (registrationform.get('terms')?.dirty || registrationform.get('terms')?.touched)">
+                                            <div *ngIf="registrationform.get('terms')?.hasError('required')" style="color: red;">Please accept terms & conditions</div>
+                                        </div>
                                     </div>
-                                    <button class="btn btn-primary w-100 btn-lg login-btn d-flex align-items-center justify-content-center" type="submit">Sign Up Now<i class="feather icon-arrow-right ms-2"></i></button>
+                                    <button class="btn btn-primary w-100 btn-lg login-btn d-flex align-items-center justify-content-center" type="submit" [disabled]="registrationform.invalid">Sign Up Now<i class="feather icon-arrow-right ms-2"></i></button>
                                     <div class="row">
-                                        <div class="col-sm-8 dont-have d-flex  align-items-center">Already have account  <a [routerLink] = "routes.login" class="ms-2">Sign in?</a></div>
+                                        <div class="col-sm-8 dont-have d-flex align-items-center">Already have an account <a [routerLink]="routes.login" class="ms-2">Sign in?</a></div>
                                     </div>
                                 </form>
                             </div>
@@ -54,4 +61,3 @@
         </div>	
     </div>
 </div>
-

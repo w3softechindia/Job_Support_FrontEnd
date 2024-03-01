@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit{
   loginForm!:FormGroup;
 
 
-  constructor(private storage: WebStorage,private formbuilder:FormBuilder,
+  constructor(private storage: WebStorage,private fb:FormBuilder,
     private userService:UserService,private auth:AuthService,private router:Router) {
     this.subscription = this.storage.Loginvalue.subscribe((data) => {
       if (data != '0') {
@@ -38,11 +38,14 @@ export class LoginComponent implements OnInit{
   ngOnInit() {
     this.storage.Checkuser();
     localStorage.removeItem('LoginData');
-
-    this.loginForm=this.formbuilder.group({
-      email:['',[Validators.required]],
-      password:['',[Validators.required]],
-    })
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
+    });
+  
+    
+     
+   
   }
 
   myLogin(){

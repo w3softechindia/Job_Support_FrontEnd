@@ -47,4 +47,14 @@ constructor(private http:HttpClient){}
   employerInfo(email:string,user:User){
     return this.http.put(`${this.baseurl}/employerInfo/${email}`,user)
   }
+
+         
+  uploadPhoto(file: File, email: string): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('file', file);
+    return this.http.post<any>(`${this.baseurl}/${email}`, formData);
+  }
+
+
+
 }
