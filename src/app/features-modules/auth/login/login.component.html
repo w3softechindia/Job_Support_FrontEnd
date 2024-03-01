@@ -6,11 +6,6 @@
             <div class="account-content">
                 <div class="align-items-center justify-content-center">
                     <div class="login-right">
-
-                        <div class="tab-content pt-0">
-                            <div role="tabpanel" id="freelancer" class="tab-pane fade active show">
-                                <form [formGroup]="loginForm" (ngSubmit)="myLogin()">
-
                         <div class="login-header text-center">
                         <a [routerLink] = "routes.home"><img src="assets/img/logo.png" alt="logo" class="img-fluid"></a>
                         <h3>Welcome! Nice to see you again</h3>
@@ -29,7 +24,6 @@
                         <div class="tab-content pt-0">
                             <div role="tabpanel" id="freelancer" class="tab-pane fade active show">
                                 <form [formGroup]="loginForm" (ngSubmit)="freelancerLogin()">
-
                                     <div class="input-block">
                                         <label for="email" class="focus-label">Email Address <span class="label-star"> *</span></label>
                                         <input type="text" class="form-control floating" formControlName="email" id="email">
@@ -75,8 +69,6 @@
                                     </div>
                                 </form>
                             </div>
-
-
                             <div role="tabpanel" id="employer" class="tab-pane fade">
                                 <form [formGroup]="loginForm" (ngSubmit)="employerLogin()">
                                     <div class="input-block">

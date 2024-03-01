@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { EmployerComponent } from './employer.component';
+import { EmployerGuard } from 'src/app/core/guard/employer/employer.guard';
 
 const routes: Routes = [
   {
@@ -11,55 +12,55 @@ const routes: Routes = [
       {
         path: 'dashboard',
         loadChildren: () =>
-          import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
+          import('./dashboard/dashboard.module').then((m) => m.DashboardModule),canActivate:[EmployerGuard],
       },
       {
         path: 'company-profile',
         loadChildren: () =>
           import('./company-profile/my-profile/my-profile.module').then(
             (m) => m.MyProfileModule
-          ),
+          ),canActivate:[EmployerGuard],
       },
       {
         path: 'company-details',
         loadChildren: () =>
           import('./my-company/company-details/company-details.module').then(
             (m) => m.CompanyDetailsModule
-          ),
+          ),canActivate:[EmployerGuard],
       },
       {
         path: 'membership-plans',
         loadChildren: () =>
           import('./membership/membership.module').then(
             (m) => m.MembershipModule
-          ),
+          ),canActivate:[EmployerGuard],
       },
       {
         path: 'milestones',
         loadChildren: () =>
           import('./milestones/milestones.module').then(
             (m) => m.MilestonesModule
-          ),
+          ),canActivate:[EmployerGuard],
       },
       {
         path: 'chats',
         loadChildren: () =>
-          import('./chats/chats.module').then((m) => m.ChatsModule),
+          import('./chats/chats.module').then((m) => m.ChatsModule),canActivate:[EmployerGuard],
       },
       {
         path: 'review',
         loadChildren: () =>
-          import('./review/review.module').then((m) => m.ReviewModule),
+          import('./review/review.module').then((m) => m.ReviewModule),canActivate:[EmployerGuard],
       },
       {
         path: 'deposit-funds',
         loadChildren: () =>
-          import('./payments/payments.module').then((m) => m.PaymentsModule),
+          import('./payments/payments.module').then((m) => m.PaymentsModule),canActivate:[EmployerGuard],
       },
       {
         path: 'verify-identity',
         loadChildren: () =>
-          import('./identify/identify.module').then((m) => m.IdentifyModule),
+          import('./identify/identify.module').then((m) => m.IdentifyModule),canActivate:[EmployerGuard],
       },
       
       {
@@ -74,28 +75,28 @@ const routes: Routes = [
         loadChildren: () =>
           import('./freelancer/freelancer-list/freelancer-list.module').then(
             (m) => m.FreelancerListModule
-          ),
+          ),canActivate:[EmployerGuard],
       },
       {
         path: 'company-project',
         loadChildren: () =>
           import(
             './company-profile/company-project/company-project.module'
-          ).then((m) => m.CompanyProjectModule),
+          ).then((m) => m.CompanyProjectModule),canActivate:[EmployerGuard],
       },
       {
         path: 'company-gallery',
         loadChildren: () =>
           import(
             './company-profile/company-gallery/company-gallery.module'
-          ).then((m) => m.CompanyGalleryModule),
+          ).then((m) => m.CompanyGalleryModule),canActivate:[EmployerGuard],
       },
       {
         path: 'company-reviews',
         loadChildren: () =>
           import(
             './company-profile/company-reviews/company-reviews.module'
-          ).then((m) => m.CompanyReviewsModule),
+          ).then((m) => m.CompanyReviewsModule),canActivate:[EmployerGuard],
       },
       {
         path: 'post-project',
@@ -109,77 +110,77 @@ const routes: Routes = [
         loadChildren: () =>
           import('./notification/notification.module').then(
             (m) => m.NotificationModule
-          ),
+          ),canActivate:[EmployerGuard],
       },
       {
         path: 'developer-details',
         loadChildren: () =>
           import('./developer-details/developer-details.module').then(
             (m) => m.DeveloperDetailsModule
-          ),
+          ),canActivate:[EmployerGuard],
       },
       {
         path: 'freelancer-profile',
         loadChildren: () =>
           import('./freelancer-profile/freelancer-profile.module').then(
             (m) => m.FreelancerProfileModule
-          ),
+          ),canActivate:[EmployerGuard],
       },
        
       { 
         path: 'change-password', 
-        loadChildren: () => import('./setting/change-password/change-password.module').then(m => m.ChangePasswordModule) 
+        loadChildren: () => import('./setting/change-password/change-password.module').then(m => m.ChangePasswordModule), canActivate:[EmployerGuard],
       }, 
       { 
         path: 'delete-account', 
-        loadChildren: () => import('./setting/delete-account/delete-account.module').then(m => m.DeleteAccountModule) 
+        loadChildren: () => import('./setting/delete-account/delete-account.module').then(m => m.DeleteAccountModule) ,canActivate:[EmployerGuard],
       },
       { 
         path: 'basic-settings', 
-        loadChildren: () => import('./setting/basic-settings/basic-settings.module').then(m => m.BasicSettingsModule) 
+        loadChildren: () => import('./setting/basic-settings/basic-settings.module').then(m => m.BasicSettingsModule) ,canActivate:[EmployerGuard],
       }, 
-      { path: 'project-confirmation', loadChildren: () => import('./project-confirmation/project-confirmation.module').then(m => m.ProjectConfirmationModule) },
+      { path: 'project-confirmation', loadChildren: () => import('./project-confirmation/project-confirmation.module').then(m => m.ProjectConfirmationModule),canActivate:[EmployerGuard], },
       {
         path: 'all-projects',
         loadChildren: () =>
           import('./project/all-projects/all-projects.module').then(
             (m) => m.AllProjectsModule
-          ),
+          ),canActivate:[EmployerGuard],
       },
       {
         path: 'pending-projects',
         loadChildren: () =>
           import('./project/pending-projects/pending-projects.module').then(
             (m) => m.PendingProjectsModule
-          ),
+          ),canActivate:[EmployerGuard],
       },
       {
         path: 'ongoing-projects',
         loadChildren: () =>
           import('./project/ongoing-projects/ongoing-projects.module').then(
             (m) => m.OngoingProjectsModule
-          ),
+          ),canActivate:[EmployerGuard],
       },
       {
         path: 'completed-projects',
         loadChildren: () =>
           import('./project/completed-projects/completed-projects.module').then(
             (m) => m.CompletedProjectsModule
-          ),
+          ),canActivate:[EmployerGuard],
       },
       {
         path: 'cancelled-projects',
         loadChildren: () =>
           import('./project/cancelled-projects/cancelled-projects.module').then(
             (m) => m.CancelledProjectsModule
-          ),
+          ),canActivate:[EmployerGuard],
       },
       {
         path: 'expired-project',
         loadChildren: () =>
           import('./project/expired-project/expired-project.module').then(
             (m) => m.ExpiredProjectModule
-          ),
+          ),canActivate:[EmployerGuard],
       },
       
       {
@@ -187,48 +188,48 @@ const routes: Routes = [
         loadChildren: () =>
           import('./project/project-milestone/project-milestone.module').then(
             (m) => m.ProjectMilestoneModule
-          ),
+          ),canActivate:[EmployerGuard],
       },
       {
         path: 'project-task',
         loadChildren: () =>
           import('./project/project-task/project-task.module').then(
             (m) => m.ProjectTaskModule
-          ),
+          ),canActivate:[EmployerGuard],
       },
       {
         path: 'payment-project',
         loadChildren: () =>
           import('./project/payment-project/payment-project.module').then(
             (m) => m.PaymentProjectModule
-          ),
+          ),canActivate:[EmployerGuard],
       },
       {
         path: 'view-project-details',
         loadChildren: () =>
           import('./project/view-project-details/view-project-details.module').then(
             (m) => m.ViewProjectDetailsModule
-          ),
+          ),canActivate:[EmployerGuard],
       },
       {
         path: 'completed-project-view-details',
         loadChildren: () =>
           import(
             './project/completd-project-view-details/completd-project-view-details.module'
-          ).then((m) => m.CompletdProjectViewDetailsModule),
+          ).then((m) => m.CompletdProjectViewDetailsModule),canActivate:[EmployerGuard],
       },
       {
         path: 'project-employer-view-proposal',
         loadChildren: () =>
           import(
             './project/project-employer-view-proposal/project-employer-view-proposal.module'
-          ).then((m) => m.ProjectEmployerViewProposalModule),
+          ).then((m) => m.ProjectEmployerViewProposalModule),canActivate:[EmployerGuard],
       },
       { path: 'files', loadChildren: () => import('./project/files/files.module').then(m => m.FilesModule) },
-      { path: 'completed-project-files', loadChildren: () => import('./project/completed-project-files/completed-project-files.module').then(m => m.CompletedProjectFilesModule) },
-      { path: 'invitedfavourites', loadChildren: () => import('./favourite/invitedfavourites/invitedfavourites.module').then(m => m.InvitedfavouritesModule) },
-      { path: 'markedfavourites', loadChildren: () => import('./favourite/markedfavourites/markedfavourites.module').then(m => m.MarkedfavouritesModule) },
-      { path: 'favourites-list', loadChildren: () => import('./favourite/favourites-list/favourites-list.module').then(m => m.FavouritesListModule) },
+      { path: 'completed-project-files', loadChildren: () => import('./project/completed-project-files/completed-project-files.module').then(m => m.CompletedProjectFilesModule),canActivate:[EmployerGuard], },
+      { path: 'invitedfavourites', loadChildren: () => import('./favourite/invitedfavourites/invitedfavourites.module').then(m => m.InvitedfavouritesModule),canActivate:[EmployerGuard], },
+      { path: 'markedfavourites', loadChildren: () => import('./favourite/markedfavourites/markedfavourites.module').then(m => m.MarkedfavouritesModule),canActivate:[EmployerGuard], },
+      { path: 'favourites-list', loadChildren: () => import('./favourite/favourites-list/favourites-list.module').then(m => m.FavouritesListModule),canActivate:[EmployerGuard], },
       
       
     ],
@@ -240,4 +241,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class EmployerRoutingModule {}
+export class EmployerRoutingModule { }

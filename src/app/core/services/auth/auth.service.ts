@@ -26,6 +26,13 @@ export class AuthService {
     sessionStorage.clear();
   }
 
+  public userLogout(){
+    this.router.navigate([routes.login]);
+    this.checkAuth.next("false");
+    localStorage.clear();
+    sessionStorage.clear();
+  }
+
   public setToken(jwtToken: string) {
     localStorage.setItem('jwtToken', jwtToken);
   }
@@ -50,23 +57,23 @@ export class AuthService {
     return localStorage.getItem('email');
   }
   
-  public setRoles(roles: []) {
-    localStorage.setItem('roles', JSON.stringify(roles));
+  public setRoles(role:string) {
+    localStorage.setItem('role', role);
   }
 
-  public getRoles():[] {
-    const roles=localStorage.getItem('roles');
-    if(roles){
-      return JSON.parse(roles);
-    }
-    return [];
-  }
+  // public getRoles():[] {
+  //   const roles=localStorage.getItem('roles');
+  //   if(roles){
+  //     return JSON.parse(roles);
+  //   }
+  //   return [];
+  // }
 
   public clear() {
     localStorage.clear();
   }
 
-  public isLoggedIn() {
-     return this.getRoles() && this.getToken();
-  }
+  // public isLoggedIn() {
+  //    return this.getRoles() && this.getToken();
+  // }
 }

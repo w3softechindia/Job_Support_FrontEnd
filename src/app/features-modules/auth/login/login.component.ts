@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
+  FormControl,
   FormGroup,
   Validators,} from '@angular/forms';
 import { Router } from '@angular/router';
@@ -23,7 +24,10 @@ export class LoginComponent implements OnInit{
    
   public CustomControler: unknown;
   public subscription: Subscription;
-  loginForm!:FormGroup;
+  loginForm:FormGroup=new FormGroup({
+    email:new FormControl(),
+    password:new FormControl()
+  })
 
 
   constructor(private storage: WebStorage,private fb:FormBuilder,
@@ -114,18 +118,19 @@ export class LoginComponent implements OnInit{
       console.error('Login Error',error);
     })
   }
-  // submit() {
-  //   this.storage.Login(this.form.value);
-  // }
-  // ngOnDestroy() {
-  //   this.subscription.unsubscribe();
-  // }
-  // iconLogle() {
-  //   this.Toggledata = !this.Toggledata;
-  // }
-  // otherPages(val: string) {
-  //   localStorage.setItem(val, val);
-  // }
+
+  submit() {
+    this.storage.Login(this.loginForm.value);
+  }
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+  iconLogle() {
+    this.Toggledata = !this.Toggledata;
+  }
+  otherPages(val: string) {
+    localStorage.setItem(val, val);
+  }
   
 
   public togglePassword(index: number) {

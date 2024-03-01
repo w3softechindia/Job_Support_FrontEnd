@@ -1,0 +1,39 @@
+import { Injectable } from '@angular/core';
+import {
+  HttpRequest,
+  HttpHandler,
+  HttpEvent,
+  HttpInterceptor,
+  HttpErrorResponse
+} from '@angular/common/http';
+import { Observable, catchError, throwError } from 'rxjs';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth/auth.service';
+
+@Injectable()
+export class AuthInterceptor implements HttpInterceptor {
+
+  constructor(private authService: AuthService, private router: Router) { }
+
+  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    // Add authorization header with JWT token if available
+    const authToken = this.authService.getToken();
+    if (authToken) {
+      request = request.clone({
+        setHeaders: {
+          'Authorization': `Bearer ${authToken}`
+        }
+      });
+    }
+    return next.handle(request).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.status === 401) {
+          // Unauthorized - handle token expiration or invalid token
+          // Example: Logout the user and redirect to the login page
+          this.authService.userLogout(); 
+        }
+        return throwError(error);
+      })
+    );
+  }
+}
