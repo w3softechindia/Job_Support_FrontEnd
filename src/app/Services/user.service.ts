@@ -67,4 +67,11 @@ constructor(private http:HttpClient){}
   resendOTP(email:string){
     return this.http.put(`${this.baseurl}/regenerate-otp/${email}`,{responseType:'text'});
   }
+
+  uploadFile(email: string, file: File) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    return this.http.post(`${this.baseurl}/upload/${email}`, formData, { responseType: 'text' as 'json' });
+  }
 }
