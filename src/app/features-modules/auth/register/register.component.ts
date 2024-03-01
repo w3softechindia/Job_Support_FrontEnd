@@ -12,6 +12,10 @@ import { routes } from 'src/app/core/helpers/routes/routes';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent  implements OnInit {
+
+  
+ 
+
   public routes = routes;
 
   registrationform:FormGroup=new FormGroup({
