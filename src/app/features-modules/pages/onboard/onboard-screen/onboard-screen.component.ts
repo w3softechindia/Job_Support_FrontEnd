@@ -326,7 +326,23 @@ export class OnboardScreenComponent implements OnInit {
     this.router.navigateByUrl(`${this.routes.employer_onboard}/${this.email}`)
   }
 
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    if (file) {
+      // const email = 'your-email'; // Replace with the actual email
 
+      this.userService.uploadFile(this.email, file).subscribe(
+        response => {
+          console.log(response); // Log the response
+          alert(response); // Display the response message
+        },
+        error => {
+          console.error(error); // Handle error response
+          // Optionally, you can show an error message to the user
+        }
+      );
+    }
+  }
 
 
 
