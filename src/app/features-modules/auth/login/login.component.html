@@ -20,18 +20,18 @@
                                     <a href="#employer" data-bs-toggle="tab" class="nav-link  mb-1">EMPLOYER</a>
                                 </li>
                             </ul>
-                        </nav> -->
+                        </nav> 
                         <div class="tab-content pt-0">
                             <div role="tabpanel" id="freelancer" class="tab-pane fade active show">
-                                <form [formGroup]="loginForm" (ngSubmit)="freelancerLogin()">
+                                <form (ngSubmit)="freelancerLogin()">
                                     <div class="input-block">
                                         <label for="email" class="focus-label">Email Address <span class="label-star"> *</span></label>
-                                        <input type="text" class="form-control floating" formControlName="email" id="email">
+                                        <input type="text" class="form-control floating" [(ngModel)]="freelancerLoginData.email" [ngModelOptions]="{standalone:true}" id="email">
                                     </div>
                                     <div class="input-block">
                                         <label for="password" class="focus-label">Password <span class="label-star"> *</span></label>
                                         <div class="position-relative">
-                                            <input [type]="password[1] ? 'text' : 'password'" class="form-control floating pass-input" formControlName="password" id="password">
+                                            <input [type]="password[1] ? 'text' : 'password'" class="form-control floating pass-input" [(ngModel)]="freelancerLoginData.password" [ngModelOptions]="{standalone:true}" id="password">
                                             <div class="password-icon" (click)="togglePassword(1)" (keydown.enter)="togglePassword(1)" tabindex="0">
                                                 <span class="fas toggle-password" [ngClass]="password[1] ? 'fa-eye' : 'fa-eye-slash'"></span>
                                             </div>
@@ -39,12 +39,7 @@
                                     </div>
 
                                     <button class="btn btn-primary w-100 btn-lg login-btn d-flex align-items-center justify-content-center"
-                                        type="submit" [disabled]="!loginForm.valid">Login Now<i class="feather icon-arrow-right ms-2"></i></button>
-            
-
-                                    <button 
-                                        class="btn btn-primary w-100 btn-lg login-btn d-flex align-items-center justify-content-center"
-                                        type="submit">Login Now<i class="feather icon-arrow-right ms-2"></i></button>
+                                        type="submit" >Login Now<i class="feather icon-arrow-right ms-2"></i></button>
                                     <div class="login-or">
                                     <p><span>OR</span></p>
                                 </div> 
@@ -70,18 +65,18 @@
                                 </form>
                             </div>
                             <div role="tabpanel" id="employer" class="tab-pane fade">
-                                <form [formGroup]="loginForm" (ngSubmit)="employerLogin()">
+                                <form (ngSubmit)="employerLogin()">
                                     <div class="input-block">
-                                        <label for="email-address" class="focus-label" formControlName="email" id="email">Email Address <span
+                                        <label for="eemail" class="focus-label">Email Address <span
                                                 class="label-star"> *</span></label>
-                                        <input type="text" class="form-control floating" >
+                                        <input type="text" class="form-control floating"  [(ngModel)]="employerLoginData.eemail" [ngModelOptions]="{standalone:true}" id="eemail" >
                                     </div>
                                     <div class="input-block">
-                                        <label for="password" class="focus-label" formControlName="password" id="password">Password <span class="label-star">
+                                        <label for="epassword" class="focus-label" >Password <span class="label-star">
                                                 *</span></label>
                                         <div class="position-relative">
                                             <input [type]="password[1] ? 'text' : 'password'"
-                                                class="form-control floating pass-input">
+                                                class="form-control floating pass-input" [(ngModel)]="employerLoginData.epassword" [ngModelOptions]="{standalone:true}" id="epassword">
                                             <div class="password-icon" (click)="togglePassword(1)"
                                                 (keydown.enter)="togglePassword(1)" tabindex="0">
                                                 <span class="fas toggle-password"
@@ -114,7 +109,7 @@
                                                 Password?</a>
                                         </div>
                                     </div>
-                                </form> -->
+                                </form> 
                             <!-- </div> -->
 
                         </div>

@@ -12,8 +12,16 @@ constructor(private http:HttpClient){}
 
   private baseurl="http://localhost:8080";
 
-  login(data:any){
-    return this.http.post(`${this.baseurl}/authenticate`,data);
+  freelancerLogin(data:any){
+    return this.http.post(`${this.baseurl}/freelancerLogin`,data);
+  }
+
+  employerLogin(login:any){
+    return this.http.post(`${this.baseurl}/employerLogin`,login);
+  }
+
+  adminLogin(adm:any){
+    return this.http.post(`${this.baseurl}/adminLogin`,adm);
   }
 
   register(user: User):Observable<any>{
