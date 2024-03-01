@@ -24,11 +24,16 @@ export class LoginComponent implements OnInit{
    
   public CustomControler: unknown;
   public subscription: Subscription;
-  loginForm:FormGroup=new FormGroup({
-    email:new FormControl(),
-    password:new FormControl()
-  })
 
+  freelancerLoginData={
+    email:'',
+    password:''
+  }
+
+  employerLoginData={
+    eemail:'',
+    epassword:''
+  }
 
   constructor(private storage: WebStorage,private fb:FormBuilder,
     private userService:UserService,private auth:AuthService,private router:Router) {
@@ -40,21 +45,12 @@ export class LoginComponent implements OnInit{
   }
  
   ngOnInit() {
-    this.storage.Checkuser();
-    localStorage.removeItem('LoginData');
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
-    });
-  
     
-     
-   
   }
 
   freelancerLogin(){
-    console.log(this.loginForm.value);
-    this.userService.login(this.loginForm.value).subscribe((data:any)=>{
+    console.log(this.freelancerLoginData);
+    this.userService.freelancerLogin(this.freelancerLoginData).subscribe((data:any)=>{
       console.log('Login success',data);
       
       const jwtToken = data.jwtToken;
@@ -75,7 +71,7 @@ export class LoginComponent implements OnInit{
           this.router.navigate(['/freelancer/dashboards']);
         }
         else{
-          alert('Invalid Credentials..!!')
+          alert('Invalid Credentials..!!') 
         }
       }
       else{
@@ -87,8 +83,8 @@ export class LoginComponent implements OnInit{
   }
 
   employerLogin(){
-    console.log(this.loginForm.value);
-    this.userService.login(this.loginForm.value).subscribe((data:any)=>{
+    console.log(this.employerLoginData)
+    this.userService.employerLogin(this.employerLoginData).subscribe((data:any)=>{
       console.log('Login success',data);
       
       const jwtToken = data.jwtToken;
@@ -119,18 +115,18 @@ export class LoginComponent implements OnInit{
     })
   }
 
-  submit() {
-    this.storage.Login(this.loginForm.value);
-  }
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
-  iconLogle() {
-    this.Toggledata = !this.Toggledata;
-  }
-  otherPages(val: string) {
-    localStorage.setItem(val, val);
-  }
+  // submit() {
+  //   this.storage.Login(this.loginForm.value);
+  // }
+  // ngOnDestroy() {
+  //   this.subscription.unsubscribe();
+  // }
+  // iconLogle() {
+  //   this.Toggledata = !this.Toggledata;
+  // }
+  // otherPages(val: string) {
+  //   localStorage.setItem(val, val);
+  // }
   
 
   public togglePassword(index: number) {

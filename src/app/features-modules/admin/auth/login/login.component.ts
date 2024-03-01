@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
   }
 
   submit() {
-    this.userService.login(this.adminLogin.value).subscribe((data)=>{
+    this.userService.adminLogin(this.adminLogin.value).subscribe((data)=>{
       console.log("Login Success",data);
       this.router.navigate(['/admin/dashboard']);
     })
