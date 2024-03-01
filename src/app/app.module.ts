@@ -8,7 +8,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 import { SharedModule } from './shared/shared.module';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +23,8 @@ import { SharedModule } from './shared/shared.module';
     CommonModule
     
   ],
-  providers: [],
+  providers: [    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
