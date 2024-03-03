@@ -32,7 +32,9 @@ const routes: Routes = [{
 
     { path: 'reset-password/:email', loadChildren: () => import('./reset-password/reset-password.module').then(m => m.ResetPasswordModule) },
     
-    {path:'otp-verify/:email', loadChildren: () => import('./otp-verify/otp-verify.module').then(m=>m.OtpVerifyModule)}
+    {path:'otp-verify/:email', loadChildren: () => import('./otp-verify/otp-verify.module').then(m=>m.OtpVerifyModule)},
+
+    {path:'freelancer-login', loadChildren:()=>import('./frelancer-login/frelancer-login.module').then(m=>m.FrelancerLoginModule)}
   ]
 },
 ];
