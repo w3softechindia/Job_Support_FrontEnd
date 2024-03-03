@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { UserService } from 'src/app/Services/user.service';
 import { ShareDataService } from 'src/app/core/data/share-data.service';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { url } from 'src/app/core/models/models';
@@ -12,19 +13,27 @@ import { NavbarService } from 'src/app/core/services/navbar.service';
   templateUrl: './freelancerheader.component.html',
   styleUrls: ['./freelancerheader.component.scss'],
 })
-export class FreelancerheaderComponent {
+export class FreelancerheaderComponent implements OnInit {
   base = '';
   page = '';
   last = '';
   public routes = routes;
 
+
+  
   navbar: Array<header> = [];
+  photo: any;
+  photoUrl: string | ArrayBuffer | null | undefined;
+  error: string | undefined;
+  email!: string;
 
   constructor(
     private router: Router,
     private data: ShareDataService,
     private navservices: NavbarService,
-    private common: CommonService
+    private common: CommonService,
+    private userservicee:UserService,
+    private route: ActivatedRoute
   ) {
     this.common.base.subscribe((res: string) => {
       this.base = res;
@@ -42,6 +51,11 @@ export class FreelancerheaderComponent {
     });
     this.navbar = this.data.sideBar;
   }
+ 
+
+
+
+
 
   employer() {
     localStorage.setItem('employer', 'employer');
@@ -76,6 +90,34 @@ export class FreelancerheaderComponent {
       this.anotherMenu = true;
     } else {
       this.anotherMenu = false;
+    }
+  }
+
+
+
+
+  ngOnInit(): void {
+    this.email = this.route.snapshot.params['email'];
+    console.log(this.email);
+    // const email = 'your-email@example.com'; // Replace with the actual email
+    this.userservicee.getPhoto(this.email).subscribe(
+      data => {
+        this.photo = data;
+        this.createImageFromBlob();
+      },
+      error => {
+        this.error = 'Failed to load photo.';
+      }
+    );
+  }
+  createImageFromBlob(): void {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+      this.photoUrl = reader.result;
+    }, false);
+
+    if (this.photo) {
+      reader.readAsDataURL(this.photo);
     }
   }
 }

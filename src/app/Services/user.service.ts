@@ -86,4 +86,11 @@ constructor(private http:HttpClient){}
 
     return this.http.post(`${this.baseurl}/upload/${email}`, formData, { responseType: 'text' as 'json' });
   }
+
+
+  getPhoto(email: string): Observable<any> {
+    return this.http.get(`${this.baseurl}/photo/${email}`, { responseType: 'blob' });
+  }
+
+
 }
