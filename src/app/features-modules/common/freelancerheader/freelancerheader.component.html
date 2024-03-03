@@ -171,7 +171,14 @@
 				<li class="nav-item dropdown account-item">
 					<a href="javascript:void(0);" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
 						<span class="user-img">
-							<img src="assets/img/user/avatar-1.jpg" alt="Img">
+							<!-- <img src="assets/img/user/avatar-1.jpg" alt="Img"> -->
+							<div *ngIf="photo">
+								<img [src]="photoUrl" alt="User Photo">
+							  </div>
+							  <div *ngIf="error">
+								Error: {{ error }}
+							  </div>
+							  
 						</span>
 						<span>Bruce Bush</span>
 					</a>
