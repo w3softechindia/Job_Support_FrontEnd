@@ -61,7 +61,6 @@ export class LoginComponent implements OnInit{
       console.error('Login Error',error);
     })
   }
-
   iconLogle() {
     this.Toggledata = !this.Toggledata;
   }
