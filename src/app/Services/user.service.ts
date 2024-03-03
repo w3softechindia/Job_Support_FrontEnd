@@ -12,16 +12,20 @@ constructor(private http:HttpClient){}
 
   private baseurl="http://localhost:8080";
 
-  freelancerLogin(data:any){
-    return this.http.post(`${this.baseurl}/freelancerLogin`,data);
-  }
+  // freelancerLogin(data:any){
+  //   return this.http.post(`${this.baseurl}/freelancerLogin`,data);
+  // }
 
-  employerLogin(login:any){
-    return this.http.post(`${this.baseurl}/employerLogin`,login);
-  }
+  // employerLogin(login:any){
+  //   return this.http.post(`${this.baseurl}/employerLogin`,login);
+  // }
 
-  adminLogin(adm:any){
-    return this.http.post(`${this.baseurl}/adminLogin`,adm);
+  // adminLogin(adm:any){
+  //   return this.http.post(`${this.baseurl}/adminLogin`,adm);
+  // }
+
+  login(data:any){
+    return this.http.post(`${this.baseurl}/authenticate`,data);
   }
 
   register(user: User):Observable<any>{
