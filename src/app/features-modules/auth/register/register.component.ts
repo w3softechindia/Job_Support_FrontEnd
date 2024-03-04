@@ -19,7 +19,7 @@ export class RegisterComponent  implements OnInit {
   public routes = routes;
 
   registrationform:FormGroup=new FormGroup({
-    username: new FormControl(''),
+    name: new FormControl(''),
     email: new FormControl(''),
     password: new FormControl(''),
   })
@@ -30,7 +30,7 @@ export class RegisterComponent  implements OnInit {
 
   ngOnInit(): void {
     this.registrationform= this.formbuilder.group({
-      username:['' , [Validators.required,Validators.minLength(4)]],
+      name:['' , [Validators.required,Validators.minLength(4)]],
       email:['' , [Validators.required,Validators.email]],
       password:['' , [Validators.required,Validators.minLength(8)]]
     })

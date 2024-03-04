@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/core/services/auth/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit{
+export class LoginComponent{
   public password: boolean[] = [true];
   public routes = routes
   public Toggledata = true;
@@ -22,30 +22,23 @@ export class LoginComponent implements OnInit{
 
   constructor(
     private userService:UserService,private auth:AuthService,private router:Router) {
-  }
- 
-  ngOnInit() {
-    console.log('Hello')
+
   }
 
   employerLogin(){
     console.log(this.employerLoginData)
-    this.userService.login(this.employerLoginData).subscribe((data:any)=>{
-      console.log('Login success',data);
+    this.userService.login(this.employerLoginData).subscribe((response:any)=>{
+      console.log('Login success',response);
       
-      const jwtToken = data.jwt_token;
-      const user=data.user;
+      const jwtToken = response.jwt_token;
+      const user=response.user;
       const role=user.role;
       const isVerified=user.verified;
 
       this.auth.setToken(jwtToken);
       this.auth.setRoles(role);
-      this.auth.setUsername(user.username);
+      this.auth.setUsername(user.name);
       this.auth.setEmail(user.email);
-
-      console.log(jwtToken)
-      console.log(user)
-      console.log(role) 
 
       if(isVerified){
         if(role ==="Employer"){

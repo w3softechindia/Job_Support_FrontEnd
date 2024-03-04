@@ -1,7 +1,10 @@
 import { DatePipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/Services/user.service';
+import { User } from 'src/app/classes/user';
 import { routes } from 'src/app/core/helpers/routes/routes';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 interface data {
   value: string;
 }
@@ -10,7 +13,7 @@ interface data {
   templateUrl: './profile-settings.component.html',
   styleUrls: ['./profile-settings.component.scss']
 })
-export class ProfileSettingsComponent {
+export class ProfileSettingsComponent implements OnInit {
   public routes = routes;
   public selectedValue1 = '';
   public selectedValue2 = '';
@@ -31,6 +34,28 @@ export class ProfileSettingsComponent {
 
   public datas : boolean[] = [true]
   public isCheckboxChecked = true;
+  email!:string;
+  user!:User;
+
+  constructor(private router: Router,private datePipe: DatePipe,private auth:AuthService,private userService:UserService) {}
+  
+  ngOnInit():void{
+    this.email=this.auth.getEmail();
+    this.getUserDetails();
+  }
+
+  private getUserDetails() {
+    this.userService.getUserByMail(this.email).subscribe(
+      (response:any) => {
+        this.user = response;
+      },
+      (error) => {
+        // Handle error if necessary
+        console.error('Error fetching user details:', error);
+      }
+    );
+  }
+  
 
   addSkills() {
     this.skills.push(1);
@@ -120,7 +145,6 @@ export class ProfileSettingsComponent {
   removeDatas(index: number) {
     this.datas[index] = !this.datas[index];
   }
-  constructor(private router: Router,private datePipe: DatePipe) {}
   navigation() {
     this.router.navigate([routes.freelancerprofile])
   }

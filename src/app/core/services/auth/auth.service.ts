@@ -33,11 +33,11 @@ export class AuthService {
     sessionStorage.clear();
   }
 
-  public setToken(jwtToken: string) {
-    localStorage.setItem('jwtToken', jwtToken);
+  public setToken(token: string) {
+    localStorage.setItem('jwtToken', token);
   }
 
-  public getToken():any {
+  public getToken():string | null {
     return localStorage.getItem('jwtToken');
   }
 
@@ -68,10 +68,6 @@ export class AuthService {
   //   }
   //   return [];
   // }
-
-  public clear() {
-    localStorage.clear();
-  }
 
   // public isLoggedIn() {
   //    return this.getRoles() && this.getToken();

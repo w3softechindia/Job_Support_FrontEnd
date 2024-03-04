@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { UserService } from 'src/app/Services/user.service';
+import { NavigationEnd, Router } from '@angular/router';
 import { ShareDataService } from 'src/app/core/data/share-data.service';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { url } from 'src/app/core/models/models';
 import { header } from 'src/app/core/models/sidebar-model';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { CommonService } from 'src/app/core/services/common/common.service';
 import { NavbarService } from 'src/app/core/services/navbar.service';
 
@@ -13,7 +13,7 @@ import { NavbarService } from 'src/app/core/services/navbar.service';
   templateUrl: './freelancerheader.component.html',
   styleUrls: ['./freelancerheader.component.scss'],
 })
-export class FreelancerheaderComponent implements OnInit {
+export class FreelancerheaderComponent implements OnInit{
   base = '';
   page = '';
   last = '';
@@ -22,18 +22,15 @@ export class FreelancerheaderComponent implements OnInit {
 
   
   navbar: Array<header> = [];
-  photo: any;
-  photoUrl: string | ArrayBuffer | null | undefined;
-  error: string | undefined;
-  email!: string;
+  name!:string;
+  email!:string;
 
   constructor(
     private router: Router,
     private data: ShareDataService,
     private navservices: NavbarService,
     private common: CommonService,
-    private userservicee:UserService,
-    private route: ActivatedRoute
+    private auth:AuthService
   ) {
     this.common.base.subscribe((res: string) => {
       this.base = res;
@@ -51,11 +48,10 @@ export class FreelancerheaderComponent implements OnInit {
     });
     this.navbar = this.data.sideBar;
   }
- 
-
-
-
-
+  ngOnInit(): void {
+    this.name=this.auth.getUsername();
+    this.email=this.auth.getEmail();
+  }
 
   employer() {
     localStorage.setItem('employer', 'employer');
