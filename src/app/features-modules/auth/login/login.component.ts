@@ -10,10 +10,14 @@ import { AuthService } from 'src/app/core/services/auth/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
+
 export class LoginComponent implements OnInit{
 togglePassword(arg0: number) {
 throw new Error('Method not implemented.');
 }
+
+export class LoginComponent{
+
   public password: boolean[] = [true];
   public routes = routes
   public Toggledata = true;
@@ -27,10 +31,7 @@ throw new Error('Method not implemented.');
 
   constructor(
     private userService:UserService,private auth:AuthService,private router:Router) {
-  }
- 
-  ngOnInit() {
-    console.log('Hello')
+
   }
 
   // employerLogin(){
@@ -145,6 +146,28 @@ throw new Error('Method not implemented.');
           }); 
         } else {
           alert('Invalid Credentials..!!');
+
+  employerLogin(){
+    console.log(this.employerLoginData)
+    this.userService.login(this.employerLoginData).subscribe((response:any)=>{
+      console.log('Login success',response);
+      
+      const jwtToken = response.jwt_token;
+      const user=response.user;
+      const role=user.role;
+      const isVerified=user.verified;
+
+      this.auth.setToken(jwtToken);
+      this.auth.setRoles(role);
+      this.auth.setUsername(user.name);
+      this.auth.setEmail(user.email);
+
+      if(isVerified){
+        if(role ==="Employer"){
+         this.router.navigate(['/employer/dashboard']);
+        }else{
+          alert('Invalid Credentials..!!')
+
         }
       } else {
         alert('Your Account is not Verified..!!!');

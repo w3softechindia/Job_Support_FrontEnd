@@ -13,7 +13,8 @@ import { AuthService } from 'src/app/core/services/auth/auth.service';
   templateUrl: './frelancer-login.component.html',
   styleUrls: ['./frelancer-login.component.scss']
 })
-export class FrelancerLoginComponent implements   OnInit {
+
+export class FrelancerLoginComponent {
 
   public password: boolean[] = [true];
   public routes = routes
@@ -24,10 +25,6 @@ export class FrelancerLoginComponent implements   OnInit {
   }
 
   constructor(private userService:UserService,private auth:AuthService,private router:Router) {
-    
-  }
-  ngOnInit() {
-    console.log("hii")
   }
 
   iconLogle() {
@@ -44,17 +41,17 @@ export class FrelancerLoginComponent implements   OnInit {
 
   freelancerLogin(){
     console.log(this.freelancerLoginData);
-    this.userService.login(this.freelancerLoginData).subscribe((data:any)=>{
-      console.log('Login success',data);
+    this.userService.login(this.freelancerLoginData).subscribe((response:any)=>{
+      console.log('Login success',response);
       
-      const jwtToken = data.jwtToken;
-      const user=data.user;
+      const jwtToken = response.jwt_token;
+      const user=response.user;
       const role=user.role;
       const isVerified=user.verified;
 
       this.auth.setToken(jwtToken);
       this.auth.setRoles(role);
-      this.auth.setUsername(user.username);
+      this.auth.setUsername(user.name);
       this.auth.setEmail(user.email);
 
       console.log(jwtToken)
