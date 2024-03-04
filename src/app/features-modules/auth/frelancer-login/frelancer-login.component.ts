@@ -1,9 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { UntypedFormGroup, UntypedFormControl } from '@angular/forms';
-
-import { Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { UserService } from 'src/app/Services/user.service';
 import { routes } from 'src/app/core/helpers/routes/routes';
-import { WebStorage } from 'src/app/core/storage/web.storage';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 
 
 
@@ -14,42 +13,23 @@ import { WebStorage } from 'src/app/core/storage/web.storage';
   templateUrl: './frelancer-login.component.html',
   styleUrls: ['./frelancer-login.component.scss']
 })
-export class FrelancerLoginComponent implements   OnInit ,OnDestroy{
-
-
+export class FrelancerLoginComponent implements   OnInit {
 
   public password: boolean[] = [true];
   public routes = routes
   public Toggledata = true;
-   
-  public CustomControler: unknown;
-  public subscription: Subscription;
-  form = new UntypedFormGroup({
-    email: new UntypedFormControl('admin@dreamguys.in'),
-    password: new UntypedFormControl('123456')
-  });
-  get f() {
-    return this.form.controls;
+  freelancerLoginData={
+    email:'',
+    password:''
   }
 
-  constructor(private storage: WebStorage) {
-    this.subscription = this.storage.Loginvalue.subscribe((data) => {
-      if (data != '0') {
-        this.CustomControler = data;
-      }
-    });
+  constructor(private userService:UserService,private auth:AuthService,private router:Router) {
+    
   }
   ngOnInit() {
-    this.storage.Checkuser();
-    localStorage.removeItem('LoginData');
+    console.log("hii")
   }
 
-  submit() {
-    this.storage.Login(this.form.value);
-  }
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
   iconLogle() {
     this.Toggledata = !this.Toggledata;
   }
@@ -60,6 +40,40 @@ export class FrelancerLoginComponent implements   OnInit ,OnDestroy{
 
   public togglePassword(index: number) {
     this.password[index] = !this.password[index];
+  }
+
+  freelancerLogin(){
+    console.log(this.freelancerLoginData);
+    this.userService.login(this.freelancerLoginData).subscribe((data:any)=>{
+      console.log('Login success',data);
+      
+      const jwtToken = data.jwtToken;
+      const user=data.user;
+      const role=user.role;
+      const isVerified=user.verified;
+
+      this.auth.setToken(jwtToken);
+      this.auth.setRoles(role);
+      this.auth.setUsername(user.username);
+      this.auth.setEmail(user.email);
+
+      console.log(jwtToken)
+      console.log(user)
+
+      if(isVerified){
+        if(role ==='Freelancer'){
+          this.router.navigate(['/freelancer/dashboards']);
+        }
+        else{
+          alert('Invalid Credentials..!!') 
+        }
+      }
+      else{
+        alert('Your Account is not Verified..!!!')
+      }
+    },(error)=>{
+      console.error('Login Error',error);
+    })
   }
 }
 

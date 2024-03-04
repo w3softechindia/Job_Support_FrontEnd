@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { Admin } from '../classes/admin';
 
 @Injectable({
@@ -12,11 +11,11 @@ export class AdminService {
 
   private baseurl="http://localhost:8080";
 
-  adminlogin(data:any){
-    return this.http.post(`${this.baseurl}/authenticate`,data);
+  adminlogin(email:string,password:string,admin:Admin){
+    return this.http.post(`${this.baseurl}/adminLogin/${email}/${password}`,admin);
   }
 
-  adminregister(admin:Admin ):Observable<any>{
+  adminregister(admin:Admin){
     return this.http.post(`${this.baseurl}/adminRegister` , admin);
   }
 }

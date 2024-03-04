@@ -1,20 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  UntypedFormControl,
-  UntypedFormGroup,
-  Validators,
-} from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { WebStorage } from '../../../../core/storage/web.storage';
-import { Admin } from 'src/app/classes/admin';
+import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/Services/user.service';
 import { Router } from '@angular/router';
-interface CustomControlerType {
-  status: string;
-  message: string;
-}
+import { AdminService } from 'src/app/Services/admin.service';
+import { Admin } from 'src/app/classes/admin';
 
 @Component({
   selector: 'app-login',
@@ -23,43 +11,25 @@ interface CustomControlerType {
 })
 export class LoginComponent implements OnInit {
   public Toggledata = true;
-   
-  public CustomControler: CustomControlerType | undefined;
-  public subscription: Subscription;
-  adminLogin!:FormGroup;
-  // form = new UntypedFormGroup({
-  //   email: new UntypedFormControl('admin@dreamguys.in', [Validators.required]),
-  //   password: new UntypedFormControl('123456', [Validators.required]),
-  // });
-  get f() {
-    return this.adminLogin.controls;
+  
+  constructor(private adminService:AdminService, private router:Router) {
   }
-
-  constructor(private storage: WebStorage, private formbuilder:FormBuilder,private userService:UserService, private router:Router) {
-    this.subscription = this.storage.Loginvalue.subscribe((data) => {
-      if (data !== '0') {
-        this.CustomControler = data as CustomControlerType;
-      }
-    });
-  }
+    email!:string;
+    password!:string;
+    admin!:Admin;
   ngOnInit() {
-    this.storage.Checkuser();
-    localStorage.removeItem('LoginData');
-
-    this.adminLogin=this.formbuilder.group({
-      email:['',[Validators.required]],
-      password:['',[Validators.required]]
-    })
+    console.log("Hii")
   }
 
   submit() {
-    this.userService.login(this.adminLogin.value).subscribe((data)=>{
+    this.adminService.adminlogin(this.email,this.password,this.admin).subscribe((data:any)=>{
       console.log("Login Success",data);
-      this.router.navigate(['/admin/dashboard']);
+      if(data.role==='Admin'){
+        this.router.navigate(['/admin/dashboard']);
+      }else{
+        alert("Invalid Credentials...!!")
+      }
     })
-  }
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
   iconLogle() {
     this.Toggledata = !this.Toggledata;
