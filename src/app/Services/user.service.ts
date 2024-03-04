@@ -80,5 +80,7 @@ constructor(private http:HttpClient){}
     return this.http.get(`${this.baseurl}/photo/${email}`, { responseType: 'blob' });
   }
 
+ 
+
 
 }

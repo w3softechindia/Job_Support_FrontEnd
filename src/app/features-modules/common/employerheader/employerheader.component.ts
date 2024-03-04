@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UserService } from 'src/app/Services/user.service';
 import { ShareDataService } from 'src/app/core/data/share-data.service';
 import { routes } from 'src/app/core/helpers/routes/routes';
+import { SidebarData } from 'src/app/core/models/models';
 import { header } from 'src/app/core/models/sidebar-model';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { CommonService } from 'src/app/core/services/common/common.service';
 import { NavbarService } from 'src/app/core/services/navbar.service';
 
@@ -11,18 +14,38 @@ import { NavbarService } from 'src/app/core/services/navbar.service';
   templateUrl: './employerheader.component.html',
   styleUrls: ['./employerheader.component.scss'],
 })
-export class EmployerheaderComponent {
+export class EmployerheaderComponent implements OnInit {
   public routes = routes;
   base = '';
   page = '';
   last = '';
+    
+  uusername: string | null | undefined;
+  
+
+
+ 
+
+  sidebar: SidebarData[] = [];
+  photoUrl: string | undefined;
+  // Added loading indicator
+  
+  photo: any;
+
+  error: string | undefined;
+  email!: string;
+  isLoading: boolean | undefined;
 
   navbar: Array<header> = [];
+
   constructor(
     private Router: Router,
     private data: ShareDataService,
     private navservices: NavbarService,
-    private common: CommonService
+    private common: CommonService,
+    private userservicee: UserService,
+    private route: ActivatedRoute,
+    private authService: AuthService
   ) {
     this.common.base.subscribe((res: string) => {
       this.base = res;
@@ -75,4 +98,40 @@ export class EmployerheaderComponent {
       this.anotherMenu = false;
     }
   }
+
+
+  ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      const email = params['email']; // Access email from query parameter
+      const username = params['username'];
+
+         console.log('Email from query param:', email);
+         console.log('username:' ,username )
+      // Now you can use the email in this component as needed
+      this.loadPhoto(email); // Call loadPhoto with the retrieved email
+
+      this.uusername = this.authService.getUsername();
+     
+    });
+  }
+
+ 
+
+  loadPhoto(email: string): void {
+    this.userservicee.getPhoto(email).subscribe(
+      (data) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.photoUrl = reader.result as string;
+          this.isLoading = false; // Set loading to false when image is loaded
+        };
+        reader.readAsDataURL(data);
+      },
+      (error) => {
+        console.error('Error loading photo:', error);
+        this.isLoading = false; // Set loading to false on error
+      }
+    );
+
+    }
 }
