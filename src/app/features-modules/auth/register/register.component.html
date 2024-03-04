@@ -13,10 +13,10 @@
                             <div role="tabpanel" id="developer" class="tab-pane fade active show">
                                 <form (ngSubmit)="register()" [formGroup]="registrationform">										
                                     <div class="input-block">
-                                        <label for="username" class="focus-label">User Name <span class="label-star"> *</span></label>
-                                        <input type="text" class="form-control floating" formControlName="username" id="username">
-                                        <div *ngIf="registrationform.get('username')?.invalid && (registrationform.get('username')?.dirty || registrationform.get('username')?.touched)">
-                                            <div *ngIf="registrationform.get('username')?.hasError('required')" style="color: red;">Username is required</div>
+                                        <label for="name" class="focus-label">User Name <span class="label-star"> *</span></label>
+                                        <input type="text" class="form-control floating" formControlName="name" id="name">
+                                        <div *ngIf="registrationform.get('name')?.invalid && (registrationform.get('name')?.dirty || registrationform.get('name')?.touched)">
+                                            <div *ngIf="registrationform.get('name')?.hasError('required')" style="color: red;">Username is required</div>
                                         </div>
                                     </div>
                                     <div class="input-block">

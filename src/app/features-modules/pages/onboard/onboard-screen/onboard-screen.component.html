@@ -151,11 +151,10 @@
                         <div class="upload-files">
                           <label class="file-upload image-upbtn">
                             <i class="feather icon-upload me-2"></i>Upload Photo
-         <input type="file" (change)="onFileSelected($event)" accept="image/*" />
+                            <input type="file" (change)="onFileSelected($event)" accept="image/*" />
 
-                            <
-                          </label>
-                          <span>For better preview recommended size is 450px x 450px. Max size 5mb.</span>
+                            </label>
+                              <span>For better preview recommended size is 450px x 450px. Max size 5mb.</span>
                         </div>
                       </div>
                     </div>
@@ -599,7 +598,8 @@
                   <div class="text-center">
                     <input class="btn btn-prev prev_btn btn-back" name="next" type="button" value="Back"
                       (click)="selectedFieldSet[0] = 2" (keydown.enter)="selectedFieldSet[0] = 2" />
-                    <input class="btn next_btn btn-primary btn-get btn-next" [routerLink]="routes.login" name="next" type="submit" value="Submit"/>
+                    <input class="btn next_btn btn-primary btn-get btn-next" [routerLink]="routes.login" name="next"
+                      type="submit" value="Submit" />
                   </div>
                 </form>
               </div>

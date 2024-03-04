@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { ShareDataService } from 'src/app/core/data/share-data.service';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { url } from 'src/app/core/models/models';
 import { header } from 'src/app/core/models/sidebar-model';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { CommonService } from 'src/app/core/services/common/common.service';
 import { NavbarService } from 'src/app/core/services/navbar.service';
 
@@ -12,19 +13,22 @@ import { NavbarService } from 'src/app/core/services/navbar.service';
   templateUrl: './freelancerheader.component.html',
   styleUrls: ['./freelancerheader.component.scss'],
 })
-export class FreelancerheaderComponent {
+export class FreelancerheaderComponent implements OnInit{
   base = '';
   page = '';
   last = '';
   public routes = routes;
 
   navbar: Array<header> = [];
+  name!:string;
+  email!:string;
 
   constructor(
     private router: Router,
     private data: ShareDataService,
     private navservices: NavbarService,
-    private common: CommonService
+    private common: CommonService,
+    private auth:AuthService
   ) {
     this.common.base.subscribe((res: string) => {
       this.base = res;
@@ -41,6 +45,10 @@ export class FreelancerheaderComponent {
       }
     });
     this.navbar = this.data.sideBar;
+  }
+  ngOnInit(): void {
+    this.name=this.auth.getUsername();
+    this.email=this.auth.getEmail();
   }
 
   employer() {
