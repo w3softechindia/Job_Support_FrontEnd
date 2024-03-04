@@ -1,8 +1,17 @@
 <div class="stickybar">
     <div class="settings-widget">
         <div class="settings-header d-sm-flex flex-row flex-wrap text-center text-sm-start align-items-center">
-            <a [routerLink] = "routes.freelancer_portfolio"><img alt="profile image" src="assets/img/user/avatar-1.jpg"
-                    class="avatar-lg rounded-circle"></a>
+            <a [routerLink] = "routes.freelancer_portfolio">
+                <!-- <img alt="profile image" src="assets/img/user/avatar-1.jpg"
+                    class="avatar-lg rounded-circle"> -->
+                    <div *ngIf="photoUrl">
+                        <img [src]="photoUrl" alt="Profile Image" class="avatar-lg rounded-circle">
+                    </div>
+
+                    <div *ngIf="!photoUrl">
+                        <p>Loading...</p>
+                    </div>
+                </a>
             <div class="ms-sm-3 ms-md-0 ms-lg-3 mt-2 mt-sm-0 mt-md-2 mt-lg-0">
                 <h3 class="mb-0"><a [routerLink] = "routes.freelancer_portfolio">Walter Griffin</a><img
                         src="assets/img/icon/verified-badge.svg" class="ms-1" alt="Img"></h3>

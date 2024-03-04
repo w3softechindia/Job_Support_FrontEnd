@@ -1,5 +1,5 @@
-import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/Services/user.service';
 import { User } from 'src/app/classes/user';
@@ -26,28 +26,63 @@ export class ProfileSettingsComponent implements OnInit {
   public selectedValue9 = '';
   public customvalue1 = '';
 
-  public skills: number[] = [];
-  public education: number[] = [];
-  public certification: number[] = [];
-  public experience: number[] = [];
-  public language: number[] = [];
-
-  public datas : boolean[] = [true]
+  public datas: boolean[] = [true]
   public isCheckboxChecked = true;
-  email!:string;
-  user!:User;
+  email!: string;
+  user!: User;
+  profileForm!: FormGroup;
+  existingSkills: any[] = [];
+  existingEducations: any[] = [];
+  existingCertifications: any[] = [];
+  existingExperiences: any[] = [];
+  existinglanguages: any[] = [];
 
-  constructor(private router: Router,private datePipe: DatePipe,private auth:AuthService,private userService:UserService) {}
-  
-  ngOnInit():void{
-    this.email=this.auth.getEmail();
+  constructor(
+    private router: Router,
+    private auth: AuthService,
+    private userService: UserService,
+    private formbuilder: FormBuilder) { }
+
+  ngOnInit(): void {
+    this.email = this.auth.getEmail();
     this.getUserDetails();
+
+    this.profileForm = this.formbuilder.group({
+      firstname: ['', [Validators.required]],
+      lastname: ['', [Validators.required]],
+      phonenumber: ['', [Validators.required]],
+      dob: ['', [Validators.required]],
+      jobtitle: ['', [Validators.required]],
+      typeofjob: ['', [Validators.required]],
+      description: ['', [Validators.required]],
+      skills: this.formbuilder.array([]),
+      educations: this.formbuilder.array([]),
+      certifications: this.formbuilder.array([]),
+      experiences: this.formbuilder.array([]),
+      languages: this.formbuilder.array([]),
+    })
   }
 
   private getUserDetails() {
     this.userService.getUserByMail(this.email).subscribe(
-      (response:any) => {
+      (response: any) => {
         this.user = response;
+
+        this.profileForm.patchValue({
+          firstname: this.user.firstname,
+          lastname: this.user.lastname,
+          phonenumber: this.user.phonenumber,
+          dob: this.user.dob,
+          jobtitle: this.user.jobtitle,
+          typeofjob: this.user.typeofjob,
+          description: this.user.description,
+        })
+
+          this.existingSkills = this.user.skills,
+          this.existingEducations = this.user.educations,
+          this.existingCertifications = this.user.certifications,
+          this.existingExperiences = this.user.experiences,
+          this.existinglanguages = this.user.languages
       },
       (error) => {
         // Handle error if necessary
@@ -55,42 +90,100 @@ export class ProfileSettingsComponent implements OnInit {
       }
     );
   }
-  
+
+  get skills(): FormArray {
+    return this.profileForm.get('skills') as FormArray;
+  }
+
+  get educations(): FormArray {
+    return this.profileForm.get('educations') as FormArray;
+  }
+
+  get certifications(): FormArray {
+    return this.profileForm.get('certifications') as FormArray;
+  }
+
+  get experiences(): FormArray {
+    return this.profileForm.get('experiences') as FormArray;
+  }
+
+  get languages(): FormArray {
+    return this.profileForm.get('languages') as FormArray;
+  }
 
   addSkills() {
-    this.skills.push(1);
+    this.existingSkills.forEach(skill => {
+      this.skills.push(this.formbuilder.group({
+        skills: [skill.skills],
+        level: [skill.level]
+      }));
+    });
   }
   removeSkills(index: number) {
-    this.skills.splice(index, 1);
+  this.skills.removeAt(index);
   }
 
   addEducation() {
-    this.education.push(1);
+    const educationFormArray = this.profileForm.get('educations') as FormArray;
+    this.existingEducations.forEach(edu => {
+      educationFormArray.push(this.formbuilder.group({
+        degree: [edu.degree], 
+        university: [edu.university],
+        startDate: [edu.startdate],
+        endDate: [edu.enddate]
+      }));
+    });
   }
   removeEducation(index: number) {
-    this.education.splice(index, 1);
+    const educationFormArray = this.profileForm.get('educations') as FormArray;
+    educationFormArray.removeAt(index);
   }
 
   addCertification() {
-    this.certification.push(1);
+    const certificationFormArray =this.profileForm.get('certifications') as FormArray;
+    this.existingCertifications.forEach(cer=>{
+      certificationFormArray.push(this.formbuilder.group({
+        certification:[cer.certification],
+        certifiedfrom:[cer.certifiedfrom],
+        year:[cer.year]
+      }));
+    });
   }
   removeCertification(index: number) {
-    this.certification.splice(index, 1);
+    const certificationFormArray =this.profileForm.get('certifications') as FormArray;
+    certificationFormArray.removeAt(index);;
   }
 
   addExperience() {
-    this.experience.push(1);
+    const experienceFormArray = this.profileForm.get('experiences') as FormArray;
+    this.existingExperiences.forEach(exp=>{
+      experienceFormArray.push(this.formbuilder.group({
+        companyname:[exp.companyname],
+        position:[exp.position],
+        companystartdate:[exp.companystartdate],
+        companyenddate:[exp.companyenddate]
+      }));
+    });
   }
   removeExperience(index: number) {
-    this.experience.splice(index, 1);
+    const experienceFormArray = this.profileForm.get('experiences') as FormArray;
+    experienceFormArray.removeAt(index);
   }
-  
+
   addLanguage() {
-    this.language.push(1);
+    const languageFormArray=this.profileForm.get('languages') as FormArray;
+    this.existinglanguages.forEach(lan=>{
+      languageFormArray.push(this.formbuilder.group({
+        language:[lan.language],
+        chooselevel:[lan.chooselevel]
+      }));
+    });
   }
   removeLanguage(index: number) {
-    this.language.splice(index, 1);
+    const languageFormArray=this.profileForm.get('languages') as FormArray;
+    languageFormArray.removeAt(index);
   }
+
 
   selectedList1: data[] = [
     { value: 'Basic' },
@@ -148,42 +241,20 @@ export class ProfileSettingsComponent implements OnInit {
   navigation() {
     this.router.navigate([routes.freelancerprofile])
   }
-  showTimePicker: Array<string> = [];
 
-  public hoursArray1 = [0];
-  public hoursArray2 = [0];
-  public hoursArray3 = [0];
-  public hoursArray4 = [0];
-  public hoursArray5 = [0];
-  public hoursArray6 = [0];
-  public hoursArray7 = [0];
-
-  startTime1 = new Date();
-  startTime2 = new Date();
-  startTime3 = new Date();
-  startTime4 = new Date();
-  startTime5 = new Date();
-  startTime6 = new Date();
-  startTime7 = new Date();
-  endTime1 = new Date();
-  endTime2 = new Date();
-  endTime3 = new Date();
-  endTime4 = new Date();
-  endTime5 = new Date();
-  endTime6 = new Date();
-  endTime7 = new Date();
- 
-
-
-  toggleTimePicker(value: string): void {
-    if (this.showTimePicker[0] !== value) {
-      this.showTimePicker[0] = value;
-    } else {
-      this.showTimePicker = [];
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    if (file) {
+      this.userService.uploadFile(this.email, file).subscribe(
+        response => {
+          console.log(response); // Log the response
+          alert(response); // Display the response message
+        },
+        error => {
+          console.error(error); // Handle error response
+          // Optionally, you can show an error message to the user
+        }
+      );
     }
-  }
-  formatTime(date: Date) {
-    const selectedDate: Date = new Date(date);
-    return this.datePipe.transform(selectedDate, 'h:mm a');
   }
 }

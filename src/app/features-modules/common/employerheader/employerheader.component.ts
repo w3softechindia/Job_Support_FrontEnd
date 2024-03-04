@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UserService } from 'src/app/Services/user.service';
 import { ShareDataService } from 'src/app/core/data/share-data.service';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { header } from 'src/app/core/models/sidebar-model';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { CommonService } from 'src/app/core/services/common/common.service';
 import { NavbarService } from 'src/app/core/services/navbar.service';
 
@@ -18,11 +20,18 @@ export class EmployerheaderComponent {
   last = '';
 
   navbar: Array<header> = [];
+  username: any;
+  photoUrl!: string;
+  isLoading!: boolean;
+  email!: string;
   constructor(
     private Router: Router,
     private data: ShareDataService,
     private navservices: NavbarService,
-    private common: CommonService
+    private common: CommonService,
+    private userService:UserService,
+    private auth:AuthService,
+    private route:ActivatedRoute
   ) {
     this.common.base.subscribe((res: string) => {
       this.base = res;
@@ -74,5 +83,29 @@ export class EmployerheaderComponent {
     } else {
       this.anotherMenu = false;
     }
+  }
+
+  ngOnInit(): void {
+      this.username = this.auth.getUsername();
+      this.email=this.auth.getEmail();
+
+      this.loadPhoto();
+  }
+
+  loadPhoto(): void {
+    this.userService.getPhoto(this.email).subscribe(
+      (data) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.photoUrl = reader.result as string;
+          this.isLoading = false; // Set loading to false when image is loaded
+        };
+        reader.readAsDataURL(data);
+      },
+      (error) => {
+        console.error('Error loading photo:', error);
+        this.isLoading = false; // Set loading to false on error
+      }
+    );
   }
 }
