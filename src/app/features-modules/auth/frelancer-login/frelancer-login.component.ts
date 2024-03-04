@@ -13,6 +13,7 @@ import { AuthService } from 'src/app/core/services/auth/auth.service';
   templateUrl: './frelancer-login.component.html',
   styleUrls: ['./frelancer-login.component.scss']
 })
+
 export class FrelancerLoginComponent {
 
   public password: boolean[] = [true];
@@ -24,7 +25,6 @@ export class FrelancerLoginComponent {
   }
 
   constructor(private userService:UserService,private auth:AuthService,private router:Router) {
-    
   }
 
   iconLogle() {

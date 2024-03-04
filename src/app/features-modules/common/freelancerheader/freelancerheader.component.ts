@@ -19,6 +19,8 @@ export class FreelancerheaderComponent implements OnInit{
   last = '';
   public routes = routes;
 
+
+  
   navbar: Array<header> = [];
   name!:string;
   email!:string;
@@ -84,6 +86,34 @@ export class FreelancerheaderComponent implements OnInit{
       this.anotherMenu = true;
     } else {
       this.anotherMenu = false;
+    }
+  }
+
+
+
+
+  ngOnInit(): void {
+    this.email = this.route.snapshot.params['email'];
+    console.log(this.email);
+    // const email = 'your-email@example.com'; // Replace with the actual email
+    this.userservicee.getPhoto(this.email).subscribe(
+      data => {
+        this.photo = data;
+        this.createImageFromBlob();
+      },
+      error => {
+        this.error = 'Failed to load photo.';
+      }
+    );
+  }
+  createImageFromBlob(): void {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+      this.photoUrl = reader.result;
+    }, false);
+
+    if (this.photo) {
+      reader.readAsDataURL(this.photo);
     }
   }
 }

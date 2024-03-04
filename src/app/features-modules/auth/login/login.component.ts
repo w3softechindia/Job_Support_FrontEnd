@@ -22,6 +22,7 @@ export class LoginComponent{
 
   constructor(
     private userService:UserService,private auth:AuthService,private router:Router) {
+
   }
 
   employerLogin(){
