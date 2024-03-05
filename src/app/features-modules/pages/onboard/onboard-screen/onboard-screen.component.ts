@@ -16,17 +16,12 @@ interface data {
 })
 export class OnboardScreenComponent implements OnInit {
 
-
   email!: string;
   selectedRole!: string;
   user: User = new User();
   userDataForm!: FormGroup;
   skillsAdded = false;
   public routes = routes;
-
-  
-  
-
 
   personalForm: FormGroup = new FormGroup({
     firstname: new FormControl(''),
@@ -36,7 +31,6 @@ export class OnboardScreenComponent implements OnInit {
     jobtitle: new FormControl(''),
     typeofjob: new FormControl(''),
     description: new FormControl(''),
-    
   })
 
   otherInfoForm:FormGroup=new FormGroup({
