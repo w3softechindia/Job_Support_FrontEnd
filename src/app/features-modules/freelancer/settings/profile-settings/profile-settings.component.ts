@@ -240,7 +240,6 @@ export class ProfileSettingsComponent implements OnInit {
 
   addCertification() {
     const certificationFormArray = this.profileForm.get('certifications') as FormArray;
-
     // Check if certificationFormArray is defined and not null
     if (certificationFormArray) {
       certificationFormArray.push(this.formbuilder.group({
@@ -257,7 +256,6 @@ export class ProfileSettingsComponent implements OnInit {
 
   addExperience() {
     const experienceFormArray = this.profileForm.get('experiences') as FormArray;
-
     // Check if experienceFormArray is defined and not null
     if (experienceFormArray) {
       experienceFormArray.push(this.formbuilder.group({
@@ -275,7 +273,6 @@ export class ProfileSettingsComponent implements OnInit {
 
   addLanguage() {
     const languageFormArray = this.profileForm.get('languages') as FormArray;
-
     // Check if languageFormArray is defined and not null
     if (languageFormArray) {
       languageFormArray.push(this.formbuilder.group({
