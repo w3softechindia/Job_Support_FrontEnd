@@ -1,6 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+
 import { UserService } from 'src/app/Services/user.service';
 import { ShareDataService } from 'src/app/core/data/share-data.service';
 import { routes } from 'src/app/core/helpers/routes/routes';
@@ -31,10 +31,7 @@ export class EmployerheaderComponent implements OnInit{
   navbar: Array<header> = [];
   username: any;
 
-  username: any;
-  photoUrl!: string;
-  isLoading!: boolean;
-  email!: string;
+ 
   constructor(
     private data: ShareDataService,
     private navservices: NavbarService,
@@ -102,7 +99,7 @@ export class EmployerheaderComponent implements OnInit{
 
   loadPhoto(): void {
     this.userService.getPhoto(this.email).subscribe(
-      (data) => {
+      (data: Blob) => {
         const reader = new FileReader();
         reader.onload = () => {
           this.photoUrl = reader.result as string;
@@ -110,7 +107,7 @@ export class EmployerheaderComponent implements OnInit{
         };
         reader.readAsDataURL(data);
       },
-      (error) => {
+      (error: any) => {
         console.error('Error loading photo:', error);
         this.isLoading = false; // Set loading to false on error
       }
