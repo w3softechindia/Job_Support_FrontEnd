@@ -1,6 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
-
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/Services/user.service';
 import { ShareDataService } from 'src/app/core/data/share-data.service';
 import { routes } from 'src/app/core/helpers/routes/routes';
@@ -31,7 +31,6 @@ export class EmployerheaderComponent implements OnInit{
   navbar: Array<header> = [];
   username: any;
 
- 
   constructor(
     private data: ShareDataService,
     private navservices: NavbarService,

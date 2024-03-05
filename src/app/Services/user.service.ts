@@ -48,6 +48,11 @@ constructor(private http:HttpClient){}
     return this.http.put(`${this.baseurl}/employerInfo/${email}`,user)
   }
 
+  //Update Freelancer Details
+  updateFreelancer(email:string,freelancer:User){
+    return this.http.put(`${this.baseurl}/updateFreelancer/${email}`,freelancer);
+  }
+
   //Send Otp to mail
   SendOtp(email:string,user:User):Observable<any>{
     return this.http.put(`${this.baseurl}/sendOTP/${email}`,user);

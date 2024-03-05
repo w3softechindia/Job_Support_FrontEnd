@@ -37,8 +37,8 @@ export class User {
         edescribe!: string;
 
         skills!: Skills[];
-        educations!: Education[];
-        experiences!: Experience[];
-        certifications!: Certification[];
-        languages!: Language[];
+        education!: Education[];
+        experience!: Experience[];
+        certification!: Certification[];
+        language!: Language[];
 }
