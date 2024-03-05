@@ -12,6 +12,7 @@ import { AuthService } from 'src/app/core/services/auth/auth.service';
 })
 
 export class LoginComponent{
+
 togglePassword(arg0: number) {
 throw new Error('Method not implemented.');
 }

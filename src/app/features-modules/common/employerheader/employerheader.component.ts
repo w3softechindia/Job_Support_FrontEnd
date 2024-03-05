@@ -31,6 +31,10 @@ export class EmployerheaderComponent implements OnInit{
   navbar: Array<header> = [];
   username: any;
 
+  username: any;
+  photoUrl!: string;
+  isLoading!: boolean;
+  email!: string;
   constructor(
     private data: ShareDataService,
     private navservices: NavbarService,

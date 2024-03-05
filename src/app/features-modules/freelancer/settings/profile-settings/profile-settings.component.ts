@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -235,6 +236,7 @@ export class ProfileSettingsComponent implements OnInit {
   submitForm() {
 
   }
+
 
   selectedList1: data[] = [
     { value: 'Basic' },
