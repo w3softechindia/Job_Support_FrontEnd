@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { UserService } from 'src/app/Services/user.service';
 import { ShareDataService } from 'src/app/core/data/share-data.service';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { url } from 'src/app/core/models/models';
@@ -18,19 +19,20 @@ export class FreelancerheaderComponent implements OnInit{
   page = '';
   last = '';
   public routes = routes;
-
-
-  
   navbar: Array<header> = [];
   name!:string;
   email!:string;
+  photo: any;
+  error!: string;
+  photoUrl!: string | ArrayBuffer | null;
 
   constructor(
     private router: Router,
     private data: ShareDataService,
     private navservices: NavbarService,
     private common: CommonService,
-    private auth:AuthService
+    private auth:AuthService,
+    private userService:UserService
   ) {
     this.common.base.subscribe((res: string) => {
       this.base = res;
@@ -51,6 +53,15 @@ export class FreelancerheaderComponent implements OnInit{
   ngOnInit(): void {
     this.name=this.auth.getUsername();
     this.email=this.auth.getEmail();
+    this.userService.getPhoto(this.email).subscribe(
+      data => {
+        this.photo = data;
+        this.createImageFromBlob();
+      },
+      error => {
+        this.error = 'Failed to load photo.';
+      }
+    );
   }
 
   employer() {
@@ -89,23 +100,6 @@ export class FreelancerheaderComponent implements OnInit{
     }
   }
 
-
-
-
-  ngOnInit(): void {
-    this.email = this.route.snapshot.params['email'];
-    console.log(this.email);
-    // const email = 'your-email@example.com'; // Replace with the actual email
-    this.userservicee.getPhoto(this.email).subscribe(
-      data => {
-        this.photo = data;
-        this.createImageFromBlob();
-      },
-      error => {
-        this.error = 'Failed to load photo.';
-      }
-    );
-  }
   createImageFromBlob(): void {
     const reader = new FileReader();
     reader.addEventListener('load', () => {

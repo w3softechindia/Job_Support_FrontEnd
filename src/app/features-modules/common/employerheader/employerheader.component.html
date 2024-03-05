@@ -174,9 +174,7 @@
 					<a href="javascript:void(0);" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
 						<!-- <span class="user-img">
 							<img src="assets/img/user/table-avatar-03.jpg
-							" alt="Img"> 
-
-							
+							" alt="Img">
 						</span> -->
 						<div *ngIf="photoUrl">
 							<img [src]="photoUrl" alt="Profile Image" class="avatar-lg rounded-circle">
@@ -184,8 +182,7 @@
 						<div *ngIf="!photoUrl">
 							<p>Loading...</p>
 						</div>
-						  <span>{{ uusername }}</span>
-						<!-- <span>Walter Griffin</span> -->
+						<span>{{this.username}}</span>
 					</a>
 					<div class="dropdown-menu emp">
 						<div class="drop-head">

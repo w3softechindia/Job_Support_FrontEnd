@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/Services/user.service';
 import { ShareDataService } from 'src/app/core/data/share-data.service';
@@ -20,12 +21,6 @@ export class EmployerheaderComponent implements OnInit {
   page = '';
   last = '';
     
-  uusername: string | null | undefined;
-  
-
-
- 
-
   sidebar: SidebarData[] = [];
   photoUrl: string | undefined;
   // Added loading indicator
@@ -38,14 +33,18 @@ export class EmployerheaderComponent implements OnInit {
 
   navbar: Array<header> = [];
 
+  username: any;
+  photoUrl!: string;
+  isLoading!: boolean;
+  email!: string;
   constructor(
     private Router: Router,
     private data: ShareDataService,
     private navservices: NavbarService,
     private common: CommonService,
-    private userservicee: UserService,
-    private route: ActivatedRoute,
-    private authService: AuthService
+    private userService:UserService,
+    private auth:AuthService,
+    private route:ActivatedRoute
   ) {
     this.common.base.subscribe((res: string) => {
       this.base = res;
@@ -99,26 +98,14 @@ export class EmployerheaderComponent implements OnInit {
     }
   }
 
-
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      const email = params['email']; // Access email from query parameter
-      const username = params['username'];
-
-         console.log('Email from query param:', email);
-         console.log('username:' ,username )
-      // Now you can use the email in this component as needed
-      this.loadPhoto(email); // Call loadPhoto with the retrieved email
-
-      this.uusername = this.authService.getUsername();
-     
-    });
+      this.username = this.auth.getUsername();
+      this.email=this.auth.getEmail();
+      this.loadPhoto();
   }
 
- 
-
-  loadPhoto(email: string): void {
-    this.userservicee.getPhoto(email).subscribe(
+  loadPhoto(): void {
+    this.userService.getPhoto(this.email).subscribe(
       (data) => {
         const reader = new FileReader();
         reader.onload = () => {
@@ -132,6 +119,5 @@ export class EmployerheaderComponent implements OnInit {
         this.isLoading = false; // Set loading to false on error
       }
     );
-
-    }
+  }
 }

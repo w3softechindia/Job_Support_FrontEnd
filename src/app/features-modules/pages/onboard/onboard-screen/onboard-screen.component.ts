@@ -329,8 +329,6 @@ export class OnboardScreenComponent implements OnInit {
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
     if (file) {
-      // const email = 'your-email'; // Replace with the actual email
-
       this.userService.uploadFile(this.email, file).subscribe(
         response => {
           console.log(response); // Log the response
