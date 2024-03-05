@@ -10,6 +10,7 @@ import { AuthService } from 'src/app/core/services/auth/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
+
 export class LoginComponent{
   public password: boolean[] = [true];
   public routes = routes
@@ -19,6 +20,8 @@ export class LoginComponent{
     email:'',
     password:''
   }
+
+  email!:string;
 
   constructor(
     private userService:UserService,private auth:AuthService,private router:Router) {
@@ -45,24 +48,14 @@ export class LoginComponent{
          this.router.navigate(['/employer/dashboard']);
         }else{
           alert('Invalid Credentials..!!')
+
         }
+      } else {
+        alert('Your Account is not Verified..!!!');
       }
-      else{
-        alert('Your Account is not Verified..!!!')
-      }
-    },(error)=>{
-      console.error('Login Error',error);
-    })
-  }
-  iconLogle() {
-    this.Toggledata = !this.Toggledata;
-  }
-  otherPages(val: string) {
-    localStorage.setItem(val, val);
+    }, (error) => {
+      console.error('Login Error', error);
+    });
   }
   
-
-  public togglePassword(index: number) {
-    this.password[index] = !this.password[index];
-  }
 }

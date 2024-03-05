@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ShareDataService } from 'src/app/core/data/share-data.service';
 import { CommonService } from 'src/app/core/services/common/common.service';
 import { SidebarData } from 'src/app/core/models/models';
@@ -25,7 +25,7 @@ export interface SidemenuItem {
   templateUrl: './sidemenu.component.html',
   styleUrls: ['./sidemenu.component.scss'],
 })
-export class SidemenuComponent {
+export class SidemenuComponent implements OnInit {
   public routes = routes;
   base = '';
   page = '';
@@ -62,7 +62,6 @@ export class SidemenuComponent {
   ngOnInit(): void {
     this.username = this.auth.getUsername();
     this.email=this.auth.getEmail();
-
     this.loadPhoto();
 }
 

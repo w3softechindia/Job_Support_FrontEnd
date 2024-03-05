@@ -19,9 +19,6 @@ export class FreelancerheaderComponent implements OnInit{
   page = '';
   last = '';
   public routes = routes;
-
-
-  
   navbar: Array<header> = [];
   name!:string;
   email!:string;

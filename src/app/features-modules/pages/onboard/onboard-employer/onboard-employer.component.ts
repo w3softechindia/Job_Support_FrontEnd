@@ -211,7 +211,6 @@ export class OnboardEmployerComponent {
   onBoardFreelancer(){
     this.router.navigateByUrl(`${this.routes.freelancer_onboard}/${this.email}`)
   }
-
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
     if (file) {

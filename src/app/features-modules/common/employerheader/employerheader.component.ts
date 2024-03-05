@@ -1,8 +1,10 @@
+
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/Services/user.service';
 import { ShareDataService } from 'src/app/core/data/share-data.service';
 import { routes } from 'src/app/core/helpers/routes/routes';
+import { SidebarData } from 'src/app/core/models/models';
 import { header } from 'src/app/core/models/sidebar-model';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { CommonService } from 'src/app/core/services/common/common.service';
@@ -13,13 +15,24 @@ import { NavbarService } from 'src/app/core/services/navbar.service';
   templateUrl: './employerheader.component.html',
   styleUrls: ['./employerheader.component.scss'],
 })
-export class EmployerheaderComponent {
+export class EmployerheaderComponent implements OnInit {
   public routes = routes;
   base = '';
   page = '';
   last = '';
+    
+  sidebar: SidebarData[] = [];
+  photoUrl: string | undefined;
+  // Added loading indicator
+  
+  photo: any;
+
+  error: string | undefined;
+  email!: string;
+  isLoading: boolean | undefined;
 
   navbar: Array<header> = [];
+
   username: any;
   photoUrl!: string;
   isLoading!: boolean;
@@ -88,7 +101,6 @@ export class EmployerheaderComponent {
   ngOnInit(): void {
       this.username = this.auth.getUsername();
       this.email=this.auth.getEmail();
-
       this.loadPhoto();
   }
 
