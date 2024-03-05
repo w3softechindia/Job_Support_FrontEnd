@@ -1,5 +1,5 @@
 
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/Services/user.service';
 import { ShareDataService } from 'src/app/core/data/share-data.service';
@@ -15,7 +15,7 @@ import { NavbarService } from 'src/app/core/services/navbar.service';
   templateUrl: './employerheader.component.html',
   styleUrls: ['./employerheader.component.scss'],
 })
-export class EmployerheaderComponent implements OnInit {
+export class EmployerheaderComponent implements OnInit{
   public routes = routes;
   base = '';
   page = '';
@@ -24,27 +24,23 @@ export class EmployerheaderComponent implements OnInit {
   sidebar: SidebarData[] = [];
   photoUrl: string | undefined;
   // Added loading indicator
-  
   photo: any;
-
   error: string | undefined;
   email!: string;
   isLoading: boolean | undefined;
-
   navbar: Array<header> = [];
+  username: any;
 
   username: any;
   photoUrl!: string;
   isLoading!: boolean;
   email!: string;
   constructor(
-    private Router: Router,
     private data: ShareDataService,
     private navservices: NavbarService,
     private common: CommonService,
     private userService:UserService,
     private auth:AuthService,
-    private route:ActivatedRoute
   ) {
     this.common.base.subscribe((res: string) => {
       this.base = res;

@@ -1,7 +1,7 @@
 <!-- Page Content -->
 <div class="pro-pos">
     <div class="setting-content">
-        <form>
+        <form [formGroup]="profileForm" (ngSubmit)="submitForm()">
             <div class="card">
                 <div class="pro-head">
                     <h3>Profile Setting</h3>
@@ -49,10 +49,8 @@
                         <div class="col-lg-4 col-md-12">
                             <div class="mb-3">
                                 <label for="dob" class="form-label">Date of Birth</label>
-                                <div class="cal-icon">
-                                    <input type="text" class="form-control datetimepicker" bsDatepicker
-                                        placeholder="Choose" id="dob" formControlName="dob" />
-                                </div>
+                                    <input type="date" class="form-control" placeholder="Choose" id="dob"
+                                        formControlName="dob" />
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-12">
@@ -91,414 +89,290 @@
                 </div>
             </div>
 
-            <div class="form-row">
-                <div class="col-lg-12 w-100">
+            <!-- <div class="form-row"> -->
+            <div class="col-lg-12 w-100">
+                <div class="card flex-fill mb-3">
                     <div formArrayName="skills">
-                        <div class="card flex-fill mb-3">
-                            <div class="pro-head">
-                                <h4 class="pro-titles mb-0">Skills</h4>
-                            </div>
-                            <div class="pro-body  skill-info">
-                                <div *ngFor="let skill of profileForm.get('skills').controls; let i = index"
-                                    [formGroupName]="i">
-                                    <div class="form-row align-items-center skill-cont">
-                                        <div class="input-block col-md-6">
-                                            <label for="skill{{i}}">Skill Name</label>
-                                            <input type="text" id="skills{{i}}" formControlName="skills"
-                                                class="form-control" />
-                                        </div>
-                                        <div class="input-block col-md-5">
-                                            <label for="level{{i}}">Level</label>
-                                            <mat-select id="level{{i}}" formControlName="level"
-                                                class="select mat-select arrow verify" placeholder="Choose Level">
-                                                <mat-option *ngFor="let data of selectedList2" [value]="data.value">
-                                                    {{ data.value }}
-                                                </mat-option>
-                                            </mat-select>
-                                        </div>
-                                        <div class="input-block col-md-1">
-                                            <a href="javascript:void(0);" class="btn trash-icon"
-                                                (click)="removeDatas(1)"><i class="far fa-trash-alt"></i></a>
-                                        </div>
+                        <div class="pro-head">
+                            <h4 class="pro-titles mb-0">Skills</h4>
+                        </div>
+                        <div class="pro-body  skill-info">
+                            <div *ngFor="let skill of skills.controls; let i = index" [formGroupName]="i">
+                                <div class="form-row align-items-center skill-cont">
+                                    <div class="input-block col-md-6">
+                                        <label for="skill">Skill Name</label>
+                                        <input type="text" id="skills" formControlName="skills" class="form-control" />
+                                    </div>
+                                    <div class="input-block col-md-5">
+                                        <label for="level">Level</label>
+                                        <mat-select id="level" formControlName="level"
+                                            class="select mat-select arrow verify" placeholder="Choose Level">
+                                            <mat-option *ngFor="let data of selectedList2" [value]="data.value">
+                                                {{ data.value }}
+                                            </mat-option>
+                                        </mat-select>
+                                    </div>
+                                    <div class="input-block col-lg-1 mb-0">
+                                        <a href="javascript:void(0);"
+                                            class="btn trash-icon" (click)="removeSkills(i)"
+                                            (keydown.enter)="removeSkills(i)"><i
+                                                class="far fa-trash-alt"></i></a>
                                     </div>
                                 </div>
+                            </div>
+                            <div id="certi_add_row" class=" w-100">
+                                <a href="javascript:void(0);" (click)="addSkill()" (keydown.enter)="addSkill()"
+                                    tabindex="0" class="btn fund-btn skill-add add-btn-profile"><i
+                                        class="feather icon-plus"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="col-lg-12 w-100">
-                    <div class="card flex-fill mb-3">
+            <div class="col-lg-12 w-100">
+                <div class="card flex-fill mb-3">
+                    <div formArrayName="educations">
                         <div class="pro-head">
                             <h4 class="pro-titles without-border mb-0">Education</h4>
                         </div>
-                        <div class="pro-body  ">
-                            <div class="form-row align-items-center skill-cont" [ngClass]="{'d-none': datas[4]}">
-                                <div class="input-block col-lg-3">
-                                    <label for="degree-name" class="form-label">Degree Name</label>
-                                    <input type="text" class="form-control" value="BE CSE">
-                                </div>
-                                <div class="input-block col-lg-3">
-                                    <label for="university-name" class="form-label">University Name</label>
-                                    <input type="text" class="form-control" value="Brington">
-                                </div>
-                                <div class="col-md-3 input-block floating-icon">
-                                    <label for="start" class="form-label">Start Date</label>
-                                    <input type="text" class="form-control datetimepicker" bsDatepicker
-                                        placeholder="Choose">
-                                    <span><i class="feather icon-calendar"></i></span>
-                                </div>
-                                <div class="col-md-2 input-block floating-icon">
-                                    <label for="end date" class="form-label">End Date</label>
-                                    <input type="text" class="form-control datetimepicker" bsDatepicker
-                                        placeholder="Choose">
-                                    <span><i class="feather icon-calendar"></i></span>
-
-                                </div>
-                                <div class="input-block col-lg-1 mb-0">
-                                    <a href="javascript:void(0);" class="btn trash-icon" (click)="removeDatas(4)"><i
-                                            class="far fa-trash-alt"></i></a>
-                                </div>
-                            </div>
-                            <ng-container *ngIf="education.length > 0">
-                                <div class="form-row align-items-center skill-cont"
-                                    *ngFor="let item of education;let i = index">
+                        <div class="pro-body  education-info">
+                            <div *ngFor="let edu of educations.controls; let i = index" [formGroupName]="i">
+                                <div class="form-row align-items-center skill-cont">
                                     <div class="input-block col-lg-3">
-                                        <label for="degree-name" class="form-label">Degree Name</label>
-                                        <input type="text" class="form-control" value="BE CSE">
+                                        <label for="degree" class="form-label">Degree Name</label>
+                                        <input type="text" class="form-control" formControlName="degree"
+                                            placeholder="Enter degree name" id="degree">
                                     </div>
                                     <div class="input-block col-lg-3">
-                                        <label for="university-name" class="form-label">University Name</label>
-                                        <input type="text" class="form-control" value="Brington">
+                                        <label for="university" class="form-label">University Name</label>
+                                        <input type="text" class="form-control" formControlName="university"
+                                            placeholder="Enter university name" id="university">
                                     </div>
                                     <div class="col-md-3 input-block floating-icon">
-                                        <label for="start" class="form-label">Start Date</label>
-                                        <input type="text" class="form-control datetimepicker" bsDatepicker
-                                            placeholder="Choose">
+                                        <label for="startdate" class="form-label">Start Date</label>
+                                        <input type="date" class="form-control"
+                                            formControlName="startdate" placeholder="Choose start date" id="startdate">
                                         <span><i class="feather icon-calendar"></i></span>
                                     </div>
                                     <div class="col-md-2 input-block floating-icon">
-                                        <label for="end date" class="form-label">End Date</label>
-                                        <input type="text" class="form-control datetimepicker" bsDatepicker
-                                            placeholder="Choose">
+                                        <label for="enddate" class="form-label">End Date</label>
+                                        <input type="text" class="form-control" formControlName="enddate"
+                                            placeholder="Choose end date" id="enddate">
                                         <span><i class="feather icon-calendar"></i></span>
-
                                     </div>
                                     <div class="input-block col-lg-1 mb-0">
-                                        <a href="javascript:void(0);" class="btn trash-icon"
-                                            (click)="removeEducation(i)" (keydown.enter)="removeEducation(i)"
-                                            tabindex="0"><i class="far fa-trash-alt"></i></a>
+                                        <a href="javascript:void(0);"
+                                            class="btn trash-icon" (click)="removeEducation(i)"
+                                            (keydown.enter)="removeEducation(i)"><i
+                                                class="far fa-trash-alt"></i></a>
                                     </div>
                                 </div>
-                            </ng-container>
-                            <div id="education_add_row" class="w-100"></div>
-                            <a href="javascript:void(0)" (click)="addEducation()" (keydown.enter)="addEducation()"
-                                tabindex="0" class="add-btn-form custom-add-btn-form add-edu w-100 d-block text-end"><i
-                                    class="feather icon-plus-circle me-2"></i>Add New</a>
+                            </div>
+                            <div id="certi_add_row" class=" w-100">
+                                <a href="javascript:void(0);" (click)="addEducation()" (keydown.enter)="addEducation()"
+                                     class="btn fund-btn skill-add add-btn-profile"><i
+                                        class="feather icon-plus"></i></a>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
+            <!-- </div> -->
 
-                <div class="col-lg-12 w-100">
-                    <div class="card flex-fill mb-3">
+            <div class="col-lg-12 w-100">
+                <div class="card flex-fill mb-3">
+                    <div formArrayName="certifications">
                         <div class="pro-head">
                             <h4 class="pro-titles without-border mb-0">Certification</h4>
                         </div>
-                        <div class="pro-body  ">
-                            <div class="form-row align-items-center skill-cont" [ngClass]="{'d-none': datas[5]}">
-                                <div class="input-block col-lg-4">
-                                    <label for="certification" class="form-label">Certification or Award</label>
-                                    <input type="text" class="form-control" value="Feast of UI">
-                                </div>
-                                <div class="input-block col-lg-4">
-                                    <label for="certified-from" class="form-label">Certified from</label>
-                                    <input type="text" class="form-control" value="PSD Technologies">
-                                </div>
-                                <div class="col-lg-3 input-block floating-icon">
-                                    <label for="year" class="form-label">Year</label>
-                                    <input type="text" class="form-control datetimepicker" bsDatepicker
-                                        placeholder="Choose">
-                                    <span><i class="feather icon-calendar"></i></span>
-                                </div>
-                                <div class="input-block col-lg-1 mb-0">
-                                    <a href="javascript:void(0);" (click)="removeDatas(5)" class="btn trash-icon"><i
-                                            class="far fa-trash-alt"></i></a>
-                                </div>
-                            </div>
-                            <ng-container *ngIf="certification.length > 0">
-                                <div class="form-row align-items-center skill-cont"
-                                    *ngFor="let item of certification;let i = index">
+                        <div class="pro-body  certification-info">
+                            <div *ngFor="let cer of certifications.controls; let i=index" [formGroupName]="i">
+                                <div class="form-row align-items-center skill-cont">
                                     <div class="input-block col-lg-4">
-                                        <label for="certification" class="form-label">Certification or Award</label>
-                                        <input type="text" class="form-control" value="Feast of UI">
+                                        <label for="certification{{i}}" class="focus-label">Certification or
+                                            Award</label>
+                                        <mat-select id="certification{{i}}" formControlName="certification"
+                                            class="select mat-select arrow verify" placeholder="Select">
+                                            <mat-option *ngFor="let data of selectedList4" [value]="data.value">{{
+                                                data.value
+                                                }}</mat-option>
+                                        </mat-select>
                                     </div>
                                     <div class="input-block col-lg-4">
-                                        <label for="certified-from" class="form-label">Certified from</label>
-                                        <input type="text" class="form-control" value="PSD Technologies">
+                                        <label for="certifiedfrom{{i}}" class="focus-label">Certified from</label>
+                                        <input type="text" class="form-control" id="certifiedfrom{{i}}"
+                                            formControlName="certifiedfrom" />
                                     </div>
                                     <div class="col-lg-3 input-block floating-icon">
-                                        <label for="year" class="form-label">Year</label>
-                                        <input type="text" class="form-control datetimepicker" bsDatepicker
-                                            placeholder="Choose">
-                                        <span><i class="feather icon-calendar"></i></span>
+                                        <label for="year{{i}}" class="focus-label">Year</label>
+                                        <input type="text" class="form-control" id="year{{i}}" formControlName="year" />
                                     </div>
                                     <div class="input-block col-lg-1 mb-0">
                                         <a href="javascript:void(0);" (click)="removeCertification(i)"
-                                            (keydown.enter)="removeCertification(i)" tabindex="0"
                                             class="btn trash-icon"><i class="far fa-trash-alt"></i></a>
                                     </div>
                                 </div>
-                            </ng-container>
-                            <div id="certi_add_row" class=" w-100"></div>
-                            <a href="javascript:void(0)" (click)="addCertification()"
-                                (keydown.enter)="addCertification()" tabindex="0"
-                                class="add-btn-form add-certi w-100 d-block text-end"><i
-                                    class="feather icon-plus-circle me-2"></i>Add New</a>
+                            </div>
+                            <div id="certi_add_row" class=" w-100">
+                                <a href="javascript:void(0);" (click)="addCertification()" (keydown.enter)="addCertification()"
+                                    tabindex="0" class="btn fund-btn skill-add add-btn-profile"><i
+                                        class="feather icon-plus"></i></a>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="col-lg-12 w-100">
-                    <div class="card flex-fill mb-3">
+            <div class="col-lg-12 w-100">
+                <div class="card flex-fill mb-3">
+                    <div formArrayName="experiences">
                         <div class="pro-head">
                             <h4 class="pro-titles without-border mb-0">Experience</h4>
                         </div>
-                        <div class="pro-body  ">
-                            <div class="form-row align-items-center skill-cont" [ngClass]="{'d-none': datas[6]}">
-                                <div class="input-block col-lg-3">
-                                    <label for="company-name" class="form-label">Company Name</label>
-                                    <input type="text" class="form-control">
-                                </div>
-                                <div class="input-block col-lg-3">
-                                    <label for="position" class="form-label">Position</label>
-                                    <input type="text" class="form-control">
-                                </div>
-                                <div class="col-md-3 input-block floating-icon">
-                                    <label for="start" class="form-label">Start Date</label>
-                                    <input type="text" class="form-control datetimepicker" bsDatepicker
-                                        placeholder="Choose">
-                                    <span><i class="feather icon-calendar"></i></span>
-                                </div>
-                                <div class="col-md-2 input-block floating-icon">
-                                    <label for="end date" class="form-label">End Date</label>
-                                    <input type="text" class="form-control datetimepicker" bsDatepicker
-                                        placeholder="Choose">
-                                    <span><i class="feather icon-calendar"></i></span>
-                                </div>
-                                <div class="input-block col-lg-1 mb-0">
-                                    <a href="javascript:void(0);" (click)="removeDatas(6)" class="btn trash-icon"><i
-                                            class="far fa-trash-alt"></i></a>
-                                </div>
-                            </div>
-                            <ng-container *ngFor="let item of experience;let i = index">
+                        <div class="pro-body experience-info">
+                            <div *ngFor="let exp of experiences.controls; let i=index" [formGroupName]="i">
                                 <div class="form-row align-items-center skill-cont">
                                     <div class="input-block col-lg-3">
-                                        <label for="company-name" class="form-label">Company Name</label>
-                                        <input type="text" class="form-control">
+                                        <label for="companyname{{i}}" class="focus-label">Company Name</label>
+                                        <input type="text" class="form-control" id="companyname{{i}}"
+                                            formControlName="companyname" />
                                     </div>
                                     <div class="input-block col-lg-3">
-                                        <label for="position" class="form-label">Position</label>
-                                        <input type="text" class="form-control">
+                                        <label for="position{{i}}" class="focus-label">Position</label>
+                                        <mat-select id="position{{i}}" formControlName="position"
+                                            class="select mat-select arrow verify" placeholder="Select">
+                                            <mat-option *ngFor="let data of selectedList5" [value]="data.value">{{
+                                                data.value
+                                                }}</mat-option>
+                                        </mat-select>
+
                                     </div>
                                     <div class="col-md-3 input-block floating-icon">
-                                        <label for="start" class="form-label">Start Date</label>
-                                        <input type="text" class="form-control datetimepicker" bsDatepicker
-                                            placeholder="Choose">
-                                        <span><i class="feather icon-calendar"></i></span>
+                                        <label for="companystartdate{{i}}" class="focus-label">Start Date</label>
+                                        <input type="date" class="form-control" placeholder="Choose"
+                                            id="companystartdate{{i}}" formControlName="companystartdate" />
                                     </div>
                                     <div class="col-md-2 input-block floating-icon">
-                                        <label for="end date" class="form-label">End Date</label>
-                                        <input type="text" class="form-control datetimepicker" bsDatepicker
-                                            placeholder="Choose">
-                                        <span><i class="feather icon-calendar"></i></span>
+                                        <label for="companyenddate{{i}}" class="focus-label">End Date</label>
+                                        <input type="date" class="form-control" placeholder="Choose"
+                                            id="companyenddate{{i}}" formControlName="companyenddate" />
                                     </div>
                                     <div class="input-block col-lg-1 mb-0">
                                         <a href="javascript:void(0);" (click)="removeExperience(i)"
                                             class="btn trash-icon"><i class="far fa-trash-alt"></i></a>
                                     </div>
                                 </div>
-                            </ng-container>
-                            <div id="exp_add_row" class=" w-100"></div>
-                            <a href="javascript:void(0)" (click)="addExperience()" (keydown.enter)="addExperience()"
-                                tabindex="0" class="add-btn-form add-exp w-100 d-block text-end"><i
-                                    class="feather icon-plus-circle me-2"></i>Add New</a>
+                            </div>
+                            <div id="certi_add_row" class=" w-100">
+                                <a href="javascript:void(0);" (click)="addExperience()" (keydown.enter)="addExperience()"
+                                    tabindex="0" class="btn fund-btn skill-add add-btn-profile"><i
+                                        class="feather icon-plus"></i></a>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="col-lg-12 w-100">
-                    <div class="card flex-fill mb-3">
+            <div class="col-lg-12 w-100">
+                <div class="card flex-fill mb-3">
+                    <div formArrayName="languages">
                         <div class="pro-head">
                             <h4 class="pro-titles mb-0">Language</h4>
-
                         </div>
-                        <div class="pro-body  ">
-                            <div class="form-row align-items-center skill-cont" [ngClass]="{'d-none': datas[7]}">
-                                <div class="input-block col-md-6">
-                                    <label for="language" class="form-label">Language</label>
-                                    <input type="text" class="form-control">
-                                </div>
-                                <div class="input-block col-md-5">
-                                    <label for="language-fluency" class="form-label">Language Fluency</label>
-                                    <mat-select [(ngModel)]="selectedValue5" [ngModelOptions]="{standalone: true}"
-                                        class="select mat-select arrow verify" placeholder="Select">
-                                        <mat-option *ngFor="let data of selectedList5" [value]="data.value">
-                                            {{data.value}}
-                                        </mat-option>
-                                    </mat-select>
-                                </div>
-                                <div class="input-block col-md-1 mb-0">
-                                    <a href="javascript:void(0);" class="btn trash-icon" (click)="removeDatas(7)"><i
-                                            class="far fa-trash-alt"></i></a>
-                                </div>
-                            </div>
-                            <div class="form-row align-items-center skill-cont" [ngClass]="{'d-none': datas[8]}">
-                                <div class="input-block col-md-6">
-                                    <label for="language" class="form-label">Language</label>
-                                    <input type="text" class="form-control">
-                                </div>
-                                <div class="input-block col-md-5">
-                                    <label for="language-fluency" class="form-label">Language Fluency</label>
-                                    <mat-select [(ngModel)]="selectedValue6" [ngModelOptions]="{standalone: true}"
-                                        class="select mat-select arrow verify" placeholder="Select">
-                                        <mat-option *ngFor="let data of selectedList6" [value]="data.value">
-                                            {{data.value}}
-                                        </mat-option>
-                                    </mat-select>
-                                </div>
-                                <div class="input-block col-md-1 mb-0">
-                                    <a href="javascript:void(0);" (click)="removeDatas(8)" class="btn trash-icon"><i
-                                            class="far fa-trash-alt"></i></a>
-                                </div>
-                            </div>
-                            <div class="form-row align-items-center skill-cont" [ngClass]="{'d-none': datas[9]}">
-                                <div class="input-block col-md-6">
-                                    <label for="language" class="form-label">Language</label>
-                                    <input type="text" class="form-control">
-                                </div>
-                                <div class="input-block col-md-5">
-                                    <label for="language-fluency" class="form-label">Language Fluency</label>
-                                    <mat-select [(ngModel)]="selectedValue7" [ngModelOptions]="{standalone: true}"
-                                        class="select mat-select arrow verify" placeholder="Select">
-                                        <mat-option *ngFor="let data of selectedList7" [value]="data.value">
-                                            {{data.value}}
-                                        </mat-option>
-                                    </mat-select>
-                                </div>
-                                <div class="input-block col-md-1 mb-0">
-                                    <a href="javascript:void(0);" (click)="removeDatas(9)" class="btn trash-icon"><i
-                                            class="far fa-trash-alt"></i></a>
-                                </div>
-                            </div>
-                            <div class="form-row align-items-center skill-cont">
-                                <div class="input-block col-md-6">
-                                    <label for="language" class="form-label">Language</label>
-                                    <input type="text" class="form-control">
-                                </div>
-                                <div class="input-block col-md-5">
-                                    <label for="language-fluency" class="form-label">Language Fluency</label>
-                                    <mat-select [(ngModel)]="selectedValue8" [ngModelOptions]="{standalone: true}"
-                                        class="select mat-select arrow verify" placeholder="Select">
-                                        <mat-option *ngFor="let data of selectedList8" [value]="data.value">
-                                            {{data.value}}
-                                        </mat-option>
-                                    </mat-select>
-                                </div>
-                                <div class="input-block col-md-1 mb-0">
-                                    <a href="javascript:void(0)" (click)="addLanguage()" (keydown.enter)="addLanguage()"
-                                        tabindex="0" class="btn fund-btn lang-add add-btn-profile mb-0"><i
-                                            class="feather icon-plus"></i></a>
-                                </div>
-                                <div id="lang_add_row" class=" w-100"></div>
-                            </div>
-                            <ng-container *ngIf="language.length > 0">
-                                <div class="form-row align-items-center skill-cont"
-                                    *ngFor="let item of language;let i = index">
+                        <div class="pro-body language-info">
+                            <div *ngFor="let lan of languages.controls; let i=index" [formGroupName]="i">
+                                <div class="form-row align-items-center skill-cont">
                                     <div class="input-block col-md-6">
-                                        <label for="language" class="form-label">Language</label>
-                                        <input type="text" class="form-control">
+                                        <label for="language{{i}}" class="form-label">Language</label>
+                                        <input type="text" class="form-control" id="language{{i}}"
+                                            formControlName="language" />
                                     </div>
                                     <div class="input-block col-md-5">
-                                        <label for="language-fluency" class="form-label">Language Fluency</label>
-                                        <mat-select placeholder="Select" class="select mat-select arrow verify">
-                                            <mat-option value="Basic">Basic</mat-option>
-                                            <mat-option value="Intermediate">Intermediate
-                                            </mat-option>
-                                            <mat-option value="Expert">Expert
-                                            </mat-option>
+                                        <label for="chooselevel{{i}}" class="focus-label">Level</label>
+                                        <mat-select id="chooselevel{{i}}" formControlName="chooselevel"
+                                            class="select mat-select arrow verify" placeholder="Choose Level">
+                                            <mat-option *ngFor="let data of selectedList6" [value]="data.value">{{
+                                                data.value
+                                                }}</mat-option>
                                         </mat-select>
                                     </div>
                                     <div class="input-block col-md-1 mb-0">
-                                        <a href="javascript:void(0);" (click)="removeLanguage(i)"
-                                            (keydown.enter)="removeLanguage(i)" tabindex="0" class="btn trash-icon"><i
-                                                class="far fa-trash-alt"></i></a>
+                                        <a href="javascript:void(0);" class="btn trash-icon"
+                                            (click)="removeLanguage(i)"><i class="far fa-trash-alt"></i></a>
                                     </div>
                                 </div>
-                            </ng-container>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-12 w-100">
-                    <div class="card flex-fill mb-3">
-                        <div class="pro-head">
-                            <h4 class="pro-titles mb-0">Social Media</h4>
-
-                        </div>
-                        <div class="pro-body  ">
-                            <div class="form-row align-items-center skill-cont">
-                                <div class="input-block col-lg-4">
-                                    <label for="Facebook" class="form-label">Facebook</label>
-                                    <input type="text" class="form-control">
-                                </div>
-                                <div class="input-block col-lg-4">
-                                    <label for="instagram" class="form-label">Instagram </label>
-                                    <input type="text" class="form-control">
-                                </div>
-                                <div class="input-block col-lg-4">
-                                    <label for="LinkedIn" class="form-label">LinkedIn</label>
-                                    <input type="text" class="form-control">
-                                </div>
+                            </div>
+                            <div id="lang_add_row" class=" w-100">
+                                <a href="javascript:void(0)" (click)="addLanguage()" (keydown.enter)="addLanguage()"
+                                    tabindex="0" class="btn fund-btn lang-add add-btn-profile mb-0"><i
+                                        class="feather icon-plus"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="col-lg-12">
-                    <div class="card flex-fill mb-3">
-                        <div class="pro-head">
-                            <h4 class="pro-titles mb-0">Personal Website</h4>
-
-                        </div>
-                        <div class="pro-body  ">
-                            <div class="form-row align-items-center skill-cont">
-                                <div class="input-block col-lg-12">
-                                    <label for="website-url" class="form-label">Website Url</label>
-                                    <input type="text" class="form-control">
-                                </div>
-                                <div class="input-block col-lg-3">
-                                    <label for="city" class="form-label">City</label>
-                                    <input type="text" class="form-control">
-                                </div>
-                                <div class="input-block col-lg-3">
-                                    <label for="state" class="form-label">State / Province</label>
-                                    <input type="text" class="form-control">
-                                </div>
-                                <div class="input-block col-lg-3">
-                                    <label for="post-code" class="form-label">ZIP / Post Code</label>
-                                    <input type="text" class="form-control">
-                                </div>
-                                <div class="input-block col-md-3">
-                                    <label for="country" class="form-label">Country</label>
-                                    <mat-select [(ngModel)]="selectedValue9" [ngModelOptions]="{standalone: true}"
-                                        class="select mat-select arrow verify" placeholder="Select">
-                                        <mat-option *ngFor="let data of selectedList9" [value]="data.value">
-                                            {{data.value}}
-                                        </mat-option>
-                                    </mat-select>
-                                </div>
-
+            <div class="col-lg-12 w-100">
+                <div class="card flex-fill mb-3">
+                    <div class="pro-head">
+                        <h4 class="pro-titles mb-0">Social Media</h4>
+                    </div>
+                    <div class="pro-body  ">
+                        <div class="form-row align-items-center skill-cont">
+                            <div class="input-block col-lg-4">
+                                <label for="Facebook" class="form-label">Facebook</label>
+                                <input type="text" class="form-control" id="facebook" formControlName="facebook" />
                             </div>
+                            <div class="input-block col-lg-4">
+                                <label for="instagram" class="form-label">Instagram</label>
+                                <input type="text" class="form-control" id="instagram" formControlName="instagram" />
+                            </div>
+                            <div class="input-block col-lg-4">
+                                <label for="linkedin" class="form-label">LinkedIn</label>
+                                <input type="text" class="form-control" id="linkedin " formControlName="linkedin" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-12">
+                <div class="card flex-fill mb-3">
+                    <div class="pro-head">
+                        <h4 class="pro-titles mb-0">Personal Website</h4>
+                    </div>
+                    <div class="pro-body  ">
+                        <div class="form-row align-items-center skill-cont">
+                            <div class="input-block col-lg-12">
+                                <label for="website-url" class="form-label">Website Url</label>
+                                <input type="text" class="form-control" id="persnolurl" formControlName="persnolurl" />
+                            </div>
+                            <div class="input-block col-lg-3">
+                                <label for="Address" class="form-label">Address</label>
+                                <input type="text" class="form-control" id="address" formControlName="address" />
+                            </div>
+                            <div class="input-block col-lg-3">
+                                <label for="city" class="form-label">City</label>
+                                <input type="text" class="form-control" id="city" formControlName="city" />
+                            </div>
+                            <div class="input-block col-lg-3">
+                                <label for="state" class="form-label">State / Province</label>
+                                <input type="text" class="form-control" id="state" formControlName="state" />
+                            </div>
+                            <div class="input-block col-lg-3">
+                                <label for="post-code" class="form-label">ZIP / Post Code</label>
+                                <input type="text" class="form-control" id="postcode" formControlName="postcode" />
+                            </div>
+                            <!-- <div class="input-block col-md-3">
+                                <label for="country" class="form-label">Country</label>
+                                <mat-select [(ngModel)]="selectedValue9" [ngModelOptions]="{standalone: true}"
+                                    class="select mat-select arrow verify" placeholder="Select">
+                                    <mat-option *ngFor="let data of selectedList9" [value]="data.value">
+                                        {{data.value}}
+                                    </mat-option>
+                                </mat-select>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -506,17 +380,10 @@
             <div class="card text-end border-0">
                 <div class="pro-body">
                     <button class="btn btn-secondary click-btn btn-plan">Cancel</button>
-                    <button class="btn btn-primary click-btn btn-plan" type="button" (click)="navigation()"
+                    <button class="btn btn-primary click-btn btn-plan" type="submit" (click)="navigation()"
                         (keydown.enter)="navigation()" tabindex="0">Update</button>
                 </div>
             </div>
         </form>
     </div>
-</div>
-<!-- /Page Content -->
-<div class="1">
-
-</div>
-<div>
-
 </div>

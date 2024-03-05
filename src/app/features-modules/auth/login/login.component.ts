@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/Services/user.service';
 import { routes } from 'src/app/core/helpers/routes/routes';
@@ -12,6 +12,10 @@ import { AuthService } from 'src/app/core/services/auth/auth.service';
 })
 
 export class LoginComponent{
+
+togglePassword(arg0: number) {
+throw new Error('Method not implemented.');
+}
   public password: boolean[] = [true];
   public routes = routes
   public Toggledata = true;
