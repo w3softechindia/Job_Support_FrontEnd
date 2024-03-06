@@ -79,7 +79,7 @@ export class ProfileSettingsComponent implements OnInit {
       facebook: ['', [Validators.required]],
       instagram: ['', [Validators.required]],
       linkedin: ['', [Validators.required]],
-      personalUrl: ['', [Validators.required]],
+      persnolurl: ['', [Validators.required]],
       address: ['', [Validators.required]],
       city: ['', [Validators.required]],
       state: ['', [Validators.required]],
@@ -107,7 +107,7 @@ export class ProfileSettingsComponent implements OnInit {
           facebook:this.user.facebook,
           instagram: this.user.instagram,
           linkedin: this.user.linkedin,
-          personalUrl: this.user.personalUrl,
+          persnolurl: this.user.persnolurl,
           address: this.user.address,
           city: this.user.city,
           state: this.user.state,
@@ -160,7 +160,7 @@ export class ProfileSettingsComponent implements OnInit {
     const skillsFormArray = this.profileForm.get('skills') as FormArray;
     this.existingSkills.forEach(skill => {
       skillsFormArray.push(this.formbuilder.group({
-        skills: [skill.skills, Validators.required], // Adjust the property name as per your data structure
+        skillName: [skill.skillName, Validators.required], // Adjust the property name as per your data structure
         level: [skill.level, Validators.required]
       }));
     });
@@ -219,9 +219,15 @@ export class ProfileSettingsComponent implements OnInit {
       level: ['', Validators.required]
     }));
   }
-  removeSkills(index: number) {
+  removeSkill(index: number,skillName:string) {
     const skillsFormArray = this.profileForm.get('skills') as FormArray;
     skillsFormArray.removeAt(index);
+
+    this.userService.deleteSkill(skillName).subscribe(()=>{
+      console.log("Skill deleted Successfully");
+    },error=>{
+      console.log("Error deleting skill:",error);
+    })
   }
 
   addEducation() {
@@ -349,7 +355,7 @@ export class ProfileSettingsComponent implements OnInit {
   ];
 
   navigation() {
-    this.router.navigate([routes.freelancerprofile])
+    this.router.navigate([routes.freelancer_profiles_settings])
   }
 
   onFileSelected(event: any) {
@@ -388,6 +394,4 @@ export class ProfileSettingsComponent implements OnInit {
     // Format the date using datePipe.transform
     return this.datePipe.transform(dateObj, 'yyyy-MM-dd') || '';
   }
-
-
 }

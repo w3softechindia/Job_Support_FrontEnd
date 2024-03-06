@@ -49,8 +49,8 @@
                         <div class="col-lg-4 col-md-12">
                             <div class="mb-3">
                                 <label for="dob" class="form-label">Date of Birth</label>
-                                    <input type="date" class="form-control" placeholder="Choose" id="dob"
-                                        formControlName="dob" />
+                                <input type="date" class="form-control" placeholder="Choose" id="dob"
+                                    formControlName="dob" />
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-12">
@@ -100,8 +100,8 @@
                             <div *ngFor="let skill of skills.controls; let i = index" [formGroupName]="i">
                                 <div class="form-row align-items-center skill-cont">
                                     <div class="input-block col-md-6">
-                                        <label for="skill">Skill Name</label>
-                                        <input type="text" id="skills" formControlName="skills" class="form-control" />
+                                        <label for="skillName">Skill Name</label>
+                                        <input type="text" id="skillName" formControlName="skillName" class="form-control" />
                                     </div>
                                     <div class="input-block col-md-5">
                                         <label for="level">Level</label>
@@ -113,13 +113,10 @@
                                         </mat-select>
                                     </div>
                                     <div class="input-block col-lg-1 mb-0">
-                                        <a href="javascript:void(0);"
-                                            class="btn trash-icon" (click)="removeSkills(i)"
-                                            (keydown.enter)="removeSkills(i)"><i
-                                                class="far fa-trash-alt"></i></a>
-                                    </div>
+                                        <a href="javascript:void(0);" class="btn trash-icon" (click)="removeSkill(i,('skillName'))"><i class="far fa-trash-alt"></i></a>
+                                    </div> 
                                 </div>
-                            </div>
+                            </div>  
                             <div id="certi_add_row" class=" w-100">
                                 <a href="javascript:void(0);" (click)="addSkill()" (keydown.enter)="addSkill()"
                                     tabindex="0" class="btn fund-btn skill-add add-btn-profile"><i
@@ -150,27 +147,24 @@
                                             placeholder="Enter university name" id="university">
                                     </div>
                                     <div class="col-md-3 input-block floating-icon">
-                                        <label for="startdate" class="form-label">Start Date</label>
-                                        <input type="date" class="form-control"
-                                            formControlName="startdate" id="startdate">
+                                        <label for="startdate" class="form-label">Start Date</label> 
+                                        <input type="date" class="form-control" formControlName="startdate"
+                                            id="startdate">
                                     </div>
                                     <div class="col-md-2 input-block floating-icon">
                                         <label for="enddate" class="form-label">End Date</label>
-                                        <input type="date" class="form-control" formControlName="enddate"
-                                             id="enddate">
+                                        <input type="date" class="form-control" formControlName="enddate" id="enddate">
                                     </div>
                                     <div class="input-block col-lg-1 mb-0">
-                                        <a href="javascript:void(0);"
-                                            class="btn trash-icon" (click)="removeEducation(i)"
-                                            (keydown.enter)="removeEducation(i)"><i
+                                        <a href="javascript:void(0);" class="btn trash-icon"
+                                            (click)="removeEducation(i)" (keydown.enter)="removeEducation(i)"><i
                                                 class="far fa-trash-alt"></i></a>
                                     </div>
                                 </div>
                             </div>
                             <div id="certi_add_row" class=" w-100">
                                 <a href="javascript:void(0);" (click)="addEducation()" (keydown.enter)="addEducation()"
-                                     class="btn fund-btn skill-add add-btn-profile"><i
-                                        class="feather icon-plus"></i></a>
+                                    class="btn fund-btn skill-add add-btn-profile"><i class="feather icon-plus"></i></a>
                             </div>
                         </div>
                     </div>
@@ -213,9 +207,9 @@
                                 </div>
                             </div>
                             <div id="certi_add_row" class=" w-100">
-                                <a href="javascript:void(0);" (click)="addCertification()" (keydown.enter)="addCertification()"
-                                    tabindex="0" class="btn fund-btn skill-add add-btn-profile"><i
-                                        class="feather icon-plus"></i></a>
+                                <a href="javascript:void(0);" (click)="addCertification()"
+                                    (keydown.enter)="addCertification()" tabindex="0"
+                                    class="btn fund-btn skill-add add-btn-profile"><i class="feather icon-plus"></i></a>
                             </div>
                         </div>
                     </div>
@@ -263,9 +257,9 @@
                                 </div>
                             </div>
                             <div id="certi_add_row" class=" w-100">
-                                <a href="javascript:void(0);" (click)="addExperience()" (keydown.enter)="addExperience()"
-                                    tabindex="0" class="btn fund-btn skill-add add-btn-profile"><i
-                                        class="feather icon-plus"></i></a>
+                                <a href="javascript:void(0);" (click)="addExperience()"
+                                    (keydown.enter)="addExperience()" tabindex="0"
+                                    class="btn fund-btn skill-add add-btn-profile"><i class="feather icon-plus"></i></a>
                             </div>
                         </div>
                     </div>

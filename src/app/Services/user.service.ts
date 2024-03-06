@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../classes/user';
+import { AccountDelete } from '../core/models/models';
 
 @Injectable({
   providedIn: 'root'
@@ -82,5 +83,20 @@ constructor(private http:HttpClient){}
 
   getPhoto(email: string): Observable<any> {
     return this.http.get(`${this.baseurl}/photo/${email}`, { responseType: 'blob' });
+  }
+
+  //Delete Skills
+  deleteSkill(skill:string){
+    return this.http.delete(`${this.baseurl}/deleteSkill/${skill}`);
+  }
+
+  //Change Password
+  changePassword(email:string,password:string,newPassword:string,user:User){
+    return this.http.put(`${this.baseurl}/change-password/${email}/${password}/${newPassword}`,user);
+  }
+
+  //Account Deletion Post
+  deleteAccount(email:string,acdlt:AccountDelete){
+    return this.http.post(`${this.baseurl}/postReason/${email}`,acdlt,{responseType:'text'});
   }
 }
