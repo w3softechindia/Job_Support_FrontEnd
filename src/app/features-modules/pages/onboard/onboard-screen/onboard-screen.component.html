@@ -244,8 +244,8 @@
                     <div *ngFor="let skill of skills.controls; let i = index" [formGroupName]="i">
                       <div class="row">
                         <div class="col-md-6">
-                          <label for="skill{{i}}">Skill Name</label>
-                          <input type="text" id="skills{{i}}" formControlName="skills" class="form-control" />
+                          <label for="skillName{{i}}">Skill Name</label>
+                          <input type="text" id="skillName{{i}}" formControlName="skillName" class="form-control" />
                         </div>
                         <div class="col-md-5">
                           <label for="level{{i}}">Level</label>

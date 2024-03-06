@@ -20,7 +20,7 @@ export class User {
         facebook!: string;
         instagram!: string;
         linkedin!: string;
-        personalUrl!: string;
+        persnolurl!: string;
         address!: string;
         city!: string;
         state!: string;

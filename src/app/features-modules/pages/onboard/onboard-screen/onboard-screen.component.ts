@@ -88,7 +88,7 @@ export class OnboardScreenComponent implements OnInit {
   
   createSkill(): FormGroup {
     return this.formbuilder.group({
-      skills: [''],
+      skillName: [''],
       level: ['']
     });
   }

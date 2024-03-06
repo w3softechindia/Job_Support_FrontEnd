@@ -380,7 +380,7 @@ export interface freelancerTask {
 }
 // ===============================================================================================================================
 export interface Skills {
-  skills: string;
+  skillName: string;
   level: string;
 }
 export interface Education {
@@ -403,4 +403,9 @@ export interface Certification {
   certification: string;
   certifiedfrom: string;
   year: string;
+}
+export class AccountDelete{
+  email!:string;
+  password!:string;
+  reason!:string;
 }
