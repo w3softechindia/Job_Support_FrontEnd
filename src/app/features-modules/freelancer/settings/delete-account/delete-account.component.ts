@@ -48,6 +48,7 @@ export class DeleteAccountComponent implements OnInit{
         this.showModal = true;
         if (error.status===401) {
           // Unauthorized (invalid credentials)
+
           this.modalMessage1 = 'Invalid Credentials';
           this.modalMessage2 = 'Please Re-Enter Password';
         } else if (error.status === 403) {

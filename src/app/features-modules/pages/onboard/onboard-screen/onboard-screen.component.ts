@@ -384,14 +384,4 @@ export class OnboardScreenComponent implements OnInit {
       );
     }
   }
-
-
-
-  
-
-
-
-
 } 
-  
-
