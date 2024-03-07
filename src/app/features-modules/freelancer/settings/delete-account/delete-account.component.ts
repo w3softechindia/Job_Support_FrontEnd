@@ -33,43 +33,33 @@ export class DeleteAccountComponent implements OnInit{
   }
   public routes = routes;
 
-  submitDeletion(){
+  submitDeletion() {
     this.userService.deleteAccount(this.email, this.delete).subscribe(
       (data) => {
         console.log(data);
-        if (data) {
-          // Deletion request successful
-          this.showModal = true;
-          this.modalMessage1 = 'Account Deletion Under Process...!!!';
-          this.modalMessage2 = 'You will be verified once admin approves your Delete Account Request';
-        } else {
-          // Server error or unexpected response
-          this.showModal = true;
-          this.modalMessage1 = 'Error Processing Deletion';
-          this.modalMessage2 = 'Please try again later';
-        }
+        // Deletion request successful
+        this.showModal = true;
+        this.modalMessage1 = 'Account Deletion Under Process...!!!';
+        this.modalMessage2 = 'You will be informed, once admin approves your Delete Account Request';
       },
       (error) => {
         console.log(error);
-        // Handle specific error cases
-        if (error.status === 401) {
+        // Always show the modal for error cases
+        this.showModal = true;
+        if (error.status===401) {
           // Unauthorized (invalid credentials)
-          this.showModal = true;
           this.modalMessage1 = 'Invalid Credentials';
           this.modalMessage2 = 'Please Re-Enter Password';
         } else if (error.status === 403) {
           // Forbidden (user doesn't have permission to delete account)
-          this.showModal = true;
           this.modalMessage1 = 'Permission Denied';
           this.modalMessage2 = 'You do not have permission to delete this account';
         } else {
           // Other errors
-          this.showModal = true;
           this.modalMessage1 = 'Error Processing Deletion';
           this.modalMessage2 = 'Please try again later';
         }
       }
     );
-  }
-  
+  }  
 }

@@ -14,6 +14,9 @@ export class OtpComponent implements OnInit {
 
   constructor(private route:ActivatedRoute,private router:Router,private userservice:UserService){}
   email!:string;
+  showModal=false;
+  msg1='';
+  msg2='';
   public routes = routes
   oneTimePassword = {
     data1: "",
@@ -72,10 +75,9 @@ export class OtpComponent implements OnInit {
   verifyEmail(){
     this.concatOTP();
     this.userservice.verifyAccount(this.email,this.otpValue,this.user).subscribe(()=>{
-      this.router.navigate(['/pages/onboard-screen',this.email]);
-      alert("Account verified Successfully...!!!")
     },error=>{
       alert("Invalid Otp...!!!");
+      this.router.navigate([routes.register]);
       console.error(error);
     })
   }
@@ -99,6 +101,9 @@ export class OtpComponent implements OnInit {
         console.error('Error occurred while resending OTP:', error); // Handle error response
       }
     );
-    
+  }
+  
+  navigation(){
+    this.router.navigate(['/pages/onboard-screen',this.email]);
   }
 }

@@ -64,6 +64,14 @@ export class OnboardScreenComponent implements OnInit {
       description: ['', [Validators.required,]],
     })
 
+    this.userDataForm=this.formbuilder.group({
+      skills:this.formbuilder.array([this.createSkill()]),
+      educations:this.formbuilder.array([this.createEducation()]),
+      certifications:this.formbuilder.array([this.createCertificate()]),
+      experiences:this.formbuilder.array([this.createExperience()]),
+      languages:this.formbuilder.array([this.createLanguage()]),
+    });
+
     this.otherInfoForm=this.formbuilder.group({
       facebook: ['', [Validators.required]],
       linkedin: ['', [Validators.required]],
@@ -76,19 +84,11 @@ export class OnboardScreenComponent implements OnInit {
       documenttype: ['', [Validators.required,]],
       documentnumber: ['', [Validators.required,]],
     })
-
-    this.userDataForm=this.formbuilder.group({
-      skills:this.formbuilder.array([this.createSkill()]),
-      educations:this.formbuilder.array([this.createEducation()]),
-      certifications:this.formbuilder.array([this.createCertificate()]),
-      experiences:this.formbuilder.array([this.createExperience()]),
-      languages:this.formbuilder.array([this.createLanguage()]),
-    });
   }
   
   createSkill(): FormGroup {
     return this.formbuilder.group({
-      skillName: [''],
+      skill_name: [''],
       level: ['']
     });
   }
@@ -255,54 +255,103 @@ export class OnboardScreenComponent implements OnInit {
   removeDatas(index: number) {
     this.datas[index] = !this.datas[index];
   }
+ 
   selectedList1: data[] = [
+    { "value": "Software Developer" },
+    { "value": "Web Developer" },
+    { "value": "Mobile App Developer" },
+    { "value": "Frontend Developer" },
+    { "value": "Backend Developer" },
+    { "value": "Full-stack Developer" },
+    { "value": "Game Developer" },
+    { "value": "Embedded Systems Developer" },
+    { "value": "Enterprise Application Developer" },
+    { "value": "Systems Analyst" },
+    { "value": "Systems Administrator" },
+    { "value": "Network Engineer" },
+    { "value": "Network Administrator" },
+    { "value": "Database Administrator" },
+    { "value": "Database Developer" },
+    { "value": "Cloud Engineer" },
+    { "value": "DevOps Engineer" },
+    { "value": "Site Reliability Engineer (SRE)" },
+    { "value": "IT Security Specialist" },
+    { "value": "Cybersecurity Analyst" },
+    { "value": "Information Security Engineer" },
+    { "value": "Penetration Tester (Ethical Hacker)" },
+    { "value": "Security Operations Center (SOC) Analyst" },
+    { "value": "Data Scientist" },
+    { "value": "Data Analyst" },
+    { "value": "Business Intelligence (BI) Developer" },
+    { "value": "Machine Learning Engineer" },
+    { "value": "Artificial Intelligence (AI) Engineer" },
+    { "value": "Robotics Engineer" },
+    { "value": "Computer Vision Engineer" },
+    { "value": "Natural Language Processing (NLP) Engineer" },
+    { "value": "Big Data Engineer" },
+    { "value": "Cloud Architect" },
+    { "value": "Solution Architect" },
+    { "value": "Enterprise Architect" },
+    { "value": "IT Project Manager" },
+    { "value": "Agile Coach" },
+    { "value": "Scrum Master" },
+    { "value": "Product Manager" },
+    { "value": "Business Analyst" },
+    { "value": "Technical Writer" },
+    { "value": "UX/UI Designer" },
+    { "value": "UI Designer" },
+    { "value": "UX Designer" },
+    { "value": "Interaction Designer" },
+    { "value": "Information Architect" },
+    { "value": "Graphic Designer" },
+  ];
+  selectedList2: data[] = [
+    { value: 'Select' },
     { value: 'Full Time' },
     { value: 'Part Time' },
     { value: 'Hourly' },
   ];
-  selectedList2: data[] = [
-    { value: 'Basic' },
-    { value: 'Intermediate' },
-    { value: 'Proficient' },
-  ];
   selectedList3: data[] = [
     { value: 'Select' },
-    { value: "Bachelor's degree" },
-    { value: "Master's Degree" },
+    { value: 'Beginner' },
+    { value: 'Intermediate' },
+    { value: 'Advanced' },
+    { value: 'Expert' },
   ];
   selectedList4: data[] = [
-    { value: 'Select' },
-    { value: "Certification" },
-    { value: "Award" },
+    { "value": "Bachelor of Arts (BA)" },
+    { "value": "Bachelor of Science (BS)" },
+    { "value": "Bachelor of Engineering (BEng)" },
+    { "value": "Bachelor of Technology (BTech)" },
+    { "value": "Master of Arts (MA)" },
+    { "value": "Master of Science (MS)" },
+    { "value": "Master of Engineering (MEng)" },
+    { "value": "Master of Technology (MTech)" },
   ];
   selectedList5: data[] = [
     { value: 'Select' },
-    { value: 'Basic' },
-    { value: 'Intermediate' },
-    { value: 'Proficient' },
+    { value: 'Certificate' },
+    { value: 'Award' },
   ];
   selectedList6: data[] = [
-    { value: 'Choose Level' },
-    { value: 'Basic' },
-    { value: 'Intermediate' },
-    { value: 'Proficient' },
+    { "value": "Beginner" },
+    { "value": "Intermediate" },
+    { "value": "Advanced" },
+    { "value": "Fluent" },
+    { "value": "Native" }
   ];
   selectedList7: data[] = [
     { value: 'Select' },
-    { value: 'US' },
-    { value: 'UK' },
-    { value: 'India' },
-  ];
-  selectedList8: data[] = [
-    { value: 'Select' },
-    { value: 'US' },
-    { value: 'UK' },
-    { value: 'India' },
+    { "value": "Aadhaar Card" },
+    { "value": "PAN Card (Permanent Account Number)" },
+    { "value": "Voter ID Card" },
+    { "value": "Driver's License" },
+    { "value": "Passport" },
+    { "value": "Income Tax Return" },
+    { "value": "Employee ID Card" },
+    { "value": "Education Certificate" },
   ];
   showTimePicker: Array<string> = [];
-
-  
-
 
   toggleTimePicker(value: string): void {
     if (this.showTimePicker[0] !== value) {

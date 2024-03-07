@@ -60,16 +60,4 @@ export class AuthService {
   public setRoles(role:string) {
     localStorage.setItem('role', role);
   }
-
-  // public getRoles():[] {
-  //   const roles=localStorage.getItem('roles');
-  //   if(roles){
-  //     return JSON.parse(roles);
-  //   }
-  //   return [];
-  // }
-
-  // public isLoggedIn() {
-  //    return this.getRoles() && this.getToken();
-  // }
 }
