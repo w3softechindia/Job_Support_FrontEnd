@@ -5,6 +5,7 @@ import { SidebarData } from 'src/app/core/models/models';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { FreelancerSidebarItem } from 'src/app/core/models/sidebar-model';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidemenu',
@@ -42,5 +43,9 @@ export class SidemenuComponent implements OnInit{
   public menuItems: Array<FreelancerSidebarItem> = [];
   toggleSubMenu(menuItem: FreelancerSidebarItem): void {
     menuItem.expanded = !menuItem.expanded;
+  }
+
+  logout(): void {
+   this.auth.userLogout();
   }
 }

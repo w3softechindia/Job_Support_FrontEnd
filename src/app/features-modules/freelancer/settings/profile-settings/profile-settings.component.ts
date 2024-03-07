@@ -85,10 +85,10 @@ export class ProfileSettingsComponent implements OnInit {
       state: ['', [Validators.required]],
       postcode: ['', [Validators.required]],
       skills: this.formbuilder.array([]),
-      educations: this.formbuilder.array([]),
-      certifications: this.formbuilder.array([]),
-      experiences: this.formbuilder.array([]),
-      languages: this.formbuilder.array([]),
+      education: this.formbuilder.array([]),
+      certification: this.formbuilder.array([]),
+      experience: this.formbuilder.array([]),
+      language: this.formbuilder.array([]),
     })
   }
 
@@ -104,14 +104,14 @@ export class ProfileSettingsComponent implements OnInit {
           jobtitle: this.user.jobtitle,
           typeofjob: this.user.typeofjob,
           description: this.user.description,
-          facebook:this.user.facebook,
+          facebook: this.user.facebook,
           instagram: this.user.instagram,
           linkedin: this.user.linkedin,
           persnolurl: this.user.persnolurl,
           address: this.user.address,
           city: this.user.city,
           state: this.user.state,
-          postcode:this.user.postcode 
+          postcode: this.user.postcode
         });
 
         // Parse and format dates
@@ -141,33 +141,33 @@ export class ProfileSettingsComponent implements OnInit {
   }
 
   get educations(): FormArray {
-    return this.profileForm.get('educations') as FormArray;
+    return this.profileForm.get('education') as FormArray;
   }
 
   get certifications(): FormArray {
-    return this.profileForm.get('certifications') as FormArray;
+    return this.profileForm.get('certification') as FormArray;
   }
 
   get experiences(): FormArray {
-    return this.profileForm.get('experiences') as FormArray;
+    return this.profileForm.get('experience') as FormArray;
   }
 
   get languages(): FormArray {
-    return this.profileForm.get('languages') as FormArray;
+    return this.profileForm.get('language') as FormArray;
   }
 
   private populateSkillsForm() {
     const skillsFormArray = this.profileForm.get('skills') as FormArray;
     this.existingSkills.forEach(skill => {
       skillsFormArray.push(this.formbuilder.group({
-        skillName: [skill.skillName, Validators.required], // Adjust the property name as per your data structure
+        skill_name: [skill.skill_name, Validators.required], // Adjust the property name as per your data structure
         level: [skill.level, Validators.required]
       }));
     });
   }
 
   private populateEducationsForm() {
-    const educationsFormArray = this.profileForm.get('educations') as FormArray;
+    const educationsFormArray = this.profileForm.get('education') as FormArray;
     this.existingEducations.forEach(education => {
       educationsFormArray.push(this.formbuilder.group({
         degree: [education.degree, Validators.required], // Adjust the property name as per your data structure
@@ -179,7 +179,7 @@ export class ProfileSettingsComponent implements OnInit {
   }
 
   private populateCertificationsForm(): void {
-    const certificationsFormArray = this.profileForm.get('certifications') as FormArray;
+    const certificationsFormArray = this.profileForm.get('certification') as FormArray;
     this.existingCertifications.forEach(certification => {
       certificationsFormArray.push(this.formbuilder.group({
         certification: [certification.certification, Validators.required],
@@ -190,7 +190,7 @@ export class ProfileSettingsComponent implements OnInit {
   }
 
   private populateExperiencesForm(): void {
-    const experiencesFormArray = this.profileForm.get('experiences') as FormArray;
+    const experiencesFormArray = this.profileForm.get('experience') as FormArray;
     this.existingExperiences.forEach(experience => {
       experiencesFormArray.push(this.formbuilder.group({
         companyname: [experience.companyname, Validators.required],
@@ -202,7 +202,7 @@ export class ProfileSettingsComponent implements OnInit {
   }
 
   private populateLanguagesForm(): void {
-    const languagesFormArray = this.profileForm.get('languages') as FormArray;
+    const languagesFormArray = this.profileForm.get('language') as FormArray;
     this.existinglanguages.forEach(language => {
       languagesFormArray.push(this.formbuilder.group({
         language: [language.language, Validators.required],
@@ -215,85 +215,86 @@ export class ProfileSettingsComponent implements OnInit {
   addSkill() {
     const skillsFormArray = this.profileForm.get('skills') as FormArray;
     skillsFormArray.push(this.formbuilder.group({
-      skillName: ['', Validators.required],
+      skill_name: ['', Validators.required],
       level: ['', Validators.required]
     }));
   }
-  removeSkill(index: number,skillName:string) {
+  removeSkill(index: number) {
     const skillsFormArray = this.profileForm.get('skills') as FormArray;
     skillsFormArray.removeAt(index);
 
-    this.userService.deleteSkill(skillName).subscribe(()=>{
-      console.log("Skill deleted Successfully");
-    },error=>{
-      console.log("Error deleting skill:",error);
-    })
+    // this.userService.deleteSkill(skillName).subscribe(()=>{
+    //   console.log("Skill deleted Successfully");
+    // },error=>{
+    //   console.log("Error deleting skill:",error);
+    // })
   }
 
   addEducation() {
-    const educationsFormArray = this.profileForm.get('educations') as FormArray;
+    const educationsFormArray = this.profileForm.get('education') as FormArray;
     educationsFormArray.push(this.formbuilder.group({
       degree: ['', Validators.required],
       university: ['', Validators.required],
-      startDate: ['', Validators.required],
-      endDate: ['', Validators.required]
+      startdate: ['', Validators.required],
+      enddate: ['', Validators.required]
     }));
   }
   removeEducation(index: number) {
-    const educationFormArray = this.profileForm.get('educations') as FormArray;
+    const educationFormArray = this.profileForm.get('education') as FormArray;
     educationFormArray.removeAt(index);
   }
 
   addCertification() {
-    const certificationFormArray = this.profileForm.get('certifications') as FormArray;
+    const certificationFormArray = this.profileForm.get('certification') as FormArray;
     // Check if certificationFormArray is defined and not null
     if (certificationFormArray) {
       certificationFormArray.push(this.formbuilder.group({
-        certification: [''],
-        certifiedfrom: [''],
-        year: ['']
+        certification: ['', Validators.required],
+        certifiedfrom: ['', Validators.required],
+        year: ['', Validators.required]
       }));
     }
   }
   removeCertification(index: number) {
-    const certificationFormArray = this.profileForm.get('certifications') as FormArray;
+    const certificationFormArray = this.profileForm.get('certification') as FormArray;
     certificationFormArray.removeAt(index);;
   }
 
   addExperience() {
-    const experienceFormArray = this.profileForm.get('experiences') as FormArray;
+    const experienceFormArray = this.profileForm.get('experience') as FormArray;
     // Check if experienceFormArray is defined and not null
     if (experienceFormArray) {
       experienceFormArray.push(this.formbuilder.group({
-        companyname: [''],
-        position: [''],
-        companystartdate: [''],
-        companyenddate: ['']
+        companyname: ['', Validators.required],
+        position: ['', Validators.required],
+        companystartdate: ['', Validators.required],
+        companyenddate: ['', Validators.required]
       }));
     }
   }
   removeExperience(index: number) {
-    const experienceFormArray = this.profileForm.get('experiences') as FormArray;
+    const experienceFormArray = this.profileForm.get('experience') as FormArray;
     experienceFormArray.removeAt(index);
   }
 
   addLanguage() {
-    const languageFormArray = this.profileForm.get('languages') as FormArray;
+    const languageFormArray = this.profileForm.get('language') as FormArray;
     // Check if languageFormArray is defined and not null
     if (languageFormArray) {
       languageFormArray.push(this.formbuilder.group({
-        language: [''],
-        chooselevel: ['']
+        language: ['', Validators.required],
+        chooselevel: ['', Validators.required]
       }));
     }
   }
   removeLanguage(index: number) {
-    const languageFormArray = this.profileForm.get('languages') as FormArray;
+    const languageFormArray = this.profileForm.get('language') as FormArray;
     languageFormArray.removeAt(index);
   }
 
   submitForm() {
     const freelancerData = this.profileForm.value;
+    console.log(freelancerData);
     this.userService.updateFreelancer(this.email, freelancerData).subscribe((data) => {
       console.log(data);
       this.getUserDetails();
@@ -304,58 +305,105 @@ export class ProfileSettingsComponent implements OnInit {
 
 
   selectedList1: data[] = [
-    { value: 'Basic' },
-    { value: 'Intermediate' },
-    { value: 'Expert' },
+    { value: 'Select' },
+    { value: 'Full Time' },
+    { value: 'Part Time' },
+    { value: 'Hourly' },
   ];
   selectedList2: data[] = [
+    { value: 'Select' },
+    { value: 'Beginner' },
+    { value: 'Intermediate' },
     { value: 'Advanced' },
-    { value: 'Intermediate' },
-    { value: 'Expert' },
-  ];
-  selectedList3: data[] = [
-    { value: 'Intermediate' },
-    { value: 'Basic' },
-    { value: 'Expert' },
-  ];
-  selectedList4: data[] = [
-    { value: 'Intermediate' },
-    { value: 'Basic' },
     { value: 'Expert' },
   ];
   selectedList5: data[] = [
-    { value: 'Select' },
-    { value: 'Intermediate' },
-    { value: 'Expert' },
-  ];
-  selectedList6: data[] = [
-    { value: 'Select' },
-    { value: 'Intermediate' },
-    { value: 'Expert' },
-  ];
-  selectedList7: data[] = [
-    { value: 'Select' },
-    { value: 'Intermediate' },
-    { value: 'Expert' },
-  ];
-  selectedList8: data[] = [
-    { value: 'Select' },
-    { value: 'Intermediate' },
-    { value: 'Expert' },
-  ];
-  selectedList9: data[] = [
-    { value: 'Select' },
-    { value: 'USA' },
-    { value: 'UK' },
-  ];
-  custom1: data[] = [
-    { value: 'Basic' },
-    { value: 'Intermediate' },
-    { value: 'Expert' },
-  ];
+    { "value": "Software Developer" },
+    { "value": "Web Developer" },
+    { "value": "Mobile App Developer" },
+    { "value": "Frontend Developer" },
+    { "value": "Backend Developer" },
+    { "value": "Full-stack Developer" },
+    { "value": "Game Developer" },
+    { "value": "Embedded Systems Developer" },
+    { "value": "Enterprise Application Developer" },
+    { "value": "Systems Analyst" },
+    { "value": "Systems Administrator" },
+    { "value": "Network Engineer" },
+    { "value": "Network Administrator" },
+    { "value": "Database Administrator" },
+    { "value": "Database Developer" },
+    { "value": "Cloud Engineer" },
+    { "value": "DevOps Engineer" },
+    { "value": "Site Reliability Engineer (SRE)" },
+    { "value": "IT Security Specialist" },
+    { "value": "Cybersecurity Analyst" },
+    { "value": "Information Security Engineer" },
+    { "value": "Penetration Tester (Ethical Hacker)" },
+    { "value": "Security Operations Center (SOC) Analyst" },
+    { "value": "Data Scientist" },
+    { "value": "Data Analyst" },
+    { "value": "Business Intelligence (BI) Developer" },
+    { "value": "Machine Learning Engineer" },
+    { "value": "Artificial Intelligence (AI) Engineer" },
+    { "value": "Robotics Engineer" },
+    { "value": "Computer Vision Engineer" },
+    { "value": "Natural Language Processing (NLP) Engineer" },
+    { "value": "Big Data Engineer" },
+    { "value": "Cloud Architect" },
+    { "value": "Solution Architect" },
+    { "value": "Enterprise Architect" },
+    { "value": "IT Project Manager" },
+    { "value": "Agile Coach" },
+    { "value": "Scrum Master" },
+    { "value": "Product Manager" },
+    { "value": "Business Analyst" },
+    { "value": "Technical Writer" },
+    { "value": "UX/UI Designer" },
+    { "value": "UI Designer" },
+    { "value": "UX Designer" },
+    { "value": "Interaction Designer" },
+    { "value": "Information Architect" },
+    { "value": "Graphic Designer" },
+    { "value": "IT Trainer" },
+    { "value": "IT Support Specialist" },
+    { "value": "Help Desk Technician" },
+    { "value": "Desktop Support Engineer" },
+    { "value": "Systems Engineer" },
+    { "value": "Linux Administrator" },
+    { "value": "Windows Administrator" },
+    { "value": "VMware Administrator" },
+    { "value": "Citrix Administrator" },
+    { "value": "IT Auditor" },
+    { "value": "IT Compliance Officer" },
+    { "value": "IT Procurement Specialist" },
+    { "value": "IT Sales Representative" },
+    { "value": "IT Recruiter" },
+    { "value": "IT Consultant" },
+    { "value": "IT Service Delivery Manager" },
+    { "value": "IT Service Desk Manager" },
+    { "value": "IT Operations Manager" },
+    { "value": "IT Director" },
+    { "value": "Chief Information Officer (CIO)" },
+    { "value": "Chief Technology Officer (CTO)" },
+    { "value": "Chief Security Officer (CSO)" },
+    { "value": "Chief Data Officer (CDO)" },
+    { "value": "Chief Digital Officer (CDO)" },
+    { "value": "IT Governance Manager" },
+    { "value": "IT Risk Manager" },
+    { "value": "IT Strategy Manager" },
+    { "value": "IT Vendor Manager" }
+  ]
 
+  selectedList6: data[] = [
+    { "value": "Beginner" },
+    { "value": "Intermediate" },
+    { "value": "Advanced" },
+    { "value": "Fluent" },
+    { "value": "Native" }
+  ];
   navigation() {
-    this.router.navigate([routes.freelancer_profiles_settings])
+    this.router.navigate([routes.freelancer_dashboard])
   }
 
   onFileSelected(event: any) {

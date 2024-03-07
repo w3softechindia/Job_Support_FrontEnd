@@ -152,8 +152,8 @@
                           <label class="file-upload image-upbtn">
                             <i class="feather icon-upload me-2"></i>Upload Photo
                             <input type="file" (change)="onFileSelected($event)" accept="image/*" />
-                            </label>
-                              <span>For better preview recommended size is 450px x 450px. Max size 5mb.</span>
+                          </label>
+                          <span>For better preview recommended size is 450px x 450px. Max size 5mb.</span>
                         </div>
                       </div>
                     </div>
@@ -187,7 +187,12 @@
                     <div class="col-md-6 col-lg-4">
                       <div class="input-block">
                         <label for="job-title" class="form-label">Your Job Title</label>
-                        <input type="text" class="form-control" id="jobtitle" formControlName="jobtitle" />
+                        <mat-select class="select mat-select arrow verify" placeholder="Select" id="jobtitle"
+                          formControlName="jobtitle">
+                          <mat-option *ngFor="let data of selectedList1" [value]="data.value">
+                            {{ data.value }}
+                          </mat-option>
+                        </mat-select>
                       </div>
                     </div>
                     <div class="col-md-6 col-lg-4">
@@ -195,7 +200,7 @@
                         <label for="jobs" class="form-label">Type of Job</label>
                         <mat-select class="select mat-select arrow verify" placeholder="Select" id="typeofjob"
                           formControlName="typeofjob">
-                          <mat-option *ngFor="let data of selectedList1" [value]="data.value">
+                          <mat-option *ngFor="let data of selectedList2" [value]="data.value">
                             {{ data.value }}
                           </mat-option>
                         </mat-select>
@@ -245,13 +250,13 @@
                       <div class="row">
                         <div class="col-md-6">
                           <label for="skillName{{i}}">Skill Name</label>
-                          <input type="text" id="skillName{{i}}" formControlName="skillName" class="form-control" />
+                          <input type="text" id="skillName{{i}}" formControlName="skill_name" class="form-control" />
                         </div>
                         <div class="col-md-5">
                           <label for="level{{i}}">Level</label>
                           <mat-select id="level{{i}}" formControlName="level" class="select mat-select arrow verify"
                             placeholder="Choose Level">
-                            <mat-option *ngFor="let data of selectedList2" [value]="data.value">
+                            <mat-option *ngFor="let data of selectedList3" [value]="data.value">
                               {{ data.value }}
                             </mat-option>
                           </mat-select>
@@ -281,7 +286,7 @@
                             <label for="degree{{i}}" class="focus-label">Degree Name</label>
                             <mat-select id="degree{{i}}" formControlName="degree" class="select mat-select arrow verify"
                               placeholder="Select">
-                              <mat-option *ngFor="let data of selectedList3" [value]="data.value">{{ data.value
+                              <mat-option *ngFor="let data of selectedList4" [value]="data.value">{{ data.value
                                 }}</mat-option>
                             </mat-select>
                           </div>
@@ -333,7 +338,7 @@
                             <label for="certification{{i}}" class="focus-label">Certification or Award</label>
                             <mat-select id="certification{{i}}" formControlName="certification"
                               class="select mat-select arrow verify" placeholder="Select">
-                              <mat-option *ngFor="let data of selectedList4" [value]="data.value">{{ data.value
+                              <mat-option *ngFor="let data of selectedList5" [value]="data.value">{{ data.value
                                 }}</mat-option>
                             </mat-select>
                           </div>
@@ -388,7 +393,7 @@
                             <label for="position{{i}}" class="focus-label">Position</label>
                             <mat-select id="position{{i}}" formControlName="position"
                               class="select mat-select arrow verify" placeholder="Select">
-                              <mat-option *ngFor="let data of selectedList5" [value]="data.value">{{ data.value
+                              <mat-option *ngFor="let data of selectedList1" [value]="data.value">{{ data.value
                                 }}</mat-option>
                             </mat-select>
                           </div>
@@ -508,102 +513,106 @@
                       </div>
                     </div>
                   </div>
-                  <div>
-                    <div class="media-set">
-                      <div class="row">
-                        <div class="col-md-12">
-                          <h4>Personal Website</h4>
-                        </div>
-                        <div class="col-md-12">
-                          <div class="input-block">
-                            <label for="website-url" class="form-label">Website Url</label>
-                            <input type="text" class="form-control" id="persnolurl" formControlName="persnolurl" />
-                          </div>
+                  <div class="media-set">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <h4>Personal Website</h4>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="input-block">
+                          <label for="website-url" class="form-label">Website
+                            Url</label>
+                          <input type="text" class="form-control" id="persnolurl" formControlName="persnolurl" />
                         </div>
                       </div>
                     </div>
-                    <div class="media-set">
-                      <div class="row">
-                        <div class="col-md-12">
-                          <h4>Location</h4>
+                  </div>
+                  <div class="media-set">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <h4>Location</h4>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="input-block">
+                          <label for="Address" class="form-label">Address</label>
+                          <input type="text" class="form-control" id="address" formControlName="address" />
                         </div>
-                        <div class="col-md-12">
-                          <div class="input-block">
-                            <label for="Address" class="form-label">Address</label>
-                            <input type="text" class="form-control" id="address" formControlName="address" />
-                          </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="input-block">
+                          <label for="city" class="form-label">City</label>
+                          <input type="text" class="form-control" id="city" formControlName="city" />
                         </div>
-                        <div class="col-md-3">
-                          <div class="input-block">
-                            <label for="city" class="form-label">City</label>
-                            <input type="text" class="form-control" id="city" formControlName="city" />
-                          </div>
 
+                      </div>
+                      <div class="col-md-3">
+                        <div class="input-block">
+                          <label for="state" class="form-label">State /
+                            Province</label>
+                          <input type="text" class="form-control" id="state" formControlName="state" />
                         </div>
-                        <div class="col-md-3">
-                          <div class="input-block">
-                            <label for="state" class="form-label">State / Province</label>
-                            <input type="text" class="form-control" id="state" formControlName="state" />
-                          </div>
-                        </div>
-                        <div class="col-md-3">
-                          <div class="input-block">
-                            <label for="post-code" class="form-label">ZIP / Post Code</label>
-                            <input type="text" class="form-control" id="postcode" formControlName="postcode" />
-                          </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="input-block">
+                          <label for="post-code" class="form-label">ZIP / Post
+                            Code</label>
+                          <input type="text" class="form-control" id="postcode" formControlName="postcode" />
                         </div>
                       </div>
                     </div>
-                    <div class="media-set">
-                      <div class="row">
-                        <div class="col-md-12">
-                          <h4>KYC Upload</h4>
+                  </div>
+                  <div class="media-set">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <h4>KYC Upload</h4>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="input-block">
+                          <label for="document-type" class="form-label">Document
+                            Type</label>
+                          <mat-select id="documenttype" formControlName="documenttype"
+                            class="select mat-select arrow verify" placeholder="Select">
+                            <mat-option *ngFor="let data of selectedList2" [value]="data.value">
+                              {{ data.value }}
+                            </mat-option>
+                          </mat-select>
                         </div>
-                        <div class="col-md-6">
-                          <div class="input-block">
-                            <label for="document-type" class="form-label">Document Type</label>
-                            <mat-select id="documenttype" formControlName="documenttype"
-                              class="select mat-select arrow verify" placeholder="Select">
-                              <mat-option *ngFor="let data of selectedList8" [value]="data.value">
-                                {{ data.value }}
-                              </mat-option>
-                            </mat-select>
-                          </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="input-block">
+                          <label for="document-number" class="form-label">Document
+                            Number</label>
+                          <input type="text" class="form-control" id="documentnumber"
+                            formControlName="documentnumber" />
                         </div>
-                        <div class="col-md-6">
-                          <div class="input-block">
-                            <label for="document-number" class="form-label">Document Number</label>
-                            <input type="text" class="form-control" id="documentnumber"
-                              formControlName="documentnumber" />
+                      </div>
+                      <div class="col-md-12">
+                        <div class="input-block">
+                          <label for="document-number" class="form-label">Document
+                            Number</label>
+                          <div class="upload-sets">
+                            <label class="upload-filesview">
+                              Browse File
+                              <input type="file" />
+                            </label>
+                            <h6>Or Drag & Drop here</h6>
                           </div>
-                        </div>
-                        <div class="col-md-12">
-                          <div class="input-block">
-                            <label for="document-number" class="form-label">Document Number</label>
-                            <div class="upload-sets">
-                              <label class="upload-filesview">
-                                Browse File
-                                <input type="file" />
-                              </label>
-                              <h6>Or Drag & Drop here</h6>
-                            </div>
-                            <span class="text-success"><i class="fa fa-check-circle me-2"
-                                aria-hidden="true"></i>Passport.jpg Uploaded Successfully</span>
-                          </div>
+                          <span class="text-success"><i class="fa fa-check-circle me-2"
+                              aria-hidden="true"></i>Passport.jpg Uploaded
+                            Successfully</span>
                         </div>
                       </div>
                     </div>
                   </div>
                   <div class="text-center">
-                    <input class="btn btn-prev prev_btn btn-back" name="next" type="button" value="Back"
-                      (click)="selectedFieldSet[0] = 2" (keydown.enter)="selectedFieldSet[0] = 2" />
-                    <input class="btn next_btn btn-primary btn-get btn-next" [routerLink]="routes.login" name="next"
-                      type="submit" value="Submit" />
+                    <button class="btn btn-prev prev_btn btn-back" name="next" type="button" value="Back"
+                      (click)="selectedFieldSet[0] = 2" (keydown.enter)="selectedFieldSet[0] = 2">Back</button>
+                    <button class="btn next_btn btn-primary btn-get btn-next" [routerLink]="routes.login" name="next"
+                      type="submit" value="Submit">Submit</button>
                   </div>
                 </form>
               </div>
-            </div>
-            <!-- /Other Info -->
+            </div> <!-- /Other Info -->
           </div>
         </div>
       </div>

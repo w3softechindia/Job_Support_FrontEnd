@@ -90,6 +90,5 @@ export class OtpVerifyComponent {
         console.error('Error occurred while resending OTP:', error); // Handle error response
       }
     );
-    
   }
 }

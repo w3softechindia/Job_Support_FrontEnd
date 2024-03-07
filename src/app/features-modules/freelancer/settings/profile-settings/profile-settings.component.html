@@ -101,7 +101,8 @@
                                 <div class="form-row align-items-center skill-cont">
                                     <div class="input-block col-md-6">
                                         <label for="skillName">Skill Name</label>
-                                        <input type="text" id="skillName" formControlName="skillName" class="form-control" />
+                                        <input type="text" id="skill_name" formControlName="skill_name"
+                                            class="form-control" />
                                     </div>
                                     <div class="input-block col-md-5">
                                         <label for="level">Level</label>
@@ -113,8 +114,9 @@
                                         </mat-select>
                                     </div>
                                     <div class="input-block col-lg-1 mb-0">
-                                        <a href="javascript:void(0);" class="btn trash-icon" (click)="removeSkill(i,('skillName'))"><i class="far fa-trash-alt"></i></a>
-                                    </div> 
+                                        <a href="javascript:void(0);" class="btn trash-icon" (click)="removeSkill(i)"><i
+                                                class="far fa-trash-alt"></i></a>
+                                    </div>
                                 </div>
                             </div>  
                             <div id="certi_add_row" class=" w-100">
@@ -129,7 +131,7 @@
 
             <div class="col-lg-12 w-100">
                 <div class="card flex-fill mb-3">
-                    <div formArrayName="educations">
+                    <div formArrayName="education">
                         <div class="pro-head">
                             <h4 class="pro-titles without-border mb-0">Education</h4>
                         </div>
@@ -147,7 +149,7 @@
                                             placeholder="Enter university name" id="university">
                                     </div>
                                     <div class="col-md-3 input-block floating-icon">
-                                        <label for="startdate" class="form-label">Start Date</label> 
+                                        <label for="startdate" class="form-label">Start Date</label>
                                         <input type="date" class="form-control" formControlName="startdate"
                                             id="startdate">
                                     </div>
@@ -174,7 +176,7 @@
 
             <div class="col-lg-12 w-100">
                 <div class="card flex-fill mb-3">
-                    <div formArrayName="certifications">
+                    <div formArrayName="certification">
                         <div class="pro-head">
                             <h4 class="pro-titles without-border mb-0">Certification</h4>
                         </div>
@@ -184,17 +186,13 @@
                                     <div class="input-block col-lg-4">
                                         <label for="certification{{i}}" class="focus-label">Certification or
                                             Award</label>
-                                        <mat-select id="certification{{i}}" formControlName="certification"
-                                            class="select mat-select arrow verify" placeholder="Select">
-                                            <mat-option *ngFor="let data of selectedList4" [value]="data.value">{{
-                                                data.value
-                                                }}</mat-option>
-                                        </mat-select>
+                                        <input type="text" class="form-control" id="certification{{i}}" formControlName="certification"
+                                             placeholder="Enter Name"/>
                                     </div>
                                     <div class="input-block col-lg-4">
                                         <label for="certifiedfrom{{i}}" class="focus-label">Certified from</label>
                                         <input type="text" class="form-control" id="certifiedfrom{{i}}"
-                                            formControlName="certifiedfrom" />
+                                            formControlName="certifiedfrom" placeholder="Certified From"/>
                                     </div>
                                     <div class="col-lg-3 input-block floating-icon">
                                         <label for="year{{i}}" class="focus-label">Year</label>
@@ -218,7 +216,7 @@
 
             <div class="col-lg-12 w-100">
                 <div class="card flex-fill mb-3">
-                    <div formArrayName="experiences">
+                    <div formArrayName="experience">
                         <div class="pro-head">
                             <h4 class="pro-titles without-border mb-0">Experience</h4>
                         </div>
@@ -268,7 +266,7 @@
 
             <div class="col-lg-12 w-100">
                 <div class="card flex-fill mb-3">
-                    <div formArrayName="languages">
+                    <div formArrayName="language">
                         <div class="pro-head">
                             <h4 class="pro-titles mb-0">Language</h4>
                         </div>
@@ -372,10 +370,24 @@
             <div class="card text-end border-0">
                 <div class="pro-body">
                     <button class="btn btn-secondary click-btn btn-plan">Cancel</button>
-                    <button class="btn btn-primary click-btn btn-plan" type="submit" (click)="navigation()"
+                    <button href="#updated" data-bs-toggle="modal" class="btn btn-primary click-btn btn-plan" type="submit"
                         (keydown.enter)="navigation()" tabindex="0">Update</button>
                 </div>
             </div>
         </form>
+    </div>
+</div>
+
+<div class="modal fade success-modal hire-modal" id="updated">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+        <div class="modal-content">
+            <div class="modal-body pt-4">
+                <div class="success-msg-content text-center">
+                    <h4>Details Updated SuccessFully..!!!</h4>
+                    <p>Resume Your Operations....</p>
+                    <a href="javascript:void(0);" data-bs-dismiss="modal" class="btn btn-primary mt-3" (click)="navigation()">Okay</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

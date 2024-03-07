@@ -160,18 +160,37 @@ export class OnboardEmployerComponent {
   removeDatas(index: number) {
     this.datas[index] = !this.datas[index];
   }
-  selectedList1: data[] = [
-    { value: 'Choose Level' },
+  selectedList1: data[] =[
     { value: 'Select' },
-    { value: 'Full Time' },
-    { value: 'Part Time' },
-    { value: 'Hourly' },
+    { "value": "Information Technology (IT)" },
+    { "value": "Software Development" },
+    { "value": "Web Development" },
+    { "value": "Mobile App Development" },
+    { "value": "Graphic Design" },
+    { "value": "Digital Marketing" },
+    { "value": "Content Writing" },
+    { "value": "Copywriting" },
+    { "value": "Social Media Management" },
+    { "value": "Search Engine Optimization (SEO)" },
+    { "value": "Data Entry" },
+    { "value": "Translation Services" },
+    { "value": "Video Editing" },
+    { "value": "Photography" },
+    { "value": "Illustration" },
+    { "value": "Animation" },
+    { "value": "Virtual Assistance" },
+    { "value": "E-commerce" },
+    { "value": "Consulting" },
+    { "value": "Education and Training" }
+
   ];
   selectedList2: data[] = [
-    { value: 'Choose Level' },
-    { value: 'Basic' },
-    { value: 'Intermediate' },
-    { value: 'Proficient' },
+    { value: 'Select' },
+    { "value": "Aadhaar Card" },
+    { "value": "PAN Card (Permanent Account Number)" },
+    { "value": "Voter ID Card" },
+    { "value": "Driver's License" },
+    { "value": "Passport" },
   ];
   selectedList3: data[] = [
     { value: 'Select' },
