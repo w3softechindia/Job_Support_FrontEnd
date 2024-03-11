@@ -2,7 +2,11 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { User } from '../classes/user';
+
 import { PostprojectService } from './postproject.service';
+
+import { AccountDelete } from '../core/models/models';
+
 
 @Injectable({
   providedIn: 'root'
@@ -49,6 +53,11 @@ constructor(private http:HttpClient   , private projectservice:PostprojectServic
     return this.http.put(`${this.baseurl}/employerInfo/${email}`,user)
   }
 
+  //Update Freelancer Details
+  updateFreelancer(email:string,freelancer:User){
+    return this.http.put(`${this.baseurl}/updateFreelancer/${email}`,freelancer);
+  }
+
   //Send Otp to mail
   SendOtp(email:string,user:User):Observable<any>{
     return this.http.put(`${this.baseurl}/sendOTP/${email}`,user);
@@ -79,6 +88,7 @@ constructor(private http:HttpClient   , private projectservice:PostprojectServic
   getPhoto(email: string): Observable<any> {
     return this.http.get(`${this.baseurl}/photo/${email}`, { responseType: 'blob' });
   }
+
 
 
   postFormData(formData: any): Observable<any> {
@@ -115,6 +125,22 @@ constructor(private http:HttpClient   , private projectservice:PostprojectServic
     }
     // Return an observable with a user-facing error message
     return throwError('Something went wrong; please try again later.');
+  }
+
+
+  //Delete Skills
+  deleteSkill(skill:string){
+    return this.http.delete(`${this.baseurl}/deleteSkill/${skill}`);
+  }
+
+  //Change Password
+  changePassword(email:string,password:string,newPassword:string,user:User){
+    return this.http.put(`${this.baseurl}/change-password/${email}/${password}/${newPassword}`,user);
+  }
+
+  //Account Deletion Post
+  deleteAccount(email:string,acdlt:AccountDelete){
+    return this.http.post(`${this.baseurl}/postReason/${email}`,acdlt,{responseType:'text'});
   }
 
 }

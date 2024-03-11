@@ -216,7 +216,7 @@
 												<label class="focus-label" for="industry">Industry</label>
 												<mat-select id="industry" formControlName="industry"
 													class="select mat-select arrow verify" placeholder="Select">
-													<mat-option *ngFor="let data of selectedList3" [value]="data.value">
+													<mat-option *ngFor="let data of selectedList1" [value]="data.value">
 														{{data.value}}
 													</mat-option>
 												</mat-select>
@@ -369,7 +369,7 @@
 															Type</label>
 														<mat-select id="documenttype" formControlName="documenttype"
 															class="select mat-select arrow verify" placeholder="Select">
-															<mat-option *ngFor="let data of selectedList8"
+															<mat-option *ngFor="let data of selectedList2"
 																[value]="data.value">
 																{{ data.value }}
 															</mat-option>

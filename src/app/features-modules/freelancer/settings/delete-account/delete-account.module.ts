@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { DeleteAccountRoutingModule } from './delete-account-routing.module';
 import { DeleteAccountComponent } from './delete-account.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 
 @NgModule({
@@ -11,7 +13,9 @@ import { DeleteAccountComponent } from './delete-account.component';
   ],
   imports: [
     CommonModule,
-    DeleteAccountRoutingModule
+    DeleteAccountRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
   ]
 })
 export class DeleteAccountModule { }

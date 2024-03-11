@@ -2010,12 +2010,6 @@ export class ShareDataService {
         },
       ],
     },
-    {
-      title: 'Logout',
-      hasSubRoute: false,
-      icon: 'assets/img/icon/sidebar-icon-11.svg',
-      routes: routes.home,
-    },
   ];
   public menuItem = [
     {
@@ -2116,12 +2110,6 @@ export class ShareDataService {
         { title: 'Changes Password', routes: routes.changepassword ,page: 'change-password'},
         { title: 'Delete Account', routes: routes.deleteaccount ,page:'delete-account'},
       ],
-    },
-    {
-      title: 'Logout',
-      icon: 'assets/img/icon/sidebar-icon-11.svg',
-      routes: routes.freelancer_dashboard,
-      hasSubRoute: false,
     },
   ];
 }
