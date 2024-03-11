@@ -1,14 +1,15 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { User } from '../classes/user';
+import { PostprojectService } from './postproject.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-constructor(private http:HttpClient){}
+constructor(private http:HttpClient   , private projectservice:PostprojectService){}
 
   private baseurl="http://localhost:8080";
 
@@ -78,4 +79,42 @@ constructor(private http:HttpClient){}
   getPhoto(email: string): Observable<any> {
     return this.http.get(`${this.baseurl}/photo/${email}`, { responseType: 'blob' });
   }
+
+
+  postFormData(formData: any): Observable<any> {
+    const url = `${this.baseurl}/addproject`;
+    return this.http.post<any>(url, formData);
+  }
+
+
+
+ 
+  myUpload(projectId: number, file: File): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('file', file, file.name);
+
+    const headers = new HttpHeaders();
+    headers.append('Accept', 'application/json');
+
+    return this.http.post<any>(`${this.baseurl}/files/${projectId}`, formData, { headers: headers })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+ 
+  private handleError(error: HttpErrorResponse) {
+    if (error.error instanceof ErrorEvent) {
+      // Client-side error
+      console.error('An error occurred:', error.error.message);
+    } else {
+      // Server-side error
+      console.error(
+        `Backend returned code ${error.status}, ` +
+        `body was: ${JSON.stringify(error.error)}`);
+    }
+    // Return an observable with a user-facing error message
+    return throwError('Something went wrong; please try again later.');
+  }
+
 }

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { PostprojectService } from 'src/app/Services/postproject.service';
+
+import { UserService } from 'src/app/Services/user.service';
 import { routes } from 'src/app/core/helpers/routes/routes';
 
 @Component({
@@ -9,40 +12,204 @@ import { routes } from 'src/app/core/helpers/routes/routes';
 })
 export class ProjectConfirmationComponent implements OnInit {
   public routes = routes;
+  
 
+  deadline_date: string | undefined; 
+  
+  activeRate = ''; // Assuming activeRate is a property for selecting the budget type
+  hourlyRateFrom :string | undefined; // Assuming hourlyRateFrom is a property for hourly rate from
+  hourlyRateTo :string | undefined; // Assuming hourlyRateTo is a property for hourly rate to
+  fixedRate = 0; // Assuming fixedRate is a property for fixed rate
+  attachments: any[] = []; // Assuming attachments is an array of attached files
+     date:Date | undefined;
 
+ 
+  skills: string[] = [];
+  
+ 
+  tags: string[] = [];
+  files: File[] = [];
+ 
+  formData: any = {};
+  projectId: number | undefined;
+ 
 
-  formData: any = {}; // Object to store form data
+  constructor(private router: Router,
+    private projectservice:PostprojectService,
+    private userService: UserService
+    
+    ) { }
 
-  constructor(private router: Router) { }
+  
+
 
   ngOnInit(): void {
-    // Retrieve form data when the component initializes
     this.captureFormData();
   }
 
+
+
+ 
+
   captureFormData() {
-    // Retrieve form data using Angular's template syntax
-    this.formData.projectTitle = 'Create desktop applications with source PHP';
-    this.formData.category = 'Web development';
-    this.formData.projectDuration = '3 Month';
-    this.formData.freelancerType = 'Full Time';
-    this.formData.freelancerLevel = 'Intermediate';
-    this.formData.tags = ['Web Design', 'UI Design', 'Node Js'];
-    this.formData.skills = ['Website Mockup', 'Design', 'Figma', 'Sketch'];
-    this.formData.budgetType = 'Fixed';
-    this.formData.budgetAmount = '$200';
-    this.formData.attachmentFiles = '5';
-    this.formData.languages = 'English, Arabic';
-    this.formData.languageFluency = 'Intermediate';
-    this.formData.otherDetails = 'Please provide details such as the topic or subject of the project, the goals and objectives, any specific requirements, and any other relevant information you would like to include in the project description. The more details you provide, the better I can assist you in crafting an accurate and compelling project description.';
+    this.setFormDataProperty('project_title', this.projectservice.project_title);
+    this.setFormDataProperty('project_category', this.projectservice.project_category);
+    this.setFormDataProperty('project_duration', this.projectservice.project_duration);
+     this.setFormDataProperty('deadline_date' , this.projectservice.deadline_date);
+    this.setFormDataProperty('freelancer_type', this.projectservice.freelancer_type);
+    this.setFormDataProperty('freelancer_level', this.projectservice.freelancer_level);
+    this.setFormDataProperty('attachmentFiles', this.projectservice.attachmentFiles);
+    this.setFormDataProperty('languages', this.projectservice.languages);
+    this.setFormDataProperty('language_fluency', this.projectservice.language_fluency);
+    this.setFormDataProperty('description', this.projectservice.description);
+    this.setFormDataProperty('number_of_files', this.projectservice.number_of_files);
+    this.setFormDataProperty('active_rate', this.projectservice.active_rate);
+    this.setFormDataProperty('tags', this.projectservice.getTags());
+    this.setFormDataProperty('skills', this.projectservice.getSkills());
+    this.setFormDataProperty('attachments', this.projectservice.getAttachments());
+     
+    
 
-    console.log(this.formData); // Log form data to the console
 
-    // Perform any additional actions such as sending data to backend or navigating
-    // For example, to navigate to another route:
-    // this.router.navigate([this.routes.nextRoute]);
+    // Log selected budget type and related rates
+    console.log('Selected Budget Type:', this.projectservice.active_rate);
+    if (this.projectservice.active_rate === 'hourly') {
+      console.log(
+        'Hourly Rate - From:',
+        this.projectservice.hourly_rate_from,
+        'To:',
+        this.projectservice.hourly_rate_to
+      );
+      // Check if hourly rates are set
+      if (this.projectservice.hourly_rate_from !== undefined && this.projectservice.hourly_rate_to !== undefined) {
+        // Assign hourly rates to formData
+        this.setFormDataProperty('budget_amount', this.projectservice.hourly_rate_from + ' - ' + this.projectservice.hourly_rate_to);
+      } else {
+        console.log('Hourly rates are not set properly.');
+      }
+    } else if (this.projectservice.active_rate === 'fixed') {
+      console.log('Fixed Budget:', this.projectservice.fixed_rate);
+      // Assign fixed rate to formData
+      this.setFormDataProperty('budget_amount', this.projectservice.fixed_rate);
+    }
+
+
+    console.log(this.formData);
+
+       
+   
+
   }
-}
+
+
+
   
 
+  setFormDataProperty(propertyName: string, propertyValue: any) {
+    // Check if formData is initialized and define property dynamically
+    if (this.formData) {
+      this.formData[propertyName] = propertyValue;
+    }
+  }
+
+
+ 
+
+
+
+ 
+ 
+  
+  // postFormData() {
+  //   this.userService.postFormData(this.formData).subscribe(
+  //     response => {
+  //       console.log('Form data sent successfully:', response);
+  //       this.projectId = response.id;
+  //       console.log('Project ID:', this.projectId);
+  //       this.getfiles();
+  //     },
+  //     error => {
+  //       console.error('Error occurred while sending form data:', error);
+  //     }
+  //   );
+  // }
+
+
+
+
+
+
+  postFormData() {
+    this.userService.postFormData(this.formData).subscribe(
+      response => {
+        console.log('Form data sent successfully:', response);
+        const projectId = response.id; // Extract project ID from the response
+        if (projectId) {
+          try {
+            const files = this.projectservice.getAttachments(); // Get the files
+            if (files && files.length > 0) {
+              // Call the file upload method if files are available
+              this.sendFiles(Number(projectId), files); // Convert projectId to number
+            } else {
+              console.error('No files to upload.');
+            }
+          } catch (error) {
+            console.error('Error retrieving attachments:', error);
+          }
+        } else {
+          console.error('Project ID not provided.');
+        }
+      },
+      error => {
+        console.error('Error occurred while sending form data:', error);
+      }
+    );
+  }
+  
+  sendFiles(projectId: number, files: File[]) {
+    // Iterate over each file and upload it
+    files.forEach(file => {
+      this.userService.myUpload(projectId, file).subscribe(
+        (data: any) => {
+          console.log('File uploaded successfully:', data);
+          // Assuming the response is plain text, you can handle it here
+          console.log('Server response:', data);
+          // Handle success response here
+        },
+        (error: any) => {
+          console.error('Error uploading file:', error);
+          // Handle error response here
+        }
+      );
+    });
+  }
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+  getfiles() {
+    try {
+      this.files = this.projectservice.getAttachments();
+      console.log('Files:', this.files);
+      // Call sendingFiles method after getting files
+      
+    } catch (error) {
+      console.error('Error retrieving attachments:', error);
+    }
+  }
+
+
+
+ 
+
+ 
+}

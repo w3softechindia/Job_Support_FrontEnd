@@ -94,6 +94,8 @@ export class EmployerheaderComponent implements OnInit{
   ngOnInit(): void {
       this.username = this.auth.getUsername();
       this.email=this.auth.getEmail();
+      console.log(this.username);
+      console.log(this.email);
       this.loadPhoto();
   }
 
