@@ -6,6 +6,7 @@ import { EmployerComponent } from './employer.component';
 import { EmployerheaderComponent } from '../common/employerheader/employerheader.component';
 import { SidemenuComponent } from './sidemenu/sidemenu.component';
 
+import { FormsModule ,ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,10 @@ import { SidemenuComponent } from './sidemenu/sidemenu.component';
   ],
   imports: [
     CommonModule,
-    EmployerRoutingModule
+    EmployerRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
+
   ]
 })
 export class EmployerModule { }
