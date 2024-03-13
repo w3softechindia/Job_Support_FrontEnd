@@ -409,3 +409,8 @@ export class AccountDelete{
   password!:string;
   reason!:string;
 }
+export class Portfolio{
+  title!:string;
+  link!:string;
+  photo_path!:File;
+}

@@ -17,38 +17,47 @@ constructor(private http:HttpClient   , private projectservice:PostprojectServic
 
   private baseurl="http://localhost:8080";
 
+  //Authentication
   login(data:any){
     return this.http.post<any>(`${this.baseurl}/authenticate`,data);
   }
 
+  //User Registration
   register(user: User):Observable<any>{
     return this.http.post(`${this.baseurl}/register` , user);
   }
   
+  //User Email Verification
   verifyAccount(email:string,otp:string,user:User):Observable<any>{
     return this.http.put(`${this.baseurl}/verify/${email}/${otp}`,user);
   }
 
+  //Register User Role
   insertRole(email:string,newRole:string):Observable<User>{
     return this.http.put<User>(`${this.baseurl}/update/${email}?newRole=${newRole}`,null)
   }
 
+  // Register User Personal Info
   personalInfo(user:User,email:string){
     return this.http.put(`${this.baseurl}/persnolInfo/${email}`,user)
   }
 
+  //Register User Data
   userData(email: string, userdata: any): Observable<any> {
     return this.http.post<any>(`${this.baseurl}/addUserData/${email}`, userdata);
   }
 
+  //Register User OtherInfo
   otherInfo(user:User,email:string){
     return this.http.put(`${this.baseurl}/otherInfo/${email}`,user)
   }
 
+  //Get User Details By email
   getUserByMail(email:string){
     return this.http.get(`${this.baseurl}/getUser/${email}`)
   }
 
+  //Register Employer Info
   employerInfo(email:string,user:User){
     return this.http.put(`${this.baseurl}/employerInfo/${email}`,user)
   }
@@ -89,16 +98,11 @@ constructor(private http:HttpClient   , private projectservice:PostprojectServic
     return this.http.get(`${this.baseurl}/photo/${email}`, { responseType: 'blob' });
   }
 
-
-
   postFormData(formData: any): Observable<any> {
     const url = `${this.baseurl}/addproject`;
     return this.http.post<any>(url, formData);
   }
 
-
-
- 
   myUpload(projectId: number, file: File): Observable<any> {
     const formData: FormData = new FormData();
     formData.append('file', file, file.name);
@@ -112,7 +116,6 @@ constructor(private http:HttpClient   , private projectservice:PostprojectServic
       );
   }
 
- 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // Client-side error
@@ -143,4 +146,36 @@ constructor(private http:HttpClient   , private projectservice:PostprojectServic
     return this.http.post(`${this.baseurl}/postReason/${email}`,acdlt,{responseType:'text'});
   }
 
+  //Add Portfolio
+  addPortfolio(email:string,formData:FormData): Observable<any> {
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+
+    return this.http.post<any>(`${this.baseurl}/postPortfolio/${email}`,formData,{ headers: headers })
+      .pipe(
+        catchError(error => {
+          return throwError(error);
+        })
+      );
+  }
+
+  //Get Portfolios by Email
+  getPortfolio(email:string){
+    return this.http.get(`${this.baseurl}/portfolios/${email}`)
+  }
+
+  //Get Portfolios by Email And Title
+  getPortfolioByTitle(email:string,title:string){
+    return this.http.get(`${this.baseurl}/getPortByEmail&Title/${email}/${title}`);
+  }
+
+  //Update Portfolios By title
+  updatePortfolio(email:string,title1:string,formData:FormData){
+    return this.http.put(`${this.baseurl}/updatePortfolio/${email}/${title1}`,formData);
+  }
+
+  //Delete Portfolio By Title
+  deletePortfolio(email:string,title:string){
+    return this.http.delete(`${this.baseurl}/deletePortfolio/${email}/${title}`,{responseType:'text'});
+  }
 }
