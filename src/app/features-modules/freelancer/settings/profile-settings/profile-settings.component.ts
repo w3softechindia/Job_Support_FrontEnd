@@ -17,16 +17,6 @@ interface data {
 })
 export class ProfileSettingsComponent implements OnInit {
   public routes = routes;
-  public selectedValue1 = '';
-  public selectedValue2 = '';
-  public selectedValue3 = '';
-  public selectedValue4 = '';
-  public selectedValue5 = '';
-  public selectedValue6 = '';
-  public selectedValue7 = '';
-  public selectedValue8 = '';
-  public selectedValue9 = '';
-  public customvalue1 = '';
 
   public isCheckboxChecked = true;
   email!: string;

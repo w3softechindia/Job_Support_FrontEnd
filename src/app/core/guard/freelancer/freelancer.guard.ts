@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
+import { routes } from '../../helpers/routes/routes';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +20,7 @@ export class FreelancerGuard {
     if (freelancerLoggedIn) {
       return true;
     } else {
-      this.route.navigate(['/auth/login']);
-      return false;
+      return this.route.navigate([routes.login]);
     }
   }
 
