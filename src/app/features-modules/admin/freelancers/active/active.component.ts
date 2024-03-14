@@ -3,6 +3,8 @@ import { Component, OnInit,  } from '@angular/core';
 // import { Subject } from "rxjs";
 import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
 import { Sort } from '@angular/material/sort';
+import { AdminService } from 'src/app/Services/admin.service';
+import { User } from 'src/app/classes/user';
 import { ShareDataService } from 'src/app/core/data/share-data.service';
 import { apiResultFormat, freelancer } from 'src/app/core/models/models';
 
@@ -17,6 +19,9 @@ export class ActiveComponent implements OnInit {
   public url = "admin";
   public searchDataValue = '';
   dataSource!: MatTableDataSource<freelancer>;
+  user: User[]=[];
+  status:string='Active';
+  role:string='Freelancer';
 
   // pagination variables
   public lastIndex = 0;
@@ -30,11 +35,11 @@ export class ActiveComponent implements OnInit {
   public pageNumberArray: Array<number> = [];
   public pageSelection: Array<pageSelection> = [];
   public totalPages = 0;
-  constructor(  private data: ShareDataService ) { }
+  constructor(private data: ShareDataService,private adminService: AdminService) { }
 
   ngOnInit(): void {
     this.getTableData();
-
+    this.getAllUsersByStatus();
   }
 
       // Get hostel List  Api Call
@@ -132,6 +137,35 @@ export class ActiveComponent implements OnInit {
           this.pageNumberArray.push(i);
           this.pageSelection.push({ skip: skip, limit: limit });
         }
+      }
+
+      private getAllUsersByStatus(){
+        this.adminService.getUsersByStatus(this.role,this.status).subscribe((data:any)=>{
+          this.user=data;
+        })
+      }
+
+      updateStatus(email: string, status: string) {
+        this.adminService.updateStatus(email, status)
+          .subscribe(
+            () => {
+              console.log('Status updated successfully');
+              location.reload();
+            },
+            error => {
+              console.error('Error updating status:', error);
+            }
+          );
+      }
+    
+      deleteUserByEmail(email:string){
+        this.adminService.deleteUser(email).subscribe(()=>{
+          console.log("User Account Deleted..!!!!");
+        },
+        error => {
+          console.error('Error Deleting Account:', error);
+        }
+      );
       }
 }
 export interface pageSelection {

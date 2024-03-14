@@ -32,7 +32,7 @@ export class SidemenuComponent implements OnInit {
   last = '';
   currentroute = '';
   sidebar: SidebarData[] = [];
-  username: any;
+  name!:string;
   email: any;
   photoUrl!: string;
   isLoading!: boolean;
@@ -60,7 +60,7 @@ export class SidemenuComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.username = this.auth.getUsername();
+    this.name = this.auth.getName();
     this.email=this.auth.getEmail();
     console.log(this.email);
     this.loadPhoto();
