@@ -6,6 +6,7 @@ import { routes } from 'src/app/core/helpers/routes/routes';
 import { FreelancerSidebarItem } from 'src/app/core/models/sidebar-model';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/Services/user.service';
 
 @Component({
   selector: 'app-sidemenu',
@@ -21,7 +22,10 @@ export class SidemenuComponent implements OnInit{
   name!:string;
   email!:string;
   sidebar: SidebarData[] = [];
-  constructor(private data: ShareDataService, private common: CommonService,private auth:AuthService) {
+  photo: any;
+  error!: string;
+  photoUrl!: string | ArrayBuffer | null;
+  constructor(private data: ShareDataService, private common: CommonService,private auth:AuthService,private userService:UserService) {
     this.common.base.subscribe((res: string) => {
       this.base = res;
     });
@@ -36,8 +40,17 @@ export class SidemenuComponent implements OnInit{
     this.menuItems = this.data.freelancer_sidebar;
   }
   ngOnInit(): void {
-    this.name=this.auth.getUsername();
+    this.name=this.auth.getName();
     this.email=this.auth.getEmail();
+    this.userService.getPhoto(this.email).subscribe(
+      data => {
+        this.photo = data;
+        this.createImageFromBlob();
+      },
+      error => {
+        this.error = 'Failed to load photo.';
+      }
+    );
   }
 
   public menuItems: Array<FreelancerSidebarItem> = [];
@@ -47,5 +60,16 @@ export class SidemenuComponent implements OnInit{
 
   logout(): void {
    this.auth.userLogout();
+  }
+
+  createImageFromBlob(): void {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+      this.photoUrl = reader.result;
+    }, false);
+
+    if (this.photo) {
+      reader.readAsDataURL(this.photo);
+    }
   }
 }

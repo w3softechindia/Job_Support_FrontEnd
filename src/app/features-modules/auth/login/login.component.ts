@@ -44,7 +44,7 @@ throw new Error('Method not implemented.');
 
       this.auth.setToken(jwtToken);
       this.auth.setRoles(role);
-      this.auth.setUsername(user.name);
+      this.auth.setName(user.name);
       this.auth.setEmail(user.email);
 
       if(isVerified){

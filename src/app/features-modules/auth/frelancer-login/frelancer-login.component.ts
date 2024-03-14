@@ -51,7 +51,7 @@ export class FrelancerLoginComponent {
 
       this.auth.setToken(jwtToken);
       this.auth.setRoles(role);
-      this.auth.setUsername(user.name);
+      this.auth.setName(user.name);
       this.auth.setEmail(user.email);
 
       console.log(jwtToken)

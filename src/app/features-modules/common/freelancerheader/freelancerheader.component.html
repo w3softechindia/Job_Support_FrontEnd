@@ -170,16 +170,13 @@
 				</li> -->
 				<li class="nav-item dropdown account-item">
 					<a href="javascript:void(0);" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
-						<span class="user-img">
-							<!-- <img src="assets/img/user/avatar-1.jpg" alt="Img"> -->
-							<div *ngIf="photo">
-								<img [src]="photoUrl" alt="User Photo">
-							  </div>
-							  <div *ngIf="error">
-								Error: {{ error }}
-							  </div>		  
-						</span>
-						<span>{{this.name}}</span>
+						<div *ngIf="photoUrl">
+							<img [src]="photoUrl" alt="Profile Image" class="avatar-lg rounded-circle">
+						</div>
+						<div *ngIf="!photoUrl">
+							<p>Loading...</p>
+						</div>
+						<span>{{this.name}}</span> 
 					</a>
 					<div class="dropdown-menu emp">
 						<div class="drop-head">
