@@ -3,21 +3,18 @@ import { AdminService } from 'src/app/Services/admin.service';
 import { User } from 'src/app/classes/user';
 
 @Component({
-  selector: 'app-inactive',
-  templateUrl: './inactive.component.html',
-  styleUrls: ['./inactive.component.scss']
+  selector: 'app-active',
+  templateUrl: './active.component.html',
+  styleUrls: ['./active.component.scss']
 })
-export class InactiveComponent implements OnInit {
+export class ActiveComponent implements OnInit {
 
   user: User[] = [];
-  status: string = 'De-Activated';
-  role: string = 'Freelancer';
+  status: string = 'Active';
+  role: string = 'Employer';
+  searchQuery: string = '';
   filteredUsers: User[] = [];
 
-  photo: any;
-  error!: string;
-  photoUrl!: string | ArrayBuffer | null;
-  searchQuery: string = '';
   constructor(private adminService: AdminService) { }
 
   ngOnInit(): void {
@@ -69,8 +66,4 @@ export class InactiveComponent implements OnInit {
       );
     }
   }
-}
-export interface pageSelection {
-  skip: number;
-  limit: number;
 }

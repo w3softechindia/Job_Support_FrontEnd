@@ -3,31 +3,33 @@ import { AdminService } from 'src/app/Services/admin.service';
 import { User } from 'src/app/classes/user';
 
 @Component({
-  selector: 'app-inactive',
-  templateUrl: './inactive.component.html',
-  styleUrls: ['./inactive.component.scss']
+  selector: 'app-all',
+  templateUrl: './all.component.html',
+  styleUrls: ['./all.component.scss']
 })
-export class InactiveComponent implements OnInit {
+export class AllComponent implements OnInit{
 
+  role: string = 'Employer';
   user: User[] = [];
-  status: string = 'De-Activated';
-  role: string = 'Freelancer';
   filteredUsers: User[] = [];
 
   photo: any;
   error!: string;
   photoUrl!: string | ArrayBuffer | null;
   searchQuery: string = '';
+
   constructor(private adminService: AdminService) { }
 
   ngOnInit(): void {
-    this.getAllUsersByStatus();
+    this.getAllUsersByRole();
   }
 
-  private getAllUsersByStatus() {
-    this.adminService.getUsersByStatus(this.role, this.status).subscribe((data: any) => {
-      this.user = data;
-      this.filteredUsers = data;
+  private getAllUsersByRole() {
+    this.adminService.getAllByRole(this.role).subscribe((response: any) => {
+      this.user = response;
+      this.filteredUsers = response;
+      this.photo = response.photoUrl;
+      this.createImageFromBlob();
     })
   }
 
@@ -49,9 +51,20 @@ export class InactiveComponent implements OnInit {
       console.log("User Account Deleted..!!!!");
     },
       error => {
-        console.error('Error Deleting Account:', error);
+        console.error('Error updating status:', error);
       }
     );
+  }
+
+  createImageFromBlob(): void {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+      this.photoUrl = reader.result;
+    }, false);
+
+    if (this.photo) {
+      reader.readAsDataURL(this.photo);
+    }
   }
 
   search() {
@@ -69,8 +82,4 @@ export class InactiveComponent implements OnInit {
       );
     }
   }
-}
-export interface pageSelection {
-  skip: number;
-  limit: number;
 }

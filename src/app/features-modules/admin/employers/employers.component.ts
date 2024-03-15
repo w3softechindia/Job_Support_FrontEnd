@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
 import { AdminService } from 'src/app/Services/admin.service';
@@ -6,11 +6,12 @@ import { routes } from 'src/app/core/helpers/routes/routes';
 import { CommonService } from 'src/app/core/services/common/common.service';
 
 @Component({
-  selector: 'app-freelancers',
-  templateUrl: './freelancers.component.html',
-  styleUrls: ['./freelancers.component.scss'],
+  selector: 'app-employers',
+  templateUrl: './employers.component.html',
+  styleUrls: ['./employers.component.scss']
 })
-export class FreelancersComponent implements OnInit {
+export class EmployersComponent {
+
   public routes = routes;
   base = '';
   page = '';
@@ -19,7 +20,7 @@ export class FreelancersComponent implements OnInit {
   public str!: string;
   public filter = false;
   totalCount: number = 0;
-  role: string = "Freelancer";
+  role: string = "Employer";
   countType: string = '';
 
   constructor(private common: CommonService, public router: Router, private adminService: AdminService) {

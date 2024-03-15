@@ -42,4 +42,19 @@ export class AdminService {
   getUsersByStatus(role:string,status:string):Observable<any>{
     return this.http.get(`${this.baseurl}/getAllUsersByStatus/${role}/${status}`);
   }
+
+  //Count of Users by Role
+  getCountOfUsers(role:string):Observable<any>{
+    return this.http.get(`${this.baseurl}/totalUsersByRole/${role}`);
+  }
+
+  //Count Users By Active
+  getCountofUsersByActive(role:string):Observable<any>{
+    return this.http.get(`${this.baseurl}/active/${role}`);
+  }
+
+  //Count Users By Deactive
+  getCountofUsersByDeactive(role:string):Observable<any>{
+    return this.http.get(`${this.baseurl}/deactivated/${role}`);
+  }
 }

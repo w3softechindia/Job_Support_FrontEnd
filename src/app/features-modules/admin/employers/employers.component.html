@@ -6,45 +6,26 @@
         <div class="page-header subscribe-head">
             <div class="row align-items-center">
                 <div class="col">
-                    <h3 class="page-title">Freelancer</h3>
+                    <h3 class="page-title">Employer</h3>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a [routerLink]="'/admin/dashboard'">Home</a></li>
 
-                        <li class="breadcrumb-item active">Freelancer</li>
+                        <li class="breadcrumb-item active">Employer</li>
                     </ul>
-                </div>
-                <div class="col-auto">
-                    <ng-container *ngIf="last !== 'active'">
-                        <a class="btn  add-user" href="javascript:void()" data-bs-toggle="modal"
-                            data-bs-target="#add-category">
-                            <i class="fas fa-plus "></i> Add Freelancer
-                        </a>
-                    </ng-container>
-                    <ng-container *ngIf="last === 'active'">
-                        <a class="btn  add-user" href="javascript:void()" data-bs-toggle="modal"
-                            data-bs-target="#add-category">
-                            <i class="fas fa-plus "></i> Add User
-                        </a>
-                    </ng-container>
                 </div>
             </div>
         </div>
         <!-- /Page Header -->
-
         <div class="row">
             <div class="col-sm-12">
                 <div class="subscribe-employe users-list">
                     <ul>
                         <li [class.active]="last === 'all'" (click)="updateCounts('all')"><a
-                                [routerLink]="'/admin/freelancers/all'">All Freelancer</a></li>
+                                [routerLink]="'/admin/employers/all'">All Employers</a></li>
                         <li [class.active]="last === 'active'" (click)="updateCounts('active')"><a
-                                [routerLink]="'/admin/freelancers/active'">Active Freelancer</a></li>
+                                [routerLink]="'/admin/employers/active'">Active Employers</a></li>
                         <li [class.active]="last === 'deactive'" (click)="updateCounts('deactive')"><a
-                                [routerLink]="'/admin/freelancers/inactive'">De-Activated Freelancer</a></li>
-                        <!-- <li [class.active]="last === 'suspended'"><a
-                                [routerLink]="'/admin/freelancers/suspended'">Suspended</a></li> -->
-                        <li [class.active]="last === 'administrator'"><a
-                                [routerLink]="'/admin/freelancers/administrator'">Administrator</a></li>
+                                [routerLink]="'/admin/employers/de-activated'">De-Activated Employers</a></li>
                     </ul>
                 </div>
 
@@ -52,8 +33,8 @@
                 <div class="page-header user-active">
                     <div class="row align-items-center">
                         <div class="col">
-                            <h3 class="page-title">{{ str2 }} Freelancer</h3>
-                            <p><span>{{ totalCount }}</span> Freelancer account</p>
+                            <h3 class="page-title">{{ str2 }} Employer</h3>
+                            <p><span>{{ totalCount }}</span> Employer account</p>
                         </div>
                         <div class="col-auto">
                             <a href="javascript:" class="btn export-btn me-1">

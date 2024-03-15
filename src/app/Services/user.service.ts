@@ -178,4 +178,9 @@ constructor(private http:HttpClient   , private projectservice:PostprojectServic
   deletePortfolio(email:string,title:string){
     return this.http.delete(`${this.baseurl}/deletePortfolio/${email}/${title}`,{responseType:'text'});
   }
+
+  //Get User Account Status
+  getAccountStatus(email:string):Observable<any>{
+    return this.http.get(`${this.baseurl}/accountStatus/${email}`,{responseType:'text'});
+  }
 }

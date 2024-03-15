@@ -19,8 +19,11 @@
 					<label for="search">
 						Search:
 					</label>
-					<input [(ngModel)]="searchDataValue" (ngModelChange)="searchData(searchDataValue)"
-						class="form-control form-control-sm" />
+					<input
+						class="form-control form-control-sm"
+						[(ngModel)]="searchQuery"
+						(input)="search()"
+						placeholder="Enter name, expertise, email, or status"/>
 				</div>
 			</div>
 			<div class="table-scroll">
@@ -34,14 +37,14 @@
 							<th>Account Status</th>
 							<!-- <th>Actions</th> -->
 						</tr>
-						<tr *ngIf="user.length === 0">
+						<tr *ngIf="filteredUsers.length === 0">
 							<td colspan="9">
 								<h5 style="text-align: center">No data found</h5>
 							</td>
 						</tr>
 					</thead>
 					<tbody>
-						<tr *ngFor="let alls of user; let i = index">
+						<tr *ngFor="let alls of filteredUsers; let i = index">
 							<td>
 								<div class="table-avatar user-profile">
 									<!-- <img class="avatar-img rounded-circle "
