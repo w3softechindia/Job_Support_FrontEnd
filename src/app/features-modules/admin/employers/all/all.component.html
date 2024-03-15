@@ -1,5 +1,4 @@
 <div class="card ">
-
 	<div class="card-body">
 		<div class="table-responsive">
 			<div class="table_header">
@@ -20,8 +19,11 @@
 					<label for="search">
 						Search:
 					</label>
-					<input class="form-control form-control-sm" [(ngModel)]="searchQuery" (input)="search()"
-						placeholder="Enter name, expertise, email, or status" />
+					<input
+						class="form-control form-control-sm"
+						[(ngModel)]="searchQuery"
+						(input)="search()"
+						placeholder="Enter name, expertise, email, or status"/>
 				</div>
 			</div>
 			<div class="table-scroll">
@@ -61,7 +63,13 @@
 							<td *ngIf="!alls.verified">
 								<a href="javascript:" class="user-inactive-btn">Not Verified</a>
 							</td>
+							<td *ngIf="alls.status === 'Active'">
+								<a href="javascript:" class="user-active-btn">{{alls.status}}</a>
+							</td>
 							<td *ngIf="alls.status === 'De-Activated'">
+								<a href="javascript:" class="user-inactive-btn">{{alls.status}}</a>
+							</td>
+							<td *ngIf="alls.status === 'Yet To Be'">
 								<a href="javascript:" class="user-inactive-btn">{{alls.status}}</a>
 							</td>
 							<td class="text-end three-dots">
@@ -76,8 +84,7 @@
 											(click)="updateStatus(alls.email, 'Active')">Activate</a></li>
 									<li><a class="dropdown-item" href="javascript:"
 											(click)="updateStatus(alls.email, 'De-Activated')">De-Activate</a></li>
-									<li><a class="dropdown-item" href="javascript:"
-											(click)="deleteUserByEmail(alls.email)" data-dismiss="modal">Delete
+									<li><a class="dropdown-item" href="javascript:" (click)="deleteUserByEmail(alls.email)" data-dismiss="modal">Delete
 											Account</a></li>
 								</ul>
 							</td>
@@ -98,53 +105,54 @@
 					<div class="pagination_section">
 						<ul class="pagination">
 							<li class="page-item" [ngClass]="{
-		disabled: currentPage === 1
-		}">
+					disabled: currentPage === 1
+					}">
 								<a (click)="getMoreData('previous')" (keydown.enter)="getMoreData('previous')"
 									class="page-link" href="javascript:void(0);" tabindex="-1">Previous</a>
 							</li>
 
 							<ng-container *ngFor="let item of pageNumberArray; let i = index">
 								<li class="page-item" [class.active]="item === currentPage" [ngClass]="
-		  (pageNumberArray[currentPage - 2] > item &&
-			item !== 1 &&
-			pageNumberArray.length > 6) ||
-		  (pageNumberArray[currentPage] < item &&
-			item !== 1 &&
-			pageNumberArray.length > 6 &&
-			pageNumberArray.length !== item)
-			? 'hide-page-no'
-			: 'show-page-no'
-		">
+					  (pageNumberArray[currentPage - 2] > item &&
+						item !== 1 &&
+						pageNumberArray.length > 6) ||
+					  (pageNumberArray[currentPage] < item &&
+						item !== 1 &&
+						pageNumberArray.length > 6 &&
+						pageNumberArray.length !== item)
+						? 'hide-page-no'
+						: 'show-page-no'
+					">
 									<a (click)="moveToPage(item)" (keydown.enter)="moveToPage(item)" class="page-link"
 										href="javascript:void(0);">
 										{{ item }}
 									</a>
 								</li>
 								<li class="page-item" *ngIf="
-		  i === 0 && pageNumberArray.length > 6 && currentPage > 2
-		" [hidden]="currentPage === 1" (click)="moveToPage(currentPage - 2)" (keydown.enter)="moveToPage(currentPage - 2)"
+					  i === 0 && pageNumberArray.length > 6 && currentPage > 2
+					" [hidden]="currentPage === 1" (click)="moveToPage(currentPage - 2)" (keydown.enter)="moveToPage(currentPage - 2)"
 									tabindex="0">
 									<a class="page-link" href="javascript:void(0);"> ... </a>
 								</li>
 								<li *ngIf="
-		  i === pageNumberArray.length - 2 &&
-		  pageNumberArray.length > 6
-		" [hidden]="
-		  currentPage >=
-			pageNumberArray[pageNumberArray.length - 2] ||
-		  totalData < serialNumberArray[serialNumberArray.length - 1]
-		" class="page-item" (click)="moveToPage(currentPage + 2)" (keydown.enter)="moveToPage(currentPage + 2)" tabindex="0">
+					  i === pageNumberArray.length - 2 &&
+					  pageNumberArray.length > 6
+					" [hidden]="
+					  currentPage >=
+						pageNumberArray[pageNumberArray.length - 2] ||
+					  totalData < serialNumberArray[serialNumberArray.length - 1]
+					" class="page-item" (click)="moveToPage(currentPage + 2)" (keydown.enter)="moveToPage(currentPage + 2)"
+									tabindex="0">
 									<a class="page-link" href="javascript:void(0);"> ... </a>
 								</li>
 							</ng-container>
 
 							<li class="page-item" [ngClass]="{
-		disabled:
-		  currentPage ===
-			pageNumberArray[pageNumberArray.length - 1] ||
-			lstAll.length === 0
-		}">
+					disabled:
+					  currentPage ===
+						pageNumberArray[pageNumberArray.length - 1] ||
+						lstAll.length === 0
+					}">
 								<a (click)="getMoreData('next')" (keydown.enter)="getMoreData('next')" class="page-link"
 									href="javascript:void(0);">Next
 								</a>
@@ -152,7 +160,7 @@
 						</ul>
 					</div>
 				</div>
-			</div>
+			</div> -->
 		</div>
-	</div> -->
-		</div>
+	</div>
+</div>

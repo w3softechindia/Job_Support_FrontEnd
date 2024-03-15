@@ -202,6 +202,9 @@ export class routes {
   public static get admin_freelancers_all(): string {
     return this.admin + '/freelancers/all';
   }
+  public static get admin_employers_all():string {
+    return this.admin + '/employers/all';
+  }
   public static get admin_deposit_history(): string {
     return this.admin + '/deposit/history';
   }

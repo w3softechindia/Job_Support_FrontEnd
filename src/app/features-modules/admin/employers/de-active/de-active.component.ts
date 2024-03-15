@@ -1,14 +1,13 @@
-
 import { Component, OnInit } from '@angular/core';
-import { AdminService } from 'src/app/Services/admin.service';
 import { User } from 'src/app/classes/user';
+import { AdminService } from 'src/app/Services/admin.service';
 
 @Component({
-  selector: 'app-inactive',
-  templateUrl: './inactive.component.html',
-  styleUrls: ['./inactive.component.scss']
+  selector: 'app-de-active',
+  templateUrl: './de-active.component.html',
+  styleUrls: ['./de-active.component.scss']
 })
-export class InactiveComponent implements OnInit {
+export class DeActiveComponent implements OnInit{
 
   user: User[] = [];
   status: string = 'De-Activated';
@@ -70,4 +69,5 @@ export class InactiveComponent implements OnInit {
       );
     }
   }
+
 }

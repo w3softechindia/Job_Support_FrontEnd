@@ -1699,6 +1699,15 @@ export class ShareDataService {
           subMenus: [],
         },
         {
+          menuValue: 'Employer',
+          route: routes.admin_employers_all,
+          hasSubRoute: false,
+          showSubRoute: false,
+          icon: 'icon-users',
+          base: 'employers',
+          subMenus: [],
+        },
+        {
           menuValue: 'Deposit',
           route: routes.admin_deposit_history,
           hasSubRoute: false,
