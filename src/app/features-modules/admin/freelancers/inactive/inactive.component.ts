@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from 'src/app/Services/admin.service';
 import { User } from 'src/app/classes/user';
@@ -69,8 +70,4 @@ export class InactiveComponent implements OnInit {
       );
     }
   }
-}
-export interface pageSelection {
-  skip: number;
-  limit: number;
 }
