@@ -28,7 +28,8 @@ export class AuthService {
 
   public userLogout(){
     this.router.navigate([routes.login]);
-    this.checkAuth.next("false");
+    localStorage.removeItem('jwtToken');
+    
     localStorage.clear();
     sessionStorage.clear();
   }
