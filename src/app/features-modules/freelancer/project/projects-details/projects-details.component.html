@@ -396,7 +396,7 @@
 						<p class="mb-0">Hourly Rate</p>
 					</div>
 					<div>
-						<a data-bs-toggle="modal" href="#file" [routerLink]="routes.login" class="btn proposal-btn btn-primary">Submit Proposal </a>
+						<a data-bs-toggle="modal" [href]="loggedIn ? '#file' : null" (click)="submitProposal()" class="btn proposal-btn btn-primary">Submit Proposal </a>
 					</div>
 				</div>
 				<div class="card budget-widget">

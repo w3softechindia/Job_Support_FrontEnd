@@ -13,13 +13,19 @@ import { AccountDelete } from '../core/models/models';
 })
 export class UserService {
 
-constructor(private http:HttpClient   , private projectservice:PostprojectService){}
+constructor(private http:HttpClient, private projectservice:PostprojectService){}
 
   private baseurl="http://localhost:8080";
 
   //Authentication
   login(data:any){
     return this.http.post<any>(`${this.baseurl}/authenticate`,data);
+  }
+
+  //Check User is LoggedIn
+  isLoggedIn(): boolean {
+    // Check if there's an authentication token in localStorage or sessionStorage
+    return !!localStorage.getItem('jwtToken');
   }
 
   //User Registration
