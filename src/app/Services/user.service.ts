@@ -63,7 +63,6 @@ constructor(private http:HttpClient, private projectservice:PostprojectService){
     return this.http.put(`${this.baseurl}/otherInfo/${email}`,user)
   }
 
-a
   getUserByMail(email:string){
     return this.http.get(`${this.baseurl}/getUser/${email}`)
   }
@@ -130,16 +129,6 @@ a
   postFormData(email: string, project: any): Observable<any> {
     const url = `${this.baseurl}/addproject/${email}`; // Constructing the URL with the email as part of the path
     return this.http.post<any>(url, project);
-  }
-  
-
-
-
- 
-
-  postFormData(formData: any): Observable<any> {
-    const url = `${this.baseurl}/addproject`;
-    return this.http.post<any>(url, formData);
   }
 
 

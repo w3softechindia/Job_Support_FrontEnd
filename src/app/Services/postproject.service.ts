@@ -6,8 +6,6 @@ import { Injectable } from '@angular/core';
 export class PostprojectService {
 
   [x: string]: any;
-
-
  
   public skills: string[] = [];
   attachments: File[] = [];
@@ -34,59 +32,6 @@ export class PostprojectService {
   
 
   project_id:number | undefined
-  
-  
-
-
-
-
-
-
-  
-
- 
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
- 
-
- 
-
-
-  
- 
-
- 
-
-  
-
-
-
- 
-
-
-  
-
-
 
   setAttachments(attachments: File[]) {
     this.attachments = attachments;
@@ -95,20 +40,6 @@ export class PostprojectService {
   getAttachments() {
     return this.attachments;
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   setSkills(skills: string[]): void {
     this.skills = skills;
@@ -126,5 +57,4 @@ export class PostprojectService {
     return this.tags;
   }
 
-  
 }
