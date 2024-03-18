@@ -35,6 +35,8 @@ export class User {
         ewebsite!: string;
         eteamsize!: string;
         edescribe!: string;
+        status!:string;
+        photoUrl!: string | ArrayBuffer | null;
 
         skills!: Skills[];
         education!: Education[];

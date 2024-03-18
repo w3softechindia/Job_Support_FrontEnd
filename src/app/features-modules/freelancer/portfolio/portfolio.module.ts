@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { PortfolioRoutingModule } from './portfolio-routing.module';
 import { PortfolioComponent } from './portfolio.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -11,7 +12,9 @@ import { PortfolioComponent } from './portfolio.component';
   ],
   imports: [
     CommonModule,
-    PortfolioRoutingModule
+    PortfolioRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class PortfolioModule { }

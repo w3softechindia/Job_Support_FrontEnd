@@ -27,11 +27,17 @@ export class AuthService {
   }
 
   public userLogout(){
+
     this.router.navigate([routes.login]);
     localStorage.removeItem('jwtToken');
     
     localStorage.clear();
+
+    localStorage.removeItem('jwtToken');
+
     sessionStorage.clear();
+    localStorage.clear();
+    window.location.href = '/auth/login';
   }
 
   public setToken(token: string) {
@@ -42,12 +48,12 @@ export class AuthService {
     return localStorage.getItem('jwtToken');
   }
 
-  public setUsername(username:string){
-    localStorage.setItem('username',username);
+  public setName(name:string){
+    localStorage.setItem('name',name);
   }
 
-  public getUsername():any{
-    return localStorage.getItem('username');
+  public getName():any{
+    return localStorage.getItem('name');
   }
 
   public setEmail(email:string){

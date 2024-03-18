@@ -4,7 +4,9 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class PostprojectService {
+
   [x: string]: any;
+
 
  
   public skills: string[] = [];
@@ -30,6 +32,7 @@ export class PostprojectService {
   budget_amount:string| undefined;
   deadline_date: string | undefined; 
   
+
   project_id:number | undefined
   
   
@@ -45,6 +48,29 @@ export class PostprojectService {
 
 
  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+ 
+
+ 
+
 
   
  

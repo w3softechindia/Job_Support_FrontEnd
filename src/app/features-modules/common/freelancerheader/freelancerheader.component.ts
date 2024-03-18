@@ -51,7 +51,7 @@ export class FreelancerheaderComponent implements OnInit{
     this.navbar = this.data.sideBar;
   }
   ngOnInit(): void {
-    this.name=this.auth.getUsername();
+    this.name=this.auth.getName();
     this.email=this.auth.getEmail();
     this.userService.getPhoto(this.email).subscribe(
       data => {
