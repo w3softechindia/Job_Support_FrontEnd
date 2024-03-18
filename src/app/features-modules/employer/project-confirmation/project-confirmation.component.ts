@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PostprojectService } from 'src/app/Services/postproject.service';
 
 import { UserService } from 'src/app/Services/user.service';
 import { routes } from 'src/app/core/helpers/routes/routes';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 
 @Component({
   selector: 'app-project-confirmation',
@@ -12,7 +13,7 @@ import { routes } from 'src/app/core/helpers/routes/routes';
 })
 export class ProjectConfirmationComponent implements OnInit {
   public routes = routes;
-  
+  email!: string;  
 
   deadline_date: string | undefined; 
   
@@ -36,7 +37,9 @@ export class ProjectConfirmationComponent implements OnInit {
 
   constructor(private router: Router,
     private projectservice:PostprojectService,
-    private userService: UserService
+    private userService: UserService,
+    private auth:AuthService,
+  
     
     ) { }
 
@@ -44,6 +47,11 @@ export class ProjectConfirmationComponent implements OnInit {
 
 
   ngOnInit(): void {
+      
+    this.email = this.auth.getEmail();
+    console.log('Email coming from authserviceeee:', this.email);
+    
+    console.log(this.email);
     this.captureFormData();
   }
 
@@ -115,24 +123,14 @@ export class ProjectConfirmationComponent implements OnInit {
 
  
 
+  someOtherMethod() {
+    console.log('Email coming from auth service:', this.email);
+  }
 
 
- 
- 
+
+
   
-  // postFormData() {
-  //   this.userService.postFormData(this.formData).subscribe(
-  //     response => {
-  //       console.log('Form data sent successfully:', response);
-  //       this.projectId = response.id;
-  //       console.log('Project ID:', this.projectId);
-  //       this.getfiles();
-  //     },
-  //     error => {
-  //       console.error('Error occurred while sending form data:', error);
-  //     }
-  //   );
-  // }
 
 
 
@@ -140,7 +138,8 @@ export class ProjectConfirmationComponent implements OnInit {
 
 
   postFormData() {
-    this.userService.postFormData(this.formData).subscribe(
+    // Assuming this.formData contains the form data
+    this.userService.postFormData(this.email, this.formData).subscribe(
       response => {
         console.log('Form data sent successfully:', response);
         const projectId = response.id; // Extract project ID from the response
@@ -165,6 +164,21 @@ export class ProjectConfirmationComponent implements OnInit {
       }
     );
   }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   
   sendFiles(projectId: number, files: File[]) {
     // Iterate over each file and upload it
