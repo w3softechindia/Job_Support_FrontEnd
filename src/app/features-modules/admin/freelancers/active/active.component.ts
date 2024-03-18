@@ -8,7 +8,6 @@ import { User } from 'src/app/classes/user';
   styleUrls: ['./active.component.scss']
 })
 export class ActiveComponent implements OnInit {
-
   user: User[]=[];
   status:string='Active';
   role:string='Freelancer';

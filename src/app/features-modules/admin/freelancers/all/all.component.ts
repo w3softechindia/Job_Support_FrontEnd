@@ -44,7 +44,6 @@ export class AllComponent implements OnInit {
         }
       );
   }
-
   deleteUserByEmail(email: string) {
     this.adminService.deleteUser(email).subscribe(() => {
       console.log("User Account Deleted..!!!!");
