@@ -27,7 +27,14 @@ export class AuthService {
   }
 
   public userLogout(){
+
+    this.router.navigate([routes.login]);
     localStorage.removeItem('jwtToken');
+    
+    localStorage.clear();
+
+    localStorage.removeItem('jwtToken');
+
     sessionStorage.clear();
     localStorage.clear();
     window.location.href = '/auth/login';

@@ -17,6 +17,15 @@ export class AllProjectsComponent  {
       this.empprojects = data
     })
    }
- 
+  
+
+   
+
+
+
+
+
+
+
 
 }

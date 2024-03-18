@@ -5,6 +5,9 @@ import { Injectable } from '@angular/core';
 })
 export class PostprojectService {
 
+  [x: string]: any;
+
+
  
   public skills: string[] = [];
   attachments: File[] = [];
@@ -30,6 +33,24 @@ export class PostprojectService {
   deadline_date: string | undefined; 
   
 
+  project_id:number | undefined
+  
+  
+
+
+
+
+
+
+  
+
+ 
+
+
+ 
+
+
+
 
 
 
@@ -49,6 +70,7 @@ export class PostprojectService {
  
 
  
+
 
   
  

@@ -1,6 +1,8 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, throwError } from 'rxjs';
+
+import { Observable, catchError, forkJoin, throwError } from 'rxjs';
+
 import { User } from '../classes/user';
 
 import { PostprojectService } from './postproject.service';
@@ -12,6 +14,9 @@ import { AccountDelete } from '../core/models/models';
   providedIn: 'root'
 })
 export class UserService {
+  getProjectById(id: number) {
+    throw new Error('Method not implemented.');
+  }
 
 constructor(private http:HttpClient, private projectservice:PostprojectService){}
 
@@ -58,7 +63,7 @@ constructor(private http:HttpClient, private projectservice:PostprojectService){
     return this.http.put(`${this.baseurl}/otherInfo/${email}`,user)
   }
 
-  //Get User Details By email
+a
   getUserByMail(email:string){
     return this.http.get(`${this.baseurl}/getUser/${email}`)
   }
@@ -100,14 +105,43 @@ constructor(private http:HttpClient, private projectservice:PostprojectService){
     return this.http.post(`${this.baseurl}/upload/${email}`, formData, { responseType: 'text' as 'json' });
   }
 
+
+
   getPhoto(email: string): Observable<any> {
     return this.http.get(`${this.baseurl}/photo/${email}`, { responseType: 'blob' });
   }
+
+
+
+
+
+  
+
+  // postFormData(email: string, project: any): Observable<any> {
+  //   const url = `${this.baseurl}/addproject?email=${email}`; // Constructing the URL with the email as a query parameter
+  //   return this.http.post<any>(url, project);
+  // }
+
+
+
+
+
+
+  postFormData(email: string, project: any): Observable<any> {
+    const url = `${this.baseurl}/addproject/${email}`; // Constructing the URL with the email as part of the path
+    return this.http.post<any>(url, project);
+  }
+  
+
+
+
+ 
 
   postFormData(formData: any): Observable<any> {
     const url = `${this.baseurl}/addproject`;
     return this.http.post<any>(url, formData);
   }
+
 
   myUpload(projectId: number, file: File): Observable<any> {
     const formData: FormData = new FormData();
@@ -121,6 +155,7 @@ constructor(private http:HttpClient, private projectservice:PostprojectService){
         catchError(this.handleError)
       );
   }
+
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
@@ -151,6 +186,76 @@ constructor(private http:HttpClient, private projectservice:PostprojectService){
   deleteAccount(email:string,acdlt:AccountDelete){
     return this.http.post(`${this.baseurl}/postReason/${email}`,acdlt,{responseType:'text'});
   }
+
+
+
+
+
+
+ 
+
+  getProjectsByUserEmail(userEmail: string): Observable<PostprojectService> {
+    const url = `${this.baseurl}/projects/${userEmail}`;
+    return this.http.get<PostprojectService>(url);
+  }
+ 
+
+
+
+ getAllProjects(): Observable<any> {
+    return this.http.get<any[]>(`${this.baseurl}/getallProjects`);
+  }
+
+
+
+
+  getAllAdminProjects():Observable<any>{
+    return this.http.get<any[]>(`${this.baseurl}/getAllAdminProjects`);
+  }
+
+
+
+
+
+  updateAdminProjectDetails(projectId: number, updatedProject: any): Observable<any> {
+    return this.http.put<any>(`${this.baseurl}/updateAdminProject/${projectId}`, updatedProject);
+  }
+  
+
+
+
+  getAdminProjectById(projectIds: number[]): Observable<any[]> {
+    // Adjust your HTTP request to accept projectIds
+    const requests = projectIds.map(id =>
+      this.http.get<any>(`${this.baseurl}/getAdminProjectById/${id}`)
+    );
+    return forkJoin(requests);
+  }
+
+
+
+
+
+  
+
+
+  sendUpdatedProjectIdsToBackend(projectIds: number[]): Observable<string> {
+    return this.http.post<string>(`${this.baseurl}/updatedprojectIds`, projectIds);
+  }
+
+
+
+  
+
+  getAllUpdatedProjectIds(): Observable<number[]> {
+    return this.http.get<number[]>(`${this.baseurl}/gettingupdatedprojectIds`);
+  }
+
+
+
+
+
+
 
   //Add Portfolio
   addPortfolio(email:string,formData:FormData): Observable<any> {

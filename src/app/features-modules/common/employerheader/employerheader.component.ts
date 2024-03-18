@@ -115,4 +115,15 @@ export class EmployerheaderComponent implements OnInit{
       }
     );
   }
+
+
+
+
+
+
+
+  logout(): void {
+    this.auth.userLogout();
+   }
+ 
 }
