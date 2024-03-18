@@ -1,0 +1,62 @@
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">View Proposals</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a [routerLink]="'/admin/dashboard'">Home</a></li>
+                        <li class="breadcrumb-item active">View Proposals</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="tab-content pt-0">
+            <div role="tabpanel" id="employer" class="tab-pane fade show active">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <div class="table-scroll">
+                                <table class="table table-center table-hover mb-0 datatable">
+                                    <thead>
+                                        <tr>
+                                            <th mat-sort-header="id">No</th>
+                                            <th mat-sort-header="name">Name</th>
+                                            <th mat-sort-header="contact">Contact Number</th>
+                                            <th mat-sort-header="passport">CNIC / Passport / NIN / SSN
+                                            </th>
+                                            <th mat-sort-header="image">Document</th>
+                                            <th mat-sort-header="address">Address</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let identity of lstIdentity; let i = index">
+                                            <td>{{identity.id}}</td>
+                                            <td>{{identity.name}}</td>
+                                            <td>{{identity.contact}}</td>
+                                            <td>{{identity.passport}}</td>
+                                            <td>
+                                                <h2 class="table-avatar">
+                                                    <a [routerLink]="'/admin/profile'"><img class="me-2 rounded-circle"
+                                                            [src]="identity.image" alt="User Image"></a>
+                                                </h2>
+                                            </td>
+                                            <td>{{identity.address}}</td>
+                                            <td>
+                                                <a href="javascript:"
+                                                    class="btn btn-success btn-disable me-2">Approve</a>
+                                                <a href="javascript:" class="btn btn-disable">Reject</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
