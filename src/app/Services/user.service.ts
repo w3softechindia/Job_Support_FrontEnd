@@ -18,13 +18,19 @@ export class UserService {
     throw new Error('Method not implemented.');
   }
 
-constructor(private http:HttpClient   , private projectservice:PostprojectService){}
+constructor(private http:HttpClient, private projectservice:PostprojectService){}
 
   private baseurl="http://localhost:8080";
 
   //Authentication
   login(data:any){
     return this.http.post<any>(`${this.baseurl}/authenticate`,data);
+  }
+
+  //Check User is LoggedIn
+  isLoggedIn(): boolean {
+    // Check if there's an authentication token in localStorage or sessionStorage
+    return !!localStorage.getItem('jwtToken');
   }
 
   //User Registration
@@ -288,5 +294,4 @@ a
   getAccountStatus(email:string):Observable<any>{
     return this.http.get(`${this.baseurl}/accountStatus/${email}`,{responseType:'text'});
   }
-
 }

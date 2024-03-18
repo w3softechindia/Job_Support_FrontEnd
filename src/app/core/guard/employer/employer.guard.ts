@@ -63,5 +63,4 @@ export class EmployerGuard {
       return this.router.createUrlTree([routes.login]);
     }
   }
-
 }

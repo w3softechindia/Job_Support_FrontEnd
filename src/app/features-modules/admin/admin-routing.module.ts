@@ -42,6 +42,10 @@ const routes: Routes = [
           import('./projects/projects.module').then((m) => m.ProjectsModule),
       },
       {
+        path:'project-proposals',
+        loadChildren:()=> import('./project-proposals/project-proposals.module').then((m)=>m.ProjectProposalsModule),
+      },
+      {
         path: 'withdrawn',
         loadChildren: () =>
           import('./withdrawn/withdrawn.module').then((m) => m.WithdrawnModule),
