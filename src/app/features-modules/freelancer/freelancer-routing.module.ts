@@ -46,7 +46,7 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'project-details',
+        path: 'project-details/:id',
         loadChildren: () =>
           import('./project/projects-details/projects-details.module').then(
             (m) => m.ProjectsDetailsModule
