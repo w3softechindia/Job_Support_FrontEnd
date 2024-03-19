@@ -21,7 +21,7 @@
 <!-- Page Content -->
 <div class="content">
 	<div class="container">
-		<div class="row">
+		<div class="row" >
 			<div class="col-lg-8 col-md-12">
 				<div class="company-detail-block pt-0">
 					<div class="company-detail">
@@ -29,11 +29,11 @@
 							<img src="assets/img/default-logo.svg" class="img-fluid" alt="logo">
 						</div>
 						<div class="company-title">
-							<p>Soft Technologies</p>
-							<h4>Build a Coaching Website Product Store images</h4>
+							<!-- <p>Soft Technologies</p> -->
+							<h4>{{projectDetails.project_title}}</h4>
 						</div>
 					</div>
-					<div class="company-address">
+					<!-- <div class="company-address">
 						<ul>
 							<li>
 								<i class="feather icon-map-pin"></i>Los Angels
@@ -48,7 +48,7 @@
 								<i class="feather icon-edit-2"></i>15 Proposal
 							</li>
 						</ul>
-					</div>
+					</div> -->
 					<div class="project-proposal-detail">
 						<ul>
 							<li>
@@ -57,7 +57,7 @@
 								</div>
 								<div class="proposal-detail text-capitalize">
 									<span class=" d-block">Freelancer Type</span>
-									<p class="mb-0">Full Time</p>
+									<p class="mb-0">{{projectDetails.freelancer_type}}</p>
 								</div>
 							</li>
 							<li>
@@ -66,7 +66,7 @@
 								</div>
 								<div class="proposal-detail text-capitalize">
 									<span class=" d-block">Project Type</span>
-									<p class="mb-0">Hourly</p>
+									<p class="mb-0">{{projectDetails.project_category}}</p>
 								</div>
 							</li>
 							<li>
@@ -75,7 +75,7 @@
 								</div>
 								<div class="proposal-detail text-capitalize">
 									<span class=" d-block">Project Duration</span>
-									<p class="mb-0">10-15 Hours</p>
+									<p class="mb-0">{{projectDetails.project_duration}}</p>
 								</div>
 							</li>
 							<li>
@@ -84,7 +84,7 @@
 								</div>
 								<div class="proposal-detail text-capitalize">
 									<span class=" d-block">Experience</span>
-									<p class="mb-0">Basic</p>
+									<p class="mb-0">{{projectDetails.freelancer_level}}</p>
 								</div>
 							</li>
 							<li>
@@ -93,7 +93,7 @@
 								</div>
 								<div class="proposal-detail text-capitalize">
 									<span class=" d-block">Languages</span>
-									<p class="mb-0">English, Arabic</p>
+									<p class="mb-0">{{projectDetails.languages}}</p>
 								</div>
 							</li>
 							<li>
@@ -102,7 +102,7 @@
 								</div>
 								<div class="proposal-detail text-capitalize">
 									<span class=" d-block">Language Fluency</span>
-									<p class="mb-0">Conversational</p>
+									<p class="mb-0">{{projectDetails.language_fluency}}</p>
 								</div>
 							</li>
 						</ul>
@@ -110,27 +110,15 @@
 				</div>
 				<div class="company-detail-block company-description">
 					<h4 class="company-detail-title">Description</h4>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-						laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-						voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-						non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-					<p class="mb-0">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
-						doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-						architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam consequuntur magni dolores eos qui
-						ratione voluptatem sequi nesciunt.</p>
+					<p>{{projectDetails.description}}</p>
 				</div>
 				<div class="company-detail-block company-description">
 					<h4 class="company-detail-title">Skills Required</h4>
-					<div class="tags">
-						<a href="javascript:void(0);"><span class="badge badge-pill badge-design">After
-								Effects</span></a>
-						<a href="javascript:void(0);"><span class="badge badge-pill badge-design">Illustrator</span></a>
-						<a href="javascript:void(0);"><span class="badge badge-pill badge-design">HTML</span></a>
-						<a href="javascript:void(0);"><span class="badge badge-pill badge-design">Whiteboard</span></a>
+					<div class="tags" *ngFor="let skill of projectDetails.skills">
+						<a href="javascript:void(0);"><span class="badge badge-pill badge-design">{{skill}}</span></a>
 					</div>
 				</div>
-				<div class="company-detail-block">
+				<!-- <div class="company-detail-block">
 					<h4 class="company-detail-title">Attachments</h4>
 					<div class="row row-gap">
 						<div class="col-lg-4 col-md-4 col-sm-12">
@@ -200,15 +188,28 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
+				<div class="company-detail-block">
+					<h4 class="company-detail-title">Attachments</h4>
+					<div class="row row-gap">
+					  <div class="col-lg-4 col-md-4 col-sm-12" *ngFor="let attachment of attachments">
+						<div class="attachment-file">
+						  <div class="attachment-files-details">
+							<h6>{{ attachment.fileName }}</h6>
+							<span>File size: {{ attachment.fileSize }}</span> 
+						  </div>
+						  <a [href]="attachment.filePath" class="file-download-btn" download>
+							<i class="feather icon-download"></i>
+						  </a>
+						</div>
+					  </div>
+					</div>
+				  </div>
+				  
 				<div class="company-detail-block company-description">
 					<h4 class="company-detail-title">Tags</h4>
-					<div class="tags">
-						<a href="javascript:void(0);"><span class="badge badge-pill badge-design">Machine
-								Learning</span></a>
-						<a href="javascript:void(0);"><span class="badge badge-pill badge-design">AI Chatbot</span></a>
-						<a href="javascript:void(0);"><span class="badge badge-pill badge-design">Virtual
-								Assistant</span></a>
+					<div class="tags" *ngFor="let tag of projectDetails.tags">
+						<a href="javascript:void(0);"><span class="badge badge-pill badge-design">{{tag}}</span></a>
 					</div>
 				</div>
 				<div class="company-detail-block pb-0">
@@ -392,8 +393,15 @@
 				<div class="card budget-widget">
 					<div class="budget-widget-details">
 						<h6>Budget</h6>
-						<h4>$125 - $180</h4>
-						<p class="mb-0">Hourly Rate</p>
+						<ng-container *ngIf="projectDetails.active_rate === 'fixed'">
+							<h4>{{ projectDetails.budget_amount }}</h4>
+							<span>Fixed</span>
+						</ng-container>
+						<ng-container *ngIf="projectDetails.active_rate === 'hourly'">
+							<!-- If hourly rate, display the hourly rate -->
+							<h4>{{ projectDetails.hourly_rate_from}} - {{projectDetails.hourly_rate_to}}</h4>
+							<span>Hourly</span>
+						</ng-container>
 					</div>
 					<div>
 						<a data-bs-toggle="modal" [href]="loggedIn ? '#file' : null" (click)="submitProposal()" class="btn proposal-btn btn-primary">Submit Proposal </a>
@@ -561,7 +569,7 @@
 							<div class="row">
 								<div class="col-md-6 input-block">
 									   <label for="Your" class="form-label">Your Price</label>
-									<input type="text" class="form-control" placeholder="Your Price">
+									<input type="number" class="form-control" placeholder="Your Price">
 								</div>
 								<div class="col-md-6 mb-3">
 									<label for="delivery-estimate" class="form-label">Estimated Delivery</label>

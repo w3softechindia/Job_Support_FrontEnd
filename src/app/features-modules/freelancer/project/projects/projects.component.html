@@ -407,43 +407,7 @@
 					<span class="badge badge-pill badge-skills">USD <span class="tag-close" data-role="remove"><i
 								class="fas fa-times"></i></span></span>
 				</div>
-
 				<div class="row">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 					<!-- <div class="col-xl-4 col-md-6">
 						<div class="freelance-widget widget-author position-relative">
 							<div class="freelance-content">
@@ -521,202 +485,121 @@
 							</div>
 						</div>
 					</div> -->
-
-
-
-
-
-
-
-
-
-
-				
-
-
-
-
-					<div class="col-xl-4 col-md-6"  *ngFor="let project of project">
+					<div class="col-xl-4 col-md-6" *ngFor="let project of project">
 						<div class="freelance-widget widget-author position-relative">
-						  <div class="freelance-content">
-					  
-							<div class="freelance-location freelance-time">
-							  <i class="feather icon-clock me-1"></i> Posted Just Now
-							</div>
-					  
-							<a data-bs-toggle="modal" href="#rating" class="favourite" [ngClass]="{'color-active': like[1]}" (click)="toggleLike(1)">
-							  <i class="feather icon-heart"></i>
-							</a>
-					  
-							<div class="author-heading">
-							  <div class="freelance-img">
-								<div *ngIf="photoUrls && project.user_email && photoUrls[project.user_email]">
-									<img [src]="photoUrls[project.user_email]" alt="Profile Image" class="avatar-lg rounded-circle">
-									<span class="verified"><i class="fas fa-check-circle"></i></span>
-								  </div>
-								  <div *ngIf="!photoUrls || !project.user_email || !photoUrls[project.user_email]">
-									<p>Loading...</p>
-								  </div>
-								  </div>
-								  
-								  
-								  
-								  
-							  </div>
-							  <div class="profile-name">
-								<div class="author-location">{{ project.authorName }}</div>
-							  </div>
-							  <div class="freelance-info">
-								<h3><a href="javascript:void(0);">{{ project.project_title }}</a></h3>
-								<div class="freelance-location">
-								  <img src="assets/img/icon/locations.svg" class="me-2" alt="img">
-								  {{ project.city }},{{ project.state }}
+							<div class="freelance-content">
+
+								<div class="freelance-location freelance-time">
+									<i class="feather icon-clock me-1"></i> Posted Just Now
 								</div>
-							  </div>
-							  <div class="freelance-tags">
-								<a href="javascript:void(0);" *ngFor="let tag of project.tags">
-								  <span class="badge badge-pill badge-design">{{ tag }}</span>
+
+								<a data-bs-toggle="modal" href="#rating" class="favourite"
+									[ngClass]="{'color-active': like[1]}" (click)="toggleLike(1)">
+									<i class="feather icon-heart"></i>
 								</a>
-							  </div>
-							  <div class="freelancers-price">${{ project.budget_amount }}</div>
+
+								<div class="author-heading">
+									<div class="freelance-img">
+										<div *ngIf="photoUrls && project.user_email && photoUrls[project.user_email]">
+											<img [src]="photoUrls[project.user_email]" alt="Profile Image"
+												class="avatar-lg rounded-circle">
+											<span class="verified"><i class="fas fa-check-circle"></i></span>
+										</div>
+										<div
+											*ngIf="!photoUrls || !project.user_email || !photoUrls[project.user_email]">
+											<p>Loading...</p>
+										</div>
+									</div>
+								</div>
+								<div class="profile-name">
+									<div class="author-location">{{ project.authorName }}</div>
+								</div>
+								<div class="freelance-info">
+									<h3><a href="javascript:void(0);">{{ project.project_title }}</a></h3>
+									<div class="freelance-location">
+										<img src="assets/img/icon/locations.svg" class="me-2" alt="img">
+										{{ project.city }},{{ project.state }}
+									</div>
+								</div>
+								<div class="freelance-tags">
+									<a href="javascript:void(0);" *ngFor="let tag of project.tags">
+										<span class="badge badge-pill badge-design">{{ tag }}</span>
+									</a>
+								</div>
+								<div class="freelancers-price">${{ project.budget_amount }}</div>
 							</div>
-					  
+
 							<div class="counter-stats">
-							  <ul>
-								<li>
-								  <h5>Expiry</h5>
-								  <h3 class="counter-value">{{ project.daysLeft }} daysLeft</h3>
-								</li>
-								<li>
-								 
+								<ul>
+									<li>
+										<h5>Expiry</h5>
+										<h3 class="counter-value">{{ project.daysLeft }} daysLeft</h3>
+									</li>
+									<li>
 
-								</li>
-								<li>
-								  <h5>Job Type</h5>
-								  <h3 class="counter-value">
-									<span class="jobtype">{{ project.freelancer_type }}</span>
-								  </h3>
-								</li>
-							  </ul>
+
+									</li>
+									<li>
+										<h5>Job Type</h5>
+										<h3 class="counter-value">
+											<span class="jobtype">{{ project.freelancer_type }}</span>
+										</h3>
+									</li>
+								</ul>
 							</div>
-						  </div>
-					  
-						  <div class="cart-hover">
-							<a [routerLink]="routes.freelancer_project_details" class="btn-cart" tabindex="-1">View Project</a>
-						  </div>
+							<div class="cart-hover">
+								<a (click)="navigation2(project.id)" (keydown)="navigation2(project.id)" class="btn-cart" tabindex="-1">View
+									Project</a>
+							</div>
 						</div>
-					  </div>
-					  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-					<div class="row">
-						<div class="col-md-12">
-							<ul class="paginations list-pagination">
-								<li class="page-item"><a href="javascript:void(0);"><i
-											class="feather icon-chevron-left"></i></a>
-								</li>
-								<li class="page-item"><a href="javascript:void(0);" class="active">1</a></li>
-								<li class="page-item"><a href="javascript:void(0);">2</a></li>
-								<li class="page-item"><a href="javascript:void(0);">3</a></li>
-								<li class="page-item"><a href="javascript:void(0);">...</a></li>
-								<li class="page-item"><a href="javascript:void(0);">10</a></li>
-								<li class="page-item"><a href="javascript:void(0);"><i
-											class="feather icon-chevron-right"></i></a></li>
-							</ul>
-						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<ul class="paginations list-pagination">
+							<li class="page-item"><a href="javascript:void(0);"><i
+										class="feather icon-chevron-left"></i></a>
+							</li>
+							<li class="page-item"><a href="javascript:void(0);" class="active">1</a></li>
+							<li class="page-item"><a href="javascript:void(0);">2</a></li>
+							<li class="page-item"><a href="javascript:void(0);">3</a></li>
+							<li class="page-item"><a href="javascript:void(0);">...</a></li>
+							<li class="page-item"><a href="javascript:void(0);">10</a></li>
+							<li class="page-item"><a href="javascript:void(0);"><i
+										class="feather icon-chevron-right"></i></a></li>
+						</ul>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- /Page Content -->
+</div>
+<!-- /Page Content -->
 
-	<!-- The Modal -->
-	<div class="modal fade" id="rating">
-		<div class="modal-dialog modal-dialog-centered modal-md">
-			<div class="modal-content">
-				<div class="modal-header d-block b-0 pb-0">
-					<span class="modal-close float-end"><a href="javascript:void(0);" data-bs-dismiss="modal"
-							aria-label="Close"><i class="fa fa-times orange-text"></i></a></span>
-				</div>
-				<div class="modal-body">
-					<form>
-						<div class="modal-info">
-							<div class="text-center pt-0 mb-5">
-								<h3>Please login to Favourite Project</h3>
-							</div>
-							<div class="submit-section text-center">
-								<a data-bs-dismiss="modal" href="javascript:void(0);"
-									class="btn btn-primary black-btn click-btn">Cancel</a>
-								<button type="button" (click)="navigation()" (keydown.enter)="navigation()" tabindex="0"
-									class="btn btn-primary click-btn">Submit</button>
-							</div>
+<!-- The Modal -->
+<div class="modal fade" id="rating">
+	<div class="modal-dialog modal-dialog-centered modal-md">
+		<div class="modal-content">
+			<div class="modal-header d-block b-0 pb-0">
+				<span class="modal-close float-end"><a href="javascript:void(0);" data-bs-dismiss="modal"
+						aria-label="Close"><i class="fa fa-times orange-text"></i></a></span>
+			</div>
+			<div class="modal-body">
+				<form>
+					<div class="modal-info">
+						<div class="text-center pt-0 mb-5">
+							<h3>Please login to Favourite Project</h3>
 						</div>
-					</form>
-				</div>
+						<div class="submit-section text-center">
+							<a data-bs-dismiss="modal" href="javascript:void(0);"
+								class="btn btn-primary black-btn click-btn">Cancel</a>
+							<button type="button" (click)="navigation()" (keydown.enter)="navigation()" tabindex="0"
+								class="btn btn-primary click-btn">Submit</button>
+						</div>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>
-	<!-- /The Modal -->
+</div>
+<!-- /The Modal -->

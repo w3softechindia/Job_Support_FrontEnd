@@ -104,33 +104,14 @@ constructor(private http:HttpClient, private projectservice:PostprojectService){
     return this.http.post(`${this.baseurl}/upload/${email}`, formData, { responseType: 'text' as 'json' });
   }
 
-
-
   getPhoto(email: string): Observable<any> {
     return this.http.get(`${this.baseurl}/photo/${email}`, { responseType: 'blob' });
   }
-
-
-
-
-
-  
-
-  // postFormData(email: string, project: any): Observable<any> {
-  //   const url = `${this.baseurl}/addproject?email=${email}`; // Constructing the URL with the email as a query parameter
-  //   return this.http.post<any>(url, project);
-  // }
-
-
-
-
-
 
   postFormData(email: string, project: any): Observable<any> {
     const url = `${this.baseurl}/addproject/${email}`; // Constructing the URL with the email as part of the path
     return this.http.post<any>(url, project);
   }
-
 
   myUpload(projectId: number, file: File): Observable<any> {
     const formData: FormData = new FormData();
@@ -144,7 +125,6 @@ constructor(private http:HttpClient, private projectservice:PostprojectService){
         catchError(this.handleError)
       );
   }
-
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
@@ -176,43 +156,23 @@ constructor(private http:HttpClient, private projectservice:PostprojectService){
     return this.http.post(`${this.baseurl}/postReason/${email}`,acdlt,{responseType:'text'});
   }
 
-
-
-
-
-
- 
-
   getProjectsByUserEmail(userEmail: string): Observable<PostprojectService> {
     const url = `${this.baseurl}/projects/${userEmail}`;
     return this.http.get<PostprojectService>(url);
   }
  
-
-
-
  getAllProjects(): Observable<any> {
     return this.http.get<any[]>(`${this.baseurl}/getallProjects`);
   }
-
-
-
 
   getAllAdminProjects():Observable<any>{
     return this.http.get<any[]>(`${this.baseurl}/getAllAdminProjects`);
   }
 
-
-
-
-
   updateAdminProjectDetails(projectId: number, updatedProject: any): Observable<any> {
     return this.http.put<any>(`${this.baseurl}/updateAdminProject/${projectId}`, updatedProject);
   }
   
-
-
-
   getAdminProjectById(projectIds: number[]): Observable<any[]> {
     // Adjust your HTTP request to accept projectIds
     const requests = projectIds.map(id =>
@@ -221,30 +181,13 @@ constructor(private http:HttpClient, private projectservice:PostprojectService){
     return forkJoin(requests);
   }
 
-
-
-
-
-  
-
-
   sendUpdatedProjectIdsToBackend(projectIds: number[]): Observable<string> {
     return this.http.post<string>(`${this.baseurl}/updatedprojectIds`, projectIds);
   }
 
-
-
-  
-
   getAllUpdatedProjectIds(): Observable<number[]> {
     return this.http.get<number[]>(`${this.baseurl}/gettingupdatedprojectIds`);
   }
-
-
-
-
-
-
 
   //Add Portfolio
   addPortfolio(email:string,formData:FormData): Observable<any> {
@@ -282,5 +225,14 @@ constructor(private http:HttpClient, private projectservice:PostprojectService){
   //Get User Account Status
   getAccountStatus(email:string):Observable<any>{
     return this.http.get(`${this.baseurl}/accountStatus/${email}`,{responseType:'text'});
+  }
+
+  //Get Project By Admin Project Id
+  getProjectByAdminProject(id:number):Observable<any>{
+    return this.http.get(`${this.baseurl}/getProjectById/${id}`);
+  }
+
+  getProjectFilesByProjectId(id:number):Observable<any>{
+    return this.http.get(`${this.baseurl}/filesGet/${id}`);
   }
 }
