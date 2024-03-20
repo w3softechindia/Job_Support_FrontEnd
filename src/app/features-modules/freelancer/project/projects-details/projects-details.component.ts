@@ -93,7 +93,7 @@ export class ProjectsDetailsComponent implements OnInit {
   removeMilestone(index: number): void {
     this.milestones.removeAt(index);
   }
-
+  
   navigation() {
     this.router.navigate([routes.employee_dashboard]);
   }
@@ -143,12 +143,10 @@ export class ProjectsDetailsComponent implements OnInit {
           console.log('Invalid deadline date:', project.deadline_date);
           this.projectDetails.daysLeft = 0; // Set daysLeft to 0 for invalid date
         }
-
         // Initialize photoUrls object if it's undefined
         if (!this.photoUrls) {
           this.photoUrls = {};
         }
-
         // Load photo for the user email
         this.loadPhoto(userEmail, () => {
           this.isLoading = false;
@@ -200,4 +198,5 @@ export class ProjectsDetailsComponent implements OnInit {
     })
   }
 }
+
 
