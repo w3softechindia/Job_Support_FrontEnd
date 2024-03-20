@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, Editor, Toolbar } from 'ngx-editor';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/Services/user.service';
+import { SendProposal } from 'src/app/classes/send-proposal';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 @Component({
   selector: 'app-projects-details',
   templateUrl: './projects-details.component.html',
@@ -15,19 +17,14 @@ export class ProjectsDetailsComponent implements OnInit {
   public details = [];
   loggedIn!: boolean;
   projectId!: number;
-  id!:number;
+  id!: number;
   projectDetails: any;
   photoUrl: string | undefined;
   isLoading: boolean | undefined;
   photoUrls: any;
   attachments: any[] = [];
-
-  addDetails(array: number[]) {
-    array.push(1);
-  }
-  deleteDetails(array: number[], index: number) {
-    this.details.splice(index, 1);
-  }
+  proposal!:SendProposal;
+  email!:string;
 
   editor!: Editor;
   toolbar: Toolbar = [
@@ -45,16 +42,58 @@ export class ProjectsDetailsComponent implements OnInit {
     editorContent: new FormControl('', Validators.required()),
   });
 
+  proposalForm: FormGroup = new FormGroup({
+    proposedPrice: new FormControl(''),
+    estimatedDelivery: new FormControl(''),
+    coverLetter: new FormControl('')
+  })
+
+  constructor(
+    private router: Router,
+    private userService: UserService,
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder,
+    private auth:AuthService
+  ) { }
+
   ngOnInit(): void {
     this.editor = new Editor();
     // Check the authentication status when the component initializes
     this.loggedIn = this.userService.isLoggedIn();
-    this.projectId=this.route.snapshot.params['id'];
+    this.projectId = this.route.snapshot.params['id'];
     this.fetchProjectDetails();
     this.getProjectFiles();
+    this.email=this.auth.getEmail();
+
+    this.proposalForm = this.formBuilder.group({
+      proposedPrice: ['', [Validators.required]],
+      estimatedDelivery: ['', [Validators.required]],
+      coverLetter: ['', [Validators.required]],
+      milestones: this.formBuilder.array([this.createMilestone()])
+    })
   }
 
-  constructor(private router: Router, private userService: UserService, private route: ActivatedRoute) { }
+  createMilestone(): FormGroup {
+    return this.formBuilder.group({
+      milestone_name: [''],
+      price: [''],
+      startdate: [''],
+      enddate: ['']
+    })
+  }
+
+  get milestones(): FormArray {
+    return this.proposalForm.get('milestones') as FormArray;
+  }
+
+  addMilestone(): void {
+    this.milestones.push(this.createMilestone());
+  }
+
+  removeMilestone(index: number): void {
+    this.milestones.removeAt(index);
+  }
+  
   navigation() {
     this.router.navigate([routes.employee_dashboard]);
   }
@@ -72,44 +111,42 @@ export class ProjectsDetailsComponent implements OnInit {
     }
   }
 
-  private fetchProjectDetails(){
+  private fetchProjectDetails() {
     this.userService.getProjectByAdminProject(this.projectId).subscribe(
       (project) => {
         this.projectDetails = project; // Assign the fetched project to the project variable
         console.log('Project Details:', this.projectDetails);
-        this.id=project.project_id;
+        this.id = project.project_id;
         // Extract userEmail property from the project
         const userEmail = project.user.email;
         console.log('User Email:', userEmail);
-  
+
         // Calculate days left for the project
         const deadlineDate = new Date(project.deadline_date);
         console.log('Deadline Date:', deadlineDate);
-  
+
         // Ensure the parsed date is valid
         if (!isNaN(deadlineDate.getTime())) {
           // Calculate difference between current date and deadline date
           const currentDate = new Date();
           console.log('Current Date:', currentDate);
-  
+
           const timeDiff = deadlineDate.getTime() - currentDate.getTime();
           console.log('Time Difference (ms):', timeDiff);
-  
+
           const daysLeft = Math.ceil(timeDiff / (1000 * 3600 * 24));
           console.log('Days Left:', daysLeft);
-  
+
           // Add daysLeft property to the project object
           this.projectDetails.daysLeft = daysLeft >= 0 ? daysLeft : 0; // Ensure daysLeft is not negative
         } else {
           console.log('Invalid deadline date:', project.deadline_date);
           this.projectDetails.daysLeft = 0; // Set daysLeft to 0 for invalid date
         }
-  
         // Initialize photoUrls object if it's undefined
         if (!this.photoUrls) {
           this.photoUrls = {};
         }
-  
         // Load photo for the user email
         this.loadPhoto(userEmail, () => {
           this.isLoading = false;
@@ -147,11 +184,19 @@ export class ProjectsDetailsComponent implements OnInit {
       }
     );
   }
-  
-  getProjectFiles(){
-    this.userService.getProjectFilesByProjectId(this.id).subscribe((attach:any)=>{
-      this.attachments=attach;
+
+  getProjectFiles() {
+    this.userService.getProjectFilesByProjectId(this.id).subscribe((attach: any) => {
+      this.attachments = attach;
     })
   }
+
+  sendProposal(){
+    this.proposal=this.proposalForm.value;
+    this.userService.postProposal(this.projectId,this.email,this.proposal).subscribe((response)=>{
+      console.log('Proposal Data :',response);
+    })
   }
+}
+
 

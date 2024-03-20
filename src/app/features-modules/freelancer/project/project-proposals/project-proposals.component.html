@@ -5,18 +5,17 @@
 <!-- Proposals list -->
 <div class="proposals-section">
 
-    <!-- Proposals -->
-    <div class="freelancer-proposals">
+    <div class="freelancer-proposals" *ngFor="let proposal of proposals">
         <div class="project-proposals align-items-center freelancer">
             <div class="proposal-info">
                 <div class="proposals-details">
-                    <h3 class="proposals-title">3D Renders and Amazon Product Store images/Video</h3>
+                    <h3 class="proposals-title">{{ proposal.admin_post_project.project_title }}</h3>
                     <ul>
                         <li>
                             <div class="proposal-img">
                                 <div class="proposal-client">
                                     <img src="assets/img/user/table-avatar-02.jpg" alt="Img" class="img-fluid">
-                                    <h4>Hayley Melba</h4>
+                                    <h4>{{ proposal.admin_post_project.user.name }}</h4>
                                     <span class="info-btn">client</span>
                                 </div>
                             </div>
@@ -24,29 +23,27 @@
                         <li>
                             <div class="proposal-client-price">
                                 <h4 class="title-info">Client Price</h4>
-                                <h3 class="client-price">$599.00 <span class="price-type">( Fixed
-                                        )</span></h3>
+                                <h3 class="client-price">${{ proposal.admin_post_project.budget_amount }} <span
+                                        class="price-type">(Fixed)</span></h3>
                             </div>
                         </li>
                         <li>
                             <div class="proposal-job-type">
                                 <h4 class="title-info">Job Type</h4>
-                                <h3>Hourly</h3>
+                                <h3>{{ proposal.admin_post_project.freelancer_type }}</h3>
                             </div>
                         </li>
                         <li>
                             <div class="project-amount">
                                 <h4 class="title-info">Your Price</h4>
-                                <h3>$500.00<span>(in 12 Days)</span></h3>
+                                <h3>${{ proposal.proposedPrice }} <span>(in {{ proposal.estimatedDelivery }} Days)</span></h3>
                             </div>
                         </li>
                         <li>
                             <div class="project-action text-center">
-                                <a data-bs-toggle="modal" href="#file" class="projects-btn">Edit
-                                    Proposals </a>
-                                <a [routerLink] = "routes.freelancerViewProjectDetail">View Project</a>
-                                <a href="javascript:void(0);" class="proposal-delete mb-0">Delete
-                                    Proposal</a>
+                                <a data-bs-toggle="modal" href="#file" class="projects-btn">Edit Proposals</a>
+                                <a [routerLink]="routes.freelancerViewProjectDetail">View Project</a>
+                                <a href="javascript:void(0);" class="proposal-delete mb-0">Delete Proposal</a>
                             </div>
                         </li>
                     </ul>
@@ -54,8 +51,8 @@
             </div>
         </div>
     </div>
-    <!-- Proposals -->
 
+ 
     <!-- Proposals -->
     <div class="freelancer-proposals">
         <div class="project-proposals align-items-center freelancer">
@@ -96,7 +93,7 @@
                             <div class="project-action text-center">
                                 <a data-bs-toggle="modal" href="#file" class="projects-btn">Edit
                                     Proposals </a>
-                                <a [routerLink] = "routes.freelancerViewProjectDetail">View Project</a>
+                                <a [routerLink]="routes.freelancerViewProjectDetail">View Project</a>
                                 <a href="javascript:void(0);" class="proposal-delete mb-0">Delete
                                     Proposal</a>
                             </div>
@@ -108,210 +105,6 @@
     </div>
     <!-- Proposals -->
 
-    <!-- Proposals -->
-    <div class="freelancer-proposals">
-        <div class="project-proposals align-items-center freelancer">
-            <div class="proposal-info">
-                <div class="proposals-details">
-                    <h3 class="proposals-title">WooCommerce Product Page Back Up Restoration</h3>
-                    <ul>
-                        <li>
-                            <div class="proposal-img">
-                                <div class="proposal-client">
-                                    <img src="assets/img/user/proposal-user-01.jpg" alt="Img" class="img-fluid">
-                                    <h4>Lily Lipscombe</h4>
-                                    <span class="info-btn">client</span>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="proposal-client-price">
-                                <h4 class="title-info">Client Price</h4>
-                                <h3 class="client-price">$370.00 <span class="price-type">( Fixed
-                                        )</span></h3>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="proposal-job-type">
-                                <h4 class="title-info">Job Type</h4>
-                                <h3>Hourly</h3>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="project-amount">
-                                <h4 class="title-info">Your Price</h4>
-                                <h3>$300.00<span>(in 12 Days)</span></h3>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="project-action text-center">
-                                <a data-bs-toggle="modal" href="#file" class="projects-btn">Edit
-                                    Proposals </a>
-                                <a [routerLink] = "routes.freelancerViewProjectDetail">View Project</a>
-                                <a href="javascript:void(0);" class="proposal-delete mb-0">Delete
-                                    Proposal</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Proposals -->
-
-    <!-- Proposals -->
-    <div class="freelancer-proposals">
-        <div class="project-proposals align-items-center freelancer">
-            <div class="proposal-info">
-                <div class="proposals-details">
-                    <h3 class="proposals-title">Full-stack Developer to help us to build our</h3>
-                    <ul>
-                        <li>
-                            <div class="proposal-img">
-                                <div class="proposal-client">
-                                    <img src="assets/img/user/table-avatar-04.jpg" alt="Img" class="img-fluid">
-                                    <h4>Flynn Gosman</h4>
-                                    <span class="info-btn">client</span>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="proposal-client-price">
-                                <h4 class="title-info">Client Price</h4>
-                                <h3 class="client-price">$490.00 <span class="price-type">( Fixed
-                                        )</span></h3>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="proposal-job-type">
-                                <h4 class="title-info">Job Type</h4>
-                                <h3>Hourly</h3>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="project-amount">
-                                <h4 class="title-info">Your Price</h4>
-                                <h3>$450.00<span>(in 12 Days)</span></h3>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="project-action text-center">
-                                <a data-bs-toggle="modal" href="#file" class="projects-btn">Edit
-                                    Proposals </a>
-                                <a [routerLink] = "routes.freelancerViewProjectDetail">View Project</a>
-                                <a href="javascript:void(0);" class="proposal-delete mb-0">Delete
-                                    Proposal</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Proposals -->
-
-    <!-- Proposals -->
-    <div class="freelancer-proposals">
-        <div class="project-proposals align-items-center freelancer">
-            <div class="proposal-info">
-                <div class="proposals-details">
-                    <h3 class="proposals-title">Video animator to bring some illustrations to life</h3>
-                    <ul>
-                        <li>
-                            <div class="proposal-img">
-                                <div class="proposal-client">
-                                    <img src="assets/img/user/proposal-user-02.jpg" alt="Img" class="img-fluid">
-                                    <h4>Emma Icely</h4>
-                                    <span class="info-btn">client</span>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="proposal-client-price">
-                                <h4 class="title-info">Client Price</h4>
-                                <h3 class="client-price">$680.00 <span class="price-type">( Fixed
-                                        )</span></h3>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="proposal-job-type">
-                                <h4 class="title-info">Job Type</h4>
-                                <h3>Hourly</h3>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="project-amount">
-                                <h4 class="title-info">Your Price</h4>
-                                <h3>$620.00<span>(in 12 Days)</span></h3>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="project-action text-center">
-                                <a href="javascript:void(0);" class="projects-btn">Closed </a>
-                                <a [routerLink] = "routes.freelancerViewProjectDetail">View Project</a>
-                                <a href="javascript:void(0);" class="proposal-delete mb-0">Delete
-                                    Proposal</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Proposals -->
-
-    <!-- Proposals -->
-    <div class="freelancer-proposals mb-0">
-        <div class="project-proposals align-items-center freelancer">
-            <div class="proposal-info">
-                <div class="proposals-details">
-                    <h3 class="proposals-title">Food Delivery Mobile App</h3>
-                    <ul>
-                        <li>
-                            <div class="proposal-img">
-                                <div class="proposal-client">
-                                    <img src="assets/img/user/proposal-user-03.jpg" alt="Img" class="img-fluid">
-                                    <h4>Cody Cornish</h4>
-                                    <span class="info-btn">client</span>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="proposal-client-price">
-                                <h4 class="title-info">Client Price</h4>
-                                <h3 class="client-price">$760.00 <span class="price-type">( Fixed
-                                        )</span></h3>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="proposal-job-type">
-                                <h4 class="title-info">Job Type</h4>
-                                <h3>Hourly</h3>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="project-amount">
-                                <h4 class="title-info">Your Price</h4>
-                                <h3>$680.00<span>(in 12 Days)</span></h3>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="project-action text-center">
-                                <a href="javascript:void(0);" class="projects-btn">Closed </a>
-                                <a [routerLink] = "routes.freelancerViewProjectDetail">View Project</a>
-                                <a href="javascript:void(0);" class="proposal-delete mb-0">Delete
-                                    Proposal</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Proposals -->
-
-</div>
-<!-- /Proposals list -->
 
 <!-- /Page Content -->
 <!-- The Modal -->
@@ -329,13 +122,13 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="input-block">
-                                       <label for="Your" class="form-label">Your Price</label>
+                                    <label for="Your" class="form-label">Your Price</label>
                                     <input type="text" class="form-control" value="$90">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="input-block">
-                                       <label for="Estimated" class="form-label">Estimated Delivery</label>
+                                    <label for="Estimated" class="form-label">Estimated Delivery</label>
                                     <input type="text" class="form-control" value="100">
                                     <span class="input-group-text">Days</span>
                                 </div>
@@ -352,13 +145,13 @@
                             <div class="row">
                                 <div class="col-md-8">
                                     <div class="input-block">
-                                            <label for="Milestone " class="form-label">Milestone name</label>
+                                        <label for="Milestone " class="form-label">Milestone name</label>
                                         <input type="text" class="form-control" value="Initial Setup">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="input-block">
-                                          <label for="amount" class="form-label">Amount</label>
+                                        <label for="amount" class="form-label">Amount</label>
                                         <input type="text" class="form-control" value="100">
                                         <span class="input-group-text">$</span>
                                         <div class="add-new text-end mt-2">

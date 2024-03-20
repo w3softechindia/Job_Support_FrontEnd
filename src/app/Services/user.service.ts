@@ -8,6 +8,7 @@ import { User } from '../classes/user';
 import { PostprojectService } from './postproject.service';
 
 import { AccountDelete } from '../core/models/models';
+import { SendProposal } from '../classes/send-proposal';
 
 
 @Injectable({
@@ -232,7 +233,18 @@ constructor(private http:HttpClient, private projectservice:PostprojectService){
     return this.http.get(`${this.baseurl}/getProjectById/${id}`);
   }
 
+  //Get Project Files
   getProjectFilesByProjectId(id:number):Observable<any>{
     return this.http.get(`${this.baseurl}/filesGet/${id}`);
+  }
+
+  //Post Proposal
+  postProposal(id:number,email:string,proposal:SendProposal):Observable<any>{
+    return this.http.post(`${this.baseurl}/sendProposal/${id}/${email}`,proposal);
+  }
+
+  //Get All Proposals By Email
+  getAllProposals(email:string):Observable<any>{
+    return this.http.get(`${this.baseurl}/getProposals/${email}`);
   }
 }

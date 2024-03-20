@@ -7,7 +7,7 @@
 					<h2>Project Details</h2>
 					<nav aria-label="breadcrumb" class="page-breadcrumb">
 						<ol class="breadcrumb">
-							<li class="breadcrumb-item"><a [routerLink] = "routes.home">Home</a></li>
+							<li class="breadcrumb-item"><a [routerLink]="routes.home">Home</a></li>
 							<li class="breadcrumb-item" aria-current="page">Project Details</li>
 						</ol>
 					</nav>
@@ -192,20 +192,19 @@
 				<div class="company-detail-block">
 					<h4 class="company-detail-title">Attachments</h4>
 					<div class="row row-gap">
-					  <div class="col-lg-4 col-md-4 col-sm-12" *ngFor="let attachment of attachments">
-						<div class="attachment-file">
-						  <div class="attachment-files-details">
-							<h6>{{ attachment.fileName }}</h6>
-							<span>File size: {{ attachment.fileSize }}</span> 
-						  </div>
-						  <a [href]="attachment.filePath" class="file-download-btn" download>
-							<i class="feather icon-download"></i>
-						  </a>
+						<div class="col-lg-4 col-md-4 col-sm-12" *ngFor="let attachment of attachments">
+							<div class="attachment-file">
+								<div class="attachment-files-details">
+									<h6>{{ attachment.fileName }}</h6>
+									<span>File size: {{ attachment.fileSize }}</span>
+								</div>
+								<a [href]="attachment.filePath" class="file-download-btn" download>
+									<i class="feather icon-download"></i>
+								</a>
+							</div>
 						</div>
-					  </div>
 					</div>
-				  </div>
-				  
+				</div>
 				<div class="company-detail-block company-description">
 					<h4 class="company-detail-title">Tags</h4>
 					<div class="tags" *ngFor="let tag of projectDetails.tags">
@@ -390,105 +389,106 @@
 			<!-- Blog Sidebar -->
 			<div class="col-lg-4 col-md-12 sidebar-right theiaStickySidebar project-client-view">
 				<div class="stickybar">
-				<div class="card budget-widget">
-					<div class="budget-widget-details">
-						<h6>Budget</h6>
-						<ng-container *ngIf="projectDetails.active_rate === 'fixed'">
-							<h4>{{ projectDetails.budget_amount }}</h4>
-							<span>Fixed</span>
-						</ng-container>
-						<ng-container *ngIf="projectDetails.active_rate === 'hourly'">
-							<!-- If hourly rate, display the hourly rate -->
-							<h4>{{ projectDetails.hourly_rate_from}} - {{projectDetails.hourly_rate_to}}</h4>
-							<span>Hourly</span>
-						</ng-container>
-					</div>
-					<div>
-						<a data-bs-toggle="modal" [href]="loggedIn ? '#file' : null" (click)="submitProposal()" class="btn proposal-btn btn-primary">Submit Proposal </a>
-					</div>
-				</div>
-				<div class="card budget-widget">
-					<div class="budget-widget-details">
-						<h6>About Client</h6>
-						<div class="company-detail-image">
-							<img src="assets/img/default-logo.svg" class="img-fluid" alt="logo">
+					<div class="card budget-widget">
+						<div class="budget-widget-details">
+							<h6>Budget</h6>
+							<ng-container *ngIf="projectDetails.active_rate === 'fixed'">
+								<h4>{{ projectDetails.budget_amount }}</h4>
+								<span>Fixed</span>
+							</ng-container>
+							<ng-container *ngIf="projectDetails.active_rate === 'hourly'">
+								<!-- If hourly rate, display the hourly rate -->
+								<h4>{{ projectDetails.hourly_rate_from}} - {{projectDetails.hourly_rate_to}}</h4>
+								<span>Hourly</span>
+							</ng-container>
 						</div>
-						<h5>KIND SOFTWARES</h5>
-						<span>Member Since December 31, 2020</span>
-						<div class="rating mb-3">
-							<i class="fas fa-star filled"></i>
-							<i class="fas fa-star filled"></i>
-							<i class="fas fa-star filled"></i>
-							<i class="fas fa-star filled"></i>
-							<i class="fas fa-star filled"></i>
-							<span class="average-rating">5.0</span>
+						<div>
+							<a data-bs-toggle="modal" [href]="loggedIn ? '#file' : null" (click)="submitProposal()"
+								class="btn proposal-btn btn-primary">Submit Proposal </a>
 						</div>
-						<ul class="d-flex list-style mb-0 social-list">
+					</div>
+					<div class="card budget-widget">
+						<div class="budget-widget-details">
+							<h6>About Client</h6>
+							<div class="company-detail-image">
+								<img src="assets/img/default-logo.svg" class="img-fluid" alt="logo">
+							</div>
+							<h5>KIND SOFTWARES</h5>
+							<span>Member Since December 31, 2020</span>
+							<div class="rating mb-3">
+								<i class="fas fa-star filled"></i>
+								<i class="fas fa-star filled"></i>
+								<i class="fas fa-star filled"></i>
+								<i class="fas fa-star filled"></i>
+								<i class="fas fa-star filled"></i>
+								<span class="average-rating">5.0</span>
+							</div>
+							<ul class="d-flex list-style mb-0 social-list">
+								<li>
+									<a href="javascript:void(0);" class="social-link-block">
+										<i class="fa-brands fa-facebook-f"></i>
+									</a>
+								</li>
+								<li>
+									<a href="javascript:void(0);" class="social-link-block">
+										<i class="fab fa-twitter"></i>
+									</a>
+								</li>
+								<li>
+									<a href="javascript:void(0);" class="social-link-block">
+										<i class="fa-brands fa-linkedin-in"></i>
+									</a>
+								</li>
+								<li>
+									<a href="javascript:void(0);" class="social-link-block">
+										<i class="fa-brands fa-instagram"></i>
+									</a>
+								</li>
+							</ul>
+							<ul class="d-flex list-style mb-0 client-detail-list">
+								<li>
+									<span>Departments</span>
+									<p class="mb-0">Designer</p>
+								</li>
+								<li>
+									<span>Employees</span>
+									<p class="mb-0">30-50</p>
+								</li>
+							</ul>
+						</div>
+						<div>
+							<a href="javascript:void(0);" class="btn  btn-primary price-btn btn-block">Contact Me </a>
+						</div>
+					</div>
+					<div class="card budget-widget">
+						<ul class="d-flex mb-0 list-style job-list-block">
 							<li>
-								<a href="javascript:void(0);" class="social-link-block">
-									<i class="fa-brands fa-facebook-f"></i>
-								</a>
+								<span>Jobs Posted</span>
+								<p class="mb-0">48</p>
 							</li>
 							<li>
-								<a href="javascript:void(0);" class="social-link-block">
-									<i class="fab fa-twitter"></i>
-								</a>
+								<span>Hire Rate</span>
+								<p class="mb-0">22</p>
 							</li>
 							<li>
-								<a href="javascript:void(0);" class="social-link-block">
-									<i class="fa-brands fa-linkedin-in"></i>
-								</a>
+								<span>Open Jobs</span>
+								<p class="mb-0">75</p>
 							</li>
 							<li>
-								<a href="javascript:void(0);" class="social-link-block">
-									<i class="fa-brands fa-instagram"></i>
-								</a>
+								<span>Total Spent</span>
+								<p class="mb-0">22</p>
+							</li>
+							<li>
+								<span>Hired</span>
+								<p class="mb-0">64</p>
+							</li>
+							<li>
+								<span>Active</span>
+								<p class="mb-0">29</p>
 							</li>
 						</ul>
-						<ul class="d-flex list-style mb-0 client-detail-list">
-							<li>
-								<span>Departments</span>
-								<p class="mb-0">Designer</p>
-							</li>
-							<li>
-								<span>Employees</span>
-								<p class="mb-0">30-50</p>
-							</li>
-						</ul>
-					</div>
-					<div>
-						<a href="javascript:void(0);" class="btn  btn-primary price-btn btn-block">Contact Me </a>
 					</div>
 				</div>
-				<div class="card budget-widget">
-					<ul class="d-flex mb-0 list-style job-list-block">
-						<li>
-							<span>Jobs Posted</span>
-							<p class="mb-0">48</p>
-						</li>
-						<li>
-							<span>Hire Rate</span>
-							<p class="mb-0">22</p>
-						</li>
-						<li>
-							<span>Open Jobs</span>
-							<p class="mb-0">75</p>
-						</li>
-						<li>
-							<span>Total Spent</span>
-							<p class="mb-0">22</p>
-						</li>
-						<li>
-							<span>Hired</span>
-							<p class="mb-0">64</p>
-						</li>
-						<li>
-							<span>Active</span>
-							<p class="mb-0">29</p>
-						</li>
-					</ul>
-				</div>
-			</div>
 			</div>
 			<!-- /Blog Sidebar -->
 
@@ -544,7 +544,8 @@
 						</div>
 					</div>
 					<div class="submit-section text-center">
-						<button type="button" (click)="navigation()" (keydown.enter)="navigation()" tabindex="0" class="btn btn-primary btn-block submit-btn">Hire Now</button>
+						<button type="button" (click)="navigation()" (keydown.enter)="navigation()" tabindex="0"
+							class="btn btn-primary btn-block submit-btn">Hire Now</button>
 					</div>
 				</form>
 			</div>
@@ -564,68 +565,83 @@
 			</div>
 			<div class="modal-body">
 				<div class="modal-info proposal-modal-info">
-					<form>
+					<form [formGroup]="proposalForm" (ngSubmit)="sendProposal()">
 						<div class="feedback-form proposal-form ">
 							<div class="row">
 								<div class="col-md-6 input-block">
-									   <label for="Your" class="form-label">Your Price</label>
-									<input type="number" class="form-control" placeholder="Your Price">
+									<label for="Your" class="form-label">Your Price</label>
+									<input type="number" class="form-control" formControlName="proposedPrice"
+										placeholder="Your Price">
 								</div>
 								<div class="col-md-6 mb-3">
 									<label for="delivery-estimate" class="form-label">Estimated Delivery</label>
 									<div class="input-group ">
-										<input type="text" class="form-control" placeholder="Estimated Hours"
-											aria-label="Recipient's username" aria-describedby="basic-addon2">
+										<input type="text" class="form-control" placeholder="Estimated Days"
+											aria-label="Recipient's username" aria-describedby="basic-addon2"
+											class="form-control" formControlName="estimatedDelivery">
 										<span class="input-group-text" id="basic-addon2">Days</span>
 									</div>
 								</div>
 
 								<div class="col-md-12 input-block">
 									<label for="cober-letter" class="form-label">Cover Letter</label>
-									<ngx-editor [editor]="editor">
+									<!-- <ngx-editor [editor]="editor">
 										<ngx-editor-menu [editor]="editor" [toolbar]="toolbar">
 										</ngx-editor-menu>
-									</ngx-editor>
+									</ngx-editor> -->
+									<input type="text" class="form-control" formControlName="coverLetter"
+										placeholder="">
 								</div>
 							</div>
 						</div>
 						<div class="suggested-milestones-form">
-							<div class="row">
-								<div class="col-md-4 input-block">
-									 <label for="Milestone " class="form-label">Milestone name</label>
-									<input type="text" class="form-control" placeholder="Milestone name">
-								</div>
-								<div class="col-md-2 input-block floating-icon">
-									 <label for="Amount" class="form-label">Amount</label>
-									<input type="text" class="form-control" placeholder="Amount">
-									<span><i class="feather icon-dollar-sign"></i></span>
-								</div>
-								<div class="col-md-3 input-block floating-icon">
-									<label for="start" class="form-label">Start Date</label>
-									<input type="text" class="form-control datetimepicker" placeholder="Choose"
-										bsDatepicker>
-									<span><i class="feather icon-calendar"></i></span>
-								</div>
-								<div class="col-md-3 input-block floating-icon">
-									<label for="end-date" class="form-label">End Date</label>
-									<input type="text" class="form-control datetimepicker" placeholder="Choose"
-										bsDatepicker>
-									<span><i class="feather icon-calendar"></i></span>
+							<div formArrayName="milestones">
+								<div *ngFor="let milestone of milestones.controls; let i=index" [formGroupName]="i">
+									<div class="row">
+										<div class="col-md-4 input-block">
+											<label for="milestoneName{{i}}" class="form-label">Milestone name</label>
+											<input type="text" class="form-control" placeholder="Milestone name"
+												id="milestoneName{{i}}" formControlName="milestone_name" >
+										</div>
+										<div class="col-md-2 input-block floating-icon">
+											<label for="price{{i}}" class="form-label">Amount</label>
+											<input type="number" class="form-control" placeholder="Amount"
+												id="price{{i}}" formControlName="price">
+											<span><i class="feather icon-dollar-sign"></i></span>
+										</div>
+										<div class="col-md-3 input-block floating-icon">
+											<label for="startdate{{i}}" class="form-label">Start Date</label>
+											<input type="date" class="form-control" placeholder="Choose"
+												id="startdate{{i}}" formControlName="startdate">
+											<span><i class="feather icon-calendar"></i></span>
+										</div>
+										<div class="col-md-3 input-block floating-icon">
+											<label for="enddate{{i}}" class="form-label">End Date</label>
+											<input type="text" class="form-control" placeholder="Choose"
+												id="enddate{{i}}" formControlName="enddate">
+											<span><i class="feather icon-calendar"></i></span>
+										</div>
+										<div class="col-md-1 align-self-end">
+											<button *ngIf="milestones.length > 1" type="button"
+												(click)="removeMilestone(i)" class="btn btn-danger">Remove</button>
+										</div>
+									</div>
 								</div>
 								<div class="col-md-12">
 									<div class="new-addd">
-										<a (click)="addDetails(details)" (keydown.enter)="addDetails(details)" tabindex="0" id="new_add1" class="add-new"><i
+										<a (click)="addMilestone()" (keydown.enter)="addMilestone()"
+											tabindex="0" id="new_add1" class="add-new"><i
 												class="feather icon-plus-circle "></i> Add New</a>
 									</div>
 								</div>
 							</div>
-							<div class="row" *ngFor="let details of details; let i = index">
+							<!-- <div class="row" *ngFor="let details of details; let i = index">
 								<div class="col-md-4 input-block">
-									 <label for="Milestone " class="form-label">Milestone name</label>
+									<label for="Milestone " class="form-label">Milestone name</label>
 									<input type="text" class="form-control" placeholder="Milestone name">
 								</div>
 								<div class="col-md-2 input-block floating-icon">
-									 <label for="Amount" class="form-label">Amount</label>
+									<label for="Amount" class="form-label">Amount</label>
 									<input type="text" class="form-control" placeholder="Amount">
 									<span><i class="feather icon-dollar-sign"></i></span>
 								</div>
@@ -643,12 +659,13 @@
 								</div>
 								<div class="col-md-12">
 									<div class="new-addd">
-										<a (click)="deleteDetails(details, i)" (keydown.enter)="deleteDetails(details, i)" tabindex="0" id="new_add1" class="add-new"><i
-												class="feather icon-plus-circle "></i> Remove</a>
+										<a (click)="deleteDetails(details, i)"
+											(keydown.enter)="deleteDetails(details, i)" tabindex="0" id="new_add1"
+											class="add-new"><i class="feather icon-plus-circle "></i> Remove</a>
 									</div>
 								</div>
 							</div>
-							<div id="add_row1"></div>
+							<div id="add_row1"></div> -->
 						</div>
 						<div class="proposal-features">
 							<div class="proposal-widget proposal-warning">
@@ -679,8 +696,8 @@
 							<div class="col-md-12 submit-section text-end">
 								<a data-bs-dismiss="modal" href="javascript:void(0);"
 									class="btn btn-cancel submit-btn">Cancel</a>
-								<a (click)="navigation1()" data-bs-toggle="modal" data-bs-dismiss="modal" href="#success"
-									class="btn btn-primary submit-btn">Send Proposal</a>
+								<button (click)="navigation1()" data-bs-toggle="modal" data-bs-dismiss="modal"
+									href="#success" class="btn btn-primary submit-btn" type="submit">Send Proposal</button>
 							</div>
 						</div>
 					</form>
@@ -706,7 +723,8 @@
 					<p>You will be Notified once, your Proposal approves.</p>
 				</div>
 				<div class="col-md-12 submit-section text-center">
-					<a data-bs-dismiss="modal" [routerLink] = "routes.freelancer_dashboard" class="btn btn-primary submit-btn">Go to
+					<a data-bs-dismiss="modal" [routerLink]="routes.freelancer_dashboard"
+						class="btn btn-primary submit-btn">Go to
 						Dashboard</a>
 				</div>
 			</div>
