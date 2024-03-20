@@ -1,3 +1,5 @@
+import { User } from "src/app/classes/user";
+
 export interface pageSelection {
   skip: number;
   limit: number;
@@ -414,3 +416,32 @@ export class Portfolio{
   link!:string;
   photo_path!:File;
 }
+export interface Milestone{
+  milestoneName:string;
+  price:string;
+  startdate:string;
+  enddate:string;
+}
+export interface AdminPostProject {
+  id: number;
+  project_id: number;
+  user: User;
+  project_title: string;
+  project_category: string;
+  project_duration: string;
+  deadline_date: Date;
+  freelancer_type: string;
+  freelancer_level: string;
+  active_rate: string;
+  hourly_rate_from: string;
+  hourly_rate_to: string;
+  fixed_rate: number;
+  languages: string;
+  language_fluency: string;
+  budget_amount: string;
+  description: string;
+  number_of_files: number;
+  skills: string[];
+  tags: string[];
+}
+
