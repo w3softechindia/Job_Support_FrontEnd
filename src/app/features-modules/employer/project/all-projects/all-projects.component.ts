@@ -122,49 +122,12 @@ printProjectId(projectIdForViewProjectDetails: string) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //   printProjectDetails(project: any): void {
 //     console.log('Selected Project Details:', project);
 // }
 
 
   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   
-
 
 
 

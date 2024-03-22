@@ -42,6 +42,14 @@ const routes: Routes = [
           import('./projects/projects.module').then((m) => m.ProjectsModule),
       },
       {
+        path:'project-proposals',
+        loadChildren:()=> import('./project-proposals/project-proposals.module').then((m)=>m.ProjectProposalsModule),
+      },
+      {
+        path:'view-proposals',
+        loadChildren:()=> import('./view-proposals/view-proposals.module').then((m)=>m.ViewProposalsModule),
+      },
+      {
         path: 'withdrawn',
         loadChildren: () =>
           import('./withdrawn/withdrawn.module').then((m) => m.WithdrawnModule),

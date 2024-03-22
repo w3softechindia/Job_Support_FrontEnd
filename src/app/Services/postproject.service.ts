@@ -37,57 +37,6 @@ export class PostprojectService {
   
   
 
-
-
-
-
-
-  
-
- 
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
- 
-
- 
-
-
-  
- 
-
- 
-
-  
-
-
-
- 
-
-
-  
-
-
-
   setAttachments(attachments: File[]) {
     this.attachments = attachments;
   }
@@ -95,19 +44,6 @@ export class PostprojectService {
   getAttachments() {
     return this.attachments;
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   setSkills(skills: string[]): void {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/Services/user.service';
 import { User } from 'src/app/classes/user';
@@ -9,7 +9,7 @@ import { routes } from 'src/app/core/helpers/routes/routes';
   templateUrl: './otp-verify.component.html',
   styleUrls: ['./otp-verify.component.scss']
 })
-export class OtpVerifyComponent {
+export class OtpVerifyComponent implements OnInit {
   
   constructor(private route:ActivatedRoute,private router:Router,private userservice:UserService){}
   email!:string;

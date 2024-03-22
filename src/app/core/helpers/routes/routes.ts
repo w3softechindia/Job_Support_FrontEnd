@@ -199,6 +199,9 @@ export class routes {
   public static get admin_projects(): string {
     return this.admin + '/projects';
   }
+  public static get admin_project_proposals():string{
+    return this.admin + '/project-proposals';
+  }
   public static get admin_freelancers_all(): string {
     return this.admin + '/freelancers/all';
   }

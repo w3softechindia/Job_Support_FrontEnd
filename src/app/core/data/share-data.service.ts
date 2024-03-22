@@ -1690,6 +1690,15 @@ export class ShareDataService {
           subMenus: [],
         },
         {
+          menuValue: 'Project-Proposals',
+          route: routes.admin_project_proposals,
+          hasSubRoute: false,
+          showSubRoute: false,
+          icon: 'icon-database',
+          base: 'project-proposals',
+          subMenus: [],
+        },
+        {
           menuValue: 'Freelancer',
           route: routes.admin_freelancers_all,
           hasSubRoute: false,
