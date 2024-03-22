@@ -142,7 +142,7 @@ constructor(private http:HttpClient, private projectservice:PostprojectService){
   }
 
 
-  //Delete Skills
+  //Delete Skills 
   deleteSkill(skill:string){
     return this.http.delete(`${this.baseurl}/deleteSkill/${skill}`);
   }
@@ -246,5 +246,30 @@ constructor(private http:HttpClient, private projectservice:PostprojectService){
   //Get All Proposals By Email
   getAllProposals(email:string):Observable<any>{
     return this.http.get(`${this.baseurl}/getProposals/${email}`);
+  }
+
+  //update Proposal
+  updateProposal(id:number,proposal:SendProposal):Observable<any>{
+    return this.http.put(`${this.baseurl}/updateProposal/${id}`,proposal);
+  }
+
+  //Delete Proposal
+  deleteProposal(id:number):Observable<any>{
+    return this.http.delete(`${this.baseurl}/deleteProposal/${id}`,{responseType:'text'});
+  }
+
+  //Fetch Proposal By id
+  fetchProposal(id:number):Observable<any>{
+    return this.http.get(`${this.baseurl}/getProposalById/${id}`);
+  }
+
+  //Get all Projects posted by Admin
+  getProjects():Observable<any>{
+    return this.http.get<any[]>(`${this.baseurl}/getProjectsOfAdmin`)
+  }
+
+  //Get Proposals by ProjectId
+  getProposalsByProject(id:number):Observable<any>{
+    return this.http.get<any[]>(`${this.baseurl}/getProposalsByProjectId/${id}`);
   }
 }

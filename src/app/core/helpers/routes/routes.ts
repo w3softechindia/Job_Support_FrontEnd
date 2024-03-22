@@ -92,7 +92,7 @@ export class routes {
   }
   
   public static get freelancer_project_details(): string {
-    return this.freelance + '/project-details';
+    return this.freelance + '/project-details'; 
   }
   public static get freelancer_dashboard(): string {
     return this.freelance + '/dashboards';

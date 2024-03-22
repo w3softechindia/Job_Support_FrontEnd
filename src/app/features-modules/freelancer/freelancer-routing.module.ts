@@ -162,7 +162,7 @@ const routes: Routes = [
           ),canActivate: [FreelancerGuard],
       },
       {
-        path: 'view-project-detail',
+        path: 'view-project-detail/:id',
         loadChildren: () =>
           import(
             './project/view-project-detail/view-project-detail.module'

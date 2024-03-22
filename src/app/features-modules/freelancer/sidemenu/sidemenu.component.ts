@@ -25,6 +25,7 @@ export class SidemenuComponent implements OnInit{
   photo: any;
   error!: string;
   photoUrl!: string | ArrayBuffer | null;
+  userAuthenticated: boolean = false;
   constructor(private data: ShareDataService, private common: CommonService,private auth:AuthService,private userService:UserService) {
     this.common.base.subscribe((res: string) => {
       this.base = res;
@@ -51,6 +52,8 @@ export class SidemenuComponent implements OnInit{
         this.error = 'Failed to load photo.';
       }
     );
+
+    this.userAuthenticated = this.userService.isLoggedIn();
   }
 
   public menuItems: Array<FreelancerSidebarItem> = [];

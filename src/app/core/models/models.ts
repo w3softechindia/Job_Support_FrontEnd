@@ -443,5 +443,14 @@ export interface AdminPostProject {
   number_of_files: number;
   skills: string[];
   tags: string[];
+  proposal:SendProposal[];
+}
+export interface SendProposal{
+  proposalId:number;
+  proposedPrice:string;
+  estimatedDelivery:string;
+  coverLetter:string;
+  milestones:Milestone[];
+  user:User;
 }
 
