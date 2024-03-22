@@ -28,19 +28,19 @@
         <div class="project-proposals align-items-center freelancer">
             <div class="proposal-info">
                 <div class="proposals-details">
-                    <h3 class="proposals-title">3D Renders and Amazon Product Store images/Video</h3>
+                    <h3 class="proposals-title">{{projectDetails.project_title}}</h3>
                     <ul>
                         
                         <li>
                             <div class="proposal-client-price">
-                                <h4 class="title-info">Client Price</h4>
-                                <h3 class="client-price">$599.00 <span class="price-type">( Fixed )</span></h3>
+                                <h4 class="title-info"> Price</h4>
+                                <h3 class="client-price">{{projectDetails.budget_amount}} <span class="price-type">{{projectDetails.active_rate}}</span></h3>
                             </div>
                         </li>
                         <li>
                             <div class="proposal-job-type">
                                 <h4 class="title-info">Project Deadline</h4>
-                                <h3>28 Oct 2023</h3>
+                                {{projectDetails.deadline_date}}
                             </div>
                         </li>
                         <li>
@@ -72,8 +72,7 @@
 <!-- Overview -->
 <div class="overview-description">
     <h4>Description</h4>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
+    {{projectDetails.description}}
 </div>
 
 <!-- /Overview -->
@@ -83,13 +82,7 @@
     <h4 >Skills Required</h4>
     <div class="pro-content">
         <div class="tags">
-            <span class="badge badge-pill badge-design">Web design</span>
-            <span class="badge badge-pill badge-design">UI Design</span>
-            <span class="badge badge-pill badge-design">React</span>
-            <span class="badge badge-pill badge-design">Design Writing</span>
-            <span class="badge badge-pill badge-design">Software Design</span>
-            <span class="badge badge-pill badge-design">HTML5</span>
-            <span class="badge badge-pill badge-design">Sketch</span>	
+            <span *ngFor="let skill of projectDetails.skills" class="badge badge-pill badge-design">{{ skill }}</span>
         </div>
     </div>
 </div>

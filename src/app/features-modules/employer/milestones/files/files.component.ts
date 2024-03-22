@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { EmployerProjectIdsForViewProjectService } from 'src/app/Services/employer-project-ids-for-view-project.service';
+import { FileDTO, UserService } from 'src/app/Services/user.service';
 import { ShareDataService } from 'src/app/core/data/share-data.service';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { apiResultFormat,  files, pageSelection } from 'src/app/core/models/models';
@@ -30,10 +32,100 @@ export class FilesComponent  implements OnInit{
   public pageSelection: Array<pageSelection> = [];
   public totalPages = 0;
 
-  constructor(public data: ShareDataService) {}
+
+
+  fileList: FileDTO[] = []; // Renamed 'files' to 'fileList
+
+  projectDetails: any;
+
+  projectId: number | null | undefined; // Change type to accept null
+  
+  constructor(public data: ShareDataService,
+    private projectIdService: EmployerProjectIdsForViewProjectService,
+    private userserv:UserService
+    ) {}
+
+
+    
+
+
+  
   ngOnInit() {
     this.getTableData();
+    // Subscribe to changes in the selected project
+    this.projectIdService.getSelectedProject().subscribe((project: { id: number | null | undefined; details: any; }) => {
+      this.projectId = project.id;
+      this.projectDetails = project.details; // Store project details
+      const numberOfFiles = this.projectDetails.number_of_files;
+                
+      console.log('Project ID received in Files Component:', this.projectId);
+      console.log('Project details received in Files Component:', this.projectDetails);
+      console.log('Numberoffiles' , numberOfFiles);
+     
+
+
+
+      if (this.projectId) {
+        this.userserv.getFilesByProjectId(this.projectId).subscribe(files => {
+          this.fileList = files;
+        });
+      }
+ 
+     
+
+
+   
+      
+    });
+
+    
   }
+
+
+ 
+
+
+  
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   private getTableData(): void {
     this.files = [];
     this.serialNumberArray = [];

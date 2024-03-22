@@ -38,6 +38,7 @@ export class ProjectsComponent implements OnInit {
   constructor(
     public router: Router,
     private dataservice: ShareDataService,
+    private proser: PostprojectService,
     private userservice: UserService
   ) {
     this.dataservice.ManageUsers3.subscribe((data: Array<freeprojects>) => {
@@ -63,6 +64,50 @@ export class ProjectsComponent implements OnInit {
       this.fetchProjectDetails();
     });
   }
+
+  // fetchProjectIds(): void {
+  //   this.userservice.getAllUpdatedProjectIds().subscribe(ids => {
+  //     this.projectIds = ids;
+
+  //     console.log("Id array:", this.projectIds);
+  //         this.customProjectIds = this.projectIds;
+  //         this.fetchProjectDetails();
+  //   });
+  // }
+
+  // fetchProjectDetails(): void {
+  //   this.userservice.getAdminProjectById(this.customProjectIds).subscribe(
+  //     projects => {
+  //       this.project = projects; // Assign the fetched projects to the project array
+  //       console.log("Project Details:", this.project);
+  //              // Extract userEmail property from each project
+  //     const userEmails = projects.map(project => project.user_email);
+  //     console.log("User Emails:", userEmails);
+
+  //     },
+  //     error => {
+  //       console.error("Error fetching project details:", error);
+  //       // Handle the error here, such as displaying an error message to the user
+  //     }
+  //   );
+  // }
+
+  // loadPhoto(email: string): void {
+  //   this.userservice.getPhoto(email).subscribe(
+  //     (data: Blob) => {
+  //       const reader = new FileReader();
+  //       reader.onload = () => {
+  //         this.photoUrl = reader.result as string;
+  //         this.isLoading = false; // Set loading to false when image is loaded
+  //       };
+  //       reader.readAsDataURL(data);
+  //     },
+  //     (error: any) => {
+  //       console.error('Error loading photo:', error);
+  //       this.isLoading = false; // Set loading to false on error
+  //     }
+  //   );
+  // }
 
   fetchProjectDetails(): void {
     this.userservice.getAdminProjectById(this.customProjectIds).subscribe(
@@ -151,10 +196,6 @@ export class ProjectsComponent implements OnInit {
         this.isLoading = false; // Set loading to false on error
       }
     );
-  }
-
-  navigation2(id:number){
-    this.router.navigate(['/freelancer/project-details',id]);
   }
 
   toggleLike(index: number) {

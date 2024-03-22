@@ -71,7 +71,7 @@
         <div class="reviews-menu-links">
           <ul role="tablist" class="nav nav-pills card-header-pills nav-justified">
             <li class="nav-item">
-              <a href="#tab-4" data-bs-toggle="tab" class="nav-link active">All (272)</a>
+              <a href="#tab-4" data-bs-toggle="tab" class="nav-link active">All  ({{ projects?.length }})</a>
             </li>
             <li class="nav-item">
               <a href="#tab-5" data-bs-toggle="tab" class="nav-link">Active (218)</a>
@@ -191,8 +191,8 @@
                       <th>DeadLine</th>
                       <th>Posted By</th>
                       <th>Actions</th>
-
-
+                      <th>Status</th>
+                      
                     </tr>
                   </thead>
                   <tbody>
@@ -202,18 +202,29 @@
                       <td>${{ project.budget_amount }}</td>
                       <td>{{ project.skills }}</td>
                       <td>{{ project.deadline_date }}</td>
+                     
 
+                      
+                      
+                      
 
-                      <button (click)="getUserDetails(project.user_email)"
+                        <!-- <button (click)="getUserDetails(project.user_email)"
                         (keydown.enter)="getUserDetails(project.user_email)">
                         {{ project.user_email }}
-                        <td class="text-end">
-                          <a href="javascript:void(0);" class="btn btn-sm btn-secondary me-2" data-bs-toggle="modal"
+                        <a href="javascript:void(0);" class="btn btn-sm btn-secondary me-2" data-bs-toggle="modal"
                             data-bs-target="#user-details-modal">
                             <i class="far fa-edit"></i>
                           </a>
-                        </td>
-                      </button>
+                        </button> -->
+
+                        <button (click)="getUserDetails(project.user_email)" class="btn btn-sm btn-secondary me-2"
+                        data-bs-toggle="modal" data-bs-target="#user-details-modal"
+                        style="border: none;">
+                    {{ project.user_email }}
+                </button>
+                
+                
+
 
                       <td class="text-end">
                         <a href="javascript:void(0);" class="btn btn-sm btn-secondary me-2" data-bs-toggle="modal"
@@ -221,9 +232,44 @@
                             class="far fa-edit"></i></a>
 
 
-                        <a href="javascript:void(0);" class="btn btn-sm btn-danger" data-bs-toggle="modal"
-                          data-bs-target="#delete_category"><i class="far fa-trash-alt"></i></a>
+                         <a href="javascript:void(0);" class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                          data-bs-target="#delete_category"><i class="far fa-trash-alt"></i></a> 
                       </td>
+
+
+                      
+                     
+
+
+                      <!-- <td>
+                        <ng-container *ngIf="gettingupdatedProjectIdsforstatus.includes(project.id)">
+                            <span class="published">Published        </span>
+                           
+                            <button class="btn btn-sm btn-warning" (click)="unpublishProject(project.id)">Unpublish</button>
+                        </ng-container>
+                        <ng-container *ngIf="!gettingupdatedProjectIdsforstatus.includes(project.id)">
+                            <span class="on-hold">On Hold</span>
+                        </ng-container>
+                    </td>
+                     -->
+
+                    
+                     <td>
+                      <ng-container *ngIf="gettingupdatedProjectIdsforstatus.includes(project.id)">
+                        <button class="btn btn-sm btn-warning" (click)="unpublishProject(project.id)">Unpublish</button>
+                      </ng-container>
+                      <ng-container *ngIf="!gettingupdatedProjectIdsforstatus.includes(project.id)">
+                        <span class="on-hold">On Hold</span>
+                      </ng-container>
+                    </td>
+                    
+
+                   
+                    
+                    
+                    
+                    
+                    
                     </tr>
                   </tbody>
                 </table>
@@ -677,14 +723,6 @@
 
 
 
-
-
-
-
-
-
-
-
 <!-- Category Modal -->
 <div class="modal fade custom-modal" id="add-category">
   <div class="modal-dialog modal-dialog-centered">
@@ -729,29 +767,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         <form #projectForm="ngForm" (ngSubmit)="updateProject()">
           <div class="form-group">
             <label for="title">Title</label>
@@ -767,7 +782,7 @@
           <div class="form-group">
             <label for="deadline_date">Deadline Date</label>
             <input type="text" class="form-control" name="deadlineDate" #deadlineInput
-                   value="2024-03-30 19:00:00" />
+                   value="{{ selectedProject?.deadline_date}}" />
         </div>
         
 
@@ -783,35 +798,6 @@
           </div>
         </form>
       
-      
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-
-
-       
       
 
 
