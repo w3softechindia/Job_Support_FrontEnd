@@ -11,6 +11,14 @@ import { AccountDelete } from '../core/models/models';
 import { SendProposal } from '../classes/send-proposal';
 
 
+export interface FileDTO {
+  id: number;
+  filePath: string;
+  type: string; // Assuming you have a 'type' property
+  size: number;
+}
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -19,19 +27,13 @@ export class UserService {
     throw new Error('Method not implemented.');
   }
 
-constructor(private http:HttpClient, private projectservice:PostprojectService){}
+constructor(private http:HttpClient   , private projectservice:PostprojectService){}
 
   private baseurl="http://localhost:8080";
 
   //Authentication
   login(data:any){
     return this.http.post<any>(`${this.baseurl}/authenticate`,data);
-  }
-
-  //Check User is LoggedIn
-  isLoggedIn(): boolean {
-    // Check if there's an authentication token in localStorage or sessionStorage
-    return !!localStorage.getItem('jwtToken');
   }
 
   //User Registration
@@ -63,6 +65,7 @@ constructor(private http:HttpClient, private projectservice:PostprojectService){
   otherInfo(user:User,email:string){
     return this.http.put(`${this.baseurl}/otherInfo/${email}`,user)
   }
+
 
   getUserByMail(email:string){
     return this.http.get(`${this.baseurl}/getUser/${email}`)
@@ -127,6 +130,7 @@ constructor(private http:HttpClient, private projectservice:PostprojectService){
       );
   }
 
+
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // Client-side error
@@ -140,7 +144,6 @@ constructor(private http:HttpClient, private projectservice:PostprojectService){
     // Return an observable with a user-facing error message
     return throwError('Something went wrong; please try again later.');
   }
-
 
   //Delete Skills 
   deleteSkill(skill:string){
@@ -157,11 +160,11 @@ constructor(private http:HttpClient, private projectservice:PostprojectService){
     return this.http.post(`${this.baseurl}/postReason/${email}`,acdlt,{responseType:'text'});
   }
 
-  getProjectsByUserEmail(userEmail: string): Observable<PostprojectService> {
+  getProjectsByUserEmail(userEmail: string): Observable<PostprojectService[]> {
     const url = `${this.baseurl}/projects/${userEmail}`;
-    return this.http.get<PostprojectService>(url);
+    return this.http.get<PostprojectService[]>(url);
   }
- 
+
  getAllProjects(): Observable<any> {
     return this.http.get<any[]>(`${this.baseurl}/getallProjects`);
   }
@@ -173,7 +176,7 @@ constructor(private http:HttpClient, private projectservice:PostprojectService){
   updateAdminProjectDetails(projectId: number, updatedProject: any): Observable<any> {
     return this.http.put<any>(`${this.baseurl}/updateAdminProject/${projectId}`, updatedProject);
   }
-  
+
   getAdminProjectById(projectIds: number[]): Observable<any[]> {
     // Adjust your HTTP request to accept projectIds
     const requests = projectIds.map(id =>
@@ -228,9 +231,10 @@ constructor(private http:HttpClient, private projectservice:PostprojectService){
     return this.http.get(`${this.baseurl}/accountStatus/${email}`,{responseType:'text'});
   }
 
-  //Get Project By Admin Project Id
-  getProjectByAdminProject(id:number):Observable<any>{
-    return this.http.get(`${this.baseurl}/getProjectById/${id}`);
+  
+  removeProjectsFromPublish(projectId: number) {
+    const url = `${this.baseurl}/removeProjectFromPublish/${projectId}`;
+    return this.http.delete(url, { observe: 'response' });
   }
 
   //Get Project Files
@@ -271,5 +275,10 @@ constructor(private http:HttpClient, private projectservice:PostprojectService){
   //Get Proposals by ProjectId
   getProposalsByProject(id:number):Observable<any>{
     return this.http.get<any[]>(`${this.baseurl}/getProposalsByProjectId/${id}`);
+  }
+
+  getFilesByProjectId(projectId: number): Observable<FileDTO[]> {
+    const url = `${this.baseurl}/filesGet/${projectId}`;
+    return this.http.get<FileDTO[]>(url);
   }
 }

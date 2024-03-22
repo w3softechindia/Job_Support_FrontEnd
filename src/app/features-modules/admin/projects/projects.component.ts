@@ -22,13 +22,14 @@ export class ProjectsComponent implements OnInit {
 
   @ViewChild('projectTitleInput') projectTitleInput!: ElementRef<HTMLInputElement>;
   @ViewChild('budgetInput') budgetInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('deadlineInput')deadlineInput!:ElementRef<HTMLInputElement>;
+ 
 
-
-
+  
 
   selectedProject: any = null;
 
-
+      
   updatedProperties: any = {};
 
   public lstProject!: Array<project>;
@@ -57,9 +58,18 @@ export class ProjectsComponent implements OnInit {
   user: User[] | undefined;
   dialog: any;
 
+  
+  projectIdForUnbublish: number | undefined;
+
 
 
   updatedProjectIds: number[] = [];
+  gettingupdatedProjectIdsforstatus:number[]=[];
+  projectIdForSend: any;
+
+
+
+ 
   
   constructor(
     private data: ShareDataService,
@@ -71,8 +81,15 @@ export class ProjectsComponent implements OnInit {
   ngOnInit(): void {
     this.getTableData();
     this.getingAllProjectData();
+    this.getUpdatedProjectIdsForStatus();
+    
     
   }
+
+
+
+
+
 
   // getingAllProjectData() {
   //   this.userservis.getAllProjects().subscribe((data) => {
@@ -100,6 +117,7 @@ export class ProjectsComponent implements OnInit {
     this.userservis.getAllAdminProjects().subscribe((data) => {
       this.projects = data;
       console.log(this.projects);
+      console.log(this.projects?.length);
 
       // Extract project IDs
       const projectIds: number[] = data.map((project: any) => project.id);
@@ -160,12 +178,14 @@ updateProject() {
     // Fetch values from template reference variables
     const projectTitle = this.projectTitleInput.nativeElement.value;
     const budgetAmount = this.budgetInput.nativeElement.value;
+      const deadline_date=this.deadlineInput.nativeElement.value;
     // Fetch other form field values similarly
     
     
     // Update selectedProject properties
     this.selectedProject.project_title = projectTitle;
     this.selectedProject.budget_amount = budgetAmount;
+    this.selectedProject.deadline_date=deadline_date;
     // Update other selectedProject properties similarly
     
     // Call the updateAdminProjectDetails method from the ProjectService
@@ -178,8 +198,10 @@ updateProject() {
          const updatedProjectId = updatedProject.id;
          this.handleSuccess(updatedProjectId);
        this.sendUpdatedProjectIdsToBackend();
+       alert('published succesfully');
+       window.location.reload();
          
-       
+               
           // Store the updated project ID in the service
         
         // Handle success or navigate to another page
@@ -210,6 +232,7 @@ sendUpdatedProjectIdsToBackend(): void {
         (response) => {
           console.log('Updated project IDs sent to backend successfully:', response);
           // Handle success response from backend if needed
+          
         },
         (error) => {
           console.error('Error sending updated project IDs to backend:', error);
@@ -220,78 +243,6 @@ sendUpdatedProjectIdsToBackend(): void {
     console.error('No updated project IDs to send.');
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-
- 
-  
-
-
 
 
 
@@ -318,6 +269,7 @@ sendUpdatedProjectIdsToBackend(): void {
         this.userData = userData;
         console.log(userData); // Display user details in the console
         // You can open a popup or modal here to display user details
+        
       },
       (error) => {
         console.error(error); // Handle error if any
@@ -325,6 +277,113 @@ sendUpdatedProjectIdsToBackend(): void {
     );
   }
 
+
+
+
+
+  getUpdatedProjectIdsForStatus(): void {
+    this.userservis.getAllUpdatedProjectIds().subscribe(data => {
+      this.gettingupdatedProjectIdsforstatus = data;
+      console.log('gettingupdatedProjectIds for Status', this.gettingupdatedProjectIdsforstatus);
+    });
+
+  }
+
+
+
+//   unpublishProject(projectId: number): void {
+    
+//     console.log('Unpublishing project with ID:', projectId);
+
+    
+// }
+
+
+
+
+unpublishProject(projectId: number): void {
+  // Check if projects is defined
+  if (this.projects !== undefined) {
+      // Find the project with the matching projectId
+      const project = this.projects.find((project: any) => project.id === projectId);
+
+      // Check if project is found
+      if (project !== undefined) {
+          console.log('Unpublishing AdminSelected project with ID:', projectId);
+          console.log('getting projectIdForSend to backend' ,project.project_id);
+          
+          this.projectIdForSend = project.project_id;
+            // Pass projectIdForSend to deleteProjectById method
+        this.removeProjectsFromPublish(this.projectIdForSend);
+        window.location.reload();
+          console.log('Project Details:', project);
+          // Here you can add the logic to unpublish the project, such as sending a request to the server
+          // For example:
+          // this.userservis.unpublishProject(projectId).subscribe(response => {
+          //     // Handle response
+          //     console.log('Project unpublished successfully:', response);
+          // });
+      } else {
+          console.log('Project with ID', projectId, 'not found.');
+      }
+  } else {
+      console.log('Projects data is undefined.');
+  }
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+removeProjectsFromPublish(projectId: number): void {
+  this.userservis.removeProjectsFromPublish(projectId).subscribe(
+    (response) => {
+      console.log('Project with ID', projectId, 'project removed from publish successfully:', response);
+     
+      // Handle success response here
+    },
+    (error) => {
+      console.error('Error deleting project with ID', projectId, ':', error);
+      // Handle error response here
+    }
+  );
+}
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
   //Filter toggle
   openFilter() {
     this.filter = !this.filter;
