@@ -8,6 +8,7 @@ import { User } from '../classes/user';
 import { PostprojectService } from './postproject.service';
 
 import { AccountDelete } from '../core/models/models';
+import { SendProposal } from '../classes/send-proposal';
 
 
 export interface FileDTO {
@@ -107,40 +108,14 @@ constructor(private http:HttpClient   , private projectservice:PostprojectServic
     return this.http.post(`${this.baseurl}/upload/${email}`, formData, { responseType: 'text' as 'json' });
   }
 
-
-
   getPhoto(email: string): Observable<any> {
     return this.http.get(`${this.baseurl}/photo/${email}`, { responseType: 'blob' });
   }
-
-
-
-
-
-  
-
-  // postFormData(email: string, project: any): Observable<any> {
-  //   const url = `${this.baseurl}/addproject?email=${email}`; // Constructing the URL with the email as a query parameter
-  //   return this.http.post<any>(url, project);
-  // }
-
-
-
-
-
 
   postFormData(email: string, project: any): Observable<any> {
     const url = `${this.baseurl}/addproject/${email}`; // Constructing the URL with the email as part of the path
     return this.http.post<any>(url, project);
   }
-  
-
-
-
- 
-
-
-
 
   myUpload(projectId: number, file: File): Observable<any> {
     const formData: FormData = new FormData();
@@ -170,8 +145,7 @@ constructor(private http:HttpClient   , private projectservice:PostprojectServic
     return throwError('Something went wrong; please try again later.');
   }
 
-
-  //Delete Skills
+  //Delete Skills 
   deleteSkill(skill:string){
     return this.http.delete(`${this.baseurl}/deleteSkill/${skill}`);
   }
@@ -186,43 +160,22 @@ constructor(private http:HttpClient   , private projectservice:PostprojectServic
     return this.http.post(`${this.baseurl}/postReason/${email}`,acdlt,{responseType:'text'});
   }
 
-
-
-
   getProjectsByUserEmail(userEmail: string): Observable<PostprojectService[]> {
     const url = `${this.baseurl}/projects/${userEmail}`;
     return this.http.get<PostprojectService[]>(url);
   }
-  
-
- 
-
-  
- 
-
-
 
  getAllProjects(): Observable<any> {
     return this.http.get<any[]>(`${this.baseurl}/getallProjects`);
   }
 
-
-
-
   getAllAdminProjects():Observable<any>{
     return this.http.get<any[]>(`${this.baseurl}/getAllAdminProjects`);
   }
 
-
-
-
-
   updateAdminProjectDetails(projectId: number, updatedProject: any): Observable<any> {
     return this.http.put<any>(`${this.baseurl}/updateAdminProject/${projectId}`, updatedProject);
   }
-  
-
-
 
   getAdminProjectById(projectIds: number[]): Observable<any[]> {
     // Adjust your HTTP request to accept projectIds
@@ -232,30 +185,13 @@ constructor(private http:HttpClient   , private projectservice:PostprojectServic
     return forkJoin(requests);
   }
 
-
-
-
-
-  
-
-
   sendUpdatedProjectIdsToBackend(projectIds: number[]): Observable<string> {
     return this.http.post<string>(`${this.baseurl}/updatedprojectIds`, projectIds);
   }
 
-
-
-  
-
   getAllUpdatedProjectIds(): Observable<number[]> {
     return this.http.get<number[]>(`${this.baseurl}/gettingupdatedprojectIds`);
   }
-
-
-
-
-
-
 
   //Add Portfolio
   addPortfolio(email:string,formData:FormData): Observable<any> {
@@ -301,27 +237,48 @@ constructor(private http:HttpClient   , private projectservice:PostprojectServic
     return this.http.delete(url, { observe: 'response' });
   }
 
+  //Get Project Files
+  getProjectFilesByProjectId(id:number):Observable<any>{
+    return this.http.get(`${this.baseurl}/filesGet/${id}`);
+  }
 
+  //Post Proposal
+  postProposal(id:number,email:string,proposal:SendProposal):Observable<any>{
+    return this.http.post(`${this.baseurl}/sendProposal/${id}/${email}`,proposal);
+  }
 
+  //Get All Proposals By Email
+  getAllProposals(email:string):Observable<any>{
+    return this.http.get(`${this.baseurl}/getProposals/${email}`);
+  }
 
-  
+  //update Proposal
+  updateProposal(id:number,proposal:SendProposal):Observable<any>{
+    return this.http.put(`${this.baseurl}/updateProposal/${id}`,proposal);
+  }
 
+  //Delete Proposal
+  deleteProposal(id:number):Observable<any>{
+    return this.http.delete(`${this.baseurl}/deleteProposal/${id}`,{responseType:'text'});
+  }
+
+  //Fetch Proposal By id
+  fetchProposal(id:number):Observable<any>{
+    return this.http.get(`${this.baseurl}/getProposalById/${id}`);
+  }
+
+  //Get all Projects posted by Admin
+  getProjects():Observable<any>{
+    return this.http.get<any[]>(`${this.baseurl}/getProjectsOfAdmin`)
+  }
+
+  //Get Proposals by ProjectId
+  getProposalsByProject(id:number):Observable<any>{
+    return this.http.get<any[]>(`${this.baseurl}/getProposalsByProjectId/${id}`);
+  }
 
   getFilesByProjectId(projectId: number): Observable<FileDTO[]> {
     const url = `${this.baseurl}/filesGet/${projectId}`;
     return this.http.get<FileDTO[]>(url);
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

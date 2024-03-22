@@ -21,33 +21,37 @@
                                 <table class="table table-center table-hover mb-0 datatable">
                                     <thead>
                                         <tr>
-                                            <th mat-sort-header="id">No</th>
-                                            <th mat-sort-header="name">Name</th>
-                                            <th mat-sort-header="contact">Contact Number</th>
-                                            <th mat-sort-header="passport">CNIC / Passport / NIN / SSN
-                                            </th>
-                                            <th mat-sort-header="image">Document</th>
-                                            <th mat-sort-header="address">Address</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Proposed Price</th>
+                                            <th>Estimated Delivery</th>
+                                            <th>Cover Letter</th>
                                             <th>Action</th>
+                                        </tr>
+                                        <tr *ngIf="proposal.length === 0">
+                                            <td colspan="9">
+                                                <h5 style="text-align: center">No data found</h5>
+                                            </td>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let identity of lstIdentity; let i = index">
-                                            <td>{{identity.id}}</td>
-                                            <td>{{identity.name}}</td>
-                                            <td>{{identity.contact}}</td>
-                                            <td>{{identity.passport}}</td>
-                                            <td>
+                                        <tr *ngFor="let identity of proposal; let i = index">
+                                            <td>{{identity.user.name}}</td>
+                                            <td>{{identity.user.email}}</td>
+                                            <td>{{identity.proposedPrice}}</td>
+                                            <td>{{identity.estimatedDelivery}}</td>
+                                            <td>{{identity.coverLetter}}</td>
+                                            <!-- <td>
                                                 <h2 class="table-avatar">
                                                     <a [routerLink]="'/admin/profile'"><img class="me-2 rounded-circle"
                                                             [src]="identity.image" alt="User Image"></a>
                                                 </h2>
                                             </td>
-                                            <td>{{identity.address}}</td>
+                                            <td>{{identity.address}}</td> -->
                                             <td>
                                                 <a href="javascript:"
-                                                    class="btn btn-success btn-disable me-2">Approve</a>
-                                                <a href="javascript:" class="btn btn-disable">Reject</a>
+                                                    class="btn btn-success btn-disable me-2" href="#hire-now"  data-bs-toggle="modal">Approve</a>
+                                                <a href="javascript:" class="btn btn-danger btn-disable me-2">Reject</a>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -60,3 +64,52 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade edit-proposal-modal" id="hire-now">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Hire - {{this.name}}</h4>
+                <span class="modal-close"><a href="javascript:void(0);" data-bs-dismiss="modal" aria-label="Close"><i class="feather icon-x"></i></a></span>
+            </div>
+            <div class="modal-body">		
+                <form action="#">
+                    <div class="modal-info">
+                        <div class="row">
+                            <div class="input-block">
+                                <label for="Message" class="form-label">Message</label>
+                                <textarea class="form-control">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <label class="custom_check close-project">
+                        <input type="checkbox" name="rem_password">
+                        <span class="checkmark"></span>Close this project for other freelancers
+                    </label>
+                    <div class="submit-section text-end">
+                        <a href="javascript:void(0);" class="btn btn-cancel">Cancel</a>
+                        <a href="#success-hire" class="btn btn-primary submit-btn" data-bs-toggle="modal">Let’s Discuss</a>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /The Modal -->
+
+<!-- The Modal -->
+<div class="modal fade success-modal hire-modal" id="success-hire">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+        <div class="modal-content">
+            <div class="modal-body">	
+                <div class="success-msg-content text-center">
+                    <h4>Hired Successfully </h4>
+                    <p>Freelancer {{this.name}} has been successfully hired for the project “Project Name”, This project will be hide for Other freelancers & in future</p>
+                    <a class="btn btn-primary mt-3" data-bs-dismiss="modal">Ok</a>
+                </div>	
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /The Modal -->

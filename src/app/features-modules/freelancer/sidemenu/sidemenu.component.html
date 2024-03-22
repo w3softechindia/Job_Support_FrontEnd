@@ -1,3 +1,4 @@
+<ng-container *ngIf="userAuthenticated">
 <div class="settings-widget">
     <div class="settings-header d-sm-flex flex-row flex-wrap text-center text-sm-start align-items-center">
         <a [routerLink] = "routes.freelancer_portfolio"><img [src]="photoUrl" alt="Profile Image" class="avatar-lg rounded-circle"></a>
@@ -49,3 +50,4 @@
     </div>
     
 </div>
+</ng-container>

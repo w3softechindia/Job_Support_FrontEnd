@@ -9,7 +9,7 @@
         <div class="project-proposals align-items-center freelancer">
             <div class="proposal-info">
                 <div class="proposals-details">
-                    <h3 class="proposals-title">{{ proposal.admin_post_project.project_title }}</h3>
+                    <h3 class="proposals-title">{{ proposal.admin_post_project.project_title}}</h3>
                     <ul>
                         <li>
                             <div class="proposal-img">
@@ -35,15 +35,18 @@
                         </li>
                         <li>
                             <div class="project-amount">
-                                <h4 class="title-info">Your Price</h4>
-                                <h3>${{ proposal.proposedPrice }} <span>(in {{ proposal.estimatedDelivery }} Days)</span></h3>
+                                <h4 class="title-info">Your Price</h4> 
+                                <h3>${{ proposal.proposedPrice }} <span>(in {{ proposal.estimatedDelivery }}
+                                        Days)</span></h3>
                             </div>
                         </li>
                         <li>
                             <div class="project-action text-center">
-                                <a data-bs-toggle="modal" href="#file" class="projects-btn">Edit Proposals</a>
-                                <a [routerLink]="routes.freelancerViewProjectDetail">View Project</a>
-                                <a href="javascript:void(0);" class="proposal-delete mb-0">Delete Proposal</a>
+                                <a data-bs-toggle="modal" href="#file" (click)="openEditModal(proposal.proposal_id)"
+                                    class="projects-btn">Edit Proposals</a>
+                                <a href="javascript:void(0);" (click)="fetchProject(proposal.admin_post_project.project_id)" class="projects-btn">View Project</a>
+                                <a href="javascript:void(0);" class="proposal-delete mb-0" data-bs-toggle="modal" href="#delete"
+                                    (click)="openEditModal(proposal.proposal_id)">Cancel Proposal</a>
                             </div>
                         </li>
                     </ul>
@@ -54,7 +57,7 @@
 
  
     <!-- Proposals -->
-    <div class="freelancer-proposals">
+    <!-- <div class="freelancer-proposals">
         <div class="project-proposals align-items-center freelancer">
             <div class="proposal-info">
                 <div class="proposals-details">
@@ -102,111 +105,181 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- Proposals -->
 
 
-<!-- /Page Content -->
-<!-- The Modal -->
-<div class="modal fade edit-proposal-modal" id="file">
-    <div class="modal-dialog modal-dialog-centered modal-md">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">EDIT PROPOSAL</h4>
-                <span class="modal-close"><a href="javascript:void(0);" data-bs-dismiss="modal" aria-label="Close"><i
-                            class="feather icon-x"></i></a></span>
-            </div>
-            <div class="modal-body">
-                <form action="#">
-                    <div class="modal-info">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="input-block">
-                                    <label for="Your" class="form-label">Your Price</label>
-                                    <input type="text" class="form-control" value="$90">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="input-block">
-                                    <label for="Estimated" class="form-label">Estimated Delivery</label>
-                                    <input type="text" class="form-control" value="100">
-                                    <span class="input-group-text">Days</span>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="input-block">
-                                    <label for="cover-letter" class="form-label">Cover Letter</label>
-                                    <textarea class="form-control summernote"></textarea>
-                                </div>
-                            </div>
-                        </div>
+    <!-- /Page Content -->
+    <!-- The Modal -->
+    <div class="modal fade edit-proposal-modal" id="file">
+        <div class="modal-dialog modal-dialog-centered modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">EDIT PROPOSAL</h4>
+                    <span class="modal-close"><a href="javascript:void(0);" data-bs-dismiss="modal"
+                            aria-label="Close"><i class="feather icon-x"></i></a></span>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="proposalForm" (ngSubmit)="updateProposal()">
                         <div class="modal-info">
-                            <h4>Suggested Milestones</h4>
                             <div class="row">
-                                <div class="col-md-8">
+                                <div class="col-md-6">
                                     <div class="input-block">
-                                        <label for="Milestone " class="form-label">Milestone name</label>
-                                        <input type="text" class="form-control" value="Initial Setup">
+                                        <label for="Your" class="form-label">Your Price</label>
+                                        <input type="text" class="form-control" formControlName="proposedPrice"
+                                            id="proposedPrice">
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="input-block">
-                                        <label for="amount" class="form-label">Amount</label>
-                                        <input type="text" class="form-control" value="100">
-                                        <span class="input-group-text">$</span>
-                                        <div class="add-new text-end mt-2">
-                                            <a href="javascript:void(0);"><i
-                                                    class="feather icon-plus-circle me-1"></i>Add New</a>
-                                        </div>
+                                        <label for="Estimated" class="form-label">Estimated Delivery</label>
+                                        <input type="text" class="form-control" formControlName="estimatedDelivery"
+                                            id="estimatedDelivery">
+                                        <span class="input-group-text">Days</span>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <div class="modal-check-item">
-                                        <div>
+                                    <div class="input-block">
+                                        <label for="cover-letter" class="form-label">Cover Letter</label>
+                                        <textarea class="form-control" formControlName="coverLetter"
+                                            id="coverLetter"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-info">
+                                <h4>Suggested Milestones</h4>
+                                <div formArrayName="milestones">
+                                    <div class="row">
+                                        <div *ngFor="let milestone of milestones.controls; let i=index"
+                                            [formGroupName]="i">
+                                            <div class="row">
+                                                <div class="col-md-4 input-block">
+                                                    <label for="milestoneName{{i}}" class="form-label">Milestone
+                                                        name</label>
+                                                    <input type="text" class="form-control" placeholder="Milestone name"
+                                                        id="milestoneName{{i}}" formControlName="milestone_name">
+                                                </div>
+                                                <div class="col-md-2 input-block floating-icon">
+                                                    <label for="price{{i}}" class="form-label">Amount</label>
+                                                    <input type="number" class="form-control" placeholder="Amount"
+                                                        id="price{{i}}" formControlName="price">
+                                                    <span><i class="feather icon-dollar-sign"></i></span>
+                                                </div>
+                                                <div class="col-md-3 input-block floating-icon">
+                                                    <label for="startdate{{i}}" class="form-label">Start Date</label>
+                                                    <input type="date" class="form-control" placeholder="Choose"
+                                                        id="startdate{{i}}" formControlName="startdate">
+                                                </div>
+                                                <div class="col-md-3 input-block floating-icon">
+                                                    <label for="enddate{{i}}" class="form-label">End Date</label>
+                                                    <input type="date" class="form-control" placeholder="Choose"
+                                                        id="enddate{{i}}" formControlName="enddate">
+                                                </div>
+                                                <div class="col-md-1 align-self-end">
+                                                    <button *ngIf="milestones.length > 1" type="button"
+                                                        (click)="removeMilestone(i)"
+                                                        class="btn btn-danger">Remove</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="new-addd">
+                                                <a (click)="addMilestone()" (keydown.enter)="addMilestone()"
+                                                    tabindex="0" id="new_add1" class="add-new"><i
+                                                        class="feather icon-plus-circle "></i> Add New</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="modal-check-item">
+                                                <div>
+                                                    <label class="custom_check">
+                                                        <input type="checkbox" name="rem_password">
+                                                        <span class="checkmark"></span>Stick this Proposal to the Top
+                                                    </label>
+                                                    <p>The sticky proposal will always be displayed on top of all the
+                                                        proposals.
+                                                    </p>
+                                                </div>
+                                                <div class="price">
+                                                    <span>$12.00</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="modal-check-item bg-light-blue">
+                                                <div>
+                                                    <label class="custom_check">
+                                                        <input type="checkbox" name="rem_password">
+                                                        <span class="checkmark"></span>$ Make Sealed Proposal
+                                                    </label>
+                                                    <p>The sealed proposal will be sent to the project author only it
+                                                        will not
+                                                        be visible publically.</p>
+                                                </div>
+                                                <div class="price">
+                                                    <span>$7.00</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
                                             <label class="custom_check">
                                                 <input type="checkbox" name="rem_password">
-                                                <span class="checkmark"></span>Stick this Proposal to the Top
+                                                <span class="checkmark"></span>I agree to the terms and privacy policy
                                             </label>
-                                            <p>The sticky proposal will always be displayed on top of all the proposals.
-                                            </p>
                                         </div>
-                                        <div class="price">
-                                            <span>$12.00</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="modal-check-item bg-light-blue">
-                                        <div>
-                                            <label class="custom_check">
-                                                <input type="checkbox" name="rem_password">
-                                                <span class="checkmark"></span>$ Make Sealed Proposal
-                                            </label>
-                                            <p>The sealed proposal will be sent to the project author only it will not
-                                                be visible publically.</p>
-                                        </div>
-                                        <div class="price">
-                                            <span>$7.00</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <label class="custom_check">
-                                        <input type="checkbox" name="rem_password">
-                                        <span class="checkmark"></span>I agree to the terms and privacy policy
-                                    </label>
-                                </div>
 
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="submit-section text-end">
-                        <a href="javascript:void(0);" class="btn btn-cancel">Cancel</a>
-                        <button type="submit" class="btn btn-primary submit-btn">Save Changes</button>
-                    </div>
-                </form>
+                        <div class="submit-section text-end">
+                            <a href="javascript:void(0);" class="btn btn-cancel" data-bs-dismiss="modal"
+                                aria-label="Close">Cancel</a>
+                            <button data-bs-toggle="modal" data-bs-dismiss="modal" type="submit"
+                                class="btn btn-primary submit-btn" href="#success">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
 <!-- /The Modal -->
+<!-- The Modal -->
+<div class="modal fade custom-modal" id="success">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content proposal-modal-info">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center modal-body-content pt-0">
+                    <h5 class="modal-title">Updated Successfully</h5>
+                </div>
+                <div class="col-md-12 submit-section text-center">
+                    <a data-bs-dismiss="modal" [routerLink]="routes.freelancer_dashboard"
+                        class="btn btn-primary submit-btn">Go to
+                        Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /The Modal -->
+<div class="modal fade custom-modal" id="delete">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content proposal-modal-info">
+            <div class="modal-body">
+                <div class="text-center modal-body-content pt-0">
+                    <h5 class="modal-title">Are you sure you want to cancel the proposal?</h5>
+                </div>
+                <div class="col-md-12 submit-section text-center">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-primary submit-btn" (click)="deleteProposal()">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
