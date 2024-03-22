@@ -3,6 +3,7 @@ import { Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { Subject } from "rxjs";
+import { EmployerProjectIdsForViewProjectService } from 'src/app/Services/employer-project-ids-for-view-project.service';
 import { ShareDataService } from 'src/app/core/data/share-data.service';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { apiResultFormat, pageSelection, payment } from 'src/app/core/models/models';
@@ -32,11 +33,33 @@ export class PaymentsComponent  implements OnInit{
   public pageNumberArray: Array<number> = [];
   public pageSelection: Array<pageSelection> = [];
   public totalPages = 0;
+  projectDetails: any;
+  constructor(public data: ShareDataService,
+          public  serv:EmployerProjectIdsForViewProjectService,
+    ) {}
 
-  constructor(public data: ShareDataService) {}
+
   ngOnInit() {
     this.getTableData();
+   
   }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   private getTableData(): void {
     this.payment = [];
     this.serialNumberArray = [];

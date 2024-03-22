@@ -10,6 +10,14 @@ import { PostprojectService } from './postproject.service';
 import { AccountDelete } from '../core/models/models';
 
 
+export interface FileDTO {
+  id: number;
+  filePath: string;
+  type: string; // Assuming you have a 'type' property
+  size: number;
+}
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -57,7 +65,7 @@ constructor(private http:HttpClient   , private projectservice:PostprojectServic
     return this.http.put(`${this.baseurl}/otherInfo/${email}`,user)
   }
 
-a
+
   getUserByMail(email:string){
     return this.http.get(`${this.baseurl}/getUser/${email}`)
   }
@@ -131,10 +139,7 @@ a
 
  
 
-  postFormData(formData: any): Observable<any> {
-    const url = `${this.baseurl}/addproject`;
-    return this.http.post<any>(url, formData);
-  }
+
 
 
   myUpload(projectId: number, file: File): Observable<any> {
@@ -184,14 +189,15 @@ a
 
 
 
-
+  getProjectsByUserEmail(userEmail: string): Observable<PostprojectService[]> {
+    const url = `${this.baseurl}/projects/${userEmail}`;
+    return this.http.get<PostprojectService[]>(url);
+  }
+  
 
  
 
-  getProjectsByUserEmail(userEmail: string): Observable<PostprojectService> {
-    const url = `${this.baseurl}/projects/${userEmail}`;
-    return this.http.get<PostprojectService>(url);
-  }
+  
  
 
 
@@ -288,5 +294,34 @@ a
   getAccountStatus(email:string):Observable<any>{
     return this.http.get(`${this.baseurl}/accountStatus/${email}`,{responseType:'text'});
   }
+
+  
+  removeProjectsFromPublish(projectId: number) {
+    const url = `${this.baseurl}/removeProjectFromPublish/${projectId}`;
+    return this.http.delete(url, { observe: 'response' });
+  }
+
+
+
+
+  
+
+
+  getFilesByProjectId(projectId: number): Observable<FileDTO[]> {
+    const url = `${this.baseurl}/filesGet/${projectId}`;
+    return this.http.get<FileDTO[]>(url);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
