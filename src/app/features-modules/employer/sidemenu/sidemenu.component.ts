@@ -32,15 +32,15 @@ export class SidemenuComponent implements OnInit {
   last = '';
   currentroute = '';
   sidebar: SidebarData[] = [];
-  name!:string;
-  email: any;
+  name!: string;
+  email!: string;
   photoUrl!: string;
   isLoading!: boolean;
   constructor(
     private data: ShareDataService,
     private common: CommonService,
-      private userService:UserService,
-      private auth:AuthService,
+    private userService: UserService,
+    private auth: AuthService,
   ) {
     this.common.base.subscribe((res: string) => {
       this.base = res;
@@ -61,25 +61,29 @@ export class SidemenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.name = this.auth.getName();
-    this.email=this.auth.getEmail();
+    this.email = this.auth.getEmail();
     console.log(this.email);
     this.loadPhoto();
-}
+  }
 
-loadPhoto(): void {
-  this.userService.getPhoto(this.email).subscribe(
-    (data) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.photoUrl = reader.result as string;
-        this.isLoading = false; // Set loading to false when image is loaded
-      };
-      reader.readAsDataURL(data);
-    },
-    (error) => {
-      console.error('Error loading photo:', error);
-      this.isLoading = false; // Set loading to false on error
-    }
-  );
-}
+  loadPhoto(): void {
+    this.userService.getPhoto(this.email).subscribe(
+      (data) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.photoUrl = reader.result as string;
+          this.isLoading = false; // Set loading to false when image is loaded
+        };
+        reader.readAsDataURL(data);
+      },
+      (error) => {
+        console.error('Error loading photo:', error);
+        this.isLoading = false; // Set loading to false on error
+      }
+    );
+  }
+  
+  logout(): void {
+    this.auth.userLogout();
+  }
 }

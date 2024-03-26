@@ -25,7 +25,7 @@ export class SidemenuComponent implements OnInit{
   photo: any;
   error!: string;
   photoUrl!: string | ArrayBuffer | null;
-  userAuthenticated: boolean = false;
+  userAuthenticated = false;
   constructor(private data: ShareDataService, private common: CommonService,private auth:AuthService,private userService:UserService) {
     this.common.base.subscribe((res: string) => {
       this.base = res;

@@ -71,7 +71,7 @@ export class ProjectProposalsComponent implements OnInit {
     this.existingMilestones.forEach(mile => {
       milestonesFormArray.push(this.formBuilder.group({
         milestone_name: [mile.milestone_name, Validators.required], // Adjust the property name as per your data structure
-        price: [mile.level, Validators.required],
+        price: [mile.price, Validators.required],
         startdate:[mile.startdate, Validators.required],
         enddate:[mile.enddate, Validators.required]
       }));

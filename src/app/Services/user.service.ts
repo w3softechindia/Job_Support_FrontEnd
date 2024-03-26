@@ -36,6 +36,11 @@ constructor(private http:HttpClient   , private projectservice:PostprojectServic
     return this.http.post<any>(`${this.baseurl}/authenticate`,data);
   }
 
+  //Check If User is logged in
+  isLoggedIn(){
+    return !!localStorage.getItem('jwtToken');
+  }
+
   //User Registration
   register(user: User):Observable<any>{
     return this.http.post(`${this.baseurl}/register` , user);
@@ -191,6 +196,11 @@ constructor(private http:HttpClient   , private projectservice:PostprojectServic
 
   getAllUpdatedProjectIds(): Observable<number[]> {
     return this.http.get<number[]>(`${this.baseurl}/gettingupdatedprojectIds`);
+  }
+
+  //Get Admin Project By Id
+  getProjectByAdminProject(id:number):Observable<any>{
+    return this.http.get(`${this.baseurl}/getProjectById/${id}`);
   }
 
   //Add Portfolio
