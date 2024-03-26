@@ -210,7 +210,7 @@ export class ProjectsComponent implements OnInit {
     { value: 'Latest' },
     { value: 'Free' },
   ];
-  navigation() {
-    this.router.navigate([routes.freelancer_project]);
+  navigation(id:number) {
+    this.router.navigate(['/freelancer/project-details',id]);
   }
 }

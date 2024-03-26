@@ -72,12 +72,12 @@
 								<div class="account-onborad onboard-head">
 									<h2>Select Account Type</h2>
 									<p>Don’t worry, this can be changed later.</p>
-									<div class="select-box d-flex justify-content-center">
+									<div class="select-box d-flex justify-content-center"> 
 										<input #freelanceInput id="freelance" type="radio" name="credit-card"
 											value="Freelancer" />
 										<label class="employee-level free-lance-img accounts_type" data-id="freelance"
 											for="freelance">
-											<a (click)="onBoardFreelancer()">
+											<a (click)="onBoardFreelancer()" (keydown.enter)="onBoardFreelancer()">
 												<img src="assets/img/select-04.svg" alt="Img" class="img-fluid">
 												<span>Freelancer</span>
 											</a>
@@ -199,7 +199,7 @@
 										<div class="col-md-6">
 											<div class="input-block">
 												<label for="establishdate" class="form-label">Established On</label>
-												<input type="text" class="form-control" formControlName="establishdate"
+												<input type="date" class="form-control" formControlName="establishdate"
 													id="establishdate">
 											</div>
 										</div>
@@ -272,7 +272,7 @@
 								<h2>Other info</h2>
 								<p>Don’t worry, this can be changed later.</p>
 							</div>
-							<div class="field-item personal-info">
+							<div class="field-item personal-info">...
 								<form (ngSubmit)="otherInfo()" [formGroup]="otherInfoForm">
 									<div class="media-set">
 										<div class="row">
@@ -408,7 +408,7 @@
 											value="Back" (click)="selectedFieldSet[0] = 2"
 											(keydown.enter)="selectedFieldSet[0] = 2" />
 										<input class="btn next_btn btn-primary btn-get btn-next"
-											[routerLink]="routes.login" name="next" type="submit" value="Submit" />
+											 name="next" type="submit" value="Submit" />
 									</div>
 								</form>
 							</div>

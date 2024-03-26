@@ -221,6 +221,7 @@ export class OnboardScreenComponent implements OnInit {
     this.user=this.otherInfoForm.value;
     this.userService.otherInfo(this.user,this.email).subscribe((data)=>{
       console.log(data);
+      this.router.navigate(['/auth/login']);
     })
   }
 

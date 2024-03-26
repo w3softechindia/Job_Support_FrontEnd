@@ -1,21 +1,21 @@
 <div class="stickybar">
     <div class="settings-widget">
         <div class="settings-header d-sm-flex flex-row flex-wrap text-center text-sm-start align-items-center">
-            <a [routerLink] = "routes.freelancer_portfolio">
+            <a [routerLink]="routes.freelancer_portfolio">
                 <!-- <img alt="profile image" src="assets/img/user/avatar-1.jpg"
                     class="avatar-lg rounded-circle"> -->
-                    <div *ngIf="photoUrl">
-                        <img [src]="photoUrl" alt="Profile Image" class="avatar-lg rounded-circle">
-                    </div>
+                <div *ngIf="photoUrl">
+                    <img [src]="photoUrl" alt="Profile Image" class="avatar-lg rounded-circle">
+                </div>
 
-                    <div *ngIf="!photoUrl">
-                        <p>Loading...</p>
-                    </div>
-                </a>
+                <div *ngIf="!photoUrl">
+                    <p>Loading...</p>
+                </div>
+            </a>
             <div class="ms-sm-3 ms-md-0 ms-lg-3 mt-2 mt-sm-0 mt-md-2 mt-lg-0">
-                <h3 class="mb-0"><a [routerLink]="routes.freelancer_portfolio">Walter Griffin</a>
-                    <img
-                        src="assets/img/icon/verified-badge.svg" class="ms-1" alt="Img"></h3>
+                <h3 class="mb-0"><a [routerLink]="routes.freelancer_portfolio">{{this.name}}</a>
+                    <img src="assets/img/icon/verified-badge.svg" class="ms-1" alt="Img">
+                </h3>
                 <p class="mb-0">{{email}}</p>
             </div>
         </div>
@@ -51,6 +51,11 @@
                             </li>
                         </ng-container>
                     </ng-container>
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" class="nav-link" (click)="logout()">
+                            <img src="assets/img/icon/sidebar-icon-11.svg" alt="Img"> Logout
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
