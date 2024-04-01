@@ -7,7 +7,7 @@ import { User } from '../classes/user';
 
 import { PostprojectService } from './postproject.service';
 
-import { AccountDelete } from '../core/models/models';
+import { AccountDelete, Portfolio } from '../core/models/models';
 import { SendProposal } from '../classes/send-proposal';
 
 
@@ -218,7 +218,13 @@ constructor(private http:HttpClient   , private projectservice:PostprojectServic
 
   //Get Portfolios by Email
   getPortfolio(email:string){
-    return this.http.get(`${this.baseurl}/portfolios/${email}`)
+    return this.http.get(`${this.baseurl}/getPortfolios/${email}`)
+  }
+
+  //Get portfolio image
+  getImageUrl(portfolio: Portfolio): string {
+    // Assuming the backend returns base64 encoded image data
+    return 'data:image/jpeg;base64,' + portfolio.imageBytes;
   }
 
   //Get Portfolios by Email And Title

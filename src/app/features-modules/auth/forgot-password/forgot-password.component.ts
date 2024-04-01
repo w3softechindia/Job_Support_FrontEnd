@@ -15,6 +15,7 @@ export class ForgotPasswordComponent implements OnInit {
   user!:User;
   constructor(public router: Router,private userService:UserService) { }
   ngOnInit(): void {
+    
   }
 
   // loginFormSubmit(){
