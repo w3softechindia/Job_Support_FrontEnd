@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Validators } from 'ngx-editor';
@@ -12,8 +12,8 @@ import { AuthService } from 'src/app/core/services/auth/auth.service';
   templateUrl: './portfolio.component.html',
   styleUrls: ['./portfolio.component.scss'],
 })
-export class PortfolioComponent {
-  title:string=''
+export class PortfolioComponent implements OnInit {
+  title!:string;
   portfolios: Portfolio[] = [];
   selectedPortfolio!: Portfolio;
 
@@ -52,7 +52,7 @@ export class PortfolioComponent {
     this.userService.addPortfolio(this.email, formData).subscribe(
       response => {
         console.log('Portfolio added successfully:', response);
-        this.router.navigate([routes.freelancer_dashboard]);
+        this.router.navigate(['/freelancer/dashboards']);
       },
       error => {
         console.error('Error adding portfolio:', error);
@@ -130,5 +130,9 @@ export class PortfolioComponent {
     } else {
       console.error('No file selected.');
     }
+  }
+
+  getImageUrl(photoPath: any): string {
+    return 'http://localhost:8080/' + photoPath; // Update with your actual backend image URL
   }
 }

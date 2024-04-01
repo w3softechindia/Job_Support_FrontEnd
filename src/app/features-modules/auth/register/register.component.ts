@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit {
     this.registrationform = this.formbuilder.group({
       name: ['', [Validators.required, Validators.minLength(4)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
+      password: ['', [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/)]],
       terms: [false, Validators.requiredTrue]
     })
   }
@@ -45,10 +45,10 @@ export class RegisterComponent implements OnInit {
     })
   }
 
-  public password: boolean[] = [true];
+  public hidePassword: boolean[] = [true];
 
   public togglePassword(index: number) {
-    this.password[index] = !this.password[index];
+    this.hidePassword[index] = !this.hidePassword[index];
   }
 
   onModalShown(): void {
@@ -59,4 +59,23 @@ export class RegisterComponent implements OnInit {
       this.router.navigate(['/pages/otp', this.email]);
     }, 7000); // 7 seconds
   }
+
+  validatePassword() {
+    const passwordControl = this.registrationform.get('password');
+    if (passwordControl) {
+      if (passwordControl.dirty || passwordControl.touched) {
+        passwordControl.updateValueAndValidity();
+      }
+    }
+  }
+
+  validateEmail() {
+    const emailControl = this.registrationform.get('email');
+    if (emailControl) {
+      if (emailControl.dirty || emailControl.touched) {
+        emailControl.updateValueAndValidity();
+      }
+    }
+  }
+
 }

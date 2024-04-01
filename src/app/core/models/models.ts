@@ -415,6 +415,7 @@ export class Portfolio{
   title!:string;
   link!:string;
   photo_path!:File;
+  imageBytes!: string;
 }
 export interface Milestone{
   milestoneName:string;

@@ -16,12 +16,14 @@
                                         <label for="name" class="focus-label">User Name <span class="label-star"> *</span></label>
                                         <input type="text" class="form-control floating" formControlName="name" id="name">
                                         <div *ngIf="registrationform.get('name')?.invalid && (registrationform.get('name')?.dirty || registrationform.get('name')?.touched)">
-                                            <div *ngIf="registrationform.get('name')?.hasError('required')" style="color: red;">Username is required</div>
+                                          <div *ngIf="registrationform.get('name')?.hasError('required')" style="color: red;">Username is required</div>
+                                          <div *ngIf="registrationform.get('name')?.hasError('minlength')" style="color: red;">Username must be at least 4 characters long</div>
                                         </div>
-                                    </div>
+                                      </div>
+                                      
                                     <div class="input-block">
                                         <label for="email" class="focus-label">Email Address<span class="label-star"> *</span></label>
-                                        <input type="email" class="form-control floating" formControlName="email" id="email">
+                                        <input type="email" class="form-control floating" formControlName="email" id="email" (keyup)="validateEmail()">
                                         <div *ngIf="registrationform.get('email')?.invalid && (registrationform.get('email')?.dirty || registrationform.get('email')?.touched)">
                                             <div *ngIf="registrationform.get('email')?.hasError('required')" style="color: red;">Email is required</div>
                                             <div *ngIf="registrationform.get('email')?.hasError('email')" style="color: red;">Invalid email format</div>
@@ -30,15 +32,18 @@
                                     <div class="input-block">
                                         <label for="password" class="focus-label">Password <span class="label-star"> *</span></label>
                                         <div class="position-relative">
-                                            <input [type]="password[1] ? 'text' : 'password'" class="form-control floating pass-input" formControlName="password" id="password">
+                                            <input [type]="hidePassword[1] ? 'text' : 'password'" type="password" class="form-control floating pass-input" formControlName="password" id="password" (keyup)="validatePassword()">
                                             <div class="password-icon" (click)="togglePassword(1)" (keydown.enter)="togglePassword(1)" tabindex="0">
-                                                <span class="fas toggle-password" [ngClass]="password[1] ? 'fa-eye' : 'fa-eye-slash'"></span>
+                                                <span class="fas toggle-password" [ngClass]="hidePassword[1] ? 'fa-eye' : 'fa-eye-slash'"></span>
                                             </div>
                                         </div>
                                         <div *ngIf="registrationform.get('password')?.invalid && (registrationform.get('password')?.dirty || registrationform.get('password')?.touched)">
                                             <div *ngIf="registrationform.get('password')?.hasError('required')" style="color: red;">Password is required</div>
+                                            <div *ngIf="registrationform.get('password')?.hasError('minlength')" style="color: red;">Password must be at least 8 characters long</div>
+                                            <div *ngIf="registrationform.get('password')?.hasError('pattern')" style="color: red;">Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character</div>
                                         </div>
-                                    </div>	
+                                    </div>
+                                    
                                     <div class="dont-have">
                                         <label class="custom_check">
                                             <input type="checkbox" formControlName="terms" name="rem_password">

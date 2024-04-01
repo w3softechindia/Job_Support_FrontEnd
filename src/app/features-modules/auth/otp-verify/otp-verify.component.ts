@@ -20,8 +20,8 @@ export class OtpVerifyComponent implements OnInit {
     data3: "",
     data4: "",
   };
-  remainingTime: number = 60;
-  otpValue: string = '';
+  remainingTime = 60;
+  otpValue = '';
   result!:boolean;
 
   // Method to concatenate OTP digits
