@@ -11,19 +11,24 @@
                         <div class="col-lg-12">
                             <div class="form-row pro-pad pt-0 ps-0">
                                 <div class="input-block col-md-6 pro-pic">
+                                    <h4 class="mb-3">Personal Information</h4>
                                     <label for="profile-picture" class="form-label">Profile Picture</label>
                                     <div class="d-flex align-items-center">
-                                        <div class="upload-images freelancer-pic-box">
-                                            <img src="assets/img/icon/user-img.svg" alt="" id="blah">
+                                        <div class="upload-images">
+                                            <img src="assets/img/img-02.jpg" alt="Image" id="blah">
                                         </div>
-                                        <div class="ms-3 freelancer-pic-upload">
-                                            <label class="file-upload image-upbtn">
-                                                <i class="feather icon-upload me-2"></i>Upload Photo
-                                                <input type="file" (change)="onFileSelected($event)" accept="image/*" />
+                                        <div class="ms-3">
+                                            <label class="file-upload image-upbtn ms-0">
+                                                Upload Image <input type="file" id="imgInp"
+                                                    (change)="onFileSelected($event)">
+
+
                                             </label>
                                             <p>Max Image size 300*300</p>
                                         </div>
+
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -118,7 +123,7 @@
                                                 class="far fa-trash-alt"></i></a>
                                     </div>
                                 </div>
-                            </div>  
+                            </div>
                             <div id="certi_add_row" class=" w-100">
                                 <a href="javascript:void(0);" (click)="addSkill()" (keydown.enter)="addSkill()"
                                     tabindex="0" class="btn fund-btn skill-add add-btn-profile"><i
@@ -186,13 +191,13 @@
                                     <div class="input-block col-lg-4">
                                         <label for="certification{{i}}" class="focus-label">Certification or
                                             Award</label>
-                                        <input type="text" class="form-control" id="certification{{i}}" formControlName="certification"
-                                             placeholder="Enter Name"/>
+                                        <input type="text" class="form-control" id="certification{{i}}"
+                                            formControlName="certification" placeholder="Enter Name" />
                                     </div>
                                     <div class="input-block col-lg-4">
                                         <label for="certifiedfrom{{i}}" class="focus-label">Certified from</label>
                                         <input type="text" class="form-control" id="certifiedfrom{{i}}"
-                                            formControlName="certifiedfrom" placeholder="Certified From"/>
+                                            formControlName="certifiedfrom" placeholder="Certified From" />
                                     </div>
                                     <div class="col-lg-3 input-block floating-icon">
                                         <label for="year{{i}}" class="focus-label">Year</label>
@@ -370,8 +375,8 @@
             <div class="card text-end border-0">
                 <div class="pro-body">
                     <button class="btn btn-secondary click-btn btn-plan">Cancel</button>
-                    <button href="#updated" data-bs-toggle="modal" class="btn btn-primary click-btn btn-plan" type="submit"
-                        (keydown.enter)="navigation()" tabindex="0">Update</button>
+                    <button href="#updated" data-bs-toggle="modal" class="btn btn-primary click-btn btn-plan"
+                        type="submit" (keydown.enter)="navigation()" tabindex="0">Update</button>
                 </div>
             </div>
         </form>
@@ -385,7 +390,8 @@
                 <div class="success-msg-content text-center">
                     <h4>Details Updated SuccessFully..!!!</h4>
                     <p>Resume Your Operations....</p>
-                    <a href="javascript:void(0);" data-bs-dismiss="modal" class="btn btn-primary mt-3" (click)="navigation()">Okay</a>
+                    <a href="javascript:void(0);" data-bs-dismiss="modal" class="btn btn-primary mt-3"
+                        (click)="navigation()">Okay</a>
                 </div>
             </div>
         </div>

@@ -65,22 +65,32 @@
 
 
 
-        
-        <table>
+
+
+         
+        <!-- main -->
+        <table class="file-table">
           <thead>
             <tr>
               <th>File Name</th>
-              <th>File Size</th>
-              <th>File Type</th>
+              <th>Download</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let file of fileList">
-              <td>{{ file. filePath}}</td>
-              
+              <td>{{ file.fileName }}</td>
+              <td>
+                <button class="download-button" (click)="downloadFile(file.filePath)">
+                  &#9660; <!-- Downward arrow Unicode character -->
+                </button>
+              </td>
             </tr>
           </tbody>
         </table>
+        
+        
+        
+       
         
 
 

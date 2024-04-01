@@ -1,33 +1,51 @@
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
 <div class="dashboard-sec payout-section freelancer-statements">
     <div class="page-title portfolio-title">
         <h3 class="mb-0">Delete Account</h3>
     </div>
     <div class="row">
-        
-        <div class="col-md-12">
-            <div class="input-block">
-                <label for="details"  class="focus-label">Please Explain Further <span class="label-star"> *</span></label>
-                <textarea class="form-control" rows="5"></textarea>
+        <form (ngSubmit)="submitDeletion()">
+            <div class="col-md-12">
+                <div class="input-block">
+                    <label for="reason" class="focus-label">Please Explain Further <span class="label-star">
+                            *</span></label>
+                    <textarea class="form-control" rows="5" [(ngModel)]="delete.reason"
+                        [ngModelOptions]="{standalone:true}" id="reason"></textarea>
+                </div>
             </div>
-        </div>
-        <div class="col-lg-12">
-            <div class="input-block">
-                <label for="password" class="focus-label">Password <span class="label-star"> *</span></label>
-                <div class="position-relative">
-                    <input [type]="password[1] ? 'text' : 'password'" class="form-control floating pass-input">
-                    <div class="password-icon" (click)="togglePassword(1)" (keydown.enter)="togglePassword(1)" tabindex="0">
-                        <span class="fas toggle-password" [ngClass]="password[1] ? 'fa-eye' : 'fa-eye-slash'"></span>
+            <div class="col-lg-12">
+                <div class="input-block">
+                    <label for="password" class="focus-label">Password <span class="label-star">*</span></label>
+                    <div class="position-relative">
+                      <input [type]="passwordVisible ? 'text' : 'password'" class="form-control floating pass-input1"
+                             [(ngModel)]="delete.password" id="password" name="password" [ngModelOptions]="{standalone:true}">
+                      <div class="password-icon" (click)="togglePassword()" tabindex="0">
+                        <span class="fas toggle-password1" [ngClass]="passwordVisible ? 'fa-eye' : 'fa-eye-slash'"></span>
+                      </div>
                     </div>
+                  </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="d-flex doc-btn">
+                    <button href="javascript:void(0);" class="btn btn-gray"
+                        [routerLink]="['/freelancer_dashboard']">Cancel</button>
+                    <button data-bs-toggle="modal" data-bs-target="#account-delete" class="btn btn-primary" type="submit">Delete Account</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal fade success-modal hire-modal" id="account-delete">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+        <div class="modal-content">
+            <div class="modal-body pt-4">
+                <div class="success-msg-content text-center">
+                    <h4>{{modalMessage1}}</h4>
+                    <p>{{modalMessage2}}</p>
+                    <a href="javascript:void(0);" data-bs-dismiss="modal" class="btn btn-primary mt-3" (click)="navigation()">Okay</a>
                 </div>
             </div>
         </div>
-        
-        <div class="col-lg-12">
-            <div class="d-flex doc-btn">
-                <a href="javascript:void(0);" class="btn btn-gray">Cancel</a>
-                <a href="javascript:void(0);" class="btn btn-primary">Delete Account</a>
-            </div>
-        </div>
     </div>
-    
 </div>	
