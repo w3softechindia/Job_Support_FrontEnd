@@ -18,9 +18,9 @@ export class FreelancersComponent implements OnInit {
   public str2!: string;
   public str!: string;
   public filter = false;
-  totalCount: number = 0;
-  role: string = "Freelancer";
-  countType: string = '';
+  totalCount = 0;
+  role = "Freelancer";
+  countType = '';
 
   constructor(private common: CommonService, public router: Router, private adminService: AdminService) {
     this.common.base.subscribe((res: string) => {

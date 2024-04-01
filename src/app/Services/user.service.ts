@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -12,11 +14,13 @@ import { SendProposal } from '../classes/send-proposal';
 
 
 export interface FileDTO {
-  id: number;
-  filePath: string;
-  type: string; // Assuming you have a 'type' property
-  size: number;
-}
+  file_path: any;
+    id: number;
+    filePath: string;
+    type: string; // Assuming you have a 'type' property
+    size: number;
+    fileName: string; // New property to store the file name
+  }
 
 
 @Injectable({
@@ -27,7 +31,7 @@ export class UserService {
     throw new Error('Method not implemented.');
   }
 
-constructor(private http:HttpClient   , private projectservice:PostprojectService){}
+constructor(private http:HttpClient){}
 
   private baseurl="http://localhost:8080";
 
@@ -293,8 +297,22 @@ constructor(private http:HttpClient   , private projectservice:PostprojectServic
     return this.http.get<any[]>(`${this.baseurl}/getProposalsByProjectId/${id}`);
   }
 
+  //Get project files by Project Id
   getFilesByProjectId(projectId: number): Observable<FileDTO[]> {
     const url = `${this.baseurl}/filesGet/${projectId}`;
     return this.http.get<FileDTO[]>(url);
   }
+
+  //Update Employer Profile Settings
+  updateInfoForEmployeerDashBoard(email: string, user: User): Observable<User> {
+    const url = `${this.baseurl}/updateInfoForEmployeerDashBoard/${email}`;
+    return this.http.put<User>(url, user);
+  }
+
+  //Update profile Pic
+  updatePhoto(email: string, photo: File): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('photo', photo, photo.name);
+    return this.http.put(`${this.baseurl}/photoUpdate/${email}`,formData);
+  }
 }

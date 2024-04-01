@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
@@ -247,7 +248,7 @@ export class ProfileSettingsComponent implements OnInit {
   }
   removeCertification(index: number) {
     const certificationFormArray = this.profileForm.get('certification') as FormArray;
-    certificationFormArray.removeAt(index);;
+    certificationFormArray.removeAt(index);
   }
 
   addExperience() {
@@ -393,22 +394,27 @@ export class ProfileSettingsComponent implements OnInit {
     { "value": "Native" }
   ];
   navigation() {
-    this.router.navigate([routes.freelancer_dashboard])
+    location.reload();
+  }
+
+  updatePhoto(email: string, photo: File) {
+    this.userService.updatePhoto(email, photo).subscribe(
+      response => {
+        console.log('Photo updated successfully:', response);
+        // Handle success response here
+      },
+      error => {
+        console.error('Error updating photo:', error);
+        // Handle error response here
+      }
+    );
   }
 
   onFileSelected(event: any) {
+    const email = this.auth.getEmail();
     const file: File = event.target.files[0];
     if (file) {
-      this.userService.uploadFile(this.email, file).subscribe(
-        response => {
-          console.log(response); // Log the response
-          alert(response); // Display the response message
-        },
-        error => {
-          console.error(error); // Handle error response
-          // Optionally, you can show an error message to the user
-        }
-      );
+      this.updatePhoto(email, file);
     }
   }
 

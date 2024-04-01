@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnInit } from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -6,7 +8,6 @@ import { FileDTO, UserService } from 'src/app/Services/user.service';
 import { ShareDataService } from 'src/app/core/data/share-data.service';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { apiResultFormat,  files, pageSelection } from 'src/app/core/models/models';
-
 @Component({
   selector: 'app-files',
   templateUrl: './files.component.html',
@@ -44,87 +45,66 @@ export class FilesComponent  implements OnInit{
     private projectIdService: EmployerProjectIdsForViewProjectService,
     private userserv:UserService
     ) {}
-
-
     
-
-
+    ngOnInit() {
+      // Check if project data exists in local storage
+      const storedProjectData = localStorage.getItem('projectData');
   
-  ngOnInit() {
-    this.getTableData();
-    // Subscribe to changes in the selected project
-    this.projectIdService.getSelectedProject().subscribe((project: { id: number | null | undefined; details: any; }) => {
-      this.projectId = project.id;
-      this.projectDetails = project.details; // Store project details
-      const numberOfFiles = this.projectDetails.number_of_files;
-                
-      console.log('Project ID received in Files Component:', this.projectId);
-      console.log('Project details received in Files Component:', this.projectDetails);
-      console.log('Numberoffiles' , numberOfFiles);
-     
-
-
-
+      if (storedProjectData) {
+        const parsedData = JSON.parse(storedProjectData);
+        this.projectId = parsedData.id;
+        this.projectDetails = parsedData.details;
+      }
+  
+      // Subscribe to changes in the selected project
+      this.projectIdService.getSelectedProject().subscribe((project: { id: number | null | undefined; details: any; }) => {
+        this.projectId = project.id;
+        this.projectDetails = project.details;
+  
+        // Store project data in local storage
+        localStorage.setItem('projectData', JSON.stringify({ id: this.projectId, details: this.projectDetails }));
+  
+        // Fetch files if projectId exists
+        if (this.projectId) {
+          this.userserv.getFilesByProjectId(this.projectId).subscribe(files => {
+            // Map files to FileDTO
+            this.fileList = files.map(file => ({
+              id: file.id,
+              file_path: file.file_path,
+              filePath: file.file_path,
+              type: file.type,
+              size: file.size,
+              fileName: this.extractFileName(file.file_path)
+            }));
+          });
+        }
+      });
+  
+      // Fetch files if projectId exists
       if (this.projectId) {
         this.userserv.getFilesByProjectId(this.projectId).subscribe(files => {
-          this.fileList = files;
+          // Map files to FileDTO
+          this.fileList = files.map(file => ({
+            id: file.id,
+            file_path: file.file_path,
+            filePath: file.file_path,
+            type: file.type,
+            size: file.size,
+            fileName: this.extractFileName(file.file_path)
+          }));
         });
       }
- 
-     
-
-
-   
-      
-    });
-
-    
-  }
-
-
- 
-
-
+    }
   
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    extractFileName(filePath: string): string {
+      const parts = filePath.split(/[\\/]/);
+      return parts[parts.length - 1];
+    }
+  
+    downloadFile(filePath: string) {
+      console.log('Attempting to download file:', filePath);
+      console.log('Right-click on the file link and choose "Save link as..." to download the file.');
+    }
 
   private getTableData(): void {
     this.files = [];

@@ -1,7 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/Services/user.service';
+import { User } from 'src/app/classes/user';
 import { routes } from 'src/app/core/helpers/routes/routes';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 interface data {
   value: string;
 }
@@ -11,6 +15,104 @@ interface data {
   styleUrls: ['./basic-settings.component.scss']
 })
 export class BasicSettingsComponent  {
+  user: User = new User(); // Initialize user object
+  formData: any = {}; // Initialize an empty object to hold form data
+ 
+  constructor(private router: Router,
+    private datePipe: DatePipe,
+    private userService: UserService,
+    private aut:AuthService) {}
+    updatePhoto(email: string, photo: File) {
+      this.userService.updatePhoto(email, photo).subscribe(
+        response => {
+          console.log('Photo updated successfully:', response);
+          // Handle success response here
+        },
+        error => {
+          console.error('Error updating photo:', error);
+          // Handle error response here
+        }
+      );
+    }
+  
+    onFileSelected(event: any) {
+      const email = this.aut.getEmail();
+      const file: File = event.target.files[0];
+      if (file) {
+        this.updatePhoto(email, file);
+      }
+    }
+  
+    // submitForm() {
+    //   // Add your form submission logic here
+    //   console.log('Form submitted');
+    //   const email = this.aut.getEmail(); // Assuming email is already set in the user object
+    //   this.userService.personalInfo(this.user, email).subscribe(
+    //     response => {
+    //       console.log('Personal info updated successfully:', response);
+    //       // Handle success response here
+    //     },
+    //     error => {
+    //       console.error('Error updating personal info:', error);
+    //       // Handle error response here
+    //     }
+    //   );
+    
+    // }
+
+    // submitForm() {
+    //   // Add your form submission logic here
+    //   console.log('Form submitted');
+      
+    //   const email = this.aut.getEmail(); // Assuming email is already set in the user object
+      
+    //   // Update personal info
+    //   this.userService.personalInfo(this.user, email).subscribe(
+    //     personalInfoResponse => {
+    //       console.log('Personal info updated successfully:', personalInfoResponse);
+    //       // Handle personal info update success response here
+          
+    //       // Update employer info
+    //       this.userService.employerInfo(email, this.user).subscribe(
+    //         employerInfoResponse => {
+    //           console.log('Employer info updated successfully:', employerInfoResponse);
+    //           // Handle employer info update success response here
+    //         },
+    //         employerInfoError => {
+    //           console.error('Error updating employer info:', employerInfoError);
+    //           // Handle error updating employer info here
+    //         }
+    //       );
+    //     },
+    //     personalInfoError => {
+    //       console.error('Error updating personal info:', personalInfoError);
+    //       // Handle error updating personal info here
+    //     }
+    //   );
+    // }
+    
+    submitForm() {
+      // Assuming aut is an instance of AuthenticationService to get the email
+      const email = this.aut.getEmail(); 
+    
+      // Call the UserService to update employer dashboard information
+      this.userService.updateInfoForEmployeerDashBoard(email, this.user)
+        .subscribe(
+          updatedUser => {
+            console.log('User updated:', updatedUser);
+            // Handle success scenario, if needed
+          },
+          error => {
+            console.error('Error occurred:', error);
+            // Handle error scenario, if needed
+          }
+        );
+    }
+
+    navigation() {
+      location.reload();
+    }
+
   public selectedValue1 = '';
   public selectedValue2 = '';
   public selectedValue3 = '';
@@ -43,10 +145,7 @@ export class BasicSettingsComponent  {
     this.showCheckoutHour = !this.showCheckoutHour;
   }
   public isCheckboxChecked = true;
-  constructor(private router: Router,private datePipe: DatePipe) {}
-  ngsubmit(){
-    this.router.navigate([routes.projectconfirmation])
-  }
+ 
   showTimePicker: Array<string> = [];
 
   public hoursArray1 = [0];
