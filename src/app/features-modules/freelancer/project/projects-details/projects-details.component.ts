@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnInit } from '@angular/core';
 import { Validators, Editor, Toolbar } from 'ngx-editor';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserService } from 'src/app/Services/user.service';
+import { FileDTO, UserService } from 'src/app/Services/user.service';
 import { SendProposal } from 'src/app/classes/send-proposal';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 @Component({
@@ -47,7 +48,7 @@ export class ProjectsDetailsComponent implements OnInit {
     estimatedDelivery: new FormControl(''),
     coverLetter: new FormControl('')
   })
-
+  fileList:FileDTO[]=[];
   constructor(
     private router: Router,
     private userService: UserService,
@@ -186,9 +187,26 @@ export class ProjectsDetailsComponent implements OnInit {
   }
 
   getProjectFiles() {
-    this.userService.getProjectFilesByProjectId(this.id).subscribe((attach: any) => {
-      this.attachments = attach;
-    })
+    // this.userService.getFilesByProjectId(this.projectId).subscribe((attach: any) => {
+    //   this.attachments = attach;
+    // })
+    if (this.projectId) {
+      this.userService.getFilesByProjectId(this.projectId).subscribe(files => {
+        // Map files to FileDTO
+        this.fileList = files.map(file => ({
+          id: file.id,
+          file_path: file.file_path,
+          filePath: file.file_path,
+          type: file.type,
+          size: file.size,
+          fileName: this.extractFileName(file.file_path)
+        }));
+      });
+    }
+  }
+  extractFileName(filePath: string): string {
+    const parts = filePath.split(/[\\/]/);
+    return parts[parts.length - 1];
   }
 
   sendProposal(){

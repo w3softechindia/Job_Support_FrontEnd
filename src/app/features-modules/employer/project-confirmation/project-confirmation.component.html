@@ -37,9 +37,9 @@
                                 <div class="projecthead">
                                     <h5>{{formData.projectTitle}}</h5>
                                     <ul>
-                                        <li>
+                                        <!-- <li>
                                             <a href="#"><i class="feather icon-edit me-2"></i>Edit this job</a>
-                                        </li>
+                                        </li> -->
                                         <li>
                                             <!-- <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#post-sucess">Post a Job</a> -->
                                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#post-sucess" (click)="postFormData()">Post a Project</button>
@@ -192,7 +192,7 @@
                     <img src="assets/img/icon/check1.svg" alt="check1">
                     <h4>Project Posted Successfully</h4>
                     <h5>You can now access your project on your dashboard</h5>
-                    <a [routerLink] = "routes.home"><i class="feather icon-arrow-left me-2"></i>Back to Dashboard</a>
+                    <a (click)="navigation()"><i class="feather icon-arrow-left me-2"></i>Back to Dashboard</a>
                 </div>
             </div>
         </div>

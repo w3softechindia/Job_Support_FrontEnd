@@ -31,7 +31,7 @@ export class HomeFiveHeaderComponent {
         this.base = data.url.split('/')[1];
       }
     });
-    this.navbar = this.data.sideBar;
+    this.navbar = this.data.freelancerNavBar;
   }
   public toggleSidebar(): void {
     this.navservices.openSidebar();

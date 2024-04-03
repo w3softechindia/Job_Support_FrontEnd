@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-inferrable-types */
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/Services/user.service';
@@ -13,10 +15,11 @@ import { AuthService } from 'src/app/core/services/auth/auth.service';
 
 export class LoginComponent{
 
-togglePassword(arg0: number) {
-throw new Error('Method not implemented.');
-}
   public password: boolean[] = [true];
+
+  public togglePassword(index: number) {
+    this.password[index] = !this.password[index];
+  }
   public routes = routes
   public Toggledata = true;
 
@@ -26,6 +29,7 @@ throw new Error('Method not implemented.');
   }
 
   email!:string;
+  valid:boolean=true;
 
   constructor(
     private userService:UserService,private auth:AuthService,private router:Router) {
@@ -52,7 +56,6 @@ throw new Error('Method not implemented.');
          this.router.navigate(['/employer/dashboard']);
         }else{
           alert('Invalid Credentials..!!')
-
         }
       } else {
         alert('Your Account is not Verified..!!!');

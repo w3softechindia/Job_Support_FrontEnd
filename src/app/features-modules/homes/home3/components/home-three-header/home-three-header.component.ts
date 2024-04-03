@@ -39,7 +39,7 @@ export class HomeThreeHeaderComponent {
     this.common.last.subscribe((res: string) => {
       this.last = res;
     });
-    this.navbar = this.data.sideBar;
+    this.navbar = this.data.freelancerNavBar;
   }
   public toggleSidebar(): void {
     this.navservices.openSidebar();

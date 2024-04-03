@@ -36,7 +36,7 @@ export class HomeFourHeaderComponent {
     this.common.last.subscribe((res: string) => {
       this.last = res;
     });
-    this.navbar = this.data.sideBar;
+    this.navbar = this.data.employerNavBar;
   }
   public toggleSidebar(): void {
     this.navservices.openSidebar();

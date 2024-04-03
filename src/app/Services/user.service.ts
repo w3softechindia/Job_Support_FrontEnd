@@ -1,3 +1,5 @@
+
+/* eslint-disable no-irregular-whitespace */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
@@ -33,7 +35,7 @@ export class UserService {
 
 constructor(private http:HttpClient){}
 
-  private baseurl="http://localhost:8080";
+  private baseurl="http://jobsupport4u.us-east-1.elasticbeanstalk.com";
 
   //Authentication
   login(data:any){
