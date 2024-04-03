@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Admin } from '../classes/admin';
 import { Observable } from 'rxjs';
-import { User } from '../classes/user';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class AdminService {
 
   constructor(private http:HttpClient) { }
 
-  private baseurl="http://localhost:8080";
+  private baseurl="http://jobsupport4u.us-east-1.elasticbeanstalk.com";
 
   //Login
   adminlogin(email:string,password:string,admin:Admin){

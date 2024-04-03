@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+/* eslint-disable @angular-eslint/use-lifecycle-interface */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/Services/user.service';
@@ -12,7 +14,7 @@ interface data {
   templateUrl: './onboard-employer.component.html',
   styleUrls: ['./onboard-employer.component.scss']
 })
-export class OnboardEmployerComponent {
+export class OnboardEmployerComponent implements OnInit{
 
   email!: string;
   selectedRole!: string;

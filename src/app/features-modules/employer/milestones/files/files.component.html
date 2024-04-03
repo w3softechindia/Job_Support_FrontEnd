@@ -1,3 +1,5 @@
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
 <nav class="user-tabs mb-4">
   <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
     <li class="nav-item">
@@ -80,9 +82,12 @@
             <tr *ngFor="let file of fileList">
               <td>{{ file.fileName }}</td>
               <td>
-                <button class="download-button" (click)="downloadFile(file.filePath)">
-                  &#9660; <!-- Downward arrow Unicode character -->
-                </button>
+                <!-- <button class="download-button" (click)="downloadFile(file.filePath)">
+                  &#9660;
+                </button> -->
+                <a (click)="downloadFile(file.filePath)" class="file-download-btn" download>
+									<i class="feather icon-download"></i>
+								</a>
               </td>
             </tr>
           </tbody>

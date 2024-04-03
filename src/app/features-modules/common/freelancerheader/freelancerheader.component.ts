@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { UserService } from 'src/app/Services/user.service';
@@ -48,7 +50,7 @@ export class FreelancerheaderComponent implements OnInit{
         this.getRoutes(this.router);
       }
     });
-    this.navbar = this.data.sideBar;
+    this.navbar = this.data.freelancerNavBar;
   }
   ngOnInit(): void {
     this.name=this.auth.getName();

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PostprojectService } from 'src/app/Services/postproject.service';
@@ -100,18 +101,8 @@ export class ProjectConfirmationComponent implements OnInit {
       // Assign fixed rate to formData
       this.setFormDataProperty('budget_amount', this.projectservice.fixed_rate);
     }
-
-
     console.log(this.formData);
-
-       
-   
-
   }
-
-
-
-  
 
   setFormDataProperty(propertyName: string, propertyValue: any) {
     // Check if formData is initialized and define property dynamically
@@ -165,21 +156,6 @@ export class ProjectConfirmationComponent implements OnInit {
     );
   }
   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
   sendFiles(projectId: number, files: File[]) {
     // Iterate over each file and upload it
     files.forEach(file => {
@@ -198,18 +174,6 @@ export class ProjectConfirmationComponent implements OnInit {
     });
   }
   
-  
-
-
-
-
-
-
-
-
-
-
-
   getfiles() {
     try {
       this.files = this.projectservice.getAttachments();
@@ -221,9 +185,7 @@ export class ProjectConfirmationComponent implements OnInit {
     }
   }
 
-
-
- 
-
- 
+  navigation(){
+    this.router.navigate(['/employer/dashboard'])
+  }
 }

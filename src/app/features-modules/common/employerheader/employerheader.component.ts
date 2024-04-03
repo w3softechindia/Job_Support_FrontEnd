@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/Services/user.service';
 import { ShareDataService } from 'src/app/core/data/share-data.service';
 import { routes } from 'src/app/core/helpers/routes/routes';
@@ -48,7 +49,7 @@ export class EmployerheaderComponent implements OnInit{
     this.common.last.subscribe((res: string) => {
       this.last = res;
     });
-    this.navbar = this.data.sideBar;
+    this.navbar = this.data.employerNavBar;
   }
 
   employer() {

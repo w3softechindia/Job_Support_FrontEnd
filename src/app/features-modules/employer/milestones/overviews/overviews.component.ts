@@ -13,8 +13,6 @@ export class OverviewsComponent implements OnInit  {
   getLink = "Ongoing"
   
   public routes = routes
-
-
   projectDetails: any;
 
   projectId: number | null | undefined; // Change type to accept null
