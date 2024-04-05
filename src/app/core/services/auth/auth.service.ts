@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
@@ -66,5 +67,9 @@ export class AuthService {
   
   public setRoles(role:string) {
     localStorage.setItem('role', role);
+  }
+
+  public getRole():any{
+    return localStorage.getItem('role');
   }
 }

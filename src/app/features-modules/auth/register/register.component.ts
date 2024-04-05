@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+/* eslint-disable @angular-eslint/use-lifecycle-interface */
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -13,6 +14,7 @@ import { routes } from 'src/app/core/helpers/routes/routes';
 })
 export class RegisterComponent implements OnInit {
 
+  @ViewChild('otpModal') otpModal!: ElementRef; // Reference to the modal element
   public routes = routes;
 
   registrationform: FormGroup = new FormGroup({
@@ -23,6 +25,7 @@ export class RegisterComponent implements OnInit {
 
   user: User = new User();
   email!: string;
+  timerDisplay!: number;
   constructor(public router: Router, private service: UserService, private formbuilder: FormBuilder) { }
 
   ngOnInit(): void {
@@ -51,15 +54,24 @@ export class RegisterComponent implements OnInit {
     this.hidePassword[index] = !this.hidePassword[index];
   }
 
+  // onModalShown(): void {
+  //   this.user = this.registrationform.value;
+  //   this.email = this.user.email;
+  //   setTimeout(() => {
+  //     // Redirect to another page after 7 seconds
+  //     this.router.navigate(['/pages/otp', this.email]);
+  //   }, 7000); // 7 seconds
+  // }
+
   onModalShown(): void {
     this.user = this.registrationform.value;
     this.email = this.user.email;
-    setTimeout(() => {
-      // Redirect to another page after 7 seconds
-      this.router.navigate(['/pages/otp', this.email]);
-    }, 7000); // 7 seconds
   }
 
+  navigation(){
+    this.router.navigate(['/pages/otp', this.email]);
+  }
+  
   validatePassword() {
     const passwordControl = this.registrationform.get('password');
     if (passwordControl) {

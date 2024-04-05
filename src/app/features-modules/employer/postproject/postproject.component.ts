@@ -1,9 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   Component,
-  ElementRef,
   OnDestroy,
   OnInit,
-  ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
 import { Router } from '@angular/router';
@@ -68,7 +67,6 @@ export class PostprojectComponent implements OnInit, OnDestroy {
   public selectedValue5 = '';
   selectedList1: data[] = [
     { value: 'Select' },
-    { value: 'Category' },
     { value: 'Project' },
   ];
   selectedList2: data[] = [

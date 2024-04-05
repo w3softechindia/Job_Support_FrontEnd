@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {Router } from '@angular/router';
 import { PostprojectService } from 'src/app/Services/postproject.service';
 
 import { UserService } from 'src/app/Services/user.service';
@@ -186,6 +186,6 @@ export class ProjectConfirmationComponent implements OnInit {
   }
 
   navigation(){
-    this.router.navigate(['/employer/dashboard'])
+    this.router.navigate([routes.employee_dashboard]);
   }
 }
