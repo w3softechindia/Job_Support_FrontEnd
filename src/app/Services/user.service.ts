@@ -43,8 +43,13 @@ constructor(private http:HttpClient){}
   }
 
   //Check If User is logged in
-  isLoggedIn(){
-    return !!localStorage.getItem('jwtToken');
+  isLoggedIn(): boolean {
+    // Retrieve JWT token and user role from localStorage
+    const jwtToken = localStorage.getItem('jwtToken');
+    const userRole = localStorage.getItem('role');
+
+    // Check if JWT token exists and user role is 'Freelancer'
+    return !!jwtToken && userRole === 'Freelancer';
   }
 
   //User Registration

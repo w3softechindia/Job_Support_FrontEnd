@@ -94,19 +94,12 @@ export class ProjectsDetailsComponent implements OnInit {
   removeMilestone(index: number): void {
     this.milestones.removeAt(index);
   }
-  
-  navigation() {
-    this.router.navigate([routes.employee_dashboard]);
-  }
-  navigation1() {
-    this.router.navigate([routes.freelancer_projects_proposals]);
-  }
 
   submitProposal(): void {
     // Check if the user is logged in
     if (!this.loggedIn) {
       // If the user is not logged in, navigate to the login page
-      this.router.navigate([routes.login]);
+      this.router.navigate(['/auth/login']);
     } else {
       console.log("User is logged in, executing href...");
     }
@@ -214,6 +207,10 @@ export class ProjectsDetailsComponent implements OnInit {
     this.userService.postProposal(this.projectId,this.email,this.proposal).subscribe((response)=>{
       console.log('Proposal Data :',response);
     })
+  }
+
+  navigation(){
+    this.router.navigate([routes.freelancer_projects_proposals]);
   }
 }
 

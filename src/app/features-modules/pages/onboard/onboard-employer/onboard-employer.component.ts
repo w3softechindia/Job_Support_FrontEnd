@@ -194,6 +194,9 @@ export class OnboardEmployerComponent implements OnInit{
     { "value": "Voter ID Card" },
     { "value": "Driver's License" },
     { "value": "Passport" },
+    { "value": "Income Tax Return" },
+    { "value": "Employee ID Card" },
+    { "value": "Education Certificate" },
   ];
   selectedList3: data[] = [
     { value: 'Select' },
