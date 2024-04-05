@@ -176,12 +176,27 @@
 							<img src="assets/img/user/table-avatar-03.jpg
 							" alt="Img">
 						</span> -->
-						<div *ngIf="photoUrl">
+
+						<!-- <div *ngIf="photoUrl">
 							<img [src]="photoUrl" alt="Profile Image" class="avatar-lg rounded-circle">
 						</div>
 						<div *ngIf="!photoUrl">
 							<p>Loading...</p>
-						</div>
+						</div> -->
+
+						<div *ngIf="isLoading">
+							<p>Loading...</p>
+						  </div>
+						  <div *ngIf="!isLoading">
+							<div *ngIf="photoUrl">
+							  <img [src]="photoUrl" alt="Profile Image" class="avatar-lg rounded-circle">
+							</div>
+							<div *ngIf="!photoUrl">
+							  <p>No photo found.</p>
+							</div>
+						  </div>
+						  
+
 						<span>{{this.username}}</span>
 					</a>
 					<div class="dropdown-menu emp">

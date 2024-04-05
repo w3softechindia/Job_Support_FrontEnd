@@ -35,7 +35,7 @@ export class UserService {
 
 constructor(private http:HttpClient){}
 
-  private baseurl="http://jobsupport4u.us-east-1.elasticbeanstalk.com";
+  private baseurl="http://jobsupport.us-east-1.elasticbeanstalk.com";
 
   //Authentication
   login(data:any){
