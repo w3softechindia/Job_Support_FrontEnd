@@ -47,6 +47,7 @@ export class EmployerGuard {
           } else {
             // If the account is inactive, restrict access to allocated pages
             const allowedRoutes = ['/employer/basic-settings', '/employer/verify-identity','/employer/change-password','/employer/dashboard','/employer/delete-account']; // Define routes accessible for inactive accounts
+            // const allowedRoutes = ['/employer/dashboard']; // Define routes accessible for inactive accounts
             const requestedRoute = state.url;
             if (allowedRoutes.includes(requestedRoute)) {
               // If the requested route is allowed for inactive accounts, allow access

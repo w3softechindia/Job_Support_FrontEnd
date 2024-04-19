@@ -1,0 +1,12 @@
+.portfolio-img {
+    position: relative;
+    overflow: hidden; /* Ensures no overflow outside the designated photo area */
+    border-radius: 8px; /* Consistent rounded corners */
+}
+
+.portfolio-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}

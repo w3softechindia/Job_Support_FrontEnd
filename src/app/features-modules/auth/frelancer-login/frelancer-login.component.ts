@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/Services/user.service';
 import { routes } from 'src/app/core/helpers/routes/routes';
@@ -23,6 +24,7 @@ export class FrelancerLoginComponent {
     email:'',
     password:''
   }
+  invalid=false;
 
   constructor(private userService:UserService,private auth:AuthService,private router:Router) {
   }
@@ -42,8 +44,9 @@ export class FrelancerLoginComponent {
   freelancerLogin(){
     console.log(this.freelancerLoginData);
     this.userService.login(this.freelancerLoginData).subscribe((response:any)=>{
+      // this.invalid=true;
       console.log('Login success',response);
-      
+
       const jwtToken = response.jwt_token;
       const user=response.user;
       const role=user.role;
@@ -69,6 +72,7 @@ export class FrelancerLoginComponent {
         alert('Your Account is not Verified..!!!')
       }
     },(error)=>{
+      alert("Invalid Email or Password...!!!")
       console.error('Login Error',error);
     })
   }

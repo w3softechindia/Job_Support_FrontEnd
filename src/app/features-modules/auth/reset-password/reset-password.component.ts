@@ -13,7 +13,7 @@ import { routes } from 'src/app/core/helpers/routes/routes';
 export class ResetPasswordComponent implements OnInit {
   public password: boolean[] = [true];
   public routes = routes;
-  public resetForm: FormGroup;
+  public resetForm!: FormGroup;
   public passwordMismatch = false;
   public email!: string;
   public user!: User;
@@ -23,15 +23,15 @@ export class ResetPasswordComponent implements OnInit {
     private userService: UserService,
     private route: ActivatedRoute,
     private fb: FormBuilder
-  ) {
+  ) {}
+
+  ngOnInit() {
+    this.email = this.route.snapshot.params['email'];
+
     this.resetForm = this.fb.group({
       newPassword: ['', [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/)]],
       confirmPassword: ['', Validators.required]
     });
-  }
-
-  ngOnInit() {
-    this.email = this.route.snapshot.params['email'];
   }
 
   public togglePassword(index: number) {

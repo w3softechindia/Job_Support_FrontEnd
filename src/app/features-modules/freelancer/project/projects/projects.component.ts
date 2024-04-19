@@ -1,6 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { PostprojectService } from 'src/app/Services/postproject.service';
 import { UserService } from 'src/app/Services/user.service';
 import { ShareDataService } from 'src/app/core/data/share-data.service';
 import { routes } from 'src/app/core/helpers/routes/routes';
@@ -14,12 +14,12 @@ interface data {
   styleUrls: ['./projects.component.scss'],
 })
 export class ProjectsComponent implements OnInit {
-  project: any[] = [];
 
+  project: any[] = [];
   projectIds: number[] = [];
   customProjectIds: number[] = [];
-
   email: string | undefined;
+  unpublishedArray: number[] = [];
 
   public like: boolean[] = [false];
   public isButtonVisible = true;
@@ -38,7 +38,6 @@ export class ProjectsComponent implements OnInit {
   constructor(
     public router: Router,
     private dataservice: ShareDataService,
-    private proser: PostprojectService,
     private userservice: UserService
   ) {
     this.dataservice.ManageUsers3.subscribe((data: Array<freeprojects>) => {
@@ -47,6 +46,7 @@ export class ProjectsComponent implements OnInit {
   }
   ngOnInit(): void {
     this.fetchProjectIds();
+    this.getUnpublishedIds();
   }
 
   fetchProjectIds(): void {
@@ -56,6 +56,7 @@ export class ProjectsComponent implements OnInit {
       console.log('Id array:', this.projectIds);
 
       // Remove duplicates using Set
+
       this.customProjectIds = [...new Set(this.projectIds)];
 
       console.log('Custom Project IDs:', this.customProjectIds);
@@ -109,10 +110,28 @@ export class ProjectsComponent implements OnInit {
   //   );
   // }
 
+  getUnpublishedIds(): void {
+    this.userservice.getFalseids().subscribe(
+      (data: any) => {
+        const unpublishedArray: number[] = data; // Assuming data contains the unpublished IDs
+        console.log('UnpublishedIds: ' + unpublishedArray);
+  
+        // Filter out projects that contain unpublished IDs
+        this.project = this.project.filter(project => !unpublishedArray.includes(project.project_id));
+      },
+      error => {
+        console.error('Error fetching unpublished IDs:', error);
+        // Optionally, handle the error here
+      }
+    );
+  }
+
+
   fetchProjectDetails(): void {
     this.userservice.getAdminProjectById(this.customProjectIds).subscribe(
       (projects) => {
         this.project = projects; // Assign the fetched projects to the project array
+        this.getUnpublishedIds();     
         console.log('Project Details:', this.project);
 
         // Extract userEmail property from each project

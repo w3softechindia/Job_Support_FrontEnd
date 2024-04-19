@@ -1,3 +1,5 @@
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
 <!-- Header -->
 <header class="header header-bg">
 	<div class="container">
@@ -172,18 +174,6 @@
 				</li>
 				<li class="nav-item dropdown account-item">
 					<a href="javascript:void(0);" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
-						<!-- <span class="user-img">
-							<img src="assets/img/user/table-avatar-03.jpg
-							" alt="Img">
-						</span> -->
-
-						<!-- <div *ngIf="photoUrl">
-							<img [src]="photoUrl" alt="Profile Image" class="avatar-lg rounded-circle">
-						</div>
-						<div *ngIf="!photoUrl">
-							<p>Loading...</p>
-						</div> -->
-
 						<div *ngIf="isLoading">
 							<p>Loading...</p>
 						  </div>
@@ -194,9 +184,7 @@
 							<div *ngIf="!photoUrl">
 							  <p>No photo found.</p>
 							</div>
-						  </div>
-						  
-
+						  </div>						  
 						<span>{{this.username}}</span>
 					</a>
 					<div class="dropdown-menu emp">
@@ -223,8 +211,8 @@
 								src="assets/img/icon/user-dropdown-icon--05.svg" alt="Img"> Message</a>
 						<a class="dropdown-item" [routerLink]="routes.freelancer_profiles_settings"><img
 								src="assets/img/icon/user-dropdown-icon--06.svg" alt="Img"> Profile Settings</a>
-						<a class="dropdown-item" [routerLink]="routes.login"><img
-								src="assets/img/icon/user-dropdown-icon--07.svg" alt="Img" click=" logout()"> Logout</a>
+						<a class="dropdown-item"><img
+								src="assets/img/icon/user-dropdown-icon--07.svg" alt="Img" (click)="logout()"> Logout</a>
 					</div>
 				</li>
 

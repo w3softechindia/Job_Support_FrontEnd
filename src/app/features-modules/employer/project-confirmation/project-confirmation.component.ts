@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnInit } from '@angular/core';
-import {Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { PostprojectService } from 'src/app/Services/postproject.service';
 
 import { UserService } from 'src/app/Services/user.service';
@@ -14,57 +14,51 @@ import { AuthService } from 'src/app/core/services/auth/auth.service';
 })
 export class ProjectConfirmationComponent implements OnInit {
   public routes = routes;
-  email!: string;  
+  email!: string;
 
-  deadline_date: string | undefined; 
-  
+  deadline_date: string | undefined;
+
   activeRate = ''; // Assuming activeRate is a property for selecting the budget type
-  hourlyRateFrom :string | undefined; // Assuming hourlyRateFrom is a property for hourly rate from
-  hourlyRateTo :string | undefined; // Assuming hourlyRateTo is a property for hourly rate to
+  hourlyRateFrom: string | undefined; // Assuming hourlyRateFrom is a property for hourly rate from
+  hourlyRateTo: string | undefined; // Assuming hourlyRateTo is a property for hourly rate to
   fixedRate = 0; // Assuming fixedRate is a property for fixed rate
   attachments: any[] = []; // Assuming attachments is an array of attached files
-     date:Date | undefined;
+  date: Date | undefined;
 
- 
+
   skills: string[] = [];
-  
- 
+
+
   tags: string[] = [];
   files: File[] = [];
- 
+
   formData: any = {};
   projectId: number | undefined;
- 
 
-  constructor(private router: Router,
-    private projectservice:PostprojectService,
+
+  constructor(
+    private router:Router,
+    private projectservice: PostprojectService,
     private userService: UserService,
-    private auth:AuthService,
-  
-    
-    ) { }
+    private auth: AuthService,
 
-  
 
+  ) { }
 
   ngOnInit(): void {
-      
+
     this.email = this.auth.getEmail();
     console.log('Email coming from authserviceeee:', this.email);
-    
+
     console.log(this.email);
     this.captureFormData();
   }
-
-
-
- 
 
   captureFormData() {
     this.setFormDataProperty('project_title', this.projectservice.project_title);
     this.setFormDataProperty('project_category', this.projectservice.project_category);
     this.setFormDataProperty('project_duration', this.projectservice.project_duration);
-     this.setFormDataProperty('deadline_date' , this.projectservice.deadline_date);
+    this.setFormDataProperty('deadline_date', this.projectservice.deadline_date);
     this.setFormDataProperty('freelancer_type', this.projectservice.freelancer_type);
     this.setFormDataProperty('freelancer_level', this.projectservice.freelancer_level);
     this.setFormDataProperty('attachmentFiles', this.projectservice.attachmentFiles);
@@ -76,9 +70,6 @@ export class ProjectConfirmationComponent implements OnInit {
     this.setFormDataProperty('tags', this.projectservice.getTags());
     this.setFormDataProperty('skills', this.projectservice.getSkills());
     this.setFormDataProperty('attachments', this.projectservice.getAttachments());
-     
-    
-
 
     // Log selected budget type and related rates
     console.log('Selected Budget Type:', this.projectservice.active_rate);
@@ -111,22 +102,9 @@ export class ProjectConfirmationComponent implements OnInit {
     }
   }
 
-
- 
-
   someOtherMethod() {
     console.log('Email coming from auth service:', this.email);
   }
-
-
-
-
-  
-
-
-
-
-
 
   postFormData() {
     // Assuming this.formData contains the form data
@@ -155,7 +133,7 @@ export class ProjectConfirmationComponent implements OnInit {
       }
     );
   }
-  
+
   sendFiles(projectId: number, files: File[]) {
     // Iterate over each file and upload it
     files.forEach(file => {
@@ -173,19 +151,19 @@ export class ProjectConfirmationComponent implements OnInit {
       );
     });
   }
-  
+
   getfiles() {
     try {
       this.files = this.projectservice.getAttachments();
       console.log('Files:', this.files);
       // Call sendingFiles method after getting files
-      
+
     } catch (error) {
       console.error('Error retrieving attachments:', error);
     }
   }
 
-  navigation(){
-    this.router.navigate([routes.employee_dashboard]);
+  navigation():void{
+    this.router.navigate(['/employer/dashboard']);
   }
 }

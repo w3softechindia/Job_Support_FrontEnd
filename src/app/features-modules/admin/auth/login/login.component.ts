@@ -1,8 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/Services/user.service';
 import { Router } from '@angular/router';
-import { AdminService } from 'src/app/Services/admin.service';
-import { Admin } from 'src/app/classes/admin';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -11,22 +11,33 @@ import { Admin } from 'src/app/classes/admin';
 })
 export class LoginComponent implements OnInit {
   public Toggledata = true;
-  
-  constructor(private adminService:AdminService, private router:Router) {
+
+  constructor(private userService: UserService, private router: Router, private auth:AuthService) {
   }
-    email!:string;
-    password!:string;
-    admin!:Admin;
+  adminLoginData={
+    email:'',
+    password:''
+  }
   ngOnInit() {
     console.log("Hii")
   }
 
   submit() {
-    this.adminService.adminlogin(this.email,this.password,this.admin).subscribe((data:any)=>{
-      console.log("Login Success",data);
-      if(data.role==='Admin'){
+    this.userService.login(this.adminLoginData).subscribe((response: any) => {
+      console.log('Login success',response);
+      
+      const jwtToken = response.jwt_token;
+      const user=response.user;
+      const role=user.role;
+
+      this.auth.setToken(jwtToken);
+      this.auth.setRoles(role);
+      this.auth.setName(user.name);
+      this.auth.setEmail(user.email);
+
+      if (role === 'Admin') {
         this.router.navigate(['/admin/dashboard']);
-      }else{
+      } else {
         alert("Invalid Credentials...!!")
       }
     })

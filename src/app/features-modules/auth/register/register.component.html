@@ -14,10 +14,11 @@
                                 <form (ngSubmit)="register()" [formGroup]="registrationform">										
                                     <div class="input-block">
                                         <label for="name" class="focus-label">User Name <span class="label-star"> *</span></label>
-                                        <input type="text" class="form-control floating" formControlName="name" id="name">
+                                        <input type="text" class="form-control floating" formControlName="name" id="name" (keyup)="validateName()">
                                         <div *ngIf="registrationform.get('name')?.invalid && (registrationform.get('name')?.dirty || registrationform.get('name')?.touched)">
                                           <div *ngIf="registrationform.get('name')?.hasError('required')" style="color: red;">Username is required</div>
                                           <div *ngIf="registrationform.get('name')?.hasError('minlength')" style="color: red;">Username must be at least 4 characters long</div>
+                                          <div *ngIf="registrationform.get('name')?.hasError('pattern')" style="color: red;">Username must contain at least one uppercase letter, one lowercase letter, one number, and one special character</div>
                                         </div>
                                       </div>
                                       
@@ -47,7 +48,7 @@
                                     <div class="dont-have">
                                         <label class="custom_check">
                                             <input type="checkbox" formControlName="terms" name="rem_password">
-                                            <span class="checkmark"></span> I have read and agree to all <a [routerLink]="routes.privacypolicy">Terms &amp; Conditions</a>
+                                            <span class="checkmark"></span> I have read and agree to all <a [routerLink]="routes.termscondition">Terms &amp; Conditions</a>
                                         </label>
                                         <div *ngIf="registrationform.get('terms')?.invalid && (registrationform.get('terms')?.dirty || registrationform.get('terms')?.touched)">
                                             <div *ngIf="registrationform.get('terms')?.hasError('required')" style="color: red;">Please accept terms & conditions</div>
@@ -67,14 +68,16 @@
     </div>
 </div>
 
-<div class="modal fade success-modal hire-modal" id="otp" (shown.bs.modal)="onModalShown()">
+<div class="modal fade success-modal hire-modal" id="otp" (shown.bs.modal)="onModalShown()" [class.show]="emailExists">
     <div class="modal-dialog modal-dialog-centered modal-md">
         <div class="modal-content">
             <div class="modal-body pt-4">
                 <div class="success-msg-content text-center">
-                    <h4>One Time Password</h4>
-                    <p>Otp has been sent to registered Email...!! Please Check Your Inbox</p>
-                    <a href="javascript:void(0);" data-bs-dismiss="modal" (click)="navigation()" class="btn btn-primary mt-3">Okay</a>
+                    <p *ngIf="emailExists">Email Already Exists, please try with another email</p>
+                    <h4 *ngIf="!emailExists">One Time Password</h4>
+                    <p *ngIf="!emailExists">Otp has been sent to registered Email...!! Please Check Your Inbox.</p>
+                    <a *ngIf="!emailExists" href="javascript:void(0);" data-bs-dismiss="modal" (click)="navigation()" class="btn btn-primary mt-3">Okay</a>
+                    <a *ngIf="emailExists" href="javascript:void(0);" data-bs-dismiss="modal" class="btn btn-primary mt-3">Close</a>
                 </div>
             </div>
         </div>

@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { EmployerProjectIdsForViewProjectService } from 'src/app/Services/employer-project-ids-for-view-project.service';
-import { FileDTO, UserService } from 'src/app/Services/user.service';
+import { UserService } from 'src/app/Services/user.service';
 import { ShareDataService } from 'src/app/core/data/share-data.service';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { apiResultFormat,  files, pageSelection } from 'src/app/core/models/models';
@@ -35,7 +35,9 @@ export class FilesComponent  implements OnInit{
 
 
 
-  fileList: FileDTO[] = []; // Renamed 'files' to 'fileList
+  // fileList: FileDTO[] = []; // Renamed 'files' to 'fileList
+  fileListt: string[] = []; // Array to store file paths
+
 
   projectDetails: any;
 
@@ -55,6 +57,7 @@ export class FilesComponent  implements OnInit{
         this.projectId = parsedData.id;
         this.projectDetails = parsedData.details;
       }
+
   
       // Subscribe to changes in the selected project
       this.projectIdService.getSelectedProject().subscribe((project: { id: number | null | undefined; details: any; }) => {
@@ -64,48 +67,84 @@ export class FilesComponent  implements OnInit{
         // Store project data in local storage
         localStorage.setItem('projectData', JSON.stringify({ id: this.projectId, details: this.projectDetails }));
   
+          console.log('id in files component'+this.projectId);
+
+
+
         // Fetch files if projectId exists
-        if (this.projectId) {
-          this.userserv.getFilesByProjectId(this.projectId).subscribe(files => {
-            // Map files to FileDTO
-            this.fileList = files.map(file => ({
-              id: file.id,
-              file_path: file.file_path,
-              filePath: file.file_path,
-              type: file.type,
-              size: file.size,
-              fileName: this.extractFileName(file.file_path)
-            }));
-          });
-        }
+        // if (this.projectId) {
+        //   this.userserv.getFilesByProjectId(this.projectId).subscribe(files => {
+        //     // Map files to FileDTO
+        //     this.fileList = files.map(file => ({
+        //       id: file.id,
+        //       file_path: file.file_path,
+        //       filePath: file.file_path,
+        //       type: file.type,
+        //       size: file.size,
+        //       fileName: this.extractFileName(file.file_path)
+        //     }));
+        
+        //     // Print file paths to the console
+        //     this.fileList.forEach(file => {
+        //       console.log('file paths'+file.filePath);
+        //     });
+        //   });
+        // }
+
+
+        this.fetchFiles();   
       });
-  
-      // Fetch files if projectId exists
-      if (this.projectId) {
-        this.userserv.getFilesByProjectId(this.projectId).subscribe(files => {
-          // Map files to FileDTO
-          this.fileList = files.map(file => ({
-            id: file.id,
-            file_path: file.file_path,
-            filePath: file.file_path,
-            type: file.type,
-            size: file.size,
-            fileName: this.extractFileName(file.file_path)
-          }));
-        });
-      }
-    }
-  
-    extractFileName(filePath: string): string {
-      const parts = filePath.split(/[\\/]/);
-      return parts[parts.length - 1];
-    }
-  
-    downloadFile(filePath: string) {
-      console.log('Attempting to download file:', filePath);
-      console.log('Right-click on the file link and choose "Save link as..." to download the file.');
+    
     }
 
+    fetchFiles(): void {
+      if (this.projectId) {
+        this.userserv.getFilesByProjectIdd(this.projectId).subscribe(
+          files => {
+            console.log('Files for project ID', this.projectId, ':', files);
+            // Assign fetched files to fileList
+            this.fileListt = files;
+          },
+          error => {
+            console.error('Error fetching files:', error);
+          }
+        );
+      } else {
+        console.warn('No project ID available.');
+        this.fileListt = []; // Clear fileList if project ID is not available
+      }
+    }
+
+    // downloadFile(filePath: string): void {
+    //   console.log('Attempting to download file:', filePath);
+  
+    //   // Create a link element
+    //   const link = document.createElement('a');
+    //   link.href = filePath;
+  
+    //   // Simulate a click to trigger the download
+    //   link.click();
+    // }
+  
+
+
+    downloadFile(filePath: string): void {
+      console.log('Attempting to download file:', filePath);
+    
+      // Extract the file name from the file path
+      const fileName = filePath.substring(filePath.lastIndexOf('_') + 1); // Extracting the part after the last underscore
+    
+      // Display the file name
+      console.log('File Name:', fileName);
+    
+      // Create a link element
+      const link = document.createElement('a');
+      link.href = filePath;
+    
+      // Simulate a click to trigger the download
+      link.click();
+    }
+  
   private getTableData(): void {
     this.files = [];
     this.serialNumberArray = [];

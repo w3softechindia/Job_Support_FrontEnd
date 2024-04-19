@@ -414,7 +414,7 @@ export class AccountDelete{
 export class Portfolio{
   title!:string;
   link!:string;
-  photo_path!:File;
+  photo_path!:string;
   imageBytes!: string;
 }
 export interface Milestone{

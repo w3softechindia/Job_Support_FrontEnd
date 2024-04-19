@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-inferrable-types */
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -57,7 +58,7 @@ export class OnboardScreenComponent implements OnInit {
     this.personalForm = this.formbuilder.group({
       firstname: ['', [Validators.required, Validators.minLength(4)]],
       lastname: ['', [Validators.required, Validators.minLength(4)]],
-      phonenumber: ['', [Validators.required, Validators.minLength(10)]],
+      phonenumber: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
       dob: ['', [Validators.required]],
       jobtitle: ['', [Validators.required,]],
       typeofjob: ['', [Validators.required,]],
@@ -370,19 +371,113 @@ export class OnboardScreenComponent implements OnInit {
     this.router.navigateByUrl(`${this.routes.employer_onboard}/${this.email}`)
   }
 
+  // onFileSelected(event: any) {
+  //   const file: File = event.target.files[0];
+  //   if (file) {
+  //     this.userService.uploadFile(this.email, file).subscribe(
+  //       response => {
+  //         console.log(response); // Log the response
+  //         alert(response); // Display the response message
+  //       },
+  //       error => {
+  //         console.error(error); // Handle error response
+  //         // Optionally, you can show an error message to the user
+  //       }
+  //     );
+  //   }
+  // }
+
+  photoUrl: string | undefined;
+  isLoading: boolean | undefined;
+
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
     if (file) {
-      this.userService.uploadFile(this.email, file).subscribe(
-        response => {
-          console.log(response); // Log the response
-          alert(response); // Display the response message
-        },
-        error => {
-          console.error(error); // Handle error response
-          // Optionally, you can show an error message to the user
-        }
-      );
+      // Check if the file type is JPEG or PNG
+      if (file.type === 'image/jpeg' || file.type === 'image/png') {
+        // Reader to display the image before uploading
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.photoUrl = reader.result as string;  // Update the photoUrl to display the image
+        };
+        reader.readAsDataURL(file);  // Read the file as a Data URL to display it
+
+        // Optionally upload the file here if needed
+        this.uploadFile(file);
+      } else {
+        alert('Only JPEG and PNG files are allowed.');
+      }
+    } else {
+      console.error('No file selected.');
+      this.photoUrl = undefined;  // Clear previous photo if any
+      alert('No file selected.');
     }
   }
+
+  // Optional: Implement file upload logic here
+  uploadFile(file: File) {
+    this.isLoading = true;  // Set loading to true during upload
+    this.userService.uploadFile(this.email, file).subscribe(
+      response => {
+        console.log('Upload successful: ', response);
+        this.isLoading = false;  // Set loading to false when done
+      },
+      error => {
+        console.error('Upload failed: ', error);
+        alert('Upload failed!');
+        this.isLoading = false;  // Set loading to false on error
+      }
+    );
+  }
+
+  // onFileSelected(event: any) {
+  //   const file: File = event.target.files[0];
+  //   if (file) {
+  //     // Check if the file type is JPEG or PNG
+  //     if (file.type === 'image/jpeg' || file.type === 'image/png') {
+  //       this.fileName = file.name;  // Store the file name
+
+  //       // Your existing upload logic
+  //       this.userService.uploadFile(this.email, file).subscribe(
+  //         response => {
+  //           console.log('Upload successful: ', response);
+  //           alert('Upload successful!');
+  //           window.location.reload();
+  //         },
+  //         error => {
+  //           console.error('Upload failed: ', error);
+  //           alert('Upload failed!');
+  //         }
+  //       );
+  //     } else {
+  //       this.fileName = '';
+  //       alert('Only JPEG and PNG files are allowed.');
+  //     }
+  //   } else {
+  //     console.error('No file selected.');
+  //     this.fileName = '';  // Clear the file name if no file is selected
+  //     alert('No file selected.');
+  //   }
+  // }
+
+  
+
+  // loadPhoto(): void {
+  //   this.userService.getPhoto(this.email).subscribe(
+  //     (data: Blob) => {
+  //       console.log('Photo data:', data);
+  //       const reader = new FileReader();
+  //       reader.onload = () => {
+  //         this.photoUrl = reader.result as string;
+  //         console.log('Photo URL:', this.photoUrl);
+  //         this.isLoading = false; // Set loading to false when image is loaded
+  //       };
+  //       reader.readAsDataURL(data);
+  //     },
+  //     (error: any) => {
+  //       console.error('Error loading photo:', error);
+  //       this.isLoading = false; // Set loading to false on error
+  //     }
+  //   );
+  // }
 } 

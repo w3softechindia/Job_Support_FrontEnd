@@ -1,3 +1,5 @@
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
 <!-- Header -->
 <div class="header">
 
@@ -147,8 +149,11 @@
                     Profile</a>
                 <a class="dropdown-item" [routerLink]="'/admin/settings/general'"><i data-feather="settings"
                         class="me-1"></i> Settings</a>
-                <a class="dropdown-item" [routerLink]="'/admin/auth/login'"><i data-feather="log-out" class="me-1"></i>
-                    Logout</a>
+                <!-- <a href="javascript:void(0)" class="dropdown-item" (click)="logout()"><i data-feather="log-out" class="me-1"></i>
+                    Logout</a> -->
+                <a href="javascript:void(0)" class="nav-link" (click)="logout()">
+                    <img src="assets/img/icon/sidebar-icon-11.svg" alt="Img"> Logout
+                </a>
             </div>
         </li>
         <!-- /User Menu -->
@@ -187,8 +192,7 @@
                   ">
                                     <ng-container *ngFor="let subMenus of menu.subMenus">
                                         <li>
-                                            <a [routerLink]="subMenus.route"
-                                                [class.active]="page === subMenus.base">{{
+                                            <a [routerLink]="subMenus.route" [class.active]="page === subMenus.base">{{
                                                 subMenus.menuValue }}</a>
 
                                         </li>

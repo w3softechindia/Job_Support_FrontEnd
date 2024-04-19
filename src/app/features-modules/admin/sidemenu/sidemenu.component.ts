@@ -88,9 +88,10 @@ export class SidemenuComponent {
     });
   }
 
-  public logOut(): void {
+  logout(): void {
     this.auth.logout();
-  }
+   }
+
   miniSideBarBlur(position: string) {
     if (position === 'over') {
       this.sideBar.expandSideBar.next(true);

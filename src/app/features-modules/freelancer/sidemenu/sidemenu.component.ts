@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Component, OnInit } from '@angular/core';
 import { ShareDataService } from 'src/app/core/data/share-data.service';
 import { CommonService } from 'src/app/core/services/common/common.service';
@@ -5,7 +7,6 @@ import { SidebarData } from 'src/app/core/models/models';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { FreelancerSidebarItem } from 'src/app/core/models/sidebar-model';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
-import { Router } from '@angular/router';
 import { UserService } from 'src/app/Services/user.service';
 
 @Component({
