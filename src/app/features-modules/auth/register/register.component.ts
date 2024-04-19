@@ -72,6 +72,15 @@ export class RegisterComponent implements OnInit {
     this.hidePassword[index] = !this.hidePassword[index];
   }
 
+  // onModalShown(): void {
+  //   this.user = this.registrationform.value;
+  //   this.email = this.user.email;
+  //   setTimeout(() => {
+  //     // Redirect to another page after 7 seconds
+  //     this.router.navigate(['/pages/otp', this.email]);
+  //   }, 7000); // 7 seconds
+  // }
+
   onModalShown(): void {
     this.user = this.registrationform.value;
     this.email = this.user.email;
