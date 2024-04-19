@@ -108,11 +108,11 @@
                     <input #employeeInput id="employee" class="accounts_type" type="radio" name="credit-card"
                       value="Employer" />
                     <label class="employee-level employee-img accounts_type" data-id="employee" for="employee">
-                      <a (click)="onBoardEmployer()" (keydown.enter)="onBoardEmployer()"><img src="assets/img/select-05.svg" alt="Img"
-                          class="img-fluid" /><span>Employer</span></a></label>
+                      <a (click)="onBoardEmployer()" (keydown.enter)="onBoardEmployer()"><img
+                          src="assets/img/select-05.svg" alt="Img" class="img-fluid" /><span>Employer</span></a></label>
                   </div>
                 </div>
-                <input class="btn btn-prev prev_btn btn-back" name="next" type="button" value="Back" disabled />
+                <!-- <input class="btn btn-prev prev_btn btn-back" name="next" type="button" value="Back" disabled /> -->
                 <input class="btn next_btn btn-primary btn-get btn-next" name="next" type="submit" value="Next"
                   (click)="selectedFieldSet[0] = 1; none()" (keydown.enter)="selectedFieldSet[0] = 1; none()"
                   (click)="printSelectedRole(freelanceInput.checked, employeeInput.checked)"
@@ -136,25 +136,24 @@
                 <form (ngSubmit)="personalInfo()" [formGroup]="personalForm">
                   <div class="row">
                     <div class="col-md-12 col-lg-12">
-                      <!-- <div class="pro-form-img">
-                        <div class="profile-pic">Profile Photo</div>
-                        <div class="upload-files">
-                          <label class="file-upload image-upbtn">
-                            <i class="feather icon-upload me-2"></i>Upload Photo
-                            <input type="file"   />
-                          </label>
-                          <span>For better preview recommended size is 450px x
-                            450px. Max size 5mb.</span>
-                        </div>
-                      </div> -->
                       <div class="pro-form-img">
-                        <div class="profile-pic">Profile Photo</div>
+                        <!-- <div class="profile-pic"> -->
+                          <div *ngIf="isLoading">
+                            <p>Loading...</p>
+                            </div>
+                            <div *ngIf="!isLoading && photoUrl">
+                              <img [src]="photoUrl" alt="Profile Image" class="avatar-lg rounded-circle profile-pic-image">
+                            </div>
+                            <div *ngIf="!photoUrl">
+                              <p>No photo found.</p>
+                            </div> 
+                        <!-- </div>				 -->
                         <div class="upload-files">
-                          <label class="file-upload image-upbtn">
+                          <label for="image" class="form-label">
                             <i class="feather icon-upload me-2"></i>Upload Photo
-                            <input type="file" (change)="onFileSelected($event)" accept="image/*" />
                           </label>
-                          <span>For better preview recommended size is 450px x 450px. Max size 5mb.</span>
+                          <input type="file" id="image" (change)="onFileSelected($event)" class="form-control" required accept="image/jpeg, image/png">
+                          <!-- <span>For better preview recommended size is 450px x 450px. Max size 5mb.</span> -->
                         </div>
                       </div>
                     </div>
@@ -180,8 +179,7 @@
                       <div class="input-block">
                         <label for="dob" class="form-label">Date of Birth</label>
                         <div>
-                          <input type="date" class="form-control" placeholder="Choose"
-                            id="dob" formControlName="dob" />
+                          <input type="date" class="form-control" placeholder="Choose" id="dob" formControlName="dob" />
                         </div>
                       </div>
                     </div>
@@ -486,7 +484,7 @@
                 <p>Don’t worry, this can be changed later.</p>
               </div>
               <div class="field-item personal-info">
-                <form  [formGroup]="otherInfoForm" (ngSubmit)="otherInfo()">
+                <form [formGroup]="otherInfoForm" (ngSubmit)="otherInfo()">
                   <div class="media-set">
                     <div class="row">
                       <div class="col-md-12">
@@ -608,8 +606,8 @@
                   <div class="text-center">
                     <button class="btn btn-prev prev_btn btn-back" name="next" type="button" value="Back"
                       (click)="selectedFieldSet[0] = 2" (keydown.enter)="selectedFieldSet[0] = 2">Back</button>
-                    <button class="btn next_btn btn-primary btn-get btn-next" name="next"
-                      type="submit" value="Submit">Submit</button>
+                    <button class="btn next_btn btn-primary btn-get btn-next" name="next" type="submit"
+                      value="Submit">Submit</button>
                   </div>
                 </form>
               </div>

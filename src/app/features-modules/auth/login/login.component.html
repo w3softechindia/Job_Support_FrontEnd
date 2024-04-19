@@ -49,7 +49,7 @@
                                     </div>
                                     <button
                                         class="btn btn-primary w-100 btn-lg login-btn d-flex align-items-center justify-content-center"
-                                        type="submit">Login Now<i class="feather icon-arrow-right ms-2"></i></button>
+                                        href="#login" data-bs-toggle="modal" type="submit">Login Now<i class="feather icon-arrow-right ms-2"></i></button>
                                     <div class="row">
                                         <div class="col-sm-8 dont-have d-flex  align-items-center">New to JobSupport4U<a
                                                 [routerLink]="routes.register" class="ms-2">Signup?</a></div>
@@ -98,18 +98,16 @@
 
     <!-- /Page Content -->
 </div>
-<div *ngIf="!valid">
-    <div class="modal fade success-modal hire-modal" id="invalidCredentialsModal" tabindex="-1" role="dialog" aria-labelledby="invalidCredentialsModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-md">
-            <div class="modal-content">
-                <div class="modal-body pt-4">
-                    <div class="success-msg-content text-center">
-                        <h4>Invalid Credentials</h4>
-                        <p>Re-Enter Email and Password...!!!</p>
-                        <button type="button" class="btn btn-primary mt-3" data-bs-dismiss="modal">Okay</button>
-                    </div>
+<!-- <div class="modal fade success-modal hire-modal" id="login" [class.show]="invalid">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+        <div class="modal-content">
+            <div class="modal-body pt-4">
+                <div class="success-msg-content text-center">
+                    <h4 *ngIf="!invalid">Invalid Credentials</h4>
+                    <p *ngIf="!invalid">Please re-enter Email and Password</p>
+                    <a *ngIf="!invalid" href="javascript:void(0);" data-bs-dismiss="modal" class="btn btn-primary mt-3">Okay</a>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</div> -->

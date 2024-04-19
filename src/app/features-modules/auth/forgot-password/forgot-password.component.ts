@@ -1,4 +1,4 @@
-import { Component, OnInit,} from '@angular/core';
+import { Component,} from '@angular/core';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import {  Router } from '@angular/router';
 import { UserService } from 'src/app/Services/user.service';
@@ -9,15 +9,12 @@ import { User } from 'src/app/classes/user';
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.scss']
 })
-export class ForgotPasswordComponent implements OnInit {
+export class ForgotPasswordComponent  {
   public routes = routes;
   email!:string;
   user!:User;
   constructor(public router: Router,private userService:UserService) { }
-  ngOnInit(): void {
-    
-  }
-
+  
   // loginFormSubmit(){
   //   this.Router.navigate([routes.employee_dashboard])
   // }

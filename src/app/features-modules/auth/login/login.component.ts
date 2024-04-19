@@ -29,7 +29,7 @@ export class LoginComponent{
   }
 
   email!:string;
-  valid:boolean=true;
+  invalid=false;
 
   constructor(
     private userService:UserService,private auth:AuthService,private router:Router) {
@@ -39,6 +39,7 @@ export class LoginComponent{
   employerLogin(){
     console.log(this.employerLoginData)
     this.userService.login(this.employerLoginData).subscribe((response:any)=>{
+      // this.invalid=true;
       console.log('Login success',response);
       
       const jwtToken = response.jwt_token;
@@ -61,6 +62,7 @@ export class LoginComponent{
         alert('Your Account is not Verified..!!!');
       }
     }, (error) => {
+      alert("Invalid Email or Password...!!!!")
       console.error('Login Error', error);
     });
   }

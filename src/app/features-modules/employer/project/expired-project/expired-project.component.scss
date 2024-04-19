@@ -1,0 +1,24 @@
+
+.deadline-container {
+    display: flex;
+    align-items: center;
+}
+
+.deadline-container input[type="date"] {
+    margin-right: 10px; 
+}
+
+.deadline-container button {
+    padding: 6px 12px; 
+    font-size: 12px; 
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+.deadline-container button:hover {
+    background-color: #0056b3;
+}

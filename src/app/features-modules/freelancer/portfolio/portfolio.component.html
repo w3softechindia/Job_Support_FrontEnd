@@ -9,7 +9,7 @@
 			<div class="col-sm-6 col-lg-4" *ngFor="let portfolio of portfolios">
 				<div class="project-widget">
 				  <div class="portfolio-img">
-					<img *ngIf="portfolio.imageBytes" [src]="getImageUrl(portfolio)" alt="{{ portfolio.title }} Image">
+					<img [src]="portfolio.photo_path" alt="{{ portfolio.title }}">
 					<div class="portfolio-live">
 					  <div class="portfolio-content">
 						<a data-bs-toggle="modal" href="#portfolio-edit" (click)="selectedPortfolio = portfolio" (click)="getPortfolioDataByTitle()" class="port-icon"><i class="feather icon-edit-2"></i></a>

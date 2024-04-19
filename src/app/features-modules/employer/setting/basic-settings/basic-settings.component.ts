@@ -1,10 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { UserService } from 'src/app/Services/user.service';
 import { User } from 'src/app/classes/user';
-import { routes } from 'src/app/core/helpers/routes/routes';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 interface data {
   value: string;
@@ -18,10 +16,11 @@ export class BasicSettingsComponent  {
   user: User = new User(); // Initialize user object
   formData: any = {}; // Initialize an empty object to hold form data
  
-  constructor(private router: Router,
+  constructor(
     private datePipe: DatePipe,
     private userService: UserService,
-    private aut:AuthService) {}
+    private auth:AuthService) {}
+
     updatePhoto(email: string, photo: File) {
       this.userService.updatePhoto(email, photo).subscribe(
         response => {
@@ -34,9 +33,9 @@ export class BasicSettingsComponent  {
         }
       );
     }
-  
+
     onFileSelected(event: any) {
-      const email = this.aut.getEmail();
+      const email = this.auth.getEmail();
       const file: File = event.target.files[0];
       if (file) {
         this.updatePhoto(email, file);
@@ -93,7 +92,7 @@ export class BasicSettingsComponent  {
     
     submitForm() {
       // Assuming aut is an instance of AuthenticationService to get the email
-      const email = this.aut.getEmail(); 
+      const email = this.auth.getEmail(); 
     
       // Call the UserService to update employer dashboard information
       this.userService.updateInfoForEmployeerDashBoard(email, this.user)

@@ -1,5 +1,3 @@
-<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
-<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
 <nav class="user-tabs mb-4">
   <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
     <li class="nav-item">
@@ -62,8 +60,34 @@
               </td>
             </tr>
           </tbody>
-        </table> -->         
+        </table> -->
+
+
+
+
+
+
+         
         <!-- main -->
+        <!-- <table class="file-table">
+          <thead>
+            <tr>
+              <th>File Name</th>
+              <th>Download</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let file of fileListt">
+              <td>{{ file }}</td>
+              <td>
+                <button class="download-button" (click)="downloadFile(file)">
+                  &#9660; 
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table> -->
+
         <table class="file-table">
           <thead>
             <tr>
@@ -72,15 +96,12 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let file of fileList">
-              <td>{{ file.fileName }}</td>
+            <tr *ngFor="let file of fileListt">
+              <td>{{ file.substring(file.lastIndexOf('_') + 1) }}</td> <!-- Displaying file name after the last underscore -->
               <td>
-                <!-- <button class="download-button" (click)="downloadFile(file.filePath)">
-                  &#9660;
-                </button> -->
-                <a (click)="downloadFile(file.filePath)" class="file-download-btn" download>
-									<i class="feather icon-download"></i>
-								</a>
+                <button (click)="downloadFile(file)"><i class="feather icon-download"></i>
+                  &#9660; 
+                </button>
               </td>
             </tr>
           </tbody>

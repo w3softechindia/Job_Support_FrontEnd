@@ -73,7 +73,7 @@
 								<div class="account-onborad onboard-head">
 									<h2>Select Account Type</h2>
 									<p>Don’t worry, this can be changed later.</p>
-									<div class="select-box d-flex justify-content-center"> 
+									<div class="select-box d-flex justify-content-center">
 										<input #freelanceInput id="freelance" type="radio" name="credit-card"
 											value="Freelancer" />
 										<label class="employee-level free-lance-img accounts_type" data-id="freelance"
@@ -94,8 +94,7 @@
 													class="img-fluid"><span>Employer</span></a></label>
 									</div>
 								</div>
-								<input class="btn btn-prev prev_btn btn-back" name="next" type="button" value="Back"
-									disabled>
+								<!-- <input class="btn btn-prev prev_btn btn-back" name="next" type="button" value="Back" disabled> -->
 								<input class="btn next_btn btn-primary btn-get btn-next" name="next" type="submit"
 									value="Next" (click)="selectedFieldSet[0] = 1; none()"
 									(keydown.enter)="selectedFieldSet[0] = 1; none()"
@@ -125,13 +124,22 @@
 														<i class="feather icon-upload me-2"></i>Upload Photo
 														<input type="file" />
 													</label> -->
-													<label class="file-upload image-upbtn">
+													<!-- <label class="file-upload image-upbtn">
 														<i class="feather icon-upload me-2"></i>Upload Photo
 														<input type="file" (change)="onFileSelected($event)"
 															accept="image/*" />
 													</label>
 													<span>For better preview recommended size is 450px x
-														450px. Max size 5mb.</span>
+														450px. Max size 5mb.</span> -->
+													<label for="image" class="form-label">
+														<i class="feather icon-upload me-2"></i>Upload Photo
+													</label>
+													<input type="file" id="image" (change)="onFileSelected($event)"
+														class="form-control" required accept="image/jpeg, image/png">
+													<!-- <span>For better preview recommended size is 450px x 450px. Max size 5mb.</span> -->
+													<div *ngIf="fileName" class="mt-2">
+														Selected File: {{ fileName }}
+													</div>
 												</div>
 											</div>
 										</div>
@@ -408,8 +416,8 @@
 										<input class="btn btn-prev prev_btn btn-back" name="next" type="button"
 											value="Back" (click)="selectedFieldSet[0] = 2"
 											(keydown.enter)="selectedFieldSet[0] = 2" />
-										<input class="btn next_btn btn-primary btn-get btn-next"
-											 name="next" type="submit" value="Submit" />
+										<input class="btn next_btn btn-primary btn-get btn-next" name="next"
+											type="submit" value="Submit" />
 									</div>
 								</form>
 							</div>

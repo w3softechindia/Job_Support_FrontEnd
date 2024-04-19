@@ -74,16 +74,16 @@
               <a href="#tab-4" data-bs-toggle="tab" class="nav-link active">All  ({{ projects?.length }})</a>
             </li>
             <li class="nav-item">
-              <a href="#tab-5" data-bs-toggle="tab" class="nav-link">Published</a>
+              <a href="#tab-5" data-bs-toggle="tab" class="nav-link">Active (218)</a>
             </li>
             <li class="nav-item">
               <a href="#tab-6" data-bs-toggle="tab" class="nav-link">
-                UnPublished
+                In Active (03)
               </a>
             </li>
-            <!-- <li class="nav-item">
+            <li class="nav-item">
               <a href="#tab-7" data-bs-toggle="tab" class="nav-link">Trash (0)</a>
-            </li> -->
+            </li>
           </ul>
         </div>
         <div class="tab-content pt-0">
@@ -233,7 +233,7 @@
 
 
                          <a href="javascript:void(0);" class="btn btn-sm btn-danger" data-bs-toggle="modal"
-                          data-bs-target="#delete_category"><i class="far fa-trash-alt"></i></a> 
+                         (click)="logProjectDetails(project)"  data-bs-target="#delete_category"><i class="far fa-trash-alt"></i></a> 
                       </td>
 
 
@@ -780,9 +780,9 @@
           </div>
 
           <div class="form-group">
-            <label for="deadline_date">Deadline Date</label>
+            <!-- <label for="deadline_date">Deadline Date</label>
             <input type="text" class="form-control" name="deadlineDate" #deadlineInput
-                   value="{{ selectedProject?.deadline_date}}" />
+                   value="{{ selectedProject?.deadline_date}}" /> -->
         </div>
         
 
@@ -817,16 +817,17 @@
     <div class="modal-content">
       <div class="modal-body">
         <div class="form-header">
-          <h3>Delete</h3>
-          <p>Are you sure want to delete?</p>
+          <h3>Cancel</h3>
+          <p>Are you sure want to cancel?</p>
         </div>
         <div class="modal-btn delete-action">
           <div class="row">
             <div class="col-6">
-              <a href="javascript:void(0);" class="btn btn-primary continue-btn">Delete</a>
+              <a href="javascript:void(0);" class="btn btn-primary continue-btn" (click)="cancelProjectBacktoEmployer()">Yes</a>
             </div>
             <div class="col-6">
-              <a href="javascript:void(0);" data-bs-dismiss="modal" class="btn btn-primary cancel-btn">Cancel</a>
+              <a href="javascript:void(0);" data-bs-dismiss="modal" class="btn btn-primary cancel-btn">No</a>
+              
             </div>
           </div>
         </div>
@@ -855,13 +856,6 @@
       </div>
       <div class="modal-body">
         <form>
-
-
-
-
-
-
-
           <div *ngIf="userData">
             <p>Email: {{ userData.email }}</p>
             <p>Name: {{ userData.email }}</p>
@@ -870,7 +864,6 @@
             <p>Phone: {{ userData. phonenumber }}</p>
             <!-- Display other user details as needed -->
           </div>
-
         </form>
       </div>
     </div>

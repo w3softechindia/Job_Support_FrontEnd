@@ -47,6 +47,7 @@ export class FreelancerGuard {
           } else {
             // If the account is inactive, restrict access to allocated pages
             const allowedRoutes = ['/freelancer/dashboards', '/freelancer/profile-settings','/freelancer/verify-identity','/freelancer/change-password','/freelancer/delete-account']; // Define routes accessible for inactive accounts
+            // const allowedRoutes = ['/freelancer/dashboards']; // Define routes accessible for inactive accounts
             const requestedRoute = state.url;
             if (allowedRoutes.includes(requestedRoute)) {
               // If the requested route is allowed for inactive accounts, allow access

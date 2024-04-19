@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { ExpiredProjectRoutingModule } from './expired-project-routing.module';
 import { ExpiredProjectComponent } from './expired-project.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -10,6 +11,8 @@ import { ExpiredProjectComponent } from './expired-project.component';
     ExpiredProjectComponent
   ],
   imports: [
+    FormsModule,
+    ReactiveFormsModule,
     CommonModule,
     ExpiredProjectRoutingModule
   ]

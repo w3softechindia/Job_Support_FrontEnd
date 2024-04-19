@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/Services/user.service';
@@ -25,6 +26,7 @@ export class OtpComponent implements OnInit {
     data4: "",
   };
   remainingTime = 60;
+  otpSuccess = false;
   otpValue = '';
 
   // Method to concatenate OTP digits
@@ -75,9 +77,8 @@ export class OtpComponent implements OnInit {
   verifyEmail(){
     this.concatOTP();
     this.userservice.verifyAccount(this.email,this.otpValue,this.user).subscribe(()=>{
+      this.otpSuccess = true; 
     },error=>{
-      alert("Invalid Otp...!!!");
-      this.router.navigate([routes.register]);
       console.error(error);
     })
   }

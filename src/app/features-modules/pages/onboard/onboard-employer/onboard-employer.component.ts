@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-inferrable-types */
 /* eslint-disable @angular-eslint/use-lifecycle-interface */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnInit } from '@angular/core';
@@ -236,21 +237,34 @@ export class OnboardEmployerComponent implements OnInit{
   onBoardFreelancer(){
     this.router.navigateByUrl(`${this.routes.freelancer_onboard}/${this.email}`)
   }
+  fileName: string = ''; 
+
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
     if (file) {
-      // const email = 'your-email'; // Replace with the actual email
+      // Check if the file type is JPEG or PNG
+      if (file.type === 'image/jpeg' || file.type === 'image/png') {
+        this.fileName = file.name;  // Store the file name
 
-      this.userService.uploadFile(this.email, file).subscribe(
-        response => {
-          console.log(response); // Log the response
-          alert(response); // Display the response message
-        },
-        error => {
-          console.error(error); // Handle error response
-          // Optionally, you can show an error message to the user
-        }
-      );
+        // Your existing upload logic
+        this.userService.uploadFile(this.email, file).subscribe(
+          response => {
+            console.log('Upload successful: ', response);
+            alert('Upload successful!');
+          },
+          error => {
+            console.error('Upload failed: ', error);
+            alert('Upload failed!');
+          }
+        );
+      } else {
+        this.fileName = '';
+        alert('Only JPEG and PNG files are allowed.');
       }
+    } else {
+      console.error('No file selected.');
+      this.fileName = '';  // Clear the file name if no file is selected
+      alert('No file selected.');
     }
+  }
 }

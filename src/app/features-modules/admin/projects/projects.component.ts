@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 // import { Subject } from "rxjs";
@@ -7,7 +9,6 @@ import { Sort } from '@angular/material/sort';
 import { apiResultFormat, project } from 'src/app/core/models/models';
 import { UserService } from 'src/app/Services/user.service';
 import { User } from 'src/app/classes/user';
-import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PostprojectService } from 'src/app/Services/postproject.service';
 
@@ -22,7 +23,7 @@ export class ProjectsComponent implements OnInit {
 
   @ViewChild('projectTitleInput') projectTitleInput!: ElementRef<HTMLInputElement>;
   @ViewChild('budgetInput') budgetInput!: ElementRef<HTMLInputElement>;
-  @ViewChild('deadlineInput')deadlineInput!:ElementRef<HTMLInputElement>;
+  // @ViewChild('deadlineInput')deadlineInput!:ElementRef<HTMLInputElement>;
  
 
   
@@ -67,8 +68,11 @@ export class ProjectsComponent implements OnInit {
   gettingupdatedProjectIdsforstatus:number[]=[];
   projectIdForSend: any;
 
+  unpublishedArray: number[] = [];
+  projectidD: any;
 
 
+ 
  
   
   constructor(
@@ -82,10 +86,10 @@ export class ProjectsComponent implements OnInit {
     this.getTableData();
     this.getingAllProjectData();
     this.getUpdatedProjectIdsForStatus();
+    this.getUnpublishedIds() ;
     
     
   }
-
 
 
 
@@ -113,10 +117,51 @@ export class ProjectsComponent implements OnInit {
 
 
 
+  
+  getUnpublishedIds() {
+    this.userservis.getFalseids().subscribe(
+      (data: any) => {
+        this.unpublishedArray = data; // Assuming data contains the unpublished IDs
+        console.log('UnpublishedIds'+this.unpublishedArray);
+      },
+      error => {
+        console.error('Error fetching unpublished IDs:', error);
+        // Optionally, handle the error here
+      }
+    );
+  }
+  
+
+
+
+
+
   getingAllProjectData() {
-    this.userservis.getAllAdminProjects().subscribe((data) => {
-      this.projects = data;
-      console.log(this.projects);
+
+
+    // const projectIdsToFilter = [3]; // Update with your array of project IDs
+            
+    let projectIdsToFilter: number[] = [];
+
+    this.getUnpublishedIds(); // Call getUnpublishedIds to populate unpublishedArray
+
+
+
+
+
+
+      projectIdsToFilter.push(...this.unpublishedArray);
+      this.userservis.getAllAdminProjects().subscribe((data) => {
+        // Populate projectIdsToFilter with unpublishedArray
+        projectIdsToFilter = this.unpublishedArray;
+
+        // Filter out projects with IDs in projectIdsToFilter
+        this.projects = data.filter((project: any) => !projectIdsToFilter.includes(project.project_id));
+        console.log(this.projects);
+    
+
+
+
       console.log(this.projects?.length);
 
       // Extract project IDs
@@ -134,21 +179,37 @@ export class ProjectsComponent implements OnInit {
       extractedProperty.forEach((email: string) => {
         this.getUserDetailsByEmail(email);
       });
+      
     });
+    
   }
-
-
-
-
-
-
-
-
 
 //project ni ikkada update chestham
 logProjectDetails(project: any) {
   console.log('Project Details:', project);
+  console.log('Project idD:',project.project_id);
+
+
+  this.projectidD=project.project_id;
+ 
   this.selectedProject = project;
+}
+
+cancelProjectBacktoEmployer(projectId: number = this.projectidD) {
+  this.userservis.toggleStatus(projectId).subscribe(
+    () => {
+      // Handle success, e.g., show a success message
+      console.log('Project status toggled successfully.');
+      // You can also update any UI or data related to the toggled project
+      window.location.reload();
+    },
+    error => {
+      // Handle error, e.g., show an error message
+      console.error('Error toggling project status:', error);
+    }
+  );
+
+
 }
 
 // updateProject() {
@@ -168,9 +229,6 @@ logProjectDetails(project: any) {
 //   }
 // }
 
-
-
-
 updateProject() {
   if (this.selectedProject && this.selectedProject.id) {
     const projectId = this.selectedProject.id;
@@ -178,14 +236,14 @@ updateProject() {
     // Fetch values from template reference variables
     const projectTitle = this.projectTitleInput.nativeElement.value;
     const budgetAmount = this.budgetInput.nativeElement.value;
-      const deadline_date=this.deadlineInput.nativeElement.value;
+      // const deadline_date=this.deadlineInput.nativeElement.value;
     // Fetch other form field values similarly
     
     
     // Update selectedProject properties
     this.selectedProject.project_title = projectTitle;
     this.selectedProject.budget_amount = budgetAmount;
-    this.selectedProject.deadline_date=deadline_date;
+    // this.selectedProject.deadline_date=deadline_date;
     // Update other selectedProject properties similarly
     
     // Call the updateAdminProjectDetails method from the ProjectService
@@ -222,8 +280,6 @@ handleSuccess(updatedProjectId: number) {
 
 }
 
-
-
 sendUpdatedProjectIdsToBackend(): void {
   if (this.updatedProjectIds.length > 0) { // Check if there are project IDs to send
     // Call the service method to send the project IDs to the backend
@@ -243,12 +299,6 @@ sendUpdatedProjectIdsToBackend(): void {
     console.error('No updated project IDs to send.');
   }
 }
-
-
-
-
-
-
 
   getUserDetailsByEmail(email: string) {
     this.userservis.getUserByMail(email).subscribe(
@@ -277,10 +327,6 @@ sendUpdatedProjectIdsToBackend(): void {
     );
   }
 
-
-
-
-
   getUpdatedProjectIdsForStatus(): void {
     this.userservis.getAllUpdatedProjectIds().subscribe(data => {
       this.gettingupdatedProjectIdsforstatus = data;
@@ -289,17 +335,12 @@ sendUpdatedProjectIdsToBackend(): void {
 
   }
 
-
-
 //   unpublishProject(projectId: number): void {
     
 //     console.log('Unpublishing project with ID:', projectId);
 
     
 // }
-
-
-
 
 unpublishProject(projectId: number): void {
   // Check if projects is defined
@@ -332,16 +373,6 @@ unpublishProject(projectId: number): void {
   
 }
 
-
-
-
-
-
-
-
-
-
-
 removeProjectsFromPublish(projectId: number): void {
   this.userservis.removeProjectsFromPublish(projectId).subscribe(
     (response) => {
@@ -356,34 +387,6 @@ removeProjectsFromPublish(projectId: number): void {
   );
 }
 
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
   //Filter toggle
   openFilter() {
     this.filter = !this.filter;

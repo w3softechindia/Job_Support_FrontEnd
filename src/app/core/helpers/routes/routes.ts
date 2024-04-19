@@ -188,7 +188,7 @@ export class routes {
   // Admin Routing
 
   public static get admin_login(): string {
-    return this.admin + 'auth/login';
+    return this.admin + '/auth/login';
   }
   public static get admin_dashboard(): string {
     return this.admin + '/dashboard';

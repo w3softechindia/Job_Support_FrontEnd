@@ -119,23 +119,6 @@ export class EmployerheaderComponent implements OnInit{
     );
   }
 
-  // loadPhoto(): void {
-  //   this.userService.getPhoto(this.email).subscribe(
-  //     (data: Blob) => {
-  //       const reader = new FileReader();
-  //       reader.onload = () => {
-  //         this.photoUrl = reader.result as string;
-  //         this.isLoading = false; // Set loading to false when image is loaded
-  //       };
-  //       reader.readAsDataURL(data);
-  //     },
-  //     (error: any) => {
-  //       console.error('Error loading photo:', error);
-  //       this.isLoading = false; // Set loading to false on error
-  //     }
-  //   );
-  // }
-
   logout(): void {
     this.auth.userLogout();
    }

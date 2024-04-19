@@ -17,12 +17,12 @@ import { SendProposal } from '../classes/send-proposal';
 
 export interface FileDTO {
   file_path: any;
-    id: number;
-    filePath: string;
-    type: string; // Assuming you have a 'type' property
-    size: number;
-    fileName: string; // New property to store the file name
-  }
+  id: number;
+  filePath: string;
+  type: string; // Assuming you have a 'type' property
+  size: number;
+  fileName: string; // New property to store the file name
+}
 
 
 @Injectable({
@@ -33,13 +33,14 @@ export class UserService {
     throw new Error('Method not implemented.');
   }
 
-constructor(private http:HttpClient){}
+  constructor(private http: HttpClient) { }
 
-  private baseurl="http://jobsupport.us-east-1.elasticbeanstalk.com";
+  private baseurl = "http://jobsupport.us-east-1.elasticbeanstalk.com";
+  //  private baseurl="http://localhost:5000"
 
   //Authentication
-  login(data:any){
-    return this.http.post<any>(`${this.baseurl}/authenticate`,data);
+  login(data: any) {
+    return this.http.post<any>(`${this.baseurl}/authenticate`, data);
   }
 
   //Check If User is logged in
@@ -53,23 +54,28 @@ constructor(private http:HttpClient){}
   }
 
   //User Registration
-  register(user: User):Observable<any>{
-    return this.http.post(`${this.baseurl}/register` , user);
+  register(user: User): Observable<any> {
+    return this.http.post(`${this.baseurl}/register`, user);
   }
-  
+
   //User Email Verification
-  verifyAccount(email:string,otp:string,user:User):Observable<any>{
-    return this.http.put(`${this.baseurl}/verify/${email}/${otp}`,user);
+  verifyAccount(email: string, otp: string, user: User): Observable<any> {
+    return this.http.put(`${this.baseurl}/verify/${email}/${otp}`, user);
+  }
+
+  //Check Email Already Exists
+  checkEmailExists(email: string) {
+    return this.http.get<boolean>(`${this.baseurl}/check-email?email=${email}`);
   }
 
   //Register User Role
-  insertRole(email:string,newRole:string):Observable<User>{
-    return this.http.put<User>(`${this.baseurl}/update/${email}?newRole=${newRole}`,null)
+  insertRole(email: string, newRole: string): Observable<User> {
+    return this.http.put<User>(`${this.baseurl}/update/${email}?newRole=${newRole}`, null)
   }
 
   // Register User Personal Info
-  personalInfo(user:User,email:string){
-    return this.http.put(`${this.baseurl}/persnolInfo/${email}`,user)
+  personalInfo(user: User, email: string) {
+    return this.http.put(`${this.baseurl}/persnolInfo/${email}`, user)
   }
 
   //Register User Data
@@ -78,43 +84,43 @@ constructor(private http:HttpClient){}
   }
 
   //Register User OtherInfo
-  otherInfo(user:User,email:string){
-    return this.http.put(`${this.baseurl}/otherInfo/${email}`,user)
+  otherInfo(user: User, email: string) {
+    return this.http.put(`${this.baseurl}/otherInfo/${email}`, user)
   }
 
 
-  getUserByMail(email:string){
+  getUserByMail(email: string) {
     return this.http.get(`${this.baseurl}/getUser/${email}`)
   }
 
   //Register Employer Info
-  employerInfo(email:string,user:User){
-    return this.http.put(`${this.baseurl}/employerInfo/${email}`,user)
+  employerInfo(email: string, user: User) {
+    return this.http.put(`${this.baseurl}/employerInfo/${email}`, user)
   }
 
   //Update Freelancer Details
-  updateFreelancer(email:string,freelancer:User){
-    return this.http.put(`${this.baseurl}/updateFreelancer/${email}`,freelancer);
+  updateFreelancer(email: string, freelancer: User) {
+    return this.http.put(`${this.baseurl}/updateFreelancer/${email}`, freelancer);
   }
 
   //Send Otp to mail
-  SendOtp(email:string,user:User):Observable<any>{
-    return this.http.put(`${this.baseurl}/sendOTP/${email}`,user);
+  SendOtp(email: string, user: User): Observable<any> {
+    return this.http.put(`${this.baseurl}/sendOTP/${email}`, user);
   }
 
   //Verify Otp and Mail
-  verifyOtpEmail(email:string,otp:string,result:boolean):Observable<any>{
-    return this.http.put(`${this.baseurl}/verifyOTP/${email}/${otp}`,result);
+  verifyOtpEmail(email: string, otp: string, result: boolean): Observable<any> {
+    return this.http.put(`${this.baseurl}/verifyOTP/${email}/${otp}`, result);
   }
 
   //Reset Password
-  resetPwd(email:string,password:string,user:User):Observable<any>{
-    return this.http.put(`${this.baseurl}/resetPassword/${email}/${password}`,user)
+  resetPwd(email: string, password: string, user: User): Observable<any> {
+    return this.http.put(`${this.baseurl}/resetPassword/${email}/${password}`, user)
   }
 
   //Resend Otp
-  resendOTP(email:string){
-    return this.http.put(`${this.baseurl}/regenerate-otp/${email}`,{responseType:'text'});
+  resendOTP(email: string) {
+    return this.http.put(`${this.baseurl}/regenerate-otp/${email}`, { responseType: 'text' });
   }
 
   uploadFile(email: string, file: File) {
@@ -162,18 +168,18 @@ constructor(private http:HttpClient){}
   }
 
   //Delete Skills 
-  deleteSkill(skill:string){
+  deleteSkill(skill: string) {
     return this.http.delete(`${this.baseurl}/deleteSkill/${skill}`);
   }
 
   //Change Password
-  changePassword(email:string,password:string,newPassword:string,user:User){
-    return this.http.put(`${this.baseurl}/change-password/${email}/${password}/${newPassword}`,user);
+  changePassword(email: string, password: string, newPassword: string, user: User) {
+    return this.http.put(`${this.baseurl}/change-password/${email}/${password}/${newPassword}`, user);
   }
 
   //Account Deletion Post
-  deleteAccount(email:string,acdlt:AccountDelete){
-    return this.http.post(`${this.baseurl}/postReason/${email}`,acdlt,{responseType:'text'});
+  deleteAccount(email: string, acdlt: AccountDelete) {
+    return this.http.post(`${this.baseurl}/postReason/${email}`, acdlt, { responseType: 'text' });
   }
 
   getProjectsByUserEmail(userEmail: string): Observable<PostprojectService[]> {
@@ -181,11 +187,11 @@ constructor(private http:HttpClient){}
     return this.http.get<PostprojectService[]>(url);
   }
 
- getAllProjects(): Observable<any> {
+  getAllProjects(): Observable<any> {
     return this.http.get<any[]>(`${this.baseurl}/getallProjects`);
   }
 
-  getAllAdminProjects():Observable<any>{
+  getAllAdminProjects(): Observable<any> {
     return this.http.get<any[]>(`${this.baseurl}/getAllAdminProjects`);
   }
 
@@ -210,16 +216,16 @@ constructor(private http:HttpClient){}
   }
 
   //Get Admin Project By Id
-  getProjectByAdminProject(id:number):Observable<any>{
+  getProjectByAdminProject(id: number): Observable<any> {
     return this.http.get(`${this.baseurl}/getProjectById/${id}`);
   }
 
   //Add Portfolio
-  addPortfolio(email:string,formData:FormData): Observable<any> {
+  addPortfolio(email: string, formData: FormData): Observable<any> {
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'multipart/form-data');
 
-    return this.http.post<any>(`${this.baseurl}/postPortfolio/${email}`,formData,{ headers: headers })
+    return this.http.post<any>(`${this.baseurl}/postPortfolio/${email}`, formData, { headers: headers })
       .pipe(
         catchError(error => {
           return throwError(error);
@@ -228,7 +234,7 @@ constructor(private http:HttpClient){}
   }
 
   //Get Portfolios by Email
-  getPortfolio(email:string){
+  getPortfolio(email: string) {
     return this.http.get(`${this.baseurl}/getPortfolios/${email}`)
   }
 
@@ -239,68 +245,68 @@ constructor(private http:HttpClient){}
   }
 
   //Get Portfolios by Email And Title
-  getPortfolioByTitle(email:string,title:string){
+  getPortfolioByTitle(email: string, title: string) {
     return this.http.get(`${this.baseurl}/getPortByEmail&Title/${email}/${title}`);
   }
 
   //Update Portfolios By title
-  updatePortfolio(email:string,title1:string,formData:FormData){
-    return this.http.put(`${this.baseurl}/updatePortfolio/${email}/${title1}`,formData);
+  updatePortfolio(email: string, title1: string, formData: FormData) {
+    return this.http.put(`${this.baseurl}/updatePortfolio/${email}/${title1}`, formData);
   }
 
   //Delete Portfolio By Title
-  deletePortfolio(email:string,title:string){
-    return this.http.delete(`${this.baseurl}/deletePortfolio/${email}/${title}`,{responseType:'text'});
+  deletePortfolio(email: string, title: string) {
+    return this.http.delete(`${this.baseurl}/deletePortfolio/${email}/${title}`, { responseType: 'text' });
   }
 
   //Get User Account Status
-  getAccountStatus(email:string):Observable<any>{
-    return this.http.get(`${this.baseurl}/accountStatus/${email}`,{responseType:'text'});
+  getAccountStatus(email: string): Observable<any> {
+    return this.http.get(`${this.baseurl}/accountStatus/${email}`, { responseType: 'text' });
   }
 
-  
+
   removeProjectsFromPublish(projectId: number) {
     const url = `${this.baseurl}/removeProjectFromPublish/${projectId}`;
     return this.http.delete(url, { observe: 'response' });
   }
 
   //Get Project Files
-  getProjectFilesByProjectId(id:number):Observable<any>{
+  getProjectFilesByProjectId(id: number): Observable<any> {
     return this.http.get(`${this.baseurl}/filesGet/${id}`);
   }
 
   //Post Proposal
-  postProposal(id:number,email:string,proposal:SendProposal):Observable<any>{
-    return this.http.post(`${this.baseurl}/sendProposal/${id}/${email}`,proposal);
+  postProposal(id: number, email: string, proposal: SendProposal): Observable<any> {
+    return this.http.post(`${this.baseurl}/sendProposal/${id}/${email}`, proposal);
   }
 
   //Get All Proposals By Email
-  getAllProposals(email:string):Observable<any>{
+  getAllProposals(email: string): Observable<any> {
     return this.http.get(`${this.baseurl}/getProposals/${email}`);
   }
 
   //update Proposal
-  updateProposal(id:number,proposal:SendProposal):Observable<any>{
-    return this.http.put(`${this.baseurl}/updateProposal/${id}`,proposal);
+  updateProposal(id: number, proposal: SendProposal): Observable<any> {
+    return this.http.put(`${this.baseurl}/updateProposal/${id}`, proposal);
   }
 
   //Delete Proposal
-  deleteProposal(id:number):Observable<any>{
-    return this.http.delete(`${this.baseurl}/deleteProposal/${id}`,{responseType:'text'});
+  deleteProposal(id: number): Observable<any> {
+    return this.http.delete(`${this.baseurl}/deleteProposal/${id}`, { responseType: 'text' });
   }
 
   //Fetch Proposal By id
-  fetchProposal(id:number):Observable<any>{
+  fetchProposal(id: number): Observable<any> {
     return this.http.get(`${this.baseurl}/getProposalById/${id}`);
   }
 
   //Get all Projects posted by Admin
-  getProjects():Observable<any>{
+  getProjects(): Observable<any> {
     return this.http.get<any[]>(`${this.baseurl}/getProjectsOfAdmin`)
   }
 
   //Get Proposals by ProjectId
-  getProposalsByProject(id:number):Observable<any>{
+  getProposalsByProject(id: number): Observable<any> {
     return this.http.get<any[]>(`${this.baseurl}/getProposalsByProjectId/${id}`);
   }
 
@@ -316,10 +322,53 @@ constructor(private http:HttpClient){}
     return this.http.put<User>(url, user);
   }
 
-  //Update profile Pic
+  //   //Update profile Pic
+  //   updatePhoto(email: string, photo: File): Observable<any> {
+  //     const formData: FormData = new FormData();
+  //     formData.append('photo', photo, photo.name);
+  //     return this.http.put(`${this.baseurl}/photoUpdate/${email}`,formData);
+  //   }
+
+
+
+  toggleStatus(projectId: number): Observable<void> {
+    const url = `${this.baseurl}/status/toggle/${projectId}`;
+    return this.http.put<void>(url, {});
+  }
+
+  getFalseids(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseurl}/unpublished`);
+  }
+
+
+  getexpiredIds(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseurl}/expired`);
+  }
+
+
+  getProjectsByIds(ids: number[]): Observable<any[]> {
+    const params = { ids: ids.join(',') }; // Convert array of IDs to comma-separated string
+    return this.http.get<any[]>(`${this.baseurl}/getProjectsByIds`, { params });
+  }
+
+
+
+  updateProjectDeadline(projectId: number, newDeadline: string): Observable<any> {
+    const url = `${this.baseurl}/updateProject/${projectId}`;
+    return this.http.put(url, { deadline_date: newDeadline });
+  }
+
+
+  getFilesByProjectIdd(projectId: number): Observable<string[]> {
+    const url = `${this.baseurl}/filesGet/${projectId}`;
+    return this.http.get<string[]>(url);
+  }
+
   updatePhoto(email: string, photo: File): Observable<any> {
-    const formData: FormData = new FormData();
+    const formData = new FormData();
     formData.append('photo', photo, photo.name);
-    return this.http.put(`${this.baseurl}/photoUpdate/${email}`,formData);
-  }
+
+    return this.http.put<any>(`${this.baseurl}/photoUpdate/${email}`, formData);
+  }
+
 }

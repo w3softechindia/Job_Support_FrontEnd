@@ -26,7 +26,8 @@ export class FreelancerheaderComponent implements OnInit{
   email!:string;
   photo: any;
   error!: string;
-  photoUrl!: string | ArrayBuffer | null;
+  photoUrl: string | undefined;
+  isLoading: boolean | undefined;
 
   constructor(
     private router: Router,
@@ -55,15 +56,7 @@ export class FreelancerheaderComponent implements OnInit{
   ngOnInit(): void {
     this.name=this.auth.getName();
     this.email=this.auth.getEmail();
-    this.userService.getPhoto(this.email).subscribe(
-      data => {
-        this.photo = data;
-        this.createImageFromBlob();
-      },
-      error => {
-        this.error = 'Failed to load photo.';
-      }
-    );
+    this.loadPhoto();
   }
 
   employer() {
@@ -102,14 +95,26 @@ export class FreelancerheaderComponent implements OnInit{
     }
   }
 
-  createImageFromBlob(): void {
-    const reader = new FileReader();
-    reader.addEventListener('load', () => {
-      this.photoUrl = reader.result;
-    }, false);
-
-    if (this.photo) {
-      reader.readAsDataURL(this.photo);
-    }
+  loadPhoto(): void {
+    this.userService.getPhoto(this.email).subscribe(
+      (data: Blob) => {
+        console.log('Photo data:', data);
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.photoUrl = reader.result as string;
+          console.log('Photo URL:', this.photoUrl);
+          this.isLoading = false; // Set loading to false when image is loaded
+        };
+        reader.readAsDataURL(data);
+      },
+      (error: any) => {
+        console.error('Error loading photo:', error);
+        this.isLoading = false; // Set loading to false on error
+      }
+    );
   }
+
+  logout(): void {
+    this.auth.userLogout();
+   }
 }
