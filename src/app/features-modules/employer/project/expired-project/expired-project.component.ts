@@ -6,6 +6,7 @@ import { UserService } from 'src/app/Services/user.service';
 import { ShareDataService } from 'src/app/core/data/share-data.service';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { empprojects } from 'src/app/core/models/models';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 
 @Component({
   selector: 'app-expired-project',
@@ -31,17 +32,28 @@ export class ExpiredProjectComponent  implements OnInit{
   constructor( 
     public router: Router, 
     private dataservice: ShareDataService,
-    private userservice:UserService
+    private userservice:UserService,
+    private auth:AuthService
   ) {
     this.dataservice.ManageUsers.subscribe((data: Array<empprojects>) => {
       this.empprojects = data
     })
    }
 
-   ngOnInit(): void {
-    this.userservice.getexpiredIds().subscribe(ids => {
+  //  ngOnInit(): void {
+  //   this.userservice.getexpiredIds().subscribe(ids => {
+  //     this.expiredIds = ids;
+  //     console.log('expiredprojects' + this.expiredIds);
+  //     this.fetchProjectsByIds(this.expiredIds); // Pass the expiredIds array to fetchProjectsByIds
+  //   });
+  // }
+
+
+  ngOnInit(): void {
+    const userEmail = this.auth.getEmail(); // Replace with the actual user's email
+    this.userservice.getExpiredIds(userEmail).subscribe(ids => {
       this.expiredIds = ids;
-      console.log('expiredprojects' + this.expiredIds);
+      console.log('expiredprojects', this.expiredIds); // Use comma to separate strings and variables
       this.fetchProjectsByIds(this.expiredIds); // Pass the expiredIds array to fetchProjectsByIds
     });
   }
