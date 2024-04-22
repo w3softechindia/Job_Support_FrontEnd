@@ -455,3 +455,9 @@ export interface SendProposal{
   user:User;
 }
 
+export class AdminApprovedProposal{
+  status!:string;
+  adminPostProject!:AdminPostProject;
+  user!:User
+}
+

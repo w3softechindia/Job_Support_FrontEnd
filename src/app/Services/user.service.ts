@@ -35,8 +35,8 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  private baseurl = "http://jobsupport.us-east-1.elasticbeanstalk.com";
-  //  private baseurl="http://localhost:5000"
+  // private baseurl = "http://jobsupport.us-east-1.elasticbeanstalk.com";
+   private baseurl="http://localhost:5000"
 
   //Authentication
   login(data: any) {
@@ -371,4 +371,5 @@ export class UserService {
     return this.http.put<any>(`${this.baseurl}/photoUpdate/${email}`, formData);
   }
 
+  
 }

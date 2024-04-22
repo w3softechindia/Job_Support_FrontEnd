@@ -1,3 +1,5 @@
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
 <div class="page-wrapper">
     <div class="content container-fluid">
         <!-- Page Header -->
@@ -26,6 +28,7 @@
                                             <th>Proposed Price</th>
                                             <th>Estimated Delivery</th>
                                             <th>Cover Letter</th>
+                                            <th>Proposal Status</th>
                                             <th>Action</th>
                                         </tr>
                                         <tr *ngIf="proposal.length === 0">
@@ -41,6 +44,7 @@
                                             <td>{{identity.proposedPrice}}</td>
                                             <td>{{identity.estimatedDelivery}}</td>
                                             <td>{{identity.coverLetter}}</td>
+                                            <td>{{identity.proposalStatus}}</td>
                                             <!-- <td>
                                                 <h2 class="table-avatar">
                                                     <a [routerLink]="'/admin/profile'"><img class="me-2 rounded-circle"
@@ -49,9 +53,12 @@
                                             </td>
                                             <td>{{identity.address}}</td> -->
                                             <td>
-                                                <a href="javascript:"
-                                                    class="btn btn-success btn-disable me-2" href="#hire-now"  data-bs-toggle="modal">Approve</a>
-                                                <a href="javascript:" class="btn btn-danger btn-disable me-2">Reject</a>
+                                                <div class="actions">
+                                                    <a class="action-btn approve-btn" type="submit" href="#hire-now" data-bs-toggle="modal"
+                                                        (click)="approveProposal(identity.proposal_id,'Approved','Approved')" (click)="openHireModal(identity.user.name)">Approve</a>
+                                                    <a class="action-btn reject-btn" type="submit" href="#reject" data-bs-toggle="modal"
+                                                        (click)="rejectProposal(identity.proposal_id,'Rejected')">Reject</a>
+                                                </div>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -69,16 +76,18 @@
     <div class="modal-dialog modal-dialog-centered modal-md">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Hire - {{this.name}}</h4>
-                <span class="modal-close"><a href="javascript:void(0);" data-bs-dismiss="modal" aria-label="Close"><i class="feather icon-x"></i></a></span>
+                <h4 class="modal-title">Hire - {{name}}</h4>
+                <span class="modal-close"><a href="javascript:void(0);" data-bs-dismiss="modal" aria-label="Close"><i
+                            class="feather icon-x"></i></a></span>
             </div>
-            <div class="modal-body">		
+            <div class="modal-body">
                 <form action="#">
                     <div class="modal-info">
                         <div class="row">
                             <div class="input-block">
                                 <label for="Message" class="form-label">Message</label>
-                                <textarea class="form-control">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</textarea>
+                                <textarea
+                                    class="form-control">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</textarea>
                             </div>
                         </div>
                     </div>
@@ -87,10 +96,11 @@
                         <span class="checkmark"></span>Close this project for other freelancers
                     </label>
                     <div class="submit-section text-end">
-                        <a href="javascript:void(0);" class="btn btn-cancel">Cancel</a>
-                        <a href="#success-hire" class="btn btn-primary submit-btn" data-bs-toggle="modal">Let’s Discuss</a>
+                        <a href="javascript:void(0);" data-bs-dismiss="modal" class="btn btn-cancel">Cancel</a>
+                        <a href="#success-hire" class="btn btn-primary submit-btn" data-bs-toggle="modal">Let’s
+                            Discuss</a>
                     </div>
-                    
+
                 </form>
             </div>
         </div>
@@ -102,12 +112,28 @@
 <div class="modal fade success-modal hire-modal" id="success-hire">
     <div class="modal-dialog modal-dialog-centered modal-md">
         <div class="modal-content">
-            <div class="modal-body">	
+            <div class="modal-body">
                 <div class="success-msg-content text-center">
                     <h4>Hired Successfully </h4>
-                    <p>Freelancer {{this.name}} has been successfully hired for the project “Project Name”, This project will be hide for Other freelancers & in future</p>
-                    <a class="btn btn-primary mt-3" data-bs-dismiss="modal">Ok</a>
-                </div>	
+                    <p>Freelancer {{name}} has been successfully hired. This project
+                        will be hide for Other freelancers & in future</p>
+                    <a class="btn btn-primary mt-3" data-bs-dismiss="modal" (click)="navigation()">Ok</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /The Modal -->
+
+<!-- The Modal -->
+<div class="modal fade success-modal hire-modal" id="reject">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="success-msg-content text-center">
+                    <h4>Rejected Successfully </h4>
+                    <a class="btn btn-primary mt-3" data-bs-dismiss="modal" (click)="navigation()">Ok</a>
+                </div>
             </div>
         </div>
     </div>

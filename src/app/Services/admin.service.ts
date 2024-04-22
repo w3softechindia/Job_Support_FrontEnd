@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Admin } from '../classes/admin';
 import { Observable } from 'rxjs';
+import { AdminApprovedProposal } from '../core/models/models';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,8 @@ export class AdminService {
 
   constructor(private http:HttpClient) { }
 
-  private baseurl="http://jobsupport.us-east-1.elasticbeanstalk.com";
+  // private baseurl="http://jobsupport.us-east-1.elasticbeanstalk.com";
+  private baseurl="http://localhost:5000";
 
   //Login
   adminlogin(email:string,password:string,admin:Admin){
@@ -57,5 +59,15 @@ export class AdminService {
   //Count Users By Deactive
   getCountofUsersByDeactive(role:string):Observable<any>{
     return this.http.get(`${this.baseurl}/deactivated/${role}`);
+  }
+
+  //Approve Proposal
+  approveProposal(proposalId:number,proposalStatus:string,approvalStatus:string){
+    return this.http.post(`${this.baseurl}/proposalApproval/${proposalId}/${proposalStatus}/${approvalStatus}`,AdminApprovedProposal)
+  }
+
+  //Reject Proposal
+  rejectProposal(proposalId:number,proposalStatus:string){
+    return this.http.put(`${this.baseurl}/rejectProposal/${proposalId}/${proposalStatus}`,{responseType:'text'})
   }
 }

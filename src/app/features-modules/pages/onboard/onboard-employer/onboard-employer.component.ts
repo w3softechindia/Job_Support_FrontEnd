@@ -59,7 +59,7 @@ export class OnboardEmployerComponent implements OnInit{
     this.personalForm = this.formbuilder.group({
       firstname: ['', [Validators.required, Validators.minLength(4)]],
       lastname: ['', [Validators.required, Validators.minLength(4)]],
-      phonenumber: ['', [Validators.required, Validators.minLength(10)]],
+      phonenumber: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.maxLength(15)]]
     })
 
     this.employerForm=this.formbuilder.group({
