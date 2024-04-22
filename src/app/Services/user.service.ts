@@ -36,7 +36,7 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   private baseurl = "http://jobsupport.us-east-1.elasticbeanstalk.com";
-  //  private baseurl="http://localhost:5000"
+  
 
   //Authentication
   login(data: any) {
@@ -341,8 +341,8 @@ export class UserService {
   }
 
 
-  getexpiredIds(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseurl}/expired`);
+  getExpiredIds(userEmail: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseurl}/expired/${userEmail}`);
   }
 
 
