@@ -340,9 +340,8 @@ export class UserService {
     return this.http.get<any[]>(`${this.baseurl}/unpublished`);
   }
 
-
-  getexpiredIds(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseurl}/expired`);
+  getExpiredIds(userEmail: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseurl}/expired/${userEmail}`);
   }
 
 
@@ -371,5 +370,4 @@ export class UserService {
     return this.http.put<any>(`${this.baseurl}/photoUpdate/${email}`, formData);
   }
 
-  
 }

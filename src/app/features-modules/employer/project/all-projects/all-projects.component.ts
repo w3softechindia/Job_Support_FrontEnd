@@ -83,7 +83,7 @@ export class AllProjectsComponent implements OnInit {
   private fetchProjectsAndExpiredIds(): void {
     forkJoin([
         this.userservice.getProjectsByUserEmail(this.email),
-        this.userservice.getexpiredIds()
+        this.userservice.getExpiredIds(this.email)
     ]).subscribe(([projects, expiredIds]) => {
         if (projects && expiredIds) {
             this.projects = projects.filter(project => !expiredIds.includes(project['id']));
