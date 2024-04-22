@@ -1,3 +1,6 @@
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 /* eslint-disable @typescript-eslint/no-inferrable-types */
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
@@ -58,7 +61,7 @@ export class OnboardScreenComponent implements OnInit {
     this.personalForm = this.formbuilder.group({
       firstname: ['', [Validators.required, Validators.minLength(4)]],
       lastname: ['', [Validators.required, Validators.minLength(4)]],
-      phonenumber: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+      phonenumber: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.maxLength(15)]],
       dob: ['', [Validators.required]],
       jobtitle: ['', [Validators.required,]],
       typeofjob: ['', [Validators.required,]],

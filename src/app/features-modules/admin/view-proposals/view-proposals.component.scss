@@ -1,0 +1,29 @@
+.actions {
+    display: flex;
+  }
+  
+  .action-btn {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-right: 10px; /* Adjust spacing between buttons */
+    cursor: pointer;
+  }
+  
+  .action-btn:last-child {
+    margin-right: 0; /* Remove margin from last button */
+  }
+  
+  .approve-btn {
+    background-color: #4CAF50; /* Green */
+  }
+  
+  .reject-btn {
+    background-color: #f44336; /* Red */
+  }
+  

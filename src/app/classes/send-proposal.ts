@@ -6,6 +6,7 @@ export class SendProposal {
     proposedPrice!: string;
     estimatedDelivery!: string;
     coverLetter!: string;
+    proposalStatus!:string;
     milestones!: Milestone[];
 
     user!: User;
