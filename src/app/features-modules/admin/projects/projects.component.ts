@@ -19,6 +19,7 @@ import { PostprojectService } from 'src/app/Services/postproject.service';
 })
 export class ProjectsComponent implements OnInit {
 
+  expiredIds!: number[];
 
 
   @ViewChild('projectTitleInput') projectTitleInput!: ElementRef<HTMLInputElement>;

@@ -1,22 +1,201 @@
-import { Component,  } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit,  } from '@angular/core';
 import { Router } from '@angular/router';
+import { PostprojectService } from 'src/app/Services/postproject.service';
+import { ApprovedProposalDTO, UserService } from 'src/app/Services/user.service';
 import { ShareDataService } from 'src/app/core/data/share-data.service';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import { empprojects } from 'src/app/core/models/models';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 
 @Component({
   selector: 'app-ongoing-projects',
   templateUrl: './ongoing-projects.component.html',
   styleUrls: ['./ongoing-projects.component.scss']
 })
-export class OngoingProjectsComponent  {
+export class OngoingProjectsComponent  implements OnInit{
   public routes = routes
   empprojects: Array<empprojects> = [];
-  constructor( public router: Router, private dataservice: ShareDataService) {
-    this.dataservice.ManageUsers.subscribe((data: Array<empprojects>) => {
-      this.empprojects = data
-    })
-   }
+
+
+  approvedProposals: ApprovedProposalDTO[] = [];
+
+  postproject:PostprojectService[]=[];
+
+  isLoading: boolean | undefined;
+  photoUrl: string | undefined;
+
+  constructor( public router: Router, private dataservice: ShareDataService,
+                         private user:UserService,
+                         private auth:AuthService,
+                         
+
+  ) {
+
+  }
+   
+
+
  
+  
+  
+
+  // ngOnInit(): void {
+  //   this.user.getAllApprovedProposals().subscribe(
+  //     (data: ApprovedProposalDTO[]) => {
+  //       this.approvedProposals = data;
+        
+  //       if (this.approvedProposals.length > 0) {
+  //         const projectIds = this.approvedProposals.map(proposal => proposal.admin_post_project_id);
+  //         this.user.getAdminProjectById(projectIds).subscribe(
+  //           (projectDetails: any[]) => {
+  //             // Handle project details
+  //             console.log("Project Details:", projectDetails);
+  //             const userEmail = this.auth.getEmail(); // Assuming this method returns the user's email
+  //             const userProjects = projectDetails.filter(detail => detail.user_email === userEmail);
+  //             userProjects.forEach(project => {
+  //               console.log("User Email:", project.user_email);
+  //               console.log("Main Project ID:", project.project_id);
+  //             });
+  //           },
+  //           (error) => {
+  //             console.error('Error fetching project details:', error);
+  //           }
+  //         );
+  //       } else {
+  //         console.log("No approved proposals available.");
+  //       }
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching approved proposals:', error);
+  //     }
+  //   );
+  // }
+
+
+ 
+  // ngOnInit(): void {
+  //   this.user.getAllApprovedProposals().subscribe(
+  //     (data: ApprovedProposalDTO[]) => {
+  //       this.approvedProposals = data;
+        
+  //       if (this.approvedProposals.length > 0) {
+  //         const projectIds = this.approvedProposals.map(proposal => proposal.admin_post_project_id);
+  //         this.user.getAdminProjectById(projectIds).subscribe(
+  //           (projectDetails: any[]) => {
+  //             // Handle project details
+  //             console.log("Project Details:", projectDetails);
+  //             const userEmail = this.auth.getEmail(); // Assuming this method returns the user's email
+  //             const userProjects = projectDetails.filter(detail => detail.user_email === userEmail);
+  //             userProjects.forEach(project => {
+  //               console.log("User Email:", project.user_email);
+  //               console.log("Main Project ID:", project.project_id);
+
+  //               // Fetch main project details
+  //               this.user.getMainProjectsById(project.project_id).subscribe(
+  //                 (mainProjectDetails: any) => {
+  //                   console.log("Main Project Details:", mainProjectDetails);
+  //                 },
+  //                 (error) => {
+  //                   console.error('Error fetching main project details:', error);
+  //                 }
+  //               );
+  //             });
+  //           },
+  //           (error) => {
+  //             console.error('Error fetching project details:', error);
+  //           }
+  //         );
+  //       } else {
+  //         console.log("No approved proposals available.");
+  //       }
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching approved proposals:', error);
+  //     }
+  //   );
+  // }
+
+
+
+
+
+
+
+
+
+
+
+
+  ngOnInit(): void {
+    this.user.getAllApprovedProposals().subscribe(
+      (data: ApprovedProposalDTO[]) => {
+        this.approvedProposals = data;
+
+        if (this.approvedProposals.length > 0) {
+          const projectIds = this.approvedProposals.map(proposal => proposal.admin_post_project_id);
+          this.user.getAdminProjectById(projectIds).subscribe(
+            (projectDetails: any[]) => {
+              // Handle project details
+              console.log("Project Details:", projectDetails);
+              const userEmail = this.auth.getEmail(); // Assuming this method returns the user's email
+              const userProjects = projectDetails.filter(detail => detail.user_email === userEmail);
+              userProjects.forEach(project => {
+                console.log("User Email:", project.user_email);
+                console.log("Main Project ID:", project.project_id);
+
+                // Fetch main project details
+                this.user.getMainProjectsById(project.project_id).subscribe(
+                  (mainProjectDetails: any) => {
+                    console.log("Main Project Details:", mainProjectDetails);
+
+                    // Add main project details to the postproject array
+                    this.postproject.push(mainProjectDetails);
+                  },
+                  (error) => {
+                    console.error('Error fetching main project details:', error);
+                  }
+                );
+              });
+            },
+            (error) => {
+              console.error('Error fetching project details:', error);
+            }
+          );
+        } else {
+          console.log("No approved proposals available.");
+        }
+      },
+      (error) => {
+        console.error('Error fetching approved proposals:', error);
+      }
+    );
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
