@@ -53,11 +53,27 @@
                                             </td>
                                             <td>{{identity.address}}</td> -->
                                             <td>
-                                                <div class="actions">
+                                                <!-- <div class="actions">
                                                     <a class="action-btn approve-btn" type="submit" href="#hire-now" data-bs-toggle="modal"
                                                         (click)="approveProposal(identity.proposal_id,'Approved','Approved')" (click)="openHireModal(identity.user.name)">Approve</a>
                                                     <a class="action-btn reject-btn" type="submit" href="#reject" data-bs-toggle="modal"
                                                         (click)="rejectProposal(identity.proposal_id,'Rejected')">Reject</a>
+                                                </div> -->
+                                                <div class="actions">
+                                                    <ng-container *ngIf="identity.proposalStatus === 'Approved'">
+                                                        <a class="action-btn reject-btn" type="submit" href="#reject" data-bs-toggle="modal"
+                                                            (click)="rejectProposal(identity.proposal_id,'Rejected')">Reject</a>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="identity.proposalStatus === 'Rejected'">
+                                                        <a class="action-btn approve-btn" type="submit" href="#hire-now" data-bs-toggle="modal"
+                                                            (click)="approveProposal(identity.proposal_id,'Approved','Approved')" (click)="openHireModal(identity.user.name)">Approve</a>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="identity.proposalStatus === 'Yet To Be'">
+                                                        <a class="action-btn approve-btn" type="submit" href="#hire-now" data-bs-toggle="modal"
+                                                            (click)="approveProposal(identity.proposal_id,'Approved','Approved')" (click)="openHireModal(identity.user.name)">Approve</a>
+                                                        <a class="action-btn reject-btn" type="submit" href="#reject" data-bs-toggle="modal"
+                                                            (click)="rejectProposal(identity.proposal_id,'Rejected')">Reject</a>
+                                                    </ng-container>
                                                 </div>
                                             </td>
                                         </tr>

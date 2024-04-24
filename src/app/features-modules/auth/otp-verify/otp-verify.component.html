@@ -40,12 +40,10 @@
                                 </div>
                                 <div class="resend-code">Didn't receive OTP code?
                                     <span *ngIf="remainingTime > 0">{{ remainingTime }} seconds</span>
-                                    <a href="javascript:void(0);" (click)="resendOTP()"
+                                    <a href="#resend" data-bs-toggle="modal" (click)="resendOTP()"
                                         *ngIf="remainingTime <= 0">Resend Code</a>
                                 </div>
-                                <button
-                                    class="btn btn-primary w-100 btn-lg login-btn d-flex align-items-center justify-content-center"
-                                    type="submit">Verify Email<i class="feather icon-arrow-right ms-2"></i></button>
+                                <button  href="#otp-verification" data-bs-toggle="modal" class="btn btn-primary w-100 btn-lg login-btn d-flex align-items-center justify-content-center" type="submit">Verify Email<i class="feather icon-arrow-right ms-2"></i></button>
                             </form>
                         </div>
                     </div>
@@ -54,3 +52,32 @@
             </div>
         </div>
     </div>
+</div>
+<div class="modal fade success-modal hire-modal" id="otp-verification"  [class.show]="otpSuccess">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+        <div class="modal-content">
+            <div class="modal-body pt-4">
+                <div class="success-msg-content text-center">
+                    <h4>OTP Verification</h4>
+                    <p *ngIf="otpSuccess">Your Email is verified. Set New Password</p>
+                    <a *ngIf="otpSuccess" href="javascript:void(0);" data-bs-dismiss="modal" class="btn btn-primary mt-3" (click)="navigation()">Okay</a>
+                    <p *ngIf="!otpSuccess">Incorrect OTP. Please try again.</p>
+                    <a *ngIf="!otpSuccess" href="javascript:void(0);" data-bs-dismiss="modal" class="btn btn-primary mt-3">Close</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade success-modal hire-modal" id="resend">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+        <div class="modal-content">
+            <div class="modal-body pt-4">
+                <div class="success-msg-content text-center">
+                    <h4>OTP Verification</h4>
+                    <p>OTP Sent to registered email. Enter within 1 minute</p>
+                    <a href="javascript:void(0);" data-bs-dismiss="modal" class="btn btn-primary mt-3" (click)="navigation1()">Okay</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
