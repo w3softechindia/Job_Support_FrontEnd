@@ -76,7 +76,7 @@
 					</ng-container>
 				</ul>
 			</div>
-			<ul class="nav header-navbar-rht" *ngIf="anotherMenu === false">
+			<ul class="nav header-navbar-rht" *ngIf="employerLoggedIn() === true">
 				<!-- <li><a [routerLink] = "routes.freelancer_message"><img src="assets/img/icon/message-chat-icon.svg" alt="Img"></a></li> -->
 				<li class="dropdown">
 					<a data-bs-toggle="dropdown" href="javascript:void(0);"><img
@@ -217,7 +217,7 @@
 				</li>
 
 			</ul>
-			<ul class="nav header-navbar-rht reg-head" *ngIf="anotherMenu === true">
+			<ul class="nav header-navbar-rht reg-head" *ngIf="employerLoggedIn() === false">
 				<li><a [routerLink]="routes.register" class="reg-btn"><img src="assets/img/icon/users.svg" class="me-1"
 							alt="img">Register</a></li>
 				<li><a [routerLink]="routes.login" class="log-btn"><img src="assets/img/icon/lock.svg" class="me-1"

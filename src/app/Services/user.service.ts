@@ -118,13 +118,13 @@ export class UserService {
   }
 
   //Send Otp to mail
-  SendOtp(email: string, user: User): Observable<any> {
-    return this.http.put(`${this.baseurl}/sendOTP/${email}`, user);
+  SendOtp(email: string): Observable<any> {
+    return this.http.put(`${this.baseurl}/sendOTP/${email}`,{ responseType: 'text' } );
   }
 
   //Verify Otp and Mail
-  verifyOtpEmail(email: string, otp: string, result: boolean): Observable<any> {
-    return this.http.put(`${this.baseurl}/verifyOTP/${email}/${otp}`, result);
+  verifyOtpEmail(email: string, otp: string,result:boolean): Observable<any> {
+    return this.http.put(`${this.baseurl}/verifyOTP/${email}/${otp}`,result);
   }
 
   //Reset Password
@@ -343,8 +343,6 @@ export class UserService {
   //     return this.http.put(`${this.baseurl}/photoUpdate/${email}`,formData);
   //   }
 
-
-
   toggleStatus(projectId: number): Observable<void> {
     const url = `${this.baseurl}/status/toggle/${projectId}`;
     return this.http.put<void>(url, {});
@@ -358,19 +356,15 @@ export class UserService {
     return this.http.get<any[]>(`${this.baseurl}/expired/${userEmail}`);
   }
 
-
   getProjectsByIds(ids: number[]): Observable<any[]> {
     const params = { ids: ids.join(',') }; // Convert array of IDs to comma-separated string
     return this.http.get<any[]>(`${this.baseurl}/getProjectsByIds`, { params });
   }
 
-
-
   updateProjectDeadline(projectId: number, newDeadline: string): Observable<any> {
     const url = `${this.baseurl}/updateProject/${projectId}`;
     return this.http.put(url, { deadline_date: newDeadline });
   }
-
 
   getFilesByProjectIdd(projectId: number): Observable<string[]> {
     const url = `${this.baseurl}/filesGet/${projectId}`;
@@ -383,7 +377,11 @@ export class UserService {
 
     return this.http.put<any>(`${this.baseurl}/photoUpdate/${email}`, formData);
   }
-
+  
+  //Get Freelancer OnGoing Projects
+  freelancerOnGoingProjects(email:string): Observable<any>{
+    return this.http.get(`${this.baseurl}/onGoingProjects`, { params: { email: email } })
+  }
 
 
 
@@ -397,7 +395,4 @@ export class UserService {
     );
   }
   
-
-
-
 }

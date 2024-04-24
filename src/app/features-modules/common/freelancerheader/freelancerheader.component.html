@@ -75,7 +75,7 @@
 					</ng-container>
 				</ul>
 			</div>
-			<ul class="nav header-navbar-rht" *ngIf="anotherMenu === false">
+			<ul class="nav header-navbar-rht" *ngIf="isLoggedIn() === true">
 				<!-- <li><a [routerLink] = "routes.freelancer_message"><img src="assets/img/icon/message-chat-icon.svg" alt="Img"></a></li> -->
 				<li class="dropdown">
 					<a data-bs-toggle="dropdown" href="javascript:void(0);"><img
@@ -168,8 +168,6 @@
 						</div>
 					</div>
 				</li>
-				<!-- <li><a [routerLink] = "routes.employee_post_project" class="login-btn">Post a Project <i class="feather icon-plus ms-1"></i></a>
-				</li> -->
 				<li class="nav-item dropdown account-item">
 					<a href="javascript:void(0);" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
 						<div *ngIf="isLoading">
@@ -215,10 +213,9 @@
 				</li>
 
 			</ul>
-			<ul class="nav header-navbar-rht reg-head" *ngIf="anotherMenu === true">												
+			<ul class="nav header-navbar-rht reg-head" *ngIf="isLoggedIn() === false">												
 				<li><a [routerLink] = "routes.register" class="reg-btn"><img src="assets/img/icon/users.svg" class="me-1" alt="img">Register</a></li>
 				<li><a [routerLink] = "routes.login" class="log-btn"><img src="assets/img/icon/lock.svg" class="me-1" alt="img"> Login</a></li>
-				<!-- <li><a [routerLink] = "routes.employee_post_project" class="login-btn"><i class="feather icon-plus me-1"></i>Post a Project </a></li> -->
 			</ul>
 		</nav>
 	</div>

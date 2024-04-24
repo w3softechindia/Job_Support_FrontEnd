@@ -23,8 +23,15 @@
                         <li>
                             <div class="proposal-client-price">
                                 <h4 class="title-info">Client Price</h4>
-                                <h3 class="client-price">${{ proposal.admin_post_project.budget_amount }} <span
-                                        class="price-type">(Fixed)</span></h3>
+                                <ng-container *ngIf="proposal.admin_post_project.active_rate === 'fixed'">
+                                    <h4>{{ proposal.admin_post_project.budget_amount }}</h4>
+                                    <span>Fixed</span>
+                                </ng-container>
+                                <ng-container *ngIf="proposal.admin_post_project.active_rate === 'hourly'">
+                                    <!-- If hourly rate, display the hourly rate -->
+                                    <h4>{{ proposal.admin_post_project.budget_amount}}</h4>
+                                    <span>Hourly</span>
+                                </ng-container>
                             </div>
                         </li>
                         <li>
@@ -38,6 +45,12 @@
                                 <h4 class="title-info">Your Price</h4> 
                                 <h3>${{ proposal.proposedPrice }} <span>(in {{ proposal.estimatedDelivery }}
                                         Days)</span></h3>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="proposal-status">
+                                <h4 class="title-info">Status</h4>
+                                <h4>{{ proposal.proposalStatus }}</h4>
                             </div>
                         </li>
                         <li>

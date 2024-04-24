@@ -60,7 +60,7 @@
             <div class="card-body pt-0">
                 <div class="card-header">
                     <h5 class="card-title">Project Proposals</h5>
-                  </div>
+                </div>
                 <div class="tab-content pt-0">
                     <div role="tabpanel" id="tab-4" class="tab-pane fade active show">
                         <div class="table-responsive">
@@ -75,7 +75,7 @@
                                     <thead>
                                         <tr>
                                             <th></th>
-                                            <th >Logo</th>
+                                            <th>Logo</th>
                                             <th>Title</th>
                                             <th>Budget</th>
                                             <th>Technology</th>
@@ -99,10 +99,19 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <h2 class="table-avatar">
-                                                    <a [routerLink]="'/admin/profile'"><img class="me-2"
-                                                            [src]="" alt="User Image" /></a>
-                                                </h2>
+
+                                                <div
+                                                    *ngIf="photoUrls && project.user.email && photoUrls[project.user.email]">
+                                                    <img [src]="photoUrls[project.user.email]" alt="Profile Image"
+                                                        class="avatar-lg rounded-circle"
+                                                        style="width: 40px; height: 40px;">
+                                                    <!-- <span class="verified"><i class="fas fa-check-circle"></i></span> -->
+                                                </div>
+                                                <div
+                                                    *ngIf="!photoUrls || !project.user.email || !photoUrls[project.user.email]">
+                                                    <p>Loading...</p>
+                                                </div>
+
                                             </td>
                                             <td>{{ project.project_title }}</td>
                                             <td>${{ project.budget_amount }}</td>
@@ -120,7 +129,8 @@
                                             <td>{{ project.project_duration }}</td>
                                             <td>{{ project.deadline_date }}</td>
                                             <td class="text-end">
-                                                <a href="javascript:void(0);" (click)="viewProposal(project.id)"  class="btn btn-success btn-disable me-2" >View Proposals</a>
+                                                <a href="javascript:void(0);" (click)="viewProposal(project.id)"
+                                                    class="btn btn-success btn-disable me-2">View Proposals</a>
                                             </td>
                                         </tr>
                                     </tbody>

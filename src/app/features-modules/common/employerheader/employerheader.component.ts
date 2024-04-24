@@ -70,7 +70,6 @@ export class EmployerheaderComponent implements OnInit{
   public hideSidebar(): void {
     this.navservices.closeSidebar();
   }
-  public anotherMenu = false;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public getRoutes(events: any) {
@@ -81,15 +80,6 @@ export class EmployerheaderComponent implements OnInit{
     console.log('base', this.base);
     console.log('page', this.page);
     console.log('last', this.last);
-    if (
-      events.url.split('/')[2] === 'developer' ||
-      events.url.split('/')[2] === 'developer-details' ||
-      events.url.split('/')[2] === 'company-profile'
-    ) {
-      this.anotherMenu = true;
-    } else {
-      this.anotherMenu = false;
-    }
   }
 
   ngOnInit(): void {
@@ -122,5 +112,13 @@ export class EmployerheaderComponent implements OnInit{
   logout(): void {
     this.auth.userLogout();
    }
- 
+   
+   employerLoggedIn():boolean{
+    // Retrieve JWT token and user role from localStorage
+    const jwtToken = localStorage.getItem('jwtToken');
+    const userRole = localStorage.getItem('role');
+
+    // Check if JWT token exists and user role is 'Freelancer'
+    return !!jwtToken && userRole === 'Employer';
+  }
 }

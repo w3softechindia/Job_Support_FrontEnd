@@ -13,6 +13,7 @@ export class OtpVerifyComponent implements OnInit {
   
   constructor(private route:ActivatedRoute,private router:Router,private userservice:UserService){}
   email!:string;
+  otpSuccess!:boolean;
   public routes = routes
   oneTimePassword = {
     data1: "",
@@ -47,7 +48,7 @@ export class OtpVerifyComponent implements OnInit {
       document.getElementById('digit-2')?.focus();
     } else if (box == 'digit-2' && data.length > 0) {
       document.getElementById('digit-3')?.focus();
-    } else if (box == 'digit-3' && data.length > 0) {
+    } else if (box == 'digit-3' && data.length > 0) { 
       document.getElementById('digit-4')?.focus();
     } else {
       return
@@ -69,16 +70,15 @@ export class OtpVerifyComponent implements OnInit {
     }
   }
 
-  verifyOTP(){
-    this.concatOTP();
+  verifyOTP(){ 
+    this.concatOTP(); 
     this.userservice.verifyOtpEmail(this.email,this.otpValue,this.result).subscribe((data)=>{
-      console.log(data);
-      this.router.navigate(['/auth/reset-password',this.email]);
-      alert("Otp Verified Successfully..!!!")
-    },error=>{
-      alert("Entered Wrong Otp..!!");
+      console.log(data); 
+      this.otpSuccess = data; 
+    },error=>{ 
+      // alert("Entered Wrong Otp..!!"); 
       console.log(error);
-    })
+    }) 
   }
 
   resendOTP(){
@@ -91,4 +91,16 @@ export class OtpVerifyComponent implements OnInit {
       }
     );
   }
+
+  navigation(){
+    this.router.navigate(['/auth/reset-password',this.email]);
+  }
+  navigation1(){
+    window.location.reload();
+  }
+
+  onModalShown(): void {
+   
+  }
+
 }

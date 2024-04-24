@@ -42,8 +42,7 @@ export class ResetPasswordComponent implements OnInit {
     if (this.resetForm.valid) {
       this.userService.resetPwd(this.email, this.resetForm.value.newPassword, this.user).subscribe((data) => {
         console.log(data);
-        alert('Password Changed Successfully..!!!');
-        this.router.navigate(['/auth/login']);
+        // alert('Password Changed Successfully..!!!');
       });
     }
   }
@@ -54,5 +53,9 @@ export class ResetPasswordComponent implements OnInit {
     } else {
       this.passwordMismatch = false;
     }
+  }
+
+  navigation(){
+    this.router.navigate(['/auth/login']);
   }
 }

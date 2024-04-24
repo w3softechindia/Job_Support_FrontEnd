@@ -117,4 +117,13 @@ export class FreelancerheaderComponent implements OnInit{
   logout(): void {
     this.auth.userLogout();
    }
+
+   isLoggedIn(): boolean {
+    // Retrieve JWT token and user role from localStorage
+    const jwtToken = localStorage.getItem('jwtToken');
+    const userRole = localStorage.getItem('role');
+
+    // Check if JWT token exists and user role is 'Freelancer'
+    return !!jwtToken && userRole === 'Freelancer';
+  }
 }
