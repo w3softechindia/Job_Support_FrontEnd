@@ -25,6 +25,20 @@ export interface FileDTO {
 }
 
 
+export interface ApprovedProposalDTO {
+  additionalDetails: any;
+  
+
+  id: number;
+  status: string;
+  admin_post_project_id: number;
+  freelancer_id: string;
+  image: string; // Add this property if it's part of your DTO
+  
+}
+
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -363,9 +377,22 @@ export class UserService {
 
     return this.http.put<any>(`${this.baseurl}/photoUpdate/${email}`, formData);
   }
-
+  
   //Get Freelancer OnGoing Projects
   freelancerOnGoingProjects(email:string): Observable<any>{
     return this.http.get(`${this.baseurl}/onGoingProjects`, { params: { email: email } })
   }
+
+
+
+  getAllApprovedProposals(): Observable<ApprovedProposalDTO[]> {
+    return this.http.get<ApprovedProposalDTO[]>(`${this.baseurl}/proposalApproval/all`);
+  }
+
+  getMainProjectsById(projectId: number): Observable<any> {
+    return this.http.get<any>(`${this.baseurl}/getmainProjectId/${projectId}`).pipe(
+      catchError(this.handleError)
+    );
+  }
+  
 }
