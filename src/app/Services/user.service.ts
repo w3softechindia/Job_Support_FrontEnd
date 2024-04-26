@@ -395,4 +395,12 @@ export class UserService {
     );
   }
   
+  getAllExpiredProjectIds(): Observable<number[]> {
+    return this.http.get<number[]>(`${this.baseurl}/expired`);
+  }
+
+  //Reject Project
+  rejectEmployerProject(projectId:number):Observable<any>{
+    return this.http.put(`${this.baseurl}/rejectProject/${projectId}`,{responseType:'text'})
+  }
 }
