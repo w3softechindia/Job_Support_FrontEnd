@@ -9,8 +9,6 @@ import { Sort } from '@angular/material/sort';
 import { apiResultFormat, project } from 'src/app/core/models/models';
 import { UserService } from 'src/app/Services/user.service';
 import { User } from 'src/app/classes/user';
-import { Router } from '@angular/router';
-import { PostprojectService } from 'src/app/Services/postproject.service';
 
 @Component({
   selector: 'app-projects',
@@ -28,7 +26,7 @@ export class ProjectsComponent implements OnInit {
  
 
   
-
+  expiredProjectIds: number[] = [];
   selectedProject: any = null;
 
       
@@ -71,16 +69,10 @@ export class ProjectsComponent implements OnInit {
 
   unpublishedArray: number[] = [];
   projectidD: any;
-
-
- 
- 
   
   constructor(
     private data: ShareDataService,
     private userservis: UserService,
-    private  router: Router,
-    private porjectservice:PostprojectService
   ) {}
 
   ngOnInit(): void {
@@ -88,13 +80,9 @@ export class ProjectsComponent implements OnInit {
     this.getingAllProjectData();
     this.getUpdatedProjectIdsForStatus();
     this.getUnpublishedIds() ;
-    
+    this.loadExpiredProjectIds();
     
   }
-
-
-
-
 
   // getingAllProjectData() {
   //   this.userservis.getAllProjects().subscribe((data) => {
@@ -115,9 +103,6 @@ export class ProjectsComponent implements OnInit {
   //     });
   //   });
   // }
-
-
-
   
   getUnpublishedIds() {
     this.userservis.getFalseids().subscribe(
@@ -132,58 +117,40 @@ export class ProjectsComponent implements OnInit {
     );
   }
   
-
-
-
-
-
   getingAllProjectData() {
-
-
-    // const projectIdsToFilter = [3]; // Update with your array of project IDs
-            
     let projectIdsToFilter: number[] = [];
 
     this.getUnpublishedIds(); // Call getUnpublishedIds to populate unpublishedArray
 
+    // Push unpublished projects to projectIdsToFilter
+    projectIdsToFilter.push(...this.unpublishedArray);
 
-
-
-
-
-      projectIdsToFilter.push(...this.unpublishedArray);
-      this.userservis.getAllAdminProjects().subscribe((data) => {
+    this.userservis.getAllAdminProjects().subscribe((data) => {
         // Populate projectIdsToFilter with unpublishedArray
         projectIdsToFilter = this.unpublishedArray;
 
-        // Filter out projects with IDs in projectIdsToFilter
-        this.projects = data.filter((project: any) => !projectIdsToFilter.includes(project.project_id));
+        // Filter out projects with IDs in projectIdsToFilter and not in expiredProjectIds
+        this.projects = data.filter((project: any) => 
+            !projectIdsToFilter.includes(project.project_id) &&
+            !this.expiredProjectIds.includes(project.project_id)
+        );
+
         console.log(this.projects);
-    
 
+        console.log(this.projects?.length);
 
+        // Extract project IDs
+        const projectIds: number[] = data.map((project: any) => project.id);
+        console.log('Project IDs:', projectIds);
 
-      console.log(this.projects?.length);
+        const extractedProperty = data.map((item: { user_email: any }) => item.user_email);
+        console.log(extractedProperty);
 
-      // Extract project IDs
-      const projectIds: number[] = data.map((project: any) => project.id);
-      console.log('Project IDs:', projectIds);
-
-        
-
-
-      const extractedProperty = data.map(
-        (item: { user_email: any }) => item.user_email
-      );
-      console.log(extractedProperty);
-
-      extractedProperty.forEach((email: string) => {
-        this.getUserDetailsByEmail(email);
-      });
-      
+        extractedProperty.forEach((email: string) => {
+            this.getUserDetailsByEmail(email);
+        });
     });
-    
-  }
+}
 
 //project ni ikkada update chestham
 logProjectDetails(project: any) {
@@ -201,6 +168,7 @@ cancelProjectBacktoEmployer(projectId: number = this.projectidD) {
     () => {
       // Handle success, e.g., show a success message
       console.log('Project status toggled successfully.');
+      this.rejectEmployerProject();
       // You can also update any UI or data related to the toggled project
       window.location.reload();
     },
@@ -209,8 +177,12 @@ cancelProjectBacktoEmployer(projectId: number = this.projectidD) {
       console.error('Error toggling project status:', error);
     }
   );
+}
 
-
+rejectEmployerProject(){
+  this.userservis.rejectEmployerProject(this.projectidD).subscribe((data)=>{
+    console.log(data);
+  })
 }
 
 // updateProject() {
@@ -388,6 +360,18 @@ removeProjectsFromPublish(projectId: number): void {
   );
 }
 
+loadExpiredProjectIds() {
+  this.userservis.getAllExpiredProjectIds().subscribe(
+    (data: number[]) => {
+      this.expiredProjectIds = data;
+      console.log("Expired Project IDs:", this.expiredProjectIds);
+    },
+    (error) => {
+      console.error('Error fetching expired project IDs:', error);
+    }
+  );
+}
+// -------------------------------------------------------------------------------------
   //Filter toggle
   openFilter() {
     this.filter = !this.filter;

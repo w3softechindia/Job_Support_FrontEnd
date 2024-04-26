@@ -2,9 +2,6 @@
     <h3>Ongoing Projects</h3>
 </div>
 
-
-
-<!-- 
 <div class="my-projects-list ongoing-projects" *ngFor="let emp of approvedProposals; let i = index">
     <div class="row">
         <div class="col-xl-9 flex-wrap">
@@ -13,64 +10,9 @@
                     <div class="proposal-info">
                         <div class="proposals-details">
                             <div class="d-flex justify-content-between align-items-start">
-                                <div class="employee-project-card">
+                                <div *ngIf="postproject[i] && isUserAuthorized(postproject[i]['user_email'])"
+                                    class="employee-project-card">
                                     <h3 class="proposals-title">{{ emp.status }}</h3>
-                                    <ul>
-                                        <li>
-                                            <div class="proposal-job-type">
-                                                <h4 class="title-info">Admin Project ID</h4>
-                                                <h3>{{ emp.admin_post_project_id }}</h3>
-                                            </div>
-                                        </li>
-                                      
-                                        <li *ngIf="postproject[i]">
-                                            <div class="main-project-details">
-                                                <h4 class="title-info">Main Project Details</h4>
-                                                <p>{{ postproject[i].project_title }}</p>
-                                                <p>{{ postproject[i]. active_rate}}</p>
-                                                
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-3 d-flex flex-wrap">
-            <div class="projects-card flex-fill">
-                <div class="card-body p-2">
-                    <div class="prj-proposal-count text-center hired">
-                        <h3>Hired</h3>
-                        <img [src]="emp.image" alt="Freelancer Image" class="img-fluid">
-                        <p class="mb-0">{{ emp.freelancer_id }}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
- -->
-
-
-
-
-
-
-
- <div class="my-projects-list ongoing-projects" *ngFor="let emp of approvedProposals; let i = index">
-    <div class="row">
-        <div class="col-xl-9 flex-wrap">
-            <div class="freelancer-proposals proposal-ongoing mb-0">
-                <div class="project-proposals align-items-center freelancer">
-                    <div class="proposal-info">
-                        <div class="proposals-details">
-                            <div class="d-flex justify-content-between align-items-start">
-                                <div class="employee-project-card">
-                                    <!-- <h5 class="proposals-title">{{ emp.status }}</h5> -->
                                     <ul>
                                         <!-- <li>
                                             <div class="proposal-job-type">
@@ -78,29 +20,29 @@
                                                 <h3>{{ emp.admin_post_project_id }}</h3>
                                             </div>
                                         </li> -->
-                                      
-                                        <li *ngIf="postproject[i]">
+
+                                        <li>
                                             <div class="main-project-details">
                                                 <!-- <h4 class="title-info">Main Project Details</h4> -->
-                                                <h3>{{ postproject[i].project_title }}</h3>
-                                                <p>Type :{{ postproject[i]. active_rate}}</p>
-                                                
+                                                <h2>{{ postproject[i].project_title }}</h2>
+                                                <p>Type :{{ postproject[i].active_rate }}</p>
                                             </div>
                                         </li>
                                     </ul>
                                 </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-xl-3 d-flex flex-wrap">
+        <div class="col-xl-3 d-flex flex-wrap" *ngIf="postproject[i] && isUserAuthorized(postproject[i]['user_email'])">
             <div class="projects-card flex-fill">
                 <div class="card-body p-2">
                     <div class="prj-proposal-count text-center hired">
                         <h3>Hired</h3>
-                        <img [src]="emp.image" alt="Freelancer Image" class="img-fluid">
+                        <!-- <img [src]="emp.image" alt="Freelancer Image" class="img-fluid"> -->
                         <p class="mb-0">{{ emp.freelancer_id }}</p>
                     </div>
                 </div>
@@ -108,18 +50,6 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
 
 <!-- Pagination -->
 <div class="row">
