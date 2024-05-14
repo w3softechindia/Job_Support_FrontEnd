@@ -477,5 +477,4 @@ export class UserService {
     const url = `${this.baseurl}/message/delete?sender=${sender}&receiver=${receiver}`;
     return this.http.delete<string>(url);
   }
-
 }
