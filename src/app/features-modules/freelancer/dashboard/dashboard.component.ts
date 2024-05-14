@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   ChartComponent,
   ApexAxisChartSeries,
@@ -12,7 +13,10 @@ import {
   ApexNonAxisChartSeries,
   ApexPlotOptions,
 } from 'ng-apexcharts';
+import { UserService } from 'src/app/Services/user.service';
 import { routes } from 'src/app/core/helpers/routes/routes';
+import { AdminPostProject } from 'src/app/core/models/models';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 
 export type ChartOptions = {
    
@@ -41,13 +45,16 @@ export type radialChartOptions = {
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit{
   public routes = routes;
+  email!:string;
+  projects:AdminPostProject[]=[];
+  count!:any;
   @ViewChild('chart') chart!: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
   public radialchartOptions: Partial<ChartOptions> | any;
 
-  constructor() {
+  constructor(private userService:UserService,private auth:AuthService) {
     this.chartOptions = {
       series: [
         {
@@ -178,5 +185,91 @@ export class DashboardComponent {
         },
       ],
     };
+  }
+  ngOnInit(): void {
+    this.email=this.auth.getEmail();
+    this.loadOngoingProjects(this.email);
+    this.getCountOfCompletedProjects();
+    this.fetchChartData();
+  }
+
+  private getCountOfCompletedProjects(){
+    this.userService.getCompletedProjectsByFreelancer(this.email).subscribe((data)=>{
+      this.count=data;
+    })
+  }
+
+  private loadOngoingProjects(email:string){
+    this.userService.freelancerOnGoingProjects(email).subscribe((data:any)=>{
+      this.projects=data;
+    },error=>{
+      console.log("No Projects Found..!!!",error)
+    })
+  }
+
+  private fetchChartData(){
+    this.userService.getChartData(this.email).subscribe((data)=>{
+      console.log(data)
+      this.radialchartOptions = {
+        series: data.series,
+        chart: {
+          toolbar: {
+            show: false,
+          },
+          height: 250,
+          type: 'radialBar',
+        },
+        plotOptions: {
+          radialBar: {
+            offsetY: 0,
+            startAngle: 0,
+            endAngle: 270,
+            hollow: {
+              margin: 5,
+              size: '50%',
+              background: 'transparent',
+              image: undefined,
+            },
+            dataLabels: {
+              name: {
+                show: false,
+              },
+              value: {
+                show: false,
+              },
+            },
+          },
+        },
+        colors: ['#7B46BE', '#FFD700', '#28a745', '#24C0DC'],
+        labels: ['Proposals', 'Approved Proposals', 'Completed Jobs', 'Ongoing Jobs'],
+        legend: {
+          show: false,
+          floating: true,
+          fontSize: '16px',
+          position: 'bottom',
+          offsetX: 160,
+          offsetY: 15,
+          labels: {
+            useSeriesColors: true,
+          },
+          markers: {
+            size: 0,
+          },
+          itemMargin: {
+            vertical: 3,
+          },
+        },
+        responsive: [
+          {
+            breakpoint: 480,
+            options: {
+              legend: {
+                show: false,
+              },
+            },
+          },
+        ],
+      };
+    })
   }
 }

@@ -438,6 +438,7 @@ export interface AdminPostProject {
   hourly_rate_to: string;
   fixed_rate: number;
   languages: string;
+  project_status:string;
   language_fluency: string;
   budget_amount: string;
   description: string;
@@ -455,9 +456,27 @@ export interface SendProposal{
   user:User;
 }
 
-export class AdminApprovedProposal{
-  status!:string;
-  adminPostProject!:AdminPostProject;
-  user!:User
+export interface AdminApprovedProposal{
+  status:string;
+  adminPostProject:AdminPostProject;
+  user:User
 }
+
+export interface CompletedProjects {
+  employer: string;
+  freelancer: string;
+  project_id: number;
+  project_title: string;
+  project_category: string;
+  project_duration: string;
+  deadline_date: string;  // ISO 8601 format date string
+  active_rate: string;
+  hourly_rate_from: string;
+  hourly_rate_to: string;
+  fixed_rate: number;
+  budget_amount: string;
+  project_status: string;
+  completion_date: string;  // ISO 8601 format date string
+}
+
 

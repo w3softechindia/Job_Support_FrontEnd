@@ -1,7 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @angular-eslint/use-lifecycle-interface */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { Component, OnInit } from '@angular/core';
+import { Subscription, interval } from 'rxjs';
 import { UserService } from 'src/app/Services/user.service';
 import { ShareDataService } from 'src/app/core/data/share-data.service';
 import { routes } from 'src/app/core/helpers/routes/routes';
@@ -16,12 +17,15 @@ import { NavbarService } from 'src/app/core/services/navbar.service';
   templateUrl: './employerheader.component.html',
   styleUrls: ['./employerheader.component.scss'],
 })
-export class EmployerheaderComponent implements OnInit{
+export class EmployerheaderComponent implements OnInit {
+
+  private subscription: Subscription | undefined;
+
   public routes = routes;
   base = '';
   page = '';
   last = '';
-    
+
   sidebar: SidebarData[] = [];
   photoUrl: string | undefined;
   // Added loading indicator
@@ -32,13 +36,13 @@ export class EmployerheaderComponent implements OnInit{
   navbar: Array<header> = [];
   username: any;
 
-
+  notificationCount = 0; // Declare notificationCount property and initialize it to 0
   constructor(
     private data: ShareDataService,
     private navservices: NavbarService,
     private common: CommonService,
-    private userService:UserService,
-    private auth:AuthService,
+    private userService: UserService,
+    private auth: AuthService,
   ) {
     this.common.base.subscribe((res: string) => {
       this.base = res;
@@ -70,6 +74,7 @@ export class EmployerheaderComponent implements OnInit{
   public hideSidebar(): void {
     this.navservices.closeSidebar();
   }
+  public anotherMenu = false;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public getRoutes(events: any) {
@@ -80,6 +85,15 @@ export class EmployerheaderComponent implements OnInit{
     console.log('base', this.base);
     console.log('page', this.page);
     console.log('last', this.last);
+    if (
+      events.url.split('/')[2] === 'developer' ||
+      events.url.split('/')[2] === 'developer-details' ||
+      events.url.split('/')[2] === 'company-profile'
+    ) {
+      this.anotherMenu = true;
+    } else {
+      this.anotherMenu = false;
+    }
   }
 
   ngOnInit(): void {
@@ -88,6 +102,21 @@ export class EmployerheaderComponent implements OnInit{
     console.log('Username:', this.username);
     console.log('Email:', this.email);
     this.loadPhoto();
+
+    this.getMessageCounttodelt();
+    // Call getMessageCounttodelt method every second
+    this.subscription = interval(1000).subscribe(() => {
+      this.getMessageCounttodelt();
+    });
+  }
+
+
+
+  ngOnDestroy(): void {
+    // Unsubscribe from the interval subscription to avoid memory leaks
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   loadPhoto(): void {
@@ -111,14 +140,27 @@ export class EmployerheaderComponent implements OnInit{
 
   logout(): void {
     this.auth.userLogout();
-   }
-   
-   employerLoggedIn():boolean{
-    // Retrieve JWT token and user role from localStorage
-    const jwtToken = localStorage.getItem('jwtToken');
-    const userRole = localStorage.getItem('role');
-
-    // Check if JWT token exists and user role is 'Freelancer'
-    return !!jwtToken && userRole === 'Employer';
   }
+
+
+
+  getMessageCounttodelt(): void {
+    const sender = 'mailto:admin123@gmail.com'; // Assuming you have the sender's email
+    const receiver = this.email; // Assuming this.email is the receiver's email
+    this.userService.getMessageCounttodelt(sender, receiver).subscribe(
+      (count: number) => {
+        this.notificationCount = count; // Update the notification count
+      },
+      (error: any) => {
+        console.error('Error fetching message count:', error);
+      }
+    );
+  }
+
+
+
+
+
+
+
 }

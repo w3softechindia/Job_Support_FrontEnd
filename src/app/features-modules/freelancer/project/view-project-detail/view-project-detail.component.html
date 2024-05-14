@@ -1,3 +1,5 @@
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
 <!-- Page Content -->
 
 <div class="page-title">
@@ -15,7 +17,7 @@
             <a class="nav-link" [routerLink]="routes.freelancerTask">Tasks</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" [routerLink]="routes.freelancerFiles">Files</a>
+            <a class="nav-link" (click)="navigation()">Files</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" [routerLink]="routes.freelancerPayments">Payments</a>
@@ -57,7 +59,19 @@
                         <li>
                             <div class="proposal-img">
                                 <div class="proposal-client d-flex align-items-center">
-                                    <img src="assets/img/user/table-avatar-02.jpg" alt="Img" class="img-fluid me-2">
+                                    <a href="javascript:void(0);">
+                                        <div *ngIf="isLoading">
+                                            <p>Loading...</p>
+                                          </div>
+                                          <div *ngIf="!isLoading">
+                                            <div *ngIf="photoUrl">
+                                              <img [src]="photoUrl" alt="Profile Image" class="avatar-lg rounded-circle">
+                                            </div>
+                                            <div *ngIf="!photoUrl">
+                                              <p>No photo found.</p>
+                                            </div>
+                                          </div>						  
+                                    </a>
                                     <div>
                                         <h4>{{project.user.name}}</h4>
                                         <!-- <span>10 Oct 2023<i class="fa-solid fa-star"></i>5.0</span> -->
@@ -67,7 +81,7 @@
                         </li>
                         <li>
                             <div class="project-action text-center overview-action">
-                                <a [routerLink]="routes.freelancerViewProjectDetail" class="projects-btn ">Is job
+                                <a href="#confirmation" data-bs-toggle="modal" type="submit" class="projects-btn ">Is job
                                     completed?</a>
                                 <a href="javascript:void(0);" class="btn-text mb-0">Chat Now</a>
                             </div>
@@ -101,3 +115,17 @@
     </div>
 </div>
 <!-- /Skills Required -->
+
+<div class="modal fade success-modal hire-modal" id="confirmation">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+        <div class="modal-content">
+            <div class="modal-body pt-4">
+                <div class="success-msg-content text-center">
+                    <h4>Are you Sure the Project is completed?</h4>
+                    <a href="javascript:void(0);" (click)="projectStatus('Completed')" data-bs-dismiss="modal" class="btn btn-primary mt-3 mr-3">Completed</a>
+                    <a href="javascript:void(0);" (click)="projectStatus('Pending')" data-bs-dismiss="modal" class="btn btn-primary mt-3">Pending</a>
+                </div>                
+            </div>
+        </div>
+    </div>
+</div>

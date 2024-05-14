@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 // import { Skills, Education, Experience, Certification, Language } from "../core/models/models";
 
@@ -37,6 +38,7 @@ export class User {
         edescribe!: string;
         status!:string;
         photoUrl!: string | ArrayBuffer | null;
+        messageCount:any;
 
         skills!: Skills[];
         education!: Education[];

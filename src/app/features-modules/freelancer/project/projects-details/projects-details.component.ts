@@ -20,12 +20,16 @@ export class ProjectsDetailsComponent implements OnInit {
   projectId!: number;
   id!: number;
   projectDetails: any;
-  photoUrl: string | undefined;
+  employerPhoto:string| undefined;
+  photo: any;
+  error: string | undefined;
   isLoading: boolean | undefined;
-  photoUrls: any;
+  userEmail!:string;
+  photoUrl: string | undefined;
   attachments: any[] = [];
   proposal!:SendProposal;
   email!:string;
+
 
   editor!: Editor;
   toolbar: Toolbar = [
@@ -111,6 +115,9 @@ export class ProjectsDetailsComponent implements OnInit {
         this.projectDetails = project; // Assign the fetched project to the project variable
         console.log('Project Details:', this.projectDetails);
         this.id = project.project_id;
+        this.userEmail=project.user.email;
+        this.loadEmployerPhoto();
+        this.loadFreelancerPhoto();
         // Extract userEmail property from the project
         const userEmail = project.user.email;
         console.log('User Email:', userEmail);
@@ -137,14 +144,6 @@ export class ProjectsDetailsComponent implements OnInit {
           console.log('Invalid deadline date:', project.deadline_date);
           this.projectDetails.daysLeft = 0; // Set daysLeft to 0 for invalid date
         }
-        // Initialize photoUrls object if it's undefined
-        if (!this.photoUrls) {
-          this.photoUrls = {};
-        }
-        // Load photo for the user email
-        this.loadPhoto(userEmail, () => {
-          this.isLoading = false;
-        });
       },
       (error) => {
         console.error('Error fetching project details:', error);
@@ -153,22 +152,34 @@ export class ProjectsDetailsComponent implements OnInit {
     );
   }
 
-  loadPhoto(email: string, callback: () => void): void {
-    this.userService.getPhoto(email).subscribe(
+  loadFreelancerPhoto(): void {
+    this.userService.getPhoto(this.email).subscribe(
       (data: Blob) => {
+        console.log('Photo data:', data);
         const reader = new FileReader();
         reader.onload = () => {
-          if (!this.photoUrls) {
-            this.photoUrls = {};
-          }
-          // Assign the loaded photo URL to the respective email
-          this.photoUrls[email] = reader.result as string;
-          console.log('Photo URL for', email, ':', this.photoUrls[email]); // Log photo URL
-          callback(); // Invoke callback when photo is loaded
+          this.photoUrl = reader.result as string;
+          console.log('Photo URL:', this.photoUrl);
+          this.isLoading = false; // Set loading to false when image is loaded
         };
-        reader.onerror = (error) => {
-          console.error('Error reading photo data:', error);
-          this.isLoading = false; // Set loading to false on error
+        reader.readAsDataURL(data);
+      },
+      (error: any) => {
+        console.error('Error loading photo:', error);
+        this.isLoading = false; // Set loading to false on error
+      }
+    );
+  }
+
+  loadEmployerPhoto(): void {
+    this.userService.getPhoto(this.userEmail).subscribe(
+      (data: Blob) => {
+        console.log('Photo data:', data);
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.employerPhoto = reader.result as string;
+          console.log('Photo URL:', this.employerPhoto);
+          this.isLoading = false; // Set loading to false when image is loaded
         };
         reader.readAsDataURL(data);
       },

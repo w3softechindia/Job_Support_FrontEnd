@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { RolesRoutingModule } from './roles-routing.module';
 import { RolesComponent } from './roles.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -13,6 +14,7 @@ import { RolesComponent } from './roles.component';
   imports: [
     CommonModule,
     RolesRoutingModule,
+    FormsModule
 ]
 })
 export class RolesModule { }

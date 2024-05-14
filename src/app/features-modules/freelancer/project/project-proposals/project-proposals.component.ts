@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { catchError, throwError } from 'rxjs';
 import { UserService } from 'src/app/Services/user.service';
 import { SendProposal } from 'src/app/classes/send-proposal';
 import { routes } from 'src/app/core/helpers/routes/routes';
@@ -14,9 +16,15 @@ import { AuthService } from 'src/app/core/services/auth/auth.service';
 export class ProjectProposalsComponent implements OnInit {
   public routes = routes;
   email!:string;
-  proposals: SendProposal[] = []
+  proposals!: SendProposal[];
   selectedProposalId!: number; 
   sendProposal!:SendProposal;
+  photoUrl: string | undefined;
+  // Added loading indicator
+  photo: any;
+  error: string | undefined;
+  isLoading: boolean | undefined;
+  userEmail!:string;
 
   proposalForm:FormGroup=new FormGroup({
     proposedPrice:new FormControl(''),
@@ -30,6 +38,7 @@ export class ProjectProposalsComponent implements OnInit {
   ngOnInit(): void {
     this.email=this.auth.getEmail();
     this.fetchAllProposals();
+    
 
     this.proposalForm=this.formBuilder.group({
       proposedPrice:['',[Validators.required]],
@@ -39,12 +48,28 @@ export class ProjectProposalsComponent implements OnInit {
     })
   }
 
-  private fetchAllProposals(){
-    this.userService.getAllProposals(this.email).subscribe((response:any)=>{
-      this.proposals=response;
-      console.log(this.proposals)
-    })
+  fetchAllProposals(): void {
+    console.log('Fetching proposals for email:', this.email); // Debugging
+  
+    this.userService.getAllProposals(this.email).pipe(
+      catchError((error: any) => {
+        console.error('Error fetching proposals:', error);
+        return throwError(error);
+      })
+    ).subscribe((response: SendProposal[]) => {
+      console.log('Received proposals response:', response); // Debugging
+  
+      this.proposals = response;
+      if (this.proposals.length > 0 && this.proposals[0].admin_post_project?.user?.email) {
+        this.userEmail = this.proposals[0].admin_post_project.user.email;
+        this.loadPhoto();
+        console.log('Updated userEmail:', this.userEmail); // Debugging
+      } else {
+        console.error('User email not found in response or response is empty');
+      }
+    });
   }
+  
 
   private fetchProposal(){
     this.userService.fetchProposal(this.selectedProposalId).subscribe((data)=>{
@@ -115,5 +140,24 @@ export class ProjectProposalsComponent implements OnInit {
   fetchProject(id:number){
     console.log(id);
     this.router.navigate(['/freelancer/view-project-detail',id])
+  }
+
+  loadPhoto(): void {
+    this.userService.getPhoto(this.userEmail).subscribe(
+      (data: Blob) => {
+        console.log('Photo data:', data);
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.photoUrl = reader.result as string;
+          console.log('Photo URL:', this.photoUrl);
+          this.isLoading = false; // Set loading to false when image is loaded
+        };
+        reader.readAsDataURL(data);
+      },
+      (error: any) => {
+        console.error('Error loading photo:', error);
+        this.isLoading = false; // Set loading to false on error
+      }
+    );
   }
 }

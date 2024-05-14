@@ -110,7 +110,7 @@ const routes: Routes = [
           ).then((m) => m.FreelancerInvitationsModule),canActivate: [FreelancerGuard],
       },
       {
-        path: 'files',
+        path: 'files/:id',
         loadChildren: () =>
           import('./project/files/files.module').then((m) => m.FilesModule),canActivate: [FreelancerGuard],
       },

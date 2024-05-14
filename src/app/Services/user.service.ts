@@ -23,18 +23,22 @@ export interface FileDTO {
   size: number;
   fileName: string; // New property to store the file name
 }
-
+export interface Message {
+  sender: string;
+  receiver: string;
+  content: string;
+}
 
 export interface ApprovedProposalDTO {
   additionalDetails: any;
-  
+
 
   id: number;
   status: string;
   admin_post_project_id: number;
   freelancer_id: string;
   image: string; // Add this property if it's part of your DTO
-  
+
 }
 
 
@@ -50,7 +54,7 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   // private baseurl = "http://jobsupport.us-east-1.elasticbeanstalk.com";
-   private baseurl="http://localhost:5000"
+  private baseurl = "http://localhost:5000"
 
   //Authentication
   login(data: any) {
@@ -119,12 +123,12 @@ export class UserService {
 
   //Send Otp to mail
   SendOtp(email: string): Observable<any> {
-    return this.http.put(`${this.baseurl}/sendOTP/${email}`,{ responseType: 'text' } );
+    return this.http.put(`${this.baseurl}/sendOTP/${email}`, { responseType: 'text' });
   }
 
   //Verify Otp and Mail
-  verifyOtpEmail(email: string, otp: string,result:boolean): Observable<any> {
-    return this.http.put(`${this.baseurl}/verifyOTP/${email}/${otp}`,result);
+  verifyOtpEmail(email: string, otp: string, result: boolean): Observable<any> {
+    return this.http.put(`${this.baseurl}/verifyOTP/${email}/${otp}`, result);
   }
 
   //Reset Password
@@ -377,9 +381,9 @@ export class UserService {
 
     return this.http.put<any>(`${this.baseurl}/photoUpdate/${email}`, formData);
   }
-  
+
   //Get Freelancer OnGoing Projects
-  freelancerOnGoingProjects(email:string): Observable<any>{
+  freelancerOnGoingProjects(email: string): Observable<any> {
     return this.http.get(`${this.baseurl}/onGoingProjects`, { params: { email: email } })
   }
 
@@ -394,13 +398,84 @@ export class UserService {
       catchError(this.handleError)
     );
   }
-  
+
   getAllExpiredProjectIds(): Observable<number[]> {
     return this.http.get<number[]>(`${this.baseurl}/expired`);
   }
 
   //Reject Project
-  rejectEmployerProject(projectId:number):Observable<any>{
-    return this.http.put(`${this.baseurl}/rejectProject/${projectId}`,{responseType:'text'})
+  rejectEmployerProject(projectId: number): Observable<any> {
+    return this.http.put(`${this.baseurl}/rejectProject/${projectId}`, { responseType: 'text' })
   }
+
+  //Project Status
+  projectStatus(email:string,id: number, status: string) {
+    return this.http.put(`${this.baseurl}/projectStatus/${email}/${id}/${status}`, { responseType: 'text' })
+  }
+
+  //Completed Projects
+  completedProjects(email: string) {
+    return this.http.get(`${this.baseurl}/completedProjects/${email}`)
+  }
+
+  //Get Files by AdminPostProject
+  getFilesByAdminPostProject(projectId: number) {
+    return this.http.get(`${this.baseurl}/getFilesByAdminProjectId/${projectId}`)
+  }
+
+  //Get Count of Completed Projects by Freelancer
+  getCompletedProjectsByFreelancer(email: string) {
+    return this.http.get(`${this.baseurl}/getCompletedProjectsByFreelancer/${email}`)
+  }
+
+  //Get Chart Data of Freelancer
+  getChartData(email: string): Observable<any> {
+    return this.http.get<any>(`${this.baseurl}/chartData/${email}`);
+  }
+
+
+  getMessages(sender: string, receiver: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseurl}/gett/${sender}/${receiver}`);
+  }
+
+
+  sendMessage(message: Message): Observable<Message> {
+    return this.http.post<Message>(`${this.baseurl}/send`, message);
+  }
+
+
+  getAllUsers(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.baseurl}/getall`);
+  }
+
+  getMessageCount(sender: string, receiver: string): Observable<number> {
+    const url = `${this.baseurl}/count?sender=${sender}&receiver=${receiver}`;
+    return this.http.get<number>(url);
+  }
+
+  getMessageCounttodelt(sender: string, receiver: string): Observable<number> {
+
+    const url = `${this.baseurl}/message/count?sender=${sender}&receiver=${receiver}`;
+    return this.http.get<number>(url);
+
+
+  }
+
+
+  // getMessageCount(sender: string, receiver: string): Observable<number> {
+  //   // Set up request parameters
+  //   let params = new HttpParams();
+  //   params = params.append('sender', sender);
+  //   params = params.append('receiver', receiver);
+
+  //   // Make GET request to the Spring Boot endpoint
+  //   return this.http.get<number>(`${this.baseUrl}/message/count`, { params });
+  // }
+
+
+  deleteMessagesBySenderAndReceiver(sender: string, receiver: string): Observable<string> {
+    const url = `${this.baseurl}/message/delete?sender=${sender}&receiver=${receiver}`;
+    return this.http.delete<string>(url);
+  }
+
 }

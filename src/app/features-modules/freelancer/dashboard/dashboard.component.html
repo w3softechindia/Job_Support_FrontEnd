@@ -12,8 +12,8 @@
                     <div class="dash-widget-info">Completed Jobs</div>
                 </div>
                 <div class="dash-widget-more d-flex align-items-center justify-content-between">
-                    <div class="dash-widget-count">30</div>
-                    <a [routerLink] = "routes.completedProjects" class="d-flex">View Details</a>
+                    <div class="dash-widget-count">{{count}}</div>
+                    <a [routerLink]="routes.completedProjects" class="d-flex">View Details</a>
                 </div>
             </div>
         </div>
@@ -26,8 +26,8 @@
                     <div class="dash-widget-info">Task Completed</div>
                 </div>
                 <div class="dash-widget-more d-flex align-items-center justify-content-between">
-                    <div class="dash-widget-count">5</div>
-                    <a [routerLink] = "routes.completedProjects" class="d-flex">View Details</a>
+                    <div class="dash-widget-count">{{count}}</div>
+                    <a [routerLink]="routes.completedProjects" class="d-flex">View Details</a>
                 </div>
             </div>
         </div>
@@ -40,8 +40,8 @@
                     <div class="dash-widget-info">Reviews</div>
                 </div>
                 <div class="dash-widget-more d-flex align-items-center justify-content-between">
-                    <div class="dash-widget-count">25</div>
-                    <a [routerLink] = "routes.completedProjects" class="d-flex">View Details</a>
+                    <!-- <div class="dash-widget-count">25</div> -->
+                    <a [routerLink]="routes.completedProjects" class="d-flex">View Details</a>
                 </div>
             </div>
         </div>
@@ -54,8 +54,8 @@
                     <div class="dash-widget-info">Earning</div>
                 </div>
                 <div class="dash-widget-more d-flex align-items-center justify-content-between">
-                    <div class="dash-widget-count">5962</div>
-                    <a [routerLink] = "routes.completedProjects" class="d-flex">View Details</a>
+                    <!-- <div class="dash-widget-count">5962</div> -->
+                    <a [routerLink]="routes.completedProjects" class="d-flex">View Details</a>
                 </div>
             </div>
         </div>
@@ -80,8 +80,8 @@
                     <div id="chartprofile">
                         <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart"
                             [xaxis]="chartOptions.xaxis" [dataLabels]="chartOptions.dataLabels"
-                            [grid]="chartOptions.grid" [stroke]="chartOptions.stroke"
-                            [title]="chartOptions.title" [colors]="chartOptions.colors" [markers]="chartOptions.markers"></apx-chart>
+                            [grid]="chartOptions.grid" [stroke]="chartOptions.stroke" [title]="chartOptions.title"
+                            [colors]="chartOptions.colors" [markers]="chartOptions.markers"></apx-chart>
                     </div>
                 </div>
             </div>
@@ -99,12 +99,12 @@
                     </div>
                     <div class="d-flex flex-wrap justify-content-between">
                         <ul class="static-list">
-                            <li><span><i class="fas fa-circle text-violet me-1"></i>Jobs</span></li>
-                            <li><span><i class="fas fa-circle text-yellow me-1"></i>Proposals</span></li>
+                            <li><span><i class="fas fa-circle text-violet me-1"></i>Proposals</span></li>
+                            <li><span><i class="fas fa-circle text-yellow me-1"></i>Aprroved Proposals</span></li>
                         </ul>
                         <ul class="static-list">
-                            <li><span><i class="fas fa-circle text-pink me-1"></i> Applied Proposals</span></li>
-                            <li><span><i class="fas fa-circle text-blue me-1"></i>Bookmarked Projects</span></li>
+                            <li><span><i class="fas fa-circle text-success me-1"></i> Completed Jobs</span></li>
+                            <li><span><i class="fas fa-circle text-blue me-1"></i>Ongoing Jobs</span></li>
                         </ul>
                     </div>
 
@@ -120,72 +120,38 @@
             <div class="card flex-fill ongoing-project-card">
                 <div class="pro-head">
                     <h2>Ongoing Projects</h2>
-                    <a [routerLink] = "routes.freelancerOngoingProjects" class="btn fund-btn">View All</a>
+                    <a [routerLink]="routes.freelancerOngoingProjects" class="btn fund-btn">View All</a>
                 </div>
-                <div class="pro-body p-0">
+                <div class="pro-body p-0" *ngFor="let project of projects">
                     <div class="on-project">
-                        <span>A2Z Tech Information</span>
-                        <h5>Landing Page Redesign / Sales Page Redesign</h5>
+                        <span>{{project.user.name}}</span>
+                        <h5>{{project.project_title}}</h5>
                         <div class="pro-info">
                             <ul class="list-details">
                                 <li>
                                     <div class="slot">
                                         <p>Project type</p>
-                                        <h5>Hourly</h5>
+                                        <h5>{{project.freelancer_type}}</h5>
                                     </div>
                                 </li>
-                                <li>
-                                    <div class="slot">
-                                        <p>Location</p>
-                                        <h5 class="d-flex align-items-center"><img src="assets/img/icon/flag-icon.svg"
-                                                class="me-2" alt="Icon">UK</h5>
-                                    </div>
-                                </li>
-
                                 <li>
                                     <div class="slot">
                                         <p>Expiry</p>
-                                        <h5>5 Days Left</h5>
+                                        <h5>{{project.deadline_date}}</h5>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="slot">
                                         <p>Price</p>
-                                        <h5>$280</h5>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="on-project">
-                        <span>Amaze Tech</span>
-                        <h5>Landing Page Redesign / Sales Page Redesign</h5>
-                        <div class="pro-info">
-                            <ul class="list-details">
-                                <li>
-                                    <div class="slot">
-                                        <p>Project type</p>
-                                        <h5>Hourly</h5>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="slot">
-                                        <p>Location</p>
-                                        <h5 class="d-flex align-items-center"><img src="assets/img/icon/flag-icon.svg"
-                                                class="me-2" alt="Icon">UK</h5>
-                                    </div>
-                                </li>
-
-                                <li>
-                                    <div class="slot">
-                                        <p>Expiry</p>
-                                        <h5>5 Days Left</h5>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="slot">
-                                        <p>Price</p>
-                                        <h5>$280</h5>
+                                        <ng-container *ngIf="project.active_rate === 'fixed'">
+                                            <h4>{{ project.budget_amount }}</h4>
+                                            <span>Fixed</span>
+                                        </ng-container>
+                                        <ng-container *ngIf="project.active_rate === 'hourly'">
+                                            <!-- If hourly rate, display the hourly rate -->
+                                            <h4>{{ project.budget_amount}}</h4>
+                                            <span>Hourly</span>
+                                        </ng-container>
                                     </div>
                                 </li>
                             </ul>
@@ -196,7 +162,7 @@
         </div>
         <!-- /Ongoing Projects -->
         <!-- Past Earnings -->
-        <div class="col-xl-6">
+        <!-- <div class="col-xl-6">
             <div class="card mb-4 ongoing-project-card">
                 <div class="pro-head">
                     <h2>Recent Earnings</h2>
@@ -284,11 +250,7 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
-        </div>
-        <!-- /Past Earnings -->
+            </div>-->
     </div>
-
-
-
+    <!-- /Past Earnings -->
 </div>

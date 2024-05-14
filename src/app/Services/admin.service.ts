@@ -63,7 +63,7 @@ export class AdminService {
 
   //Approve Proposal
   approveProposal(proposalId:number,proposalStatus:string,approvalStatus:string){
-    return this.http.post(`${this.baseurl}/proposalApproval/${proposalId}/${proposalStatus}/${approvalStatus}`,AdminApprovedProposal)
+    return this.http.post(`${this.baseurl}/proposalApproval/${proposalId}/${proposalStatus}/${approvalStatus}`,{responseType:'text'})
   }
 
   //Reject Proposal

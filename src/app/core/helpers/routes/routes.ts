@@ -208,6 +208,9 @@ export class routes {
   public static get admin_employers_all():string {
     return this.admin + '/employers/all';
   }
+  public static get admin_account_deletion():string{
+    return this.admin + '/account-deletion'
+  }
   public static get admin_deposit_history(): string {
     return this.admin + '/deposit/history';
   }
