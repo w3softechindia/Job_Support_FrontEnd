@@ -1,3 +1,189 @@
-.owl-item {
-    width: 60px !important;
+// Center all content
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40vh;
+    margin: 0;
+
+
+    // Additional styling
+    font-size: 14px; // Set default font size
+}
+
+// Styles for the container wrapper
+.container-wrapper {
+    display: flex; // Use flexbox for layout
+    flex-direction: column; // Align children vertically
+    align-items: center; // Center children horizontally
+    position: fixed;
+    left: 420px;
+}
+
+// Styles for the message container
+.message-container {
+    width: 470px; // Set width to 400 pixels
+    height: 470px; // main
+    margin: 20px; // Set margin
+    padding: 15px; // Increase padding for extra spacing
+    overflow-y: auto; // Add vertical scrollbar
+    // border: 1px solid hsl(0, 45%, 98%); // Add a border for visibility
+
+    bottom: -30px;
+
+    margin-top: 150px; // main
+
+
+
+    // Additional styling
+    .message {
+        padding: 10px;
+        margin: 5px 0;
+        border-radius: 10px;
+        background-color: #f0f0f0; // Background color for messages
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Add a subtle box shadow
+        font-size: 16px;
+        width: 400px; // Adjusted width
+
+        height: 60px; //manadee
+
+       margin-top: 10px;
+        left: 10px;
+    }
+
+    // Styles for sender messages
+    .right {
+        text-align: right;
+        color: #fff;
+        // background-color: #c5e1a5; // Light green background for sender messages
+        background-color: #393332da;
+
+    }
+
+    // Styles for receiver messages
+    .left {
+        text-align: left;
+        // background-color: #bbdefb; // Light blue background for receiver messages
+        background-color: rgba(214, 208, 208, 0.862);
+        color: black;
+    }
+
+    // Styles for the timestamp
+    .timestamp {
+        font-size: 9px; // Set font size
+        margin-top: -16px;
+    }
+}
+
+// Styles for the additional container
+.additional-container {
+    width: 200px; // Set width to 150 pixels
+    margin: 20px; // Set margin
+    padding: 15px; // Increase padding for extra spacing
+    border: 1px solid #382f2f; // Add a border for visibility
+    background-color: #f0f0f0; // Background color for additional container
+    margin-right: 700px;
+    margin-top: -610px;
+    height: 30px;
+    bottom: 40px;
+
+}
+
+// Styles for the form
+form {
+    width: 90%;
+    max-width: 505px;
+    margin: 50px auto;
+     padding: 10px;
+    position: absolute;
+    bottom: -90px; //main
+    left: 59%; //main
+    transform: translateX(-50%);
+    position: fixed;
+
+    // Styles for the content textarea
+    #content {
+        // width: calc(100% - 22px); // Set width minus padding and border
+
+        height: 40px; // Set height of the textarea
+        padding: 5px; // Set padding
+        margin-bottom: 20px; // Set margin bottom
+        border: 1px solid #ccc; // Add border
+        border-radius: 5px; // Add border radius
+        resize: none; // Disable resizing of the textarea
+
+    }
+
+    // Styles for the send message button
+    button[type="submit"] {
+        display: block; // Make the button a block element
+        width: 50px; // Set width to 100% of container
+        padding: 10px; // Set padding
+        background-color: #4caf50; // Green background for the button
+        color: #fff; // White text color
+        border: none; // Remove border
+        // border-radius: 5px; // Add border radius
+        cursor: pointer; // Add pointer cursor
+        transition: background-color 0.3s ease; // Add smooth transition
+        margin-bottom: 70px;
+
+        &:hover {
+            background-color: #45a049; // Darker green color on hover
+        }
+    }
+}
+
+.admin-header {
+    background-color: #E65425;
+    width: 900px; //main
+    top: 100px;
+    height: 50px;
+    color: white;
+    text-align: center;
+    line-height: 50px;
+    position: fixed;
+    bottom: 580px; //main idi manaki
+    left: 172px; //main
+}
+
+
+// .user-instructions-container {
+//   background-color: #bfbfc2;
+//   width: 470px;
+//   height: 450px;//main
+//   color: white;
+//   text-align: center;
+//   line-height: 50px;
+//   position: fixed; / Ensure fixed position /
+//   bottom: 92px; //main thagginchali
+//   left: 30px;
+// }
+.user-instructions-container {
+    background-color: #bfbfc2;
+    width: 470px;
+    height: 468px; //main
+    color: white;
+    text-align: center;
+    line-height: 50px;
+    position: fixed;
+    bottom: 92px;
+    left: 170px; //main
+    overflow: hidden;
+    color: #E65425;
+}
+
+.content {
+    animation: scroll-up 10s linear infinite;
+     font-size: 16px; 
+     font-family: Arial, sans-serif;
+}
+
+@keyframes scroll-up {
+    0% {
+        transform: translateY(100%);
+    }
+
+    100% {
+        transform: translateY(-100%);
+    }
 }

@@ -36,7 +36,19 @@
                         <li>
                             <div class="proposal-img">
                                 <div class="proposal-client d-flex align-items-center">
-                                    <img src="assets/img/user/table-avatar-02.jpg" alt="Img" class="img-fluid me-2">
+                                    <a href="javascript:void(0);">
+                                        <div *ngIf="isLoading">
+                                            <p>Loading...</p>
+                                          </div>
+                                          <div *ngIf="!isLoading">
+                                            <div *ngIf="photoUrl">
+                                              <img [src]="photoUrl" alt="Profile Image" class="avatar-lg rounded-circle">
+                                            </div>
+                                            <div *ngIf="!photoUrl">
+                                              <p>No photo found.</p>
+                                            </div>
+                                          </div>						  
+                                    </a>
                                     <div>
                                         <h4>{{project.user.name}}</h4>
                                         <!-- <span>10 Oct 2023<i class="fa-solid fa-star"></i>5.0</span> -->

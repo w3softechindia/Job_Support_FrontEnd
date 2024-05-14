@@ -97,6 +97,13 @@ const routes: Routes = [
           ),canActivate: [AdminGuard]
       },
       {
+        path: 'account-deletion',
+        loadChildren: () =>
+          import('./account-deletion/account-deletion.module').then(
+            (m) => m.AccountDeletionModule
+          ),canActivate: [AdminGuard]
+      },
+      {
         path: 'settings',
         loadChildren: () =>
           import('./settings/settings.module').then((m) => m.SettingsModule),canActivate: [AdminGuard]

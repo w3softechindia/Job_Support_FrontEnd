@@ -14,7 +14,19 @@
                         <li>
                             <div class="proposal-img">
                                 <div class="proposal-client">
-                                    <img src="assets/img/user/table-avatar-02.jpg" alt="Img" class="img-fluid">
+                                    <a href="javascript:void(0);">
+                                        <div *ngIf="isLoading">
+                                            <p>Loading...</p>
+                                          </div>
+                                          <div *ngIf="!isLoading">
+                                            <div *ngIf="photoUrl">
+                                              <img [src]="photoUrl" alt="Profile Image" class="avatar-lg rounded-circle">
+                                            </div>
+                                            <div *ngIf="!photoUrl">
+                                              <p>No photo found.</p>
+                                            </div>
+                                          </div>						  
+                                    </a>
                                     <h4>{{ proposal.admin_post_project.user.name }}</h4>
                                     <span class="info-btn">client</span>
                                 </div>
@@ -55,8 +67,8 @@
                         </li>
                         <li>
                             <div class="project-action text-center">
-                                <a data-bs-toggle="modal" href="#file" (click)="openEditModal(proposal.proposal_id)"
-                                    class="projects-btn">Edit Proposals</a>
+                                <a *ngIf="proposal.proposalStatus !== 'Approved'" data-bs-toggle="modal" href="#file" 
+                                (click)="openEditModal(proposal.proposal_id)" class="projects-btn">Edit Proposals</a>
                                 <a href="javascript:void(0);" (click)="fetchProject(proposal.admin_post_project.project_id)" class="projects-btn">View Project</a>
                                 <a href="javascript:void(0);" class="proposal-delete mb-0" data-bs-toggle="modal" href="#delete"
                                     (click)="openEditModal(proposal.proposal_id)">Cancel Proposal</a>

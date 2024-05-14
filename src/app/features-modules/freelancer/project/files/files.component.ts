@@ -1,6 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnInit } from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { ActivatedRoute } from '@angular/router';
+import { UserService } from 'src/app/Services/user.service';
 import { ShareDataService } from 'src/app/core/data/share-data.service';
 import { routes } from 'src/app/core/helpers/routes/routes';
 import {
@@ -33,10 +36,54 @@ export class FilesComponent implements OnInit {
   public pageSelection: Array<pageSelection> = [];
   public totalPages = 0;
 
-  constructor(public data: ShareDataService) {}
+  fileList: string[] = []; // Array to store file paths
+  projectDetails: any;
+  projectId: number | null | undefined;
+
+  constructor(public data: ShareDataService, private userService: UserService,private route:ActivatedRoute) { }
+
   ngOnInit() {
     this.getTableData();
+    this.projectId=this.route.snapshot.params['id'];
+    this.fetchFiles();
   }
+
+
+
+ private fetchFiles(): void {
+    if (this.projectId) {
+      this.userService.getFilesByAdminPostProject(this.projectId).subscribe((files: any) => {
+        console.log('Files for project ID', this.projectId, ':', files);
+        // Assign fetched files to fileList
+        this.fileList = files;
+      },
+        error => {
+          console.error('Error fetching files:', error);
+        }
+      );
+    } else {
+      console.warn('No project ID available.');
+      this.fileList = []; // Clear fileList if project ID is not available
+    }
+  }
+
+  downloadFile(filePath: string): void {
+    console.log('Attempting to download file:', filePath);
+
+    // Extract the file name from the file path
+    const fileName = filePath.substring(filePath.lastIndexOf('_') + 1); // Extracting the part after the last underscore
+
+    // Display the file name
+    console.log('File Name:', fileName);
+
+    // Create a link element
+    const link = document.createElement('a');
+    link.href = filePath;
+
+    // Simulate a click to trigger the download
+    link.click();
+  }
+
   private getTableData(): void {
     this.files = [];
     this.serialNumberArray = [];

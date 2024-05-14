@@ -1427,6 +1427,15 @@ export class ShareDataService {
           subMenus: [],
         },
         {
+          menuValue: 'Account-Deletion',
+          route: routes.admin_account_deletion,
+          hasSubRoute: false,
+          showSubRoute: false,
+          icon: 'icon-bin',
+          base: 'account-deletion',
+          subMenus: [],
+        },
+        {
           menuValue: 'Deposit',
           route: routes.admin_deposit_history,
           hasSubRoute: false,

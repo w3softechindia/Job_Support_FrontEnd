@@ -76,99 +76,43 @@
 					</ng-container>
 				</ul>
 			</div>
-			<ul class="nav header-navbar-rht" *ngIf="employerLoggedIn() === true">
+
+
+			<!-- notification code  -->
+
+			<ul class="nav header-navbar-rht" *ngIf="anotherMenu === false">
 				<!-- <li><a [routerLink] = "routes.freelancer_message"><img src="assets/img/icon/message-chat-icon.svg" alt="Img"></a></li> -->
-				<li class="dropdown">
-					<a data-bs-toggle="dropdown" href="javascript:void(0);"><img
-							src="assets/img/icon/notification-bell-icon.svg" alt="Img"></a>
+
+
+
+
+				  <li class="dropdown">
+					<a data-bs-toggle="dropdown" href="javascript:void(0);">
+						<img src="assets/img/icon/message-chat-icon.svg" alt="Img">
+						<!-- <span class="msg-count-badge">{{ notificationCount }}</span>  -->
+						<span class="msg-count-badge" *ngIf="notificationCount !== 0">{{ notificationCount }}</span>
+
+					</a>
 					<div class="dropdown-menu notifications">
 						<div class="topnav-dropdown-header">
-							<div class="notification-title">Notifications<span class="msg-count-badge">2</span></div>
-							<a href="javascript:void(0)" class="clear-noti d-flex align-items-center">Mark all as read
-								<i class="fe fe-check-circle"></i></a>
+							<div class="notification-title">Notifications<span class="msg-count-badge">{{ notificationCount }}</span></div>
 						</div>
 						<div class="noti-content">
-							<ul class="notification-list">
-								<li class="notification-message">
-									<a [routerLink]="routes.notification">
-										<div class="d-flex">
-											<span class="avatar avatar-md active">
-												<img class="avatar-img rounded-circle" alt="avatar-img"
-													src="assets/img/avatar/avatar-2.jpg">
-											</span>
-											<div class="media-body">
-												<span class="noti-title">Edward Curr</span>
-												<p class="noti-details">Notifications inform you when someone likes,
-													reacts</p>
-												<p class="noti-time"><span class="notification-time">Yesterday at 11:42
-														PM</span></p>
-											</div>
-										</div>
-									</a>
-								</li>
-								<li class="notification-message">
-									<a [routerLink]="routes.notification">
-										<div class="d-flex">
-											<span class="avatar avatar-md active">
-												<img class="avatar-img rounded-circle" alt="avatar-img"
-													src="assets/img/avatar/avatar-1.jpg">
-											</span>
-											<div class="media-body">
-												<span class="noti-title">Maria Hill</span>
-												<p class="noti-details"> Notifications alert you to new messages in your
-													Kofejob inbox.</p>
-												<div class="notification-btn">
-													<span class="btn btn-primary">Accept</span>
-													<span class="btn btn-outline-primary">Reject</span>
-												</div>
-												<p class="noti-time"><span class="notification-time">Today at 9:42
-														AM</span></p>
-											</div>
-										</div>
-									</a>
-								</li>
-
-								<li class="notification-message">
-									<a [routerLink]="routes.notification">
-										<div class="d-flex">
-											<span class="avatar avatar-md">
-												<img class="avatar-img rounded-circle" alt="avatar-img"
-													src="assets/img/avatar/avatar-3.jpg">
-											</span>
-											<div class="media-body">
-												<span class="noti-title">Maria Hill</span>
-												<p class="noti-details"> Notifications alert you to new messages in your
-													Kofejob inbox.</p>
-												<p class="noti-time"><span class="notification-time">Yesterday at 5:42
-														PM</span></p>
-											</div>
-										</div>
-									</a>
-								</li>
-								<li class="notification-message">
-									<a [routerLink]="routes.notification">
-										<div class="d-flex">
-											<span class="avatar avatar-md">
-												<img class="avatar-img rounded-circle" alt="avatar-img"
-													src="assets/img/avatar/avatar-4.jpg">
-											</span>
-											<div class="media-body">
-												<span class="noti-title">Edward Curr</span>
-												<p class="noti-details">Notifications inform you when someone likes,
-													reacts</p>
-												<p class="noti-time"><span class="notification-time">Last Wednesday at
-														11:15 AM</span></p>
-											</div>
-										</div>
-									</a>
-								</li>
-							</ul>
+							<!-- Notification items will be displayed here -->
+							<!-- Example notification item -->
+							<div class="notification-item">
+								<!-- <span class="notification-symbol">CHT</span> Symbol for the notification -->
+								<!-- Other notification details -->
+								<span class="notification-text">You got  {{ notificationCount }} New Messages from admin </span>
+							</div>
 						</div>
-						<div class="topnav-dropdown-footer text-center">
+						<!-- <div class="topnav-dropdown-footer text-center">
 							<a [routerLink]="routes.notification">View All Notification</a>
-						</div>
+						</div> -->
 					</div>
 				</li>
+<!-- --------------------------------------------------------- -->
+	
 				<li><a [routerLink]="routes.employee_post_project" class="login-btn">Post a Project <i
 							class="feather icon-plus ms-1"></i></a>
 				</li>
@@ -217,7 +161,7 @@
 				</li>
 
 			</ul>
-			<ul class="nav header-navbar-rht reg-head" *ngIf="employerLoggedIn() === false">
+			<ul class="nav header-navbar-rht reg-head" *ngIf="anotherMenu === true">
 				<li><a [routerLink]="routes.register" class="reg-btn"><img src="assets/img/icon/users.svg" class="me-1"
 							alt="img">Register</a></li>
 				<li><a [routerLink]="routes.login" class="log-btn"><img src="assets/img/icon/lock.svg" class="me-1"
