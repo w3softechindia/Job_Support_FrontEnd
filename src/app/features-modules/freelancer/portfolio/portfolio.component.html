@@ -5,6 +5,9 @@
 			Portfolio</a>
 	</div>
 	<div class="pro-content">
+		<div *ngIf="portfolios.length === 0" class="no-projects-found">
+			<h3>No Portfolios found</h3>
+		</div>
 		<div class="row row-gap">
 			<div class="col-sm-6 col-lg-4" *ngFor="let portfolio of portfolios">
 				<div class="project-widget">

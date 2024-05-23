@@ -1,189 +1,136 @@
-// Center all content
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 40vh;
-    margin: 0;
 
-
-    // Additional styling
-    font-size: 14px; // Set default font size
-}
-
-// Styles for the container wrapper
-.container-wrapper {
-    display: flex; // Use flexbox for layout
-    flex-direction: column; // Align children vertically
-    align-items: center; // Center children horizontally
-    position: fixed;
-    left: 420px; //main
-
-}
-
-// Styles for the message container
-.message-container {
-    width: 470px; // Set width to 400 pixels
-    height: 470px; // main
-    margin: 20px; // Set margin
-    padding: 15px; // Increase padding for extra spacing
-    overflow-y: auto; // Add vertical scrollbar
-    // border: 1px solid hsl(0, 45%, 98%); // Add a border for visibility
-
-    bottom: -30px;
-
-    margin-top: 150px; // main
-
-
-
-    // Additional styling
-    .message {
-        padding: 10px;
-        margin: 5px 0;
-        border-radius: 10px;
-        background-color: #f0f0f0; // Background color for messages
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Add a subtle box shadow
-        font-size: 16px;
-        width: 400px; // Adjusted width
-
-        height: 60px; //manadee
-
-       margin-top: 10px;
-        left: 10px;
-    }
-
-    // Styles for sender messages
-    .right {
-        text-align: right;
-        color: #fff;
-        // background-color: #c5e1a5; // Light green background for sender messages
-        background-color: #393332da;
-
-    }
-
-    // Styles for receiver messages
-    .left {
-        text-align: left;
-        // background-color: #bbdefb; // Light blue background for receiver messages
-        background-color: rgba(214, 208, 208, 0.862);
-        color: black;
-    }
-
-    // Styles for the timestamp
-    .timestamp {
-        font-size: 9px; // Set font size
-        margin-top: -16px;
-    }
-}
-
-// Styles for the additional container
-.additional-container {
-    width: 200px; // Set width to 150 pixels
-    margin: 20px; // Set margin
-    padding: 15px; // Increase padding for extra spacing
-    border: 1px solid #382f2f; // Add a border for visibility
-    background-color: #f0f0f0; // Background color for additional container
-    margin-right: 700px;
-    margin-top: -610px;
-    height: 30px;
-    bottom: 40px;
-
-}
-
-// Styles for the form
-form {
+.container {
+    border: 1px solid #00332e;
+    border-radius: 10px;
     width: 90%;
-    max-width: 505px;
-    margin: 50px auto;
-     padding: 10px;
-    position: absolute;
-    bottom: -90px; //main
-    left: 59%; //main
-    transform: translateX(-50%);
-    position: fixed;
+    max-width: 700px;
+    // margin: 50px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
 
-    // Styles for the content textarea
-    #content {
-        // width: calc(100% - 22px); // Set width minus padding and border
+    .admin-header {
+        background-color: #00695c;
+        color: white;
+        text-align: center;
+        padding: 15px;
+        border-radius: 10px 10px 0 0;
+        position: relative;
+        margin: 100px auto;
 
-        height: 40px; // Set height of the textarea
-        padding: 5px; // Set padding
-        margin-bottom: 20px; // Set margin bottom
-        border: 1px solid #ccc; // Add border
-        border-radius: 5px; // Add border radius
-        resize: none; // Disable resizing of the textarea
+        button {
+            background-color: #004d40;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 5px 15px;
+            transition: background-color 0.3s ease;
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
 
-    }
+            &:hover {
+                background-color: #00332e;
+            }
 
-    // Styles for the send message button
-    button[type="submit"] {
-        display: block; // Make the button a block element
-        width: 50px; // Set width to 100% of container
-        padding: 10px; // Set padding
-        background-color: #4caf50; // Green background for the button
-        color: #fff; // White text color
-        border: none; // Remove border
-        // border-radius: 5px; // Add border radius
-        cursor: pointer; // Add pointer cursor
-        transition: background-color 0.3s ease; // Add smooth transition
-        margin-bottom: 70px;
-
-        &:hover {
-            background-color: #45a049; // Darker green color on hover
+            &:focus {
+                outline: none;
+            }
         }
     }
-}
 
-.admin-header {
-    background-color: #E65425;
-    width: 900px; //main
-    height: 50px;
-    color: white;
-    text-align: center;
-    line-height: 50px;
-    position: fixed;
-    bottom: 580px; //main idi manaki
-    left: 172px; //main
-}
+    .container-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
 
+        .message-container {
+            width: 100%;
+            max-width: 470px;
+            height: 470px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 10px;
+            margin-top: -80px;
+            margin-bottom: 20px;
 
-// .user-instructions-container {
-//   background-color: #bfbfc2;
-//   width: 470px;
-//   height: 450px;//main
-//   color: white;
-//   text-align: center;
-//   line-height: 50px;
-//   position: fixed; / Ensure fixed position /
-//   bottom: 92px; //main thagginchali
-//   left: 30px;
-// }
-.user-instructions-container {
-    background-color: #bfbfc2;
-    width: 470px;
-    height: 468px; //main
-    color: white;
-    text-align: center;
-    line-height: 50px;
-    position: fixed;
-    bottom: 92px;
-    left: 170px; //main
-    overflow: hidden;
-    color: #E65425;
-}
+            .message {
+                padding: 10px;
+                margin: 5px 0;
+                border-radius: 10px;
+                font-size: 16px;
+                width: auto;
+                max-width: 100%;
+                word-wrap: break-word;
+                
 
-.content {
-    animation: scroll-up 10s linear infinite;
-     font-size: 16px; 
-     font-family: Arial, sans-serif;
-}
+                &.right {
+                    text-align: right;
+                    background-color: #393332da;
+                    color: white;
+                    align-self: flex-end;
+                    height: 70px;
+                }
 
-@keyframes scroll-up {
-    0% {
-        transform: translateY(100%);
-    }
+                &.left {
+                    text-align: left;
+                    background-color: rgba(214, 208, 208, 0.862);
+                    color: black;
+                    align-self: flex-start;
+                }
 
-    100% {
-        transform: translateY(-100%);
+                .timestamp {
+                    font-size: 9px;
+                    margin-top: 5px;
+                    color: #888;
+                }
+            }
+        }
+
+        .message-form {
+            display: flex;
+            width: 100%;
+            max-width: 470px;
+            margin-top: 10px;
+
+            textarea#content {
+                flex: 1;
+                height: 40px;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                resize: none;
+                margin-right: 10px;
+            }
+
+            button[type="submit"] {
+                background-color: #4caf50;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                padding: 10px 20px;
+                transition: background-color 0.3s ease;
+
+                &:hover {
+                    background-color: #45a049;
+                }
+            }
+        }
+
+        .additional-container {
+            width: 100%;
+            max-width: 470px;
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #382f2f;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+        }
     }
 }

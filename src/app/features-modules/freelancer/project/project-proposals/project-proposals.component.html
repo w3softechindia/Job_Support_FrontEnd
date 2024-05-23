@@ -5,6 +5,9 @@
 <!-- Proposals list -->
 <div class="proposals-section">
 
+    <div *ngIf="proposals.length === 0" class="no-projects-found">
+        <h3>No Proposals found</h3>
+    </div>
     <div class="freelancer-proposals" *ngFor="let proposal of proposals">
         <div class="project-proposals align-items-center freelancer">
             <div class="proposal-info">
@@ -214,7 +217,7 @@
                                                         class="feather icon-plus-circle "></i> Add New</a>
                                             </div>
                                         </div>
-                                        <div class="col-md-12">
+                                        <!-- <div class="col-md-12">
                                             <div class="modal-check-item">
                                                 <div>
                                                     <label class="custom_check">
@@ -229,8 +232,8 @@
                                                     <span>$12.00</span>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-12">
+                                        </div> -->
+                                        <!-- <div class="col-md-12">
                                             <div class="modal-check-item bg-light-blue">
                                                 <div>
                                                     <label class="custom_check">
@@ -245,13 +248,13 @@
                                                     <span>$7.00</span>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-12">
+                                        </div> -->
+                                        <!-- <div class="col-md-12">
                                             <label class="custom_check">
                                                 <input type="checkbox" name="rem_password">
                                                 <span class="checkmark"></span>I agree to the terms and privacy policy
                                             </label>
-                                        </div>
+                                        </div> -->
 
                                     </div>
                                 </div>

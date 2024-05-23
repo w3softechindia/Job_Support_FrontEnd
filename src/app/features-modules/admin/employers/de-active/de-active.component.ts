@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-inferrable-types */
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/classes/user';
 import { AdminService } from 'src/app/Services/admin.service';
@@ -11,7 +13,7 @@ export class DeActiveComponent implements OnInit{
 
   user: User[] = [];
   status: string = 'De-Activated';
-  role: string = 'Freelancer';
+  role: string = 'Employer';
   filteredUsers: User[] = [];
 
   photo: any;

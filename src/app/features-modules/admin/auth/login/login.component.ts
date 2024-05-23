@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/Services/user.service';
@@ -40,6 +41,8 @@ export class LoginComponent implements OnInit {
       } else {
         alert("Invalid Credentials...!!")
       }
+    },error=>{
+      alert("Invalid Credentials...!!!")
     })
   }
   iconLogle() {
