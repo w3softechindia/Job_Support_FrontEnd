@@ -433,6 +433,10 @@ export class UserService {
     return this.http.get<any>(`${this.baseurl}/chartData/${email}`);
   }
 
+  //Get count of Ongoing Projects
+  getCountOfOngoingProjects(email:string,status:string){
+    return this.http.get(`${this.baseurl}/getCountOfOngoingProjects/${email}/${status}`)
+  }
 
   getMessages(sender: string, receiver: string): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseurl}/gett/${sender}/${receiver}`);

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-inferrable-types */
 
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from 'src/app/Services/admin.service';

@@ -88,79 +88,7 @@
 						</div>
 						<div class="noti-content">
 							<ul class="notification-list">
-								<li class="notification-message">
-									<a [routerLink] = "routes.notification">
-										<div class="d-flex">
-											<span class="avatar avatar-md active">
-												<img class="avatar-img rounded-circle" alt="avatar-img"
-													src="assets/img/avatar/avatar-2.jpg">
-											</span>
-											<div class="media-body">
-												<span class="noti-title">Edward Curr</span>
-												<p class="noti-details">Notifications inform you when someone likes,
-													reacts</p>
-												<p class="noti-time"><span class="notification-time">Yesterday at 11:42
-														PM</span></p>
-											</div>
-										</div>
-									</a>
-								</li>
-								<li class="notification-message">
-									<a [routerLink] = "routes.notification">
-										<div class="d-flex">
-											<span class="avatar avatar-md active">
-												<img class="avatar-img rounded-circle" alt="avatar-img"
-													src="assets/img/avatar/avatar-1.jpg">
-											</span>
-											<div class="media-body">
-												<span class="noti-title">Maria Hill</span>
-												<p class="noti-details"> Notifications alert you to new messages in your
-													Kofejob inbox.</p>
-												<div class="notification-btn">
-													<span class="btn btn-primary">Accept</span>
-													<span class="btn btn-outline-primary">Reject</span>
-												</div>
-												<p class="noti-time"><span class="notification-time">Today at 9:42
-														AM</span></p>
-											</div>
-										</div>
-									</a>
-								</li>
-
-								<li class="notification-message">
-									<a [routerLink] = "routes.notification">
-										<div class="d-flex">
-											<span class="avatar avatar-md">
-												<img class="avatar-img rounded-circle" alt="avatar-img"
-													src="assets/img/avatar/avatar-3.jpg">
-											</span>
-											<div class="media-body">
-												<span class="noti-title">Maria Hill</span>
-												<p class="noti-details"> Notifications alert you to new messages in your
-													Kofejob inbox.</p>
-												<p class="noti-time"><span class="notification-time">Yesterday at 5:42
-														PM</span></p>
-											</div>
-										</div>
-									</a>
-								</li>
-								<li class="notification-message">
-									<a [routerLink] = "routes.notification">
-										<div class="d-flex">
-											<span class="avatar avatar-md">
-												<img class="avatar-img rounded-circle" alt="avatar-img"
-													src="assets/img/avatar/avatar-4.jpg">
-											</span>
-											<div class="media-body">
-												<span class="noti-title">Edward Curr</span>
-												<p class="noti-details">Notifications inform you when someone likes,
-													reacts</p>
-												<p class="noti-time"><span class="notification-time">Last Wednesday at
-														11:15 AM</span></p>
-											</div>
-										</div>
-									</a>
-								</li>
+								
 							</ul>
 						</div>
 						<div class="topnav-dropdown-footer text-center">
@@ -199,16 +127,16 @@
 								src="assets/img/icon/user-dropdown-icon--01.svg" alt="Img"> My Profile</a>
 						<a class="dropdown-item" [routerLink] = "routes.freelancer_projects_proposals"><img
 								src="assets/img/icon/user-dropdown-icon--02.svg" alt="Img"> My Projects</a>
-						<a class="dropdown-item" [routerLink] = "routes.freelancer_favourite"><img
+						<!-- <a class="dropdown-item" [routerLink] = "routes.freelancer_favourite"><img
 								src="assets/img/icon/user-dropdown-icon--03.svg" alt="Img">My Subscription</a>
 						<a class="dropdown-item" [routerLink] = "routes.statement"><img
 								src="assets/img/icon/user-dropdown-icon--04.svg" alt="Img">My Statement</a>
 						<a class="dropdown-item" [routerLink] = "routes.freelancer_message"><img
-								src="assets/img/icon/user-dropdown-icon--05.svg" alt="Img"> Message</a>
+								src="assets/img/icon/user-dropdown-icon--05.svg" alt="Img"> Message</a> -->
 						<a class="dropdown-item" [routerLink] = "routes.freelancer_profiles_settings"><img
 								src="assets/img/icon/user-dropdown-icon--06.svg" alt="Img"> Profile Settings</a>
 						<a class="dropdown-item"><img src="assets/img/icon/user-dropdown-icon--07.svg"
-								alt="Img" (click)="logout()"> Logout</a>
+								alt="Img" (click)="logout()" type="submit"> Logout</a>
 					</div>
 				</li>
 

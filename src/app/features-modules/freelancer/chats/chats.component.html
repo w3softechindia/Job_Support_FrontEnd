@@ -1,61 +1,20 @@
-<div class="admin-header">
-    ADMIN
+<div class="container">
+    <div class="admin-header">
+        <button (click)="backToDashboard()">Back</button>
+        Admin
+    </div>
 
-    <button style="margin-left: -830px; height: 50px;background-color: rgb(86, 98, 108);color: white;"
-        (click)="backToDashboard()">Back</button>
-</div>
-<div class="container-wrapper">
-
-    <div class="message-container">
-
-
-
-
-        <div *ngFor="let message of messages"
-            [ngClass]="{'right': message.side === 'right', 'left': message.side === 'left'}" class="message">
-
-            <p>{{ message.content }}</p>
-            <p class="timestamp">{{ formatTimestamp(message.timestamp) }}</p>
+    <div class="container-wrapper">
+        <div class="message-container">
+            <div *ngFor="let message of messages" [ngClass]="{'right': message.side === 'right', 'left': message.side === 'left'}" class="message">
+                <p>{{ message.content }}</p>
+                <p class="timestamp">{{ formatTimestamp(message.timestamp) }}</p>
+            </div>
         </div>
+
+        <form (ngSubmit)="sendMessage()" class="message-form">
+            <textarea id="content" name="content" [(ngModel)]="newMessage.content"></textarea>
+            <button type="submit">Send</button>
+        </form>
     </div>
-
-
-
-
-    <form (ngSubmit)="sendMessage()" style="display: flex;">
-        <textarea id="content" name="content" [(ngModel)]="newMessage.content" style="flex: 1;width: 40px;"></textarea>
-        <button type="submit">Send</button>
-    </form>
-
-
-
-
-    <div class="additional-container">
-        <!-- it is important contriner it  have to be here only -->
-    </div>
-
-</div>
-
-
-<div class="user-instructions-container">
-
-    <div class="content">
-        <p>Welcome to our chat! Here are some points to keep in mind:</p>
-        <ul>
-            <li>Be concise and specific in your questions.</li>
-            <li>Avoid spamming or flooding the chat with messages.</li>
-            <li>Respectful and courteous language is appreciated.</li>
-            <li>You will receive a reply within 12 hours.</li>
-            <li>Be concise and specific in your questions.</li>
-            <li>Avoid spamming or flooding the chat with messages.</li>
-            <li>Respectful and courteous language is appreciated.</li>
-            <li>You will receive a reply within 12 hours.</li>
-            <li>Respectful and courteous language is appreciated.</li>
-            <li>You will receive a reply within 12 hours.</li>
-
-        </ul>
-    </div>
-
-
-
 </div>

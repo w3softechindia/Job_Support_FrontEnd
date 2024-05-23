@@ -5,6 +5,9 @@
 <!-- Proposals list -->
 <div class="proposals-section ongoing-projects">
 
+    <div *ngIf="projects.length === 0" class="no-projects-found">
+        <h3>No projects found</h3>
+    </div>
     <!-- Proposals -->
     <div class="freelancer-proposals proposal-ongoing" *ngFor="let project of projects">
         <div class="project-proposals align-items-center freelancer">
