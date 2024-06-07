@@ -2,7 +2,7 @@
 /* eslint-disable no-irregular-whitespace */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Observable, catchError, forkJoin, throwError } from 'rxjs';
@@ -41,6 +41,33 @@ export interface ApprovedProposalDTO {
 
 }
 
+export interface Review {
+  id: number;
+  freelancer: string;
+  project_id: number;
+  project_title: string;
+  review_text: string;
+  email: string;
+}
+
+export interface CompletedProjects {
+  id: number;
+  employer: string;
+  freelancer: string;
+  project_id: number;
+  project_title: string;
+  project_category: string;
+  project_duration: string;
+  deadline_date: Date;
+  active_rate: string;
+  hourly_rate_from: string;
+  hourly_rate_to: string;
+  fixed_rate: number;
+  budget_amount: string;
+  project_status: string;
+  completionDate: Date;
+}
+
 
 
 @Injectable({
@@ -53,8 +80,8 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  // private baseurl = "http://jobsupport.us-east-1.elasticbeanstalk.com";
-  private baseurl = "http://localhost:5000"
+  private baseurl = "http://jobsupport.us-east-1.elasticbeanstalk.com";
+  // private baseurl = "http://localhost:5000"
 
   //Authentication
   login(data: any) {
@@ -409,7 +436,7 @@ export class UserService {
   }
 
   //Project Status
-  projectStatus(email:string,id: number, status: string) {
+  projectStatus(email: string, id: number, status: string) {
     return this.http.put(`${this.baseurl}/projectStatus/${email}/${id}/${status}`, { responseType: 'text' })
   }
 
@@ -434,7 +461,7 @@ export class UserService {
   }
 
   //Get count of Ongoing Projects
-  getCountOfOngoingProjects(email:string,status:string){
+  getCountOfOngoingProjects(email: string, status: string) {
     return this.http.get(`${this.baseurl}/getCountOfOngoingProjects/${email}/${status}`)
   }
 
@@ -480,5 +507,25 @@ export class UserService {
   deleteMessagesBySenderAndReceiver(sender: string, receiver: string): Observable<string> {
     const url = `${this.baseurl}/message/delete?sender=${sender}&receiver=${receiver}`;
     return this.http.delete<string>(url);
+  }
+
+
+  getCompletedProjectsByEmployerEmail(email: string): Observable<any[]> {
+    const params = new HttpParams().set('email', email);
+    return this.http.get<any[]>(`${this.baseurl}/completedPprojects`, { params: params });
+  }
+
+
+  createReview(review: Review, email: string): Observable<Review> {
+    return this.http.post<Review>(`${this.baseurl}/add/reviews/${email}`, review);
+  }
+
+
+  getReviewsByEmail(email: string): Observable<Review[]> {
+    return this.http.get<Review[]>(`${this.baseurl}/log/credits/${email}`);
+  }
+
+  getFreelancerReviews(email:string):Observable<Review[]>{
+    return this.http.get<Review[]>(`${this.baseurl}/reviewsOfFreelancer/${email}`);
   }
 }

@@ -1649,25 +1649,25 @@ export class ShareDataService {
         },
       ],
     },
-    {
-      title: 'Favourites',
-      icon: 'assets/img/icon/sidebar-icon-03.svg',
-      hasSubRoute: true,
-      page1: 'favourites',
-      page2: 'invitations',
-      submenu: [
-        {
-          title: 'Bookmarked Projects',
-          routes: routes.freelancer_favourite,
-          page: 'favourites',
-        },
-        {
-          title: 'Invitations',
-          routes: routes.freelancer_invitations,
-          page: 'invitations',
-        },
-      ],
-    },
+    // {
+    //   title: 'Favourites',
+    //   icon: 'assets/img/icon/sidebar-icon-03.svg',
+    //   hasSubRoute: true,
+    //   page1: 'favourites',
+    //   page2: 'invitations',
+    //   submenu: [
+    //     {
+    //       title: 'Bookmarked Projects',
+    //       routes: routes.freelancer_favourite,
+    //       page: 'favourites',
+    //     },
+    //     {
+    //       title: 'Invitations',
+    //       routes: routes.freelancer_invitations,
+    //       page: 'invitations',
+    //     },
+    //   ],
+    // },
     {
       title: 'Reviews',
       hasSubRoute: false,
@@ -1689,27 +1689,27 @@ export class ShareDataService {
       routes: routes.freelancer_message,
       page: 'chats',
     },
-    {
-      title: 'Payments',
-      hasSubRoute: false,
-      icon: 'assets/img/icon/sidebar-icon-07.svg',
-      routes: routes.freelancer_withdraw_money,
-      page: 'withdraw-money',
-    },
-    {
-      title: 'Payout',
-      hasSubRoute: false,
-      icon: 'assets/img/icon/sidebar-icon-08.svg',
-      routes: routes.freelancer_payout,
-      page: 'payout',
-    },
-    {
-      title: 'Statement',
-      hasSubRoute: false,
-      icon: 'assets/img/icon/sidebar-icon-09.svg',
-      routes: routes.freelancer_statement,
-      page: 'statement',
-    },
+    // {
+    //   title: 'Payments',
+    //   hasSubRoute: false,
+    //   icon: 'assets/img/icon/sidebar-icon-07.svg',
+    //   routes: routes.freelancer_withdraw_money,
+    //   page: 'withdraw-money',
+    // },
+    // {
+    //   title: 'Payout',
+    //   hasSubRoute: false,
+    //   icon: 'assets/img/icon/sidebar-icon-08.svg',
+    //   routes: routes.freelancer_payout,
+    //   page: 'payout',
+    // },
+    // {
+    //   title: 'Statement',
+    //   hasSubRoute: false,
+    //   icon: 'assets/img/icon/sidebar-icon-09.svg',
+    //   routes: routes.freelancer_statement,
+    //   page: 'statement',
+    // },
     {
       title: 'Settings',
       hasSubRoute: true,
@@ -1725,16 +1725,16 @@ export class ShareDataService {
           routes: routes.freelancer_profiles_settings,
           page: 'profile-settings',
         },
-        {
-          title: 'Plan & Billing',
-          routes: routes.freelancer_membership,
-          page: 'membership',
-        },
-        {
-          title: 'Verify Identity',
-          routes: routes.freelancer_verify_identity,
-          page: 'verify-identity',
-        },
+        // {
+        //   title: 'Plan & Billing',
+        //   routes: routes.freelancer_membership,
+        //   page: 'membership',
+        // },
+        // {
+        //   title: 'Verify Identity',
+        //   routes: routes.freelancer_verify_identity,
+        //   page: 'verify-identity',
+        // },
         {
           title: 'Changes Password',
           routes: routes.freelancer_change_passwords,
@@ -1785,11 +1785,11 @@ export class ShareDataService {
           routes: routes.pendingproject,
           page:'pending-projects'
         },
-        {
-          title: 'Cancelled Projects',
-          routes: routes.cancelledproject,
-          page:'cancelled-projects'
-        },
+        // {
+        //   title: 'Cancelled Projects',
+        //   routes: routes.cancelledproject,
+        //   page:'cancelled-projects'
+        // },
         {
           title: 'Expired Projects',
           routes: routes.expiredproject,
@@ -1797,24 +1797,24 @@ export class ShareDataService {
         },
       ],
     },
-    {
-      title: 'Favourites',
-      icon: 'assets/img/icon/sidebar-icon-03.svg',
-      routes: 'javascript:void(0);',
-      hasSubRoute: true,
-      page1:'markedfavourites',
-      page2:'invitedfavourites',
-      submenu: [
-        {
-          title: 'Bookmarked Projects',
-          routes: routes.employee_markedfavourites,
-          page: 'markedfavourites',
-        },
-        { title: 'Invitations',
-         routes: routes.employee_invitedfavourites ,
-          page: 'invitedfavourites',},
-      ],
-    },
+    // {
+    //   title: 'Favourites',
+    //   icon: 'assets/img/icon/sidebar-icon-03.svg',
+    //   routes: 'javascript:void(0);',
+    //   hasSubRoute: true,
+    //   page1:'markedfavourites',
+    //   page2:'invitedfavourites',
+    //   submenu: [
+    //     {
+    //       title: 'Bookmarked Projects',
+    //       routes: routes.employee_markedfavourites,
+    //       page: 'markedfavourites',
+    //     },
+    //     { title: 'Invitations',
+    //      routes: routes.employee_invitedfavourites ,
+    //       page: 'invitedfavourites',},
+    //   ],
+    // },
     {
       title: 'Reviews',
       icon: 'assets/img/icon/sidebar-icon-04.svg',
@@ -1829,13 +1829,13 @@ export class ShareDataService {
       hasSubRoute: false,
       page: 'chat',
     },
-    {
-      title: 'Payments',
-      icon: 'assets/img/icon/sidebar-icon-07.svg',
-      routes: routes.employee_deposit_funds,
-      hasSubRoute: false,
-      page: 'deposit-funds'
-    },
+    // {
+    //   title: 'Payments',
+    //   icon: 'assets/img/icon/sidebar-icon-07.svg',
+    //   routes: routes.employee_deposit_funds,
+    //   hasSubRoute: false,
+    //   page: 'deposit-funds'
+    // },
     {
       title: 'Settings',
       icon: 'assets/img/icon/sidebar-icon-10.svg',

@@ -9,45 +9,46 @@
                 <div class="project-proposals align-items-center freelancer">
                     <div class="proposal-info">
                         <div class="proposals-details">
-                            <span class="tech-name-badge">{{emp.company}}</span>
+                            <!-- <span class="tech-name-badge">{{emp}}</span> -->
                             <div class="d-flex justify-content-between align-items-start">
                                 <div class="employee-project-card">
                                     
-                                    <h3 class="proposals-title">{{emp.content}}</h3>
+                                    <h3 class="proposals-title">{{emp.project_title}}</h3>
                                     <ul>
                                         
                                         <li>
                                             <div class="proposal-job-type">
-                                                <h4 class="title-info">{{emp.type}}</h4>
-                                                <h3>{{emp.worktime}}</h3>
+                                                <h4 class="title-info">type</h4>
+                                                <h3>{{emp.project_category}}</h3>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="proposal-job-type">
-                                                <h4 class="title-info">Location</h4>
-                                                <h3 class="flag-icon"><img src="assets/img/icon/flag-icon.svg" height="13" alt="Lang"> UK</h3>
+                                                <h4 class="title-info">Amount</h4>
+                                                <!-- <h3 class="flag-icon"><img src="assets/img/icon/flag-icon.svg" height="13" alt="Lang"> UK</h3> -->
+                                                <h3>{{emp.budget_amount}}</h3>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="proposal-job-type">
                                                 <h4 class="title-info">Expiry</h4>
-                                                <h3>{{emp.workingday}}</h3>
+                                                <h3>{{emp.deadline_date}}</h3>
                                             </div>
                                         </li>
-                                        <li>
+                                        <!-- <li>
                                             <div class="proposal-job-type">
-                                                <h4 class="title-info">{{emp.price}}</h4>
-                                                <h3>{{emp.day}}</h3>
+                                                <h4 class="title-info">Status</h4>
+                                                <h3>{{emp.status}}</h3>
                                             </div>
-                                        </li>
+                                        </li> -->
                                     </ul>
                                 </div>
                                 <ul class="employee-project">
                                     <li>
-                                        <div class="project-action text-center">
+                                        <!-- <div class="project-action text-center">
                                             <a [routerLink]="routes.projectproposal" class="projects-btn">View Proposal</a>
                                             <a href="javascript:void(0);" class="mb-0">Edit Project</a>
-                                        </div>
+                                        </div> -->
                                     </li>
                                 </ul>
                             </div>
@@ -57,16 +58,16 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-3 d-flex flex-wrap">
+        <!-- <div class="col-xl-3 d-flex flex-wrap">
             <div class="projects-card flex-fill">
                 <div class="card-body p-2">
                     <div class="prj-proposal-count text-center hired">
-                        <h2>{{emp.proposals}}</h2>
+                        <h2>{{emp}}</h2>
                         <h3 class="mb-0">Proposal</h3>
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>
 <!-- /project list -->

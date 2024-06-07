@@ -1,4 +1,4 @@
-<div class="dashboard-sec freelance-favourites">
+<!-- <div class="dashboard-sec freelance-favourites">
     <div class="page-title">
         <h3>Reviews</h3>
     </div>
@@ -149,6 +149,79 @@
     
     
 </div>	
-<!-- project list -->
+
     
-    
+     -->
+
+
+
+
+
+
+
+<div class="dashboard-sec freelance-favourites">
+    <div class="page-title">
+        <h3>Reviews</h3>
+    </div>
+    <div class="row">
+        <div class="col-md-12" *ngIf="reviews && reviews.length > 0; else noReviews">
+            <div *ngFor="let review of reviews" class="review-card">
+                <h5>{{ review.project_title }}</h5>
+                <p>{{ review.review_text }}</p>
+                <div class="reviewer-details-block">
+                    <!-- <div class="reviewer-img">
+                            <img src="assets/img/user/avatar-placeholder.jpg" class="img-fluid" alt="Img"> 
+                        </div> -->
+                    <div class="reviewer-details">
+                        <h6>{{ review.freelancer }}</h6>
+                        <div class="d-flex">
+                            <!-- <div class="rating">
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star filled"></i>
+                                    <i class="fas fa-star"></i>
+                                    <span class="average-rating">4</span> 
+                                </div> -->
+                            <!-- <div class="reviewer-log">
+                                    <i class="feather icon-calendar"></i><span>Just now</span> 
+                                </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ng-template #noReviews>
+            <div>No reviews available.</div>
+        </ng-template>
+    </div>
+
+    <!-- <div class="row">
+            <div class="col-md-12">
+                <ul class="paginations list-pagination">
+                    <li class="page-item"><a href="javascript:void(0);"><i class="feather icon-chevron-left"></i></a></li>
+                    <li class="page-item"><a href="javascript:void(0);" class="active">1</a></li>
+                    <li class="page-item"><a href="javascript:void(0);">2</a></li>
+                    <li class="page-item"><a href="javascript:void(0);">3</a></li>
+                    <li class="page-item"><a href="javascript:void(0);">...</a></li>
+                    <li class="page-item"><a href="javascript:void(0);">10</a></li>
+                    <li class="page-item"><a href="javascript:void(0);"><i class="feather icon-chevron-right"></i></a></li>
+                </ul>
+            </div>
+        </div> -->
+</div>
+
+
+
+
+
+
+
+
+
+
+<!-- it is from here a practice -->
+
+<div class="id">
+    <input type="text">
+</div>

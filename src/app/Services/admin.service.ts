@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Admin } from '../classes/admin';
 import { Observable } from 'rxjs';
-import { AdminApprovedProposal } from '../core/models/models';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +12,8 @@ export class AdminService {
 
   constructor(private http:HttpClient) { }
 
-  // private baseurl="http://jobsupport.us-east-1.elasticbeanstalk.com";
-  private baseurl="http://localhost:5000";
+  private baseurl="http://jobsupport.us-east-1.elasticbeanstalk.com";
+  // private baseurl="http://localhost:5000";
 
   //Login
   adminlogin(email:string,password:string,admin:Admin){
