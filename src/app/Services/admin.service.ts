@@ -12,8 +12,8 @@ export class AdminService {
 
   constructor(private http:HttpClient) { }
 
-  // private baseurl="http://jobsupport.us-east-1.elasticbeanstalk.com";
-  private baseurl="http://localhost:5000";
+  private baseurl="http://jobsupport.us-east-1.elasticbeanstalk.com";
+  // private baseurl="http://localhost:5000";
 
   //Login
   adminlogin(email:string,password:string,admin:Admin){
