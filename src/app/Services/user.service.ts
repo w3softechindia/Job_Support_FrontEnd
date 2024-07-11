@@ -525,7 +525,7 @@ export class UserService {
     return this.http.get<Review[]>(`${this.baseurl}/log/credits/${email}`);
   }
 
-  getFreelancerReviews(email:string):Observable<Review[]>{
+  getFreelancerReviews(email: string): Observable<Review[]> {
     return this.http.get<Review[]>(`${this.baseurl}/reviewsOfFreelancer/${email}`);
   }
 }

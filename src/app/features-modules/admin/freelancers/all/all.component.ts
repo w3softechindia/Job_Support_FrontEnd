@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnInit, } from '@angular/core';
 import { AdminService } from 'src/app/Services/admin.service';
 import { User } from 'src/app/classes/user';
@@ -8,14 +9,14 @@ import { User } from 'src/app/classes/user';
 })
 export class AllComponent implements OnInit {
 
-  role: string = 'Freelancer';
+  role = 'Freelancer';
   user: User[] = [];
   filteredUsers: User[] = [];
 
   photo: any;
   error!: string;
   photoUrl!: string | ArrayBuffer | null;
-  searchQuery: string = '';
+  searchQuery = '';
 
   constructor(private adminService: AdminService) { }
 
