@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node server.js",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
@@ -30,6 +30,7 @@
     "aos": "^2.3.4",
     "bootstrap": "^5.3.3",
     "chart.js": "^4.2.1",
+    "express": "^4.19.2",
     "feather-icons": "^4.29.1",
     "jquery": "^3.7.1",
     "lightbox2": "^2.11.3",
